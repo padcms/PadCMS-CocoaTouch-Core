@@ -1,0 +1,231 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		60891D981587971300894531 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60891D971587971300894531 /* Foundation.framework */; };
+		60891D9E1587971300894531 /* PadCMS_CocoaTouch_Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPadCMS-CocoaTouch-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60891D971587971300894531 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Prefix.pch"; sourceTree = "<group>"; };
+		60891D9C1587971300894531 /* PadCMS_CocoaTouch_Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PadCMS_CocoaTouch_Core.h; sourceTree = "<group>"; };
+		60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PadCMS_CocoaTouch_Core.m; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		60891D911587971300894531 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60891D981587971300894531 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		60891D891587971300894531 = {
+			isa = PBXGroup;
+			children = (
+				60891D991587971300894531 /* PadCMS-CocoaTouch-Core */,
+				60891D961587971300894531 /* Frameworks */,
+				60891D951587971300894531 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		60891D951587971300894531 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		60891D961587971300894531 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60891D971587971300894531 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		60891D991587971300894531 /* PadCMS-CocoaTouch-Core */ = {
+			isa = PBXGroup;
+			children = (
+				60891D9C1587971300894531 /* PadCMS_CocoaTouch_Core.h */,
+				60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */,
+				60891D9A1587971300894531 /* Supporting Files */,
+			);
+			path = "PadCMS-CocoaTouch-Core";
+			sourceTree = "<group>";
+		};
+		60891D9A1587971300894531 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		60891D921587971300894531 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		60891D931587971300894531 /* PadCMS-CocoaTouch-Core */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60891DA11587971300894531 /* Build configuration list for PBXNativeTarget "PadCMS-CocoaTouch-Core" */;
+			buildPhases = (
+				60891D901587971300894531 /* Sources */,
+				60891D911587971300894531 /* Frameworks */,
+				60891D921587971300894531 /* Headers */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PadCMS-CocoaTouch-Core";
+			productName = "PadCMS-CocoaTouch-Core";
+			productReference = 60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		60891D8B1587971300894531 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 60891D8E1587971300894531 /* Build configuration list for PBXProject "PadCMS-CocoaTouch-Core" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 60891D891587971300894531;
+			productRefGroup = 60891D951587971300894531 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				60891D931587971300894531 /* PadCMS-CocoaTouch-Core */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		60891D901587971300894531 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60891D9E1587971300894531 /* PadCMS_CocoaTouch_Core.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		60891D9F1587971300894531 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		60891DA01587971300894531 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		60891DA21587971300894531 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/PadCMS_CocoaTouch_Core.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		60891DA31587971300894531 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				DSTROOT = /tmp/PadCMS_CocoaTouch_Core.dst;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Prefix.pch";
+				OTHER_LDFLAGS = "-ObjC";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		60891D8E1587971300894531 /* Build configuration list for PBXProject "PadCMS-CocoaTouch-Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60891D9F1587971300894531 /* Debug */,
+				60891DA01587971300894531 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		60891DA11587971300894531 /* Build configuration list for PBXNativeTarget "PadCMS-CocoaTouch-Core" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60891DA21587971300894531 /* Debug */,
+				60891DA31587971300894531 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 60891D8B1587971300894531 /* Project object */;
+}
