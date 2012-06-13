@@ -7,11 +7,53 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */; };
+		607F3E341588C3580097D960 /* PCKioskAbstractControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */; };
+		607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */; };
+		607F3E361588C3580097D960 /* PCKioskAbstractSubviewsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1F1588C3580097D960 /* PCKioskAbstractSubviewsFactory.m */; };
+		607F3E371588C3580097D960 /* PCKioskSubview.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E201588C3580097D960 /* PCKioskSubview.h */; };
+		607F3E381588C3580097D960 /* PCKioskSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E211588C3580097D960 /* PCKioskSubview.m */; };
+		607F3E391588C3580097D960 /* PCKioskBaseControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E231588C3580097D960 /* PCKioskBaseControlElement.h */; };
+		607F3E3A1588C3580097D960 /* PCKioskBaseControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E241588C3580097D960 /* PCKioskBaseControlElement.m */; };
+		607F3E3B1588C3580097D960 /* PCKioskBaseGalleryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E251588C3580097D960 /* PCKioskBaseGalleryView.h */; };
+		607F3E3C1588C3580097D960 /* PCKioskBaseGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E261588C3580097D960 /* PCKioskBaseGalleryView.m */; };
+		607F3E3D1588C3580097D960 /* PCKioskBaseShelfView.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E271588C3580097D960 /* PCKioskBaseShelfView.h */; };
+		607F3E3E1588C3580097D960 /* PCKioskBaseShelfView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E281588C3580097D960 /* PCKioskBaseShelfView.m */; };
+		607F3E3F1588C3580097D960 /* PCKioskGalleryItem.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E291588C3580097D960 /* PCKioskGalleryItem.h */; };
+		607F3E401588C3580097D960 /* PCKioskGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E2A1588C3580097D960 /* PCKioskGalleryItem.m */; };
+		607F3E411588C3580097D960 /* PCKioskShelfSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E2B1588C3580097D960 /* PCKioskShelfSettings.h */; };
+		607F3E421588C3580097D960 /* PCKioskViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E2C1588C3580097D960 /* PCKioskViewController.h */; };
+		607F3E431588C3580097D960 /* PCKioskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E2D1588C3580097D960 /* PCKioskViewController.m */; };
+		607F3E441588C3580097D960 /* PCKioskCoverImageProcessingProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E2F1588C3580097D960 /* PCKioskCoverImageProcessingProtocol.h */; };
+		607F3E451588C3580097D960 /* PCKioskDataSourceProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E301588C3580097D960 /* PCKioskDataSourceProtocol.h */; };
+		607F3E461588C3580097D960 /* PCKioskSubviewDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E311588C3580097D960 /* PCKioskSubviewDelegateProtocol.h */; };
+		607F3E471588C3580097D960 /* PCKioskViewControllerDelegateProtocol.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E321588C3580097D960 /* PCKioskViewControllerDelegateProtocol.h */; };
 		60891D981587971300894531 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60891D971587971300894531 /* Foundation.framework */; };
 		60891D9E1587971300894531 /* PadCMS_CocoaTouch_Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractControlElement.h; sourceTree = "<group>"; };
+		607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskAbstractControlElement.m; sourceTree = "<group>"; };
+		607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractSubviewsFactory.h; sourceTree = "<group>"; };
+		607F3E1F1588C3580097D960 /* PCKioskAbstractSubviewsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskAbstractSubviewsFactory.m; sourceTree = "<group>"; };
+		607F3E201588C3580097D960 /* PCKioskSubview.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskSubview.h; sourceTree = "<group>"; };
+		607F3E211588C3580097D960 /* PCKioskSubview.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskSubview.m; sourceTree = "<group>"; };
+		607F3E231588C3580097D960 /* PCKioskBaseControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskBaseControlElement.h; sourceTree = "<group>"; };
+		607F3E241588C3580097D960 /* PCKioskBaseControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskBaseControlElement.m; sourceTree = "<group>"; };
+		607F3E251588C3580097D960 /* PCKioskBaseGalleryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskBaseGalleryView.h; sourceTree = "<group>"; };
+		607F3E261588C3580097D960 /* PCKioskBaseGalleryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskBaseGalleryView.m; sourceTree = "<group>"; };
+		607F3E271588C3580097D960 /* PCKioskBaseShelfView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskBaseShelfView.h; sourceTree = "<group>"; };
+		607F3E281588C3580097D960 /* PCKioskBaseShelfView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskBaseShelfView.m; sourceTree = "<group>"; };
+		607F3E291588C3580097D960 /* PCKioskGalleryItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskGalleryItem.h; sourceTree = "<group>"; };
+		607F3E2A1588C3580097D960 /* PCKioskGalleryItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskGalleryItem.m; sourceTree = "<group>"; };
+		607F3E2B1588C3580097D960 /* PCKioskShelfSettings.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskShelfSettings.h; sourceTree = "<group>"; };
+		607F3E2C1588C3580097D960 /* PCKioskViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskViewController.h; sourceTree = "<group>"; };
+		607F3E2D1588C3580097D960 /* PCKioskViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskViewController.m; sourceTree = "<group>"; };
+		607F3E2F1588C3580097D960 /* PCKioskCoverImageProcessingProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskCoverImageProcessingProtocol.h; sourceTree = "<group>"; };
+		607F3E301588C3580097D960 /* PCKioskDataSourceProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskDataSourceProtocol.h; sourceTree = "<group>"; };
+		607F3E311588C3580097D960 /* PCKioskSubviewDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskSubviewDelegateProtocol.h; sourceTree = "<group>"; };
+		607F3E321588C3580097D960 /* PCKioskViewControllerDelegateProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskViewControllerDelegateProtocol.h; sourceTree = "<group>"; };
 		60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPadCMS-CocoaTouch-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60891D971587971300894531 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Prefix.pch"; sourceTree = "<group>"; };
@@ -31,6 +73,66 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		607F3E191588C3580097D960 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				607F3E1A1588C3580097D960 /* Kiosk */,
+			);
+			path = Classes;
+			sourceTree = "<group>";
+		};
+		607F3E1A1588C3580097D960 /* Kiosk */ = {
+			isa = PBXGroup;
+			children = (
+				607F3E1B1588C3580097D960 /* Abstract */,
+				607F3E221588C3580097D960 /* Base */,
+				607F3E2E1588C3580097D960 /* Protocols */,
+			);
+			path = Kiosk;
+			sourceTree = "<group>";
+		};
+		607F3E1B1588C3580097D960 /* Abstract */ = {
+			isa = PBXGroup;
+			children = (
+				607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */,
+				607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */,
+				607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */,
+				607F3E1F1588C3580097D960 /* PCKioskAbstractSubviewsFactory.m */,
+				607F3E201588C3580097D960 /* PCKioskSubview.h */,
+				607F3E211588C3580097D960 /* PCKioskSubview.m */,
+			);
+			path = Abstract;
+			sourceTree = "<group>";
+		};
+		607F3E221588C3580097D960 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				607F3E231588C3580097D960 /* PCKioskBaseControlElement.h */,
+				607F3E241588C3580097D960 /* PCKioskBaseControlElement.m */,
+				607F3E251588C3580097D960 /* PCKioskBaseGalleryView.h */,
+				607F3E261588C3580097D960 /* PCKioskBaseGalleryView.m */,
+				607F3E271588C3580097D960 /* PCKioskBaseShelfView.h */,
+				607F3E281588C3580097D960 /* PCKioskBaseShelfView.m */,
+				607F3E291588C3580097D960 /* PCKioskGalleryItem.h */,
+				607F3E2A1588C3580097D960 /* PCKioskGalleryItem.m */,
+				607F3E2B1588C3580097D960 /* PCKioskShelfSettings.h */,
+				607F3E2C1588C3580097D960 /* PCKioskViewController.h */,
+				607F3E2D1588C3580097D960 /* PCKioskViewController.m */,
+			);
+			path = Base;
+			sourceTree = "<group>";
+		};
+		607F3E2E1588C3580097D960 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				607F3E2F1588C3580097D960 /* PCKioskCoverImageProcessingProtocol.h */,
+				607F3E301588C3580097D960 /* PCKioskDataSourceProtocol.h */,
+				607F3E311588C3580097D960 /* PCKioskSubviewDelegateProtocol.h */,
+				607F3E321588C3580097D960 /* PCKioskViewControllerDelegateProtocol.h */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		60891D891587971300894531 = {
 			isa = PBXGroup;
 			children = (
@@ -59,6 +161,7 @@
 		60891D991587971300894531 /* PadCMS-CocoaTouch-Core */ = {
 			isa = PBXGroup;
 			children = (
+				607F3E191588C3580097D960 /* Classes */,
 				60891D9C1587971300894531 /* PadCMS_CocoaTouch_Core.h */,
 				60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */,
 				60891D9A1587971300894531 /* Supporting Files */,
@@ -81,6 +184,19 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */,
+				607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */,
+				607F3E371588C3580097D960 /* PCKioskSubview.h in Headers */,
+				607F3E391588C3580097D960 /* PCKioskBaseControlElement.h in Headers */,
+				607F3E3B1588C3580097D960 /* PCKioskBaseGalleryView.h in Headers */,
+				607F3E3D1588C3580097D960 /* PCKioskBaseShelfView.h in Headers */,
+				607F3E3F1588C3580097D960 /* PCKioskGalleryItem.h in Headers */,
+				607F3E411588C3580097D960 /* PCKioskShelfSettings.h in Headers */,
+				607F3E421588C3580097D960 /* PCKioskViewController.h in Headers */,
+				607F3E441588C3580097D960 /* PCKioskCoverImageProcessingProtocol.h in Headers */,
+				607F3E451588C3580097D960 /* PCKioskDataSourceProtocol.h in Headers */,
+				607F3E461588C3580097D960 /* PCKioskSubviewDelegateProtocol.h in Headers */,
+				607F3E471588C3580097D960 /* PCKioskViewControllerDelegateProtocol.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -111,6 +227,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 0430;
+				ORGANIZATIONNAME = Adyax;
 			};
 			buildConfigurationList = 60891D8E1587971300894531 /* Build configuration list for PBXProject "PadCMS-CocoaTouch-Core" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -135,6 +252,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				60891D9E1587971300894531 /* PadCMS_CocoaTouch_Core.m in Sources */,
+				607F3E341588C3580097D960 /* PCKioskAbstractControlElement.m in Sources */,
+				607F3E361588C3580097D960 /* PCKioskAbstractSubviewsFactory.m in Sources */,
+				607F3E381588C3580097D960 /* PCKioskSubview.m in Sources */,
+				607F3E3A1588C3580097D960 /* PCKioskBaseControlElement.m in Sources */,
+				607F3E3C1588C3580097D960 /* PCKioskBaseGalleryView.m in Sources */,
+				607F3E3E1588C3580097D960 /* PCKioskBaseShelfView.m in Sources */,
+				607F3E401588C3580097D960 /* PCKioskGalleryItem.m in Sources */,
+				607F3E431588C3580097D960 /* PCKioskViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -224,6 +349,7 @@
 				60891DA31587971300894531 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
