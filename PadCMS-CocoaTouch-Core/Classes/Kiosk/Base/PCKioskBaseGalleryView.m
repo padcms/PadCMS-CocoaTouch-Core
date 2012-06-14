@@ -8,7 +8,6 @@
 
 #import <QuartzCore/QuartzCore.h>
 #import "PCKioskBaseGalleryView.h"
-#import "PCMSKioskGalleryControlElement.h"
 #import "PCKioskGalleryItem.h"
 
 @interface PCKioskBaseGalleryView ()

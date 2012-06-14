@@ -9,8 +9,6 @@
 #import "PCKioskSubview.h"
 #import "PCKioskAbstractControlElement.h"
 
-@class PCScrollView;
-
 /**
  @class PCKioskBaseShelfView
  @brief Base class for kiosk book shelf subview
@@ -18,7 +16,7 @@
 @interface PCKioskBaseShelfView : PCKioskSubview <PCKioskSubviewDelegateProtocol>
 {
     NSMutableArray      *cells; ///< array of control elements
-    PCScrollView        *mainScrollView; ///< scroll view for scrolling subview content
+    UIScrollView        *mainScrollView; ///< scroll view for scrolling subview content
 }
 
 /**

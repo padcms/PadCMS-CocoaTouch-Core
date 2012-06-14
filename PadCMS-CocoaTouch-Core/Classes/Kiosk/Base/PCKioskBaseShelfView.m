@@ -8,7 +8,6 @@
 
 #import "PCKioskBaseShelfView.h"
 #import "PCKioskShelfSettings.h"
-#import "PCScrollView.h"
 
 @interface PCKioskBaseShelfView ()
 - (void) disableAllCellsExceptCellWithIndex:(NSInteger) index;
@@ -36,7 +35,7 @@
     
     self.backgroundColor = UIColorFromRGB(0x303030);
     
-    mainScrollView = [[PCScrollView alloc] initWithFrame:self.frame];
+    mainScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     mainScrollView.autoresizesSubviews = YES;
     mainScrollView.userInteractionEnabled = YES;
