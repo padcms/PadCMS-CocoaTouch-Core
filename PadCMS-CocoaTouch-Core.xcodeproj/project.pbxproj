@@ -1216,6 +1216,8 @@
 		607F46771589EAF70097D960 /* AFURLConnectionOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3F3E1588CFAD0097D960 /* AFURLConnectionOperation.h */; };
 		607F46781589EAF70097D960 /* AFXMLRequestOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3F401588CFAD0097D960 /* AFXMLRequestOperation.h */; };
 		607F46791589EAF70097D960 /* UIImageView+AFNetworking.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3F421588CFAD0097D960 /* UIImageView+AFNetworking.h */; };
+		607F469D1589FE4A0097D960 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F469C1589FE4A0097D960 /* QuartzCore.framework */; };
+		607F46AA158A0EB00097D960 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F46A9158A0EAF0097D960 /* libsqlite3.dylib */; };
 		60891D981587971300894531 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60891D971587971300894531 /* Foundation.framework */; };
 		60891D9E1587971300894531 /* PadCMS_CocoaTouch_Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */; };
 /* End PBXBuildFile section */
@@ -2451,6 +2453,8 @@
 		607F44DC1589E82B0097D960 /* PCPadCMSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPadCMSAppDelegate.m; sourceTree = "<group>"; };
 		607F44DF1589E8E00097D960 /* NKitWorks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKitWorks.h; sourceTree = "<group>"; };
 		607F44E01589E8E00097D960 /* NKitWorks.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NKitWorks.m; sourceTree = "<group>"; };
+		607F469C1589FE4A0097D960 /* QuartzCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuartzCore.framework; path = System/Library/Frameworks/QuartzCore.framework; sourceTree = SDKROOT; };
+		607F46A9158A0EAF0097D960 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPadCMS-CocoaTouch-Core.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		60891D971587971300894531 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Prefix.pch"; sourceTree = "<group>"; };
@@ -2463,6 +2467,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				607F46AA158A0EB00097D960 /* libsqlite3.dylib in Frameworks */,
+				607F469D1589FE4A0097D960 /* QuartzCore.framework in Frameworks */,
 				607F44C21589E0AB0097D960 /* SystemConfiguration.framework in Frameworks */,
 				607F44B71588E4880097D960 /* libxml2.2.dylib in Frameworks */,
 				607F3E631588C8D70097D960 /* CoreGraphics.framework in Frameworks */,
@@ -3741,6 +3747,7 @@
 		60891D891587971300894531 = {
 			isa = PBXGroup;
 			children = (
+				607F46A9158A0EAF0097D960 /* libsqlite3.dylib */,
 				60891D991587971300894531 /* PadCMS-CocoaTouch-Core */,
 				60891D961587971300894531 /* Frameworks */,
 				60891D951587971300894531 /* Products */,
@@ -3758,6 +3765,7 @@
 		60891D961587971300894531 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				607F469C1589FE4A0097D960 /* QuartzCore.framework */,
 				607F44C11589E0AB0097D960 /* SystemConfiguration.framework */,
 				607F44B61588E4880097D960 /* libxml2.2.dylib */,
 				607F3E621588C8D70097D960 /* CoreGraphics.framework */,
@@ -4695,7 +4703,10 @@
 					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core/Classes/ThirdParty/Google Analytics\"",
 					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core/Classes/ThirdParty/Twitter+OAuth/Libraries & Headers\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};
@@ -4713,7 +4724,10 @@
 					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core/Classes/ThirdParty/Google Analytics\"",
 					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core/Classes/ThirdParty/Twitter+OAuth/Libraries & Headers\"",
 				);
-				OTHER_LDFLAGS = "-ObjC";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 			};

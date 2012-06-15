@@ -8,6 +8,11 @@
     #import <UIKit/UIKit.h>
     #import <SystemConfiguration/SystemConfiguration.h>
 
+    #import "NSString+SBJSON.h"
+
     #import "PCMacros.h"
     #import "PCConsts.h"
+
 #endif
+
+#define FrameMoveWithXOffset(a,dx) a.frame = CGRectOffset(a.frame, dx, 0)
