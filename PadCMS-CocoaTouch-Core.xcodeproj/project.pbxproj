@@ -1220,6 +1220,17 @@
 		607F46AA158A0EB00097D960 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F46A9158A0EAF0097D960 /* libsqlite3.dylib */; };
 		60891D981587971300894531 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60891D971587971300894531 /* Foundation.framework */; };
 		60891D9E1587971300894531 /* PadCMS_CocoaTouch_Core.m in Sources */ = {isa = PBXBuildFile; fileRef = 60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */; };
+		60A5DCB4158B610600E3E98A /* Facebook.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D01588D81F0097D960 /* Facebook.h */; };
+		60A5DCB6158B613D00E3E98A /* FBLoginDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D61588D84A0097D960 /* FBLoginDialog.h */; };
+		60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D41588D84A0097D960 /* FBDialog.h */; };
+		60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43DC1588D8940097D960 /* FBRequest.h */; };
+		60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5DCC9158B793F00E3E98A /* Cocoa.framework */; };
+		60A5DCD4158B793F00E3E98A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCD2158B793F00E3E98A /* InfoPlist.strings */; };
+		60A5DCD9158B796200E3E98A /* LandscapeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FDB1588D3DE0097D960 /* LandscapeController.xib */; };
+		60A5DCDA158B796200E3E98A /* PCSearchResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FE81588D3DE0097D960 /* PCSearchResultViewCell.xib */; };
+		60A5DCDB158B796200E3E98A /* PCSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FEB1588D3DF0097D960 /* PCSearchViewController.xib */; };
+		60A5DCDC158B796200E3E98A /* PCTwitterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FF01588D3DF0097D960 /* PCTwitterViewController.xib */; };
+		60A5DCDE158B79E500E3E98A /* PCRevisionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1229,6 +1240,10 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */,
+				60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */,
+				60A5DCB6158B613D00E3E98A /* FBLoginDialog.h in CopyFiles */,
+				60A5DCB4158B610600E3E98A /* Facebook.h in CopyFiles */,
 				607F46161589EAF70097D960 /* PC3DLayer.h in CopyFiles */,
 				607F46171589EAF70097D960 /* PC3DScene.h in CopyFiles */,
 				607F46181589EAF70097D960 /* PC3DViewController.h in CopyFiles */,
@@ -2460,6 +2475,15 @@
 		60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Prefix.pch"; sourceTree = "<group>"; };
 		60891D9C1587971300894531 /* PadCMS_CocoaTouch_Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PadCMS_CocoaTouch_Core.h; sourceTree = "<group>"; };
 		60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PadCMS_CocoaTouch_Core.m; sourceTree = "<group>"; };
+		60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PadCMS-CocoaTouch-Core-Resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A5DCC9158B793F00E3E98A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
+		60A5DCCC158B793F00E3E98A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
+		60A5DCCD158B793F00E3E98A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
+		60A5DCCE158B793F00E3E98A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		60A5DCD1158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PadCMS-CocoaTouch-Core-Resources-Info.plist"; sourceTree = "<group>"; };
+		60A5DCD3158B793F00E3E98A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		60A5DCD5158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Resources-Prefix.pch"; sourceTree = "<group>"; };
+		60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PCRevisionViewController.xib; path = "PadCMS-CocoaTouch-Core/Resource/PCRevisionViewController.xib"; sourceTree = SOURCE_ROOT; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2476,6 +2500,14 @@
 				60891D981587971300894531 /* Foundation.framework in Frameworks */,
 				607F43621588D78D0097D960 /* libGoogleAnalytics.a in Frameworks */,
 				607F439B1588D7E80097D960 /* libOAuth.a in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		60A5DCC5158B793F00E3E98A /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3747,8 +3779,8 @@
 		60891D891587971300894531 = {
 			isa = PBXGroup;
 			children = (
-				607F46A9158A0EAF0097D960 /* libsqlite3.dylib */,
 				60891D991587971300894531 /* PadCMS-CocoaTouch-Core */,
+				60A5DCCF158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */,
 				60891D961587971300894531 /* Frameworks */,
 				60891D951587971300894531 /* Products */,
 			);
@@ -3758,6 +3790,7 @@
 			isa = PBXGroup;
 			children = (
 				60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */,
+				60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3765,12 +3798,15 @@
 		60891D961587971300894531 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				607F46A9158A0EAF0097D960 /* libsqlite3.dylib */,
 				607F469C1589FE4A0097D960 /* QuartzCore.framework */,
 				607F44C11589E0AB0097D960 /* SystemConfiguration.framework */,
 				607F44B61588E4880097D960 /* libxml2.2.dylib */,
 				607F3E621588C8D70097D960 /* CoreGraphics.framework */,
 				607F3E601588C8D00097D960 /* UIKit.framework */,
 				60891D971587971300894531 /* Foundation.framework */,
+				60A5DCC9158B793F00E3E98A /* Cocoa.framework */,
+				60A5DCCB158B793F00E3E98A /* Other Frameworks */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3790,6 +3826,35 @@
 			isa = PBXGroup;
 			children = (
 				60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		60A5DCCB158B793F00E3E98A /* Other Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				60A5DCCC158B793F00E3E98A /* AppKit.framework */,
+				60A5DCCD158B793F00E3E98A /* CoreData.framework */,
+				60A5DCCE158B793F00E3E98A /* Foundation.framework */,
+			);
+			name = "Other Frameworks";
+			sourceTree = "<group>";
+		};
+		60A5DCCF158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */ = {
+			isa = PBXGroup;
+			children = (
+				60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */,
+				60A5DCD0158B793F00E3E98A /* Supporting Files */,
+			);
+			path = "PadCMS-CocoaTouch-Core-Resources";
+			sourceTree = "<group>";
+		};
+		60A5DCD0158B793F00E3E98A /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				60A5DCD1158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources-Info.plist */,
+				60A5DCD2158B793F00E3E98A /* InfoPlist.strings */,
+				60A5DCD5158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources-Prefix.pch */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -4250,6 +4315,23 @@
 			productReference = 60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		60A5DCC7158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 60A5DCD6158B793F00E3E98A /* Build configuration list for PBXNativeTarget "PadCMS-CocoaTouch-Core-Resources" */;
+			buildPhases = (
+				60A5DCC4158B793F00E3E98A /* Sources */,
+				60A5DCC5158B793F00E3E98A /* Frameworks */,
+				60A5DCC6158B793F00E3E98A /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PadCMS-CocoaTouch-Core-Resources";
+			productName = "PadCMS-CocoaTouch-Core-Resources";
+			productReference = 60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4272,9 +4354,26 @@
 			projectRoot = "";
 			targets = (
 				60891D931587971300894531 /* PadCMS-CocoaTouch-Core */,
+				60A5DCC7158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */,
 			);
 		};
 /* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		60A5DCC6158B793F00E3E98A /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60A5DCD9158B796200E3E98A /* LandscapeController.xib in Resources */,
+				60A5DCDA158B796200E3E98A /* PCSearchResultViewCell.xib in Resources */,
+				60A5DCDB158B796200E3E98A /* PCSearchViewController.xib in Resources */,
+				60A5DCDC158B796200E3E98A /* PCTwitterViewController.xib in Resources */,
+				60A5DCD4158B793F00E3E98A /* InfoPlist.strings in Resources */,
+				60A5DCDE158B79E500E3E98A /* PCRevisionViewController.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		60891D901587971300894531 /* Sources */ = {
@@ -4648,7 +4747,25 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		60A5DCC4158B793F00E3E98A /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
+
+/* Begin PBXVariantGroup section */
+		60A5DCD2158B793F00E3E98A /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				60A5DCD3158B793F00E3E98A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
 
 /* Begin XCBuildConfiguration section */
 		60891D9F1587971300894531 /* Debug */ = {
@@ -4733,6 +4850,50 @@
 			};
 			name = Release;
 		};
+		60A5DCD7158B793F00E3E98A /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core-Resources/PadCMS-CocoaTouch-Core-Resources-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Resources/PadCMS-CocoaTouch-Core-Resources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		60A5DCD8158B793F00E3E98A /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SYSTEM_APPS_DIR)/Xcode.app/Contents/Developer/Library/Frameworks\"",
+				);
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core-Resources/PadCMS-CocoaTouch-Core-Resources-Prefix.pch";
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Resources/PadCMS-CocoaTouch-Core-Resources-Info.plist";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				MACOSX_DEPLOYMENT_TARGET = 10.7;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4753,6 +4914,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		60A5DCD6158B793F00E3E98A /* Build configuration list for PBXNativeTarget "PadCMS-CocoaTouch-Core-Resources" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				60A5DCD7158B793F00E3E98A /* Debug */,
+				60A5DCD8158B793F00E3E98A /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
