@@ -1231,6 +1231,14 @@
 		60A5DCDB158B796200E3E98A /* PCSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FEB1588D3DF0097D960 /* PCSearchViewController.xib */; };
 		60A5DCDC158B796200E3E98A /* PCTwitterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FF01588D3DF0097D960 /* PCTwitterViewController.xib */; };
 		60A5DCDE158B79E500E3E98A /* PCRevisionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */; };
+		60A5DCF4158F44D100E3E98A /* button_answ.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCEF158F44D100E3E98A /* button_answ.png */; };
+		60A5DCF5158F44D100E3E98A /* button_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCF0158F44D100E3E98A /* button_home.png */; };
+		60A5DCF6158F44D100E3E98A /* button_partager.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCF1158F44D100E3E98A /* button_partager.png */; };
+		60A5DCF7158F44D100E3E98A /* button_summary.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCF2158F44D100E3E98A /* button_summary.png */; };
+		60A5DCF8158F44D100E3E98A /* panel_button.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCF3158F44D100E3E98A /* panel_button.png */; };
+		60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFA158F45EE00E3E98A /* topNav_b.png */; };
+		60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFB158F45EE00E3E98A /* topNav_m.png */; };
+		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2484,6 +2492,14 @@
 		60A5DCD3158B793F00E3E98A /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		60A5DCD5158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Resources-Prefix.pch"; sourceTree = "<group>"; };
 		60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = PCRevisionViewController.xib; path = "PadCMS-CocoaTouch-Core/Resource/PCRevisionViewController.xib"; sourceTree = SOURCE_ROOT; };
+		60A5DCEF158F44D100E3E98A /* button_answ.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_answ.png; sourceTree = "<group>"; };
+		60A5DCF0158F44D100E3E98A /* button_home.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_home.png; sourceTree = "<group>"; };
+		60A5DCF1158F44D100E3E98A /* button_partager.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_partager.png; sourceTree = "<group>"; };
+		60A5DCF2158F44D100E3E98A /* button_summary.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = button_summary.png; sourceTree = "<group>"; };
+		60A5DCF3158F44D100E3E98A /* panel_button.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = panel_button.png; sourceTree = "<group>"; };
+		60A5DCFA158F45EE00E3E98A /* topNav_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_b.png; sourceTree = "<group>"; };
+		60A5DCFB158F45EE00E3E98A /* topNav_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_m.png; sourceTree = "<group>"; };
+		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3843,6 +3859,7 @@
 		60A5DCCF158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */ = {
 			isa = PBXGroup;
 			children = (
+				60A5DCEE158F44D100E3E98A /* Magazine */,
 				60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */,
 				60A5DCD0158B793F00E3E98A /* Supporting Files */,
 			);
@@ -3858,6 +3875,22 @@
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
+		};
+		60A5DCEE158F44D100E3E98A /* Magazine */ = {
+			isa = PBXGroup;
+			children = (
+				60A5DCFA158F45EE00E3E98A /* topNav_b.png */,
+				60A5DCFB158F45EE00E3E98A /* topNav_m.png */,
+				60A5DCFC158F45EE00E3E98A /* topNav_t.png */,
+				60A5DCEF158F44D100E3E98A /* button_answ.png */,
+				60A5DCF0158F44D100E3E98A /* button_home.png */,
+				60A5DCF1158F44D100E3E98A /* button_partager.png */,
+				60A5DCF2158F44D100E3E98A /* button_summary.png */,
+				60A5DCF3158F44D100E3E98A /* panel_button.png */,
+			);
+			name = Magazine;
+			path = "PadCMS-CocoaTouch-Core/Resource/Magazine";
+			sourceTree = SOURCE_ROOT;
 		};
 /* End PBXGroup section */
 
@@ -4370,6 +4403,14 @@
 				60A5DCDC158B796200E3E98A /* PCTwitterViewController.xib in Resources */,
 				60A5DCD4158B793F00E3E98A /* InfoPlist.strings in Resources */,
 				60A5DCDE158B79E500E3E98A /* PCRevisionViewController.xib in Resources */,
+				60A5DCF4158F44D100E3E98A /* button_answ.png in Resources */,
+				60A5DCF5158F44D100E3E98A /* button_home.png in Resources */,
+				60A5DCF6158F44D100E3E98A /* button_partager.png in Resources */,
+				60A5DCF7158F44D100E3E98A /* button_summary.png in Resources */,
+				60A5DCF8158F44D100E3E98A /* panel_button.png in Resources */,
+				60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */,
+				60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */,
+				60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4922,6 +4963,7 @@
 				60A5DCD8158B793F00E3E98A /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
