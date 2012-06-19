@@ -202,8 +202,6 @@
 		607F400A1588D3DF0097D960 /* PCHorizontalPageController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FAC1588D3DE0097D960 /* PCHorizontalPageController.m */; };
 		607F400B1588D3DF0097D960 /* PCHorizontalScrollingPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FAD1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.h */; };
 		607F400C1588D3DF0097D960 /* PCHorizontalScrollingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FAE1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.m */; };
-		607F400D1588D3DF0097D960 /* PCHTML5PageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FAF1588D3DE0097D960 /* PCHTML5PageViewController.h */; };
-		607F400E1588D3DF0097D960 /* PCHTML5PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FB01588D3DE0097D960 /* PCHTML5PageViewController.m */; };
 		607F400F1588D3DF0097D960 /* PCHTMLPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FB11588D3DE0097D960 /* PCHTMLPageViewController.h */; };
 		607F40101588D3DF0097D960 /* PCHTMLPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FB21588D3DE0097D960 /* PCHTMLPageViewController.m */; };
 		607F40111588D3DF0097D960 /* PCInteractiveBulletWithFlash.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FB31588D3DE0097D960 /* PCInteractiveBulletWithFlash.h */; };
@@ -230,10 +228,6 @@
 		607F40261588D3DF0097D960 /* PCSlideshowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FC81588D3DE0097D960 /* PCSlideshowViewController.m */; };
 		607F40271588D3DF0097D960 /* PCHorizontalPageElementViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FCA1588D3DE0097D960 /* PCHorizontalPageElementViewController.h */; };
 		607F40281588D3DF0097D960 /* PCHorizontalPageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FCB1588D3DE0097D960 /* PCHorizontalPageElementViewController.m */; };
-		607F40291588D3DF0097D960 /* PCPageElementHTML5ViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FCC1588D3DE0097D960 /* PCPageElementHTML5ViewController.h */; };
-		607F402A1588D3DF0097D960 /* PCPageElementHTML5ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FCD1588D3DE0097D960 /* PCPageElementHTML5ViewController.m */; };
-		607F402B1588D3DF0097D960 /* PCPageElementProgressDownloadingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FCE1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.h */; };
-		607F402C1588D3DF0097D960 /* PCPageElementProgressDownloadingViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FCF1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.m */; };
 		607F402D1588D3DF0097D960 /* PCPageElementViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */; };
 		607F402E1588D3DF0097D960 /* PCPageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */; };
 		607F402F1588D3DF0097D960 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD21588D3DE0097D960 /* PCResourceCache.h */; };
@@ -716,8 +710,6 @@
 		607F43F81588E19D0097D960 /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43F01588E19D0097D960 /* PCResourceView.m */; };
 		607F43FC1588E1DD0097D960 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43FA1588E1DD0097D960 /* MBProgressHUD.h */; };
 		607F43FD1588E1DD0097D960 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43FB1588E1DD0097D960 /* MBProgressHUD.m */; };
-		607F44001588E20D0097D960 /* PCTwitterImageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43FE1588E20B0097D960 /* PCTwitterImageDownloadOperation.m */; };
-		607F44011588E20D0097D960 /* PCTwitterImageDownloadOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43FF1588E20D0097D960 /* PCTwitterImageDownloadOperationDelegate.h */; };
 		607F44201588E2490097D960 /* RssCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44031588E2490097D960 /* RssCategory.h */; };
 		607F44211588E2490097D960 /* RssCategory.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44041588E2490097D960 /* RssCategory.m */; };
 		607F44221588E2490097D960 /* RssChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44051588E2490097D960 /* RssChannel.h */; };
@@ -747,37 +739,6 @@
 		607F443A1588E2490097D960 /* RssSource.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F441D1588E2490097D960 /* RssSource.m */; };
 		607F443B1588E2490097D960 /* RssTextInput.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F441E1588E2490097D960 /* RssTextInput.h */; };
 		607F443C1588E2490097D960 /* RssTextInput.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F441F1588E2490097D960 /* RssTextInput.m */; };
-		607F445C1588E2B50097D960 /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F443D1588E28E0097D960 /* PCDownloadApiClient.h */; };
-		607F445D1588E2B50097D960 /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F443E1588E28F0097D960 /* PCDownloadApiClient.m */; };
-		607F445E1588E2B50097D960 /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F443F1588E2900097D960 /* PCDownloadManager.h */; };
-		607F445F1588E2B50097D960 /* PCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44401588E2920097D960 /* PCDownloadManager.m */; };
-		607F44601588E2B50097D960 /* PCDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44411588E2930097D960 /* PCDownloadOperation.h */; };
-		607F44611588E2B50097D960 /* PCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44421588E2950097D960 /* PCDownloadOperation.m */; };
-		607F44621588E2B50097D960 /* PCElementDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44431588E2960097D960 /* PCElementDownloadOperation.h */; };
-		607F44631588E2B50097D960 /* PCElementDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44441588E2970097D960 /* PCElementDownloadOperation.m */; };
-		607F44641588E2B50097D960 /* PCElementDownloadOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44451588E2990097D960 /* PCElementDownloadOperationDelegate.h */; };
-		607F44651588E2B50097D960 /* PCElementDownloadoperationFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44461588E29A0097D960 /* PCElementDownloadoperationFactory.h */; };
-		607F44661588E2B50097D960 /* PCElementDownloadoperationFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44471588E29B0097D960 /* PCElementDownloadoperationFactory.m */; };
-		607F44671588E2B50097D960 /* PCElementHTML5DownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44481588E29C0097D960 /* PCElementHTML5DownloadOperation.h */; };
-		607F44681588E2B50097D960 /* PCElementHTML5DownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44491588E29E0097D960 /* PCElementHTML5DownloadOperation.m */; };
-		607F44691588E2B50097D960 /* PCElementHTML5RssNewsDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F444A1588E29F0097D960 /* PCElementHTML5RssNewsDownloadOperation.h */; };
-		607F446A1588E2B50097D960 /* PCElementHTML5RssNewsDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F444B1588E2A00097D960 /* PCElementHTML5RssNewsDownloadOperation.m */; };
-		607F446B1588E2B50097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F444C1588E2A10097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h */; };
-		607F446C1588E2B50097D960 /* PCElementHTML5TwitterJSONDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F444D1588E2A20097D960 /* PCElementHTML5TwitterJSONDownloadOperation.m */; };
-		607F446D1588E2B50097D960 /* PCElementMiniArticleDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F444E1588E2A30097D960 /* PCElementMiniArticleDownloadOperation.h */; };
-		607F446E1588E2B50097D960 /* PCElementMiniArticleDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F444F1588E2A50097D960 /* PCElementMiniArticleDownloadOperation.m */; };
-		607F446F1588E2B50097D960 /* PCHelpPageDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44501588E2A60097D960 /* PCHelpPageDownloadOperation.h */; };
-		607F44701588E2B50097D960 /* PCHelpPageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44511588E2A70097D960 /* PCHelpPageDownloadOperation.m */; };
-		607F44711588E2B50097D960 /* PCHelpPageDownloadOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44521588E2A90097D960 /* PCHelpPageDownloadOperationDelegate.h */; };
-		607F44721588E2B50097D960 /* PCHorizontalPageDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44531588E2AA0097D960 /* PCHorizontalPageDownloadOperation.h */; };
-		607F44731588E2B50097D960 /* PCHorizontalPageDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44541588E2AB0097D960 /* PCHorizontalPageDownloadOperation.m */; };
-		607F44741588E2B50097D960 /* PCHorizontalPageDownloadOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44551588E2AC0097D960 /* PCHorizontalPageDownloadOperationDelegate.h */; };
-		607F44751588E2B50097D960 /* PCMagazineDownloadingQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44561588E2AD0097D960 /* PCMagazineDownloadingQueue.h */; };
-		607F44761588E2B50097D960 /* PCMagazineDownloadingQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44571588E2AE0097D960 /* PCMagazineDownloadingQueue.m */; };
-		607F44771588E2B50097D960 /* PCTocItemDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44581588E2B00097D960 /* PCTocItemDownloadOperation.h */; };
-		607F44781588E2B50097D960 /* PCTocItemDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44591588E2B10097D960 /* PCTocItemDownloadOperation.m */; };
-		607F44791588E2B50097D960 /* PCTocItemDownloadOperationDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F445A1588E2B20097D960 /* PCTocItemDownloadOperationDelegate.h */; };
-		607F447A1588E2B50097D960 /* PCTwitterImageDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F445B1588E2B30097D960 /* PCTwitterImageDownloadOperation.h */; };
 		607F44891588E3130097D960 /* JSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F447C1588E3130097D960 /* JSON.h */; };
 		607F448A1588E3130097D960 /* NSObject+SBJSON.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F447D1588E3130097D960 /* NSObject+SBJSON.h */; };
 		607F448B1588E3130097D960 /* NSObject+SBJSON.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F447E1588E3130097D960 /* NSObject+SBJSON.m */; };
@@ -791,12 +752,6 @@
 		607F44931588E3130097D960 /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44861588E3130097D960 /* SBJsonParser.m */; };
 		607F44941588E3130097D960 /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44871588E3130097D960 /* SBJsonWriter.h */; };
 		607F44951588E3130097D960 /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44881588E3130097D960 /* SBJsonWriter.m */; };
-		607F449C1588E3540097D960 /* QHTTPOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44961588E3490097D960 /* QHTTPOperation.h */; };
-		607F449D1588E3540097D960 /* QHTTPOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44971588E34A0097D960 /* QHTTPOperation.m */; };
-		607F449E1588E3540097D960 /* QRunLoopOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44981588E34C0097D960 /* QRunLoopOperation.h */; };
-		607F449F1588E3540097D960 /* QRunLoopOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44991588E34E0097D960 /* QRunLoopOperation.m */; };
-		607F44A01588E3540097D960 /* QWatchedOperationQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F449A1588E3500097D960 /* QWatchedOperationQueue.h */; };
-		607F44A11588E3540097D960 /* QWatchedOperationQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F449B1588E3520097D960 /* QWatchedOperationQueue.m */; };
 		607F44A51588E3820097D960 /* Reachability.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44A31588E3820097D960 /* Reachability.h */; };
 		607F44A61588E3820097D960 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44A41588E3820097D960 /* Reachability.m */; };
 		607F44B71588E4880097D960 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F44B61588E4880097D960 /* libxml2.2.dylib */; };
@@ -813,28 +768,6 @@
 		607F44E41589EA010097D960 /* PCPage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E811588CE5F0097D960 /* PCPage.h */; };
 		607F44E51589EA180097D960 /* PCPageTemplate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E9E1588CE5F0097D960 /* PCPageTemplate.h */; };
 		607F44E61589EA390097D960 /* PCPageElement.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E861588CE5F0097D960 /* PCPageElement.h */; };
-		607F44E71589EA890097D960 /* QHTTPOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44961588E3490097D960 /* QHTTPOperation.h */; };
-		607F44E81589EA890097D960 /* QRunLoopOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44981588E34C0097D960 /* QRunLoopOperation.h */; };
-		607F44E91589EA890097D960 /* QWatchedOperationQueue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F449A1588E3500097D960 /* QWatchedOperationQueue.h */; };
-		607F44EA1589EA890097D960 /* PCDownloadApiClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F443D1588E28E0097D960 /* PCDownloadApiClient.h */; };
-		607F44EB1589EA890097D960 /* PCDownloadManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F443F1588E2900097D960 /* PCDownloadManager.h */; };
-		607F44EC1589EA890097D960 /* PCDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44411588E2930097D960 /* PCDownloadOperation.h */; };
-		607F44ED1589EA890097D960 /* PCElementDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44431588E2960097D960 /* PCElementDownloadOperation.h */; };
-		607F44EE1589EA890097D960 /* PCElementDownloadOperationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44451588E2990097D960 /* PCElementDownloadOperationDelegate.h */; };
-		607F44EF1589EA890097D960 /* PCElementDownloadoperationFactory.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44461588E29A0097D960 /* PCElementDownloadoperationFactory.h */; };
-		607F44F01589EA890097D960 /* PCElementHTML5DownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44481588E29C0097D960 /* PCElementHTML5DownloadOperation.h */; };
-		607F44F11589EA890097D960 /* PCElementHTML5RssNewsDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F444A1588E29F0097D960 /* PCElementHTML5RssNewsDownloadOperation.h */; };
-		607F44F21589EA890097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F444C1588E2A10097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h */; };
-		607F44F31589EA890097D960 /* PCElementMiniArticleDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F444E1588E2A30097D960 /* PCElementMiniArticleDownloadOperation.h */; };
-		607F44F41589EA890097D960 /* PCHelpPageDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44501588E2A60097D960 /* PCHelpPageDownloadOperation.h */; };
-		607F44F51589EA890097D960 /* PCHelpPageDownloadOperationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44521588E2A90097D960 /* PCHelpPageDownloadOperationDelegate.h */; };
-		607F44F61589EA890097D960 /* PCHorizontalPageDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44531588E2AA0097D960 /* PCHorizontalPageDownloadOperation.h */; };
-		607F44F71589EA890097D960 /* PCHorizontalPageDownloadOperationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44551588E2AC0097D960 /* PCHorizontalPageDownloadOperationDelegate.h */; };
-		607F44F81589EA890097D960 /* PCMagazineDownloadingQueue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44561588E2AD0097D960 /* PCMagazineDownloadingQueue.h */; };
-		607F44F91589EA890097D960 /* PCTocItemDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44581588E2B00097D960 /* PCTocItemDownloadOperation.h */; };
-		607F44FA1589EA890097D960 /* PCTocItemDownloadOperationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F445A1588E2B20097D960 /* PCTocItemDownloadOperationDelegate.h */; };
-		607F44FB1589EA890097D960 /* PCTwitterImageDownloadOperation.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F445B1588E2B30097D960 /* PCTwitterImageDownloadOperation.h */; };
-		607F44FC1589EA890097D960 /* PCTwitterImageDownloadOperationDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43FF1588E20D0097D960 /* PCTwitterImageDownloadOperationDelegate.h */; };
 		607F44FD1589EA890097D960 /* AlertPasswordPrompt.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
 		607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
@@ -1126,7 +1059,6 @@
 		607F461D1589EAF70097D960 /* PCGallaryWithFlashBulletsViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FA91588D3DE0097D960 /* PCGallaryWithFlashBulletsViewController.h */; };
 		607F461E1589EAF70097D960 /* PCHorizontalPageController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FAB1588D3DE0097D960 /* PCHorizontalPageController.h */; };
 		607F461F1589EAF70097D960 /* PCHorizontalScrollingPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FAD1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.h */; };
-		607F46201589EAF70097D960 /* PCHTML5PageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FAF1588D3DE0097D960 /* PCHTML5PageViewController.h */; };
 		607F46211589EAF70097D960 /* PCHTMLPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FB11588D3DE0097D960 /* PCHTMLPageViewController.h */; };
 		607F46221589EAF70097D960 /* PCInteractiveBulletWithFlash.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FB31588D3DE0097D960 /* PCInteractiveBulletWithFlash.h */; };
 		607F46231589EAF70097D960 /* PCLandscapeViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FB51588D3DE0097D960 /* PCLandscapeViewController.h */; };
@@ -1140,8 +1072,6 @@
 		607F462B1589EAF70097D960 /* PCSliderBasedMiniArticleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FC51588D3DE0097D960 /* PCSliderBasedMiniArticleViewController.h */; };
 		607F462C1589EAF70097D960 /* PCSlideshowViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FC71588D3DE0097D960 /* PCSlideshowViewController.h */; };
 		607F462D1589EAF70097D960 /* PCHorizontalPageElementViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FCA1588D3DE0097D960 /* PCHorizontalPageElementViewController.h */; };
-		607F462E1589EAF70097D960 /* PCPageElementHTML5ViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FCC1588D3DE0097D960 /* PCPageElementHTML5ViewController.h */; };
-		607F462F1589EAF70097D960 /* PCPageElementProgressDownloadingViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FCE1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.h */; };
 		607F46301589EAF70097D960 /* PCPageElementViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */; };
 		607F46311589EAF70097D960 /* PCResourceCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD21588D3DE0097D960 /* PCResourceCache.h */; };
 		607F46321589EAF70097D960 /* PCResourceFetch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD41588D3DE0097D960 /* PCResourceFetch.h */; };
@@ -1239,6 +1169,14 @@
 		60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFA158F45EE00E3E98A /* topNav_b.png */; };
 		60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFB158F45EE00E3E98A /* topNav_m.png */; };
 		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
+		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
+		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
+		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
+		ABF4D2EC1590516400DAAD0F /* PCDownloadManager.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E61590516400DAAD0F /* PCDownloadManager.m */; };
+		ABF4D2ED1590516400DAAD0F /* PCDownloadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E71590516400DAAD0F /* PCDownloadOperation.h */; };
+		ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */; };
+		ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; };
+		ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1248,6 +1186,8 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
+				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
 				60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */,
 				60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */,
 				60A5DCB6158B613D00E3E98A /* FBLoginDialog.h in CopyFiles */,
@@ -1262,7 +1202,6 @@
 				607F461D1589EAF70097D960 /* PCGallaryWithFlashBulletsViewController.h in CopyFiles */,
 				607F461E1589EAF70097D960 /* PCHorizontalPageController.h in CopyFiles */,
 				607F461F1589EAF70097D960 /* PCHorizontalScrollingPageViewController.h in CopyFiles */,
-				607F46201589EAF70097D960 /* PCHTML5PageViewController.h in CopyFiles */,
 				607F46211589EAF70097D960 /* PCHTMLPageViewController.h in CopyFiles */,
 				607F46221589EAF70097D960 /* PCInteractiveBulletWithFlash.h in CopyFiles */,
 				607F46231589EAF70097D960 /* PCLandscapeViewController.h in CopyFiles */,
@@ -1276,8 +1215,6 @@
 				607F462B1589EAF70097D960 /* PCSliderBasedMiniArticleViewController.h in CopyFiles */,
 				607F462C1589EAF70097D960 /* PCSlideshowViewController.h in CopyFiles */,
 				607F462D1589EAF70097D960 /* PCHorizontalPageElementViewController.h in CopyFiles */,
-				607F462E1589EAF70097D960 /* PCPageElementHTML5ViewController.h in CopyFiles */,
-				607F462F1589EAF70097D960 /* PCPageElementProgressDownloadingViewController.h in CopyFiles */,
 				607F46301589EAF70097D960 /* PCPageElementViewController.h in CopyFiles */,
 				607F46311589EAF70097D960 /* PCResourceCache.h in CopyFiles */,
 				607F46321589EAF70097D960 /* PCResourceFetch.h in CopyFiles */,
@@ -1355,28 +1292,6 @@
 				607F46151589EAD90097D960 /* AFNetworking.h in CopyFiles */,
 				607F46141589EABB0097D960 /* PCMacros.h in CopyFiles */,
 				607F46131589EAA90097D960 /* PCSQLiteKeys.h in CopyFiles */,
-				607F44E71589EA890097D960 /* QHTTPOperation.h in CopyFiles */,
-				607F44E81589EA890097D960 /* QRunLoopOperation.h in CopyFiles */,
-				607F44E91589EA890097D960 /* QWatchedOperationQueue.h in CopyFiles */,
-				607F44EA1589EA890097D960 /* PCDownloadApiClient.h in CopyFiles */,
-				607F44EB1589EA890097D960 /* PCDownloadManager.h in CopyFiles */,
-				607F44EC1589EA890097D960 /* PCDownloadOperation.h in CopyFiles */,
-				607F44ED1589EA890097D960 /* PCElementDownloadOperation.h in CopyFiles */,
-				607F44EE1589EA890097D960 /* PCElementDownloadOperationDelegate.h in CopyFiles */,
-				607F44EF1589EA890097D960 /* PCElementDownloadoperationFactory.h in CopyFiles */,
-				607F44F01589EA890097D960 /* PCElementHTML5DownloadOperation.h in CopyFiles */,
-				607F44F11589EA890097D960 /* PCElementHTML5RssNewsDownloadOperation.h in CopyFiles */,
-				607F44F21589EA890097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h in CopyFiles */,
-				607F44F31589EA890097D960 /* PCElementMiniArticleDownloadOperation.h in CopyFiles */,
-				607F44F41589EA890097D960 /* PCHelpPageDownloadOperation.h in CopyFiles */,
-				607F44F51589EA890097D960 /* PCHelpPageDownloadOperationDelegate.h in CopyFiles */,
-				607F44F61589EA890097D960 /* PCHorizontalPageDownloadOperation.h in CopyFiles */,
-				607F44F71589EA890097D960 /* PCHorizontalPageDownloadOperationDelegate.h in CopyFiles */,
-				607F44F81589EA890097D960 /* PCMagazineDownloadingQueue.h in CopyFiles */,
-				607F44F91589EA890097D960 /* PCTocItemDownloadOperation.h in CopyFiles */,
-				607F44FA1589EA890097D960 /* PCTocItemDownloadOperationDelegate.h in CopyFiles */,
-				607F44FB1589EA890097D960 /* PCTwitterImageDownloadOperation.h in CopyFiles */,
-				607F44FC1589EA890097D960 /* PCTwitterImageDownloadOperationDelegate.h in CopyFiles */,
 				607F44FD1589EA890097D960 /* AlertPasswordPrompt.h in CopyFiles */,
 				607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */,
 				607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */,
@@ -1860,8 +1775,6 @@
 		607F3FAC1588D3DE0097D960 /* PCHorizontalPageController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHorizontalPageController.m; sourceTree = "<group>"; };
 		607F3FAD1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHorizontalScrollingPageViewController.h; sourceTree = "<group>"; };
 		607F3FAE1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHorizontalScrollingPageViewController.m; sourceTree = "<group>"; };
-		607F3FAF1588D3DE0097D960 /* PCHTML5PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHTML5PageViewController.h; sourceTree = "<group>"; };
-		607F3FB01588D3DE0097D960 /* PCHTML5PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHTML5PageViewController.m; sourceTree = "<group>"; };
 		607F3FB11588D3DE0097D960 /* PCHTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHTMLPageViewController.h; sourceTree = "<group>"; };
 		607F3FB21588D3DE0097D960 /* PCHTMLPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHTMLPageViewController.m; sourceTree = "<group>"; };
 		607F3FB31588D3DE0097D960 /* PCInteractiveBulletWithFlash.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCInteractiveBulletWithFlash.h; sourceTree = "<group>"; };
@@ -1888,10 +1801,6 @@
 		607F3FC81588D3DE0097D960 /* PCSlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSlideshowViewController.m; sourceTree = "<group>"; };
 		607F3FCA1588D3DE0097D960 /* PCHorizontalPageElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHorizontalPageElementViewController.h; sourceTree = "<group>"; };
 		607F3FCB1588D3DE0097D960 /* PCHorizontalPageElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHorizontalPageElementViewController.m; sourceTree = "<group>"; };
-		607F3FCC1588D3DE0097D960 /* PCPageElementHTML5ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPageElementHTML5ViewController.h; sourceTree = "<group>"; };
-		607F3FCD1588D3DE0097D960 /* PCPageElementHTML5ViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPageElementHTML5ViewController.m; sourceTree = "<group>"; };
-		607F3FCE1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPageElementProgressDownloadingViewController.h; sourceTree = "<group>"; };
-		607F3FCF1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPageElementProgressDownloadingViewController.m; sourceTree = "<group>"; };
 		607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPageElementViewController.h; sourceTree = "<group>"; };
 		607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPageElementViewController.m; sourceTree = "<group>"; };
 		607F3FD21588D3DE0097D960 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
@@ -2383,8 +2292,6 @@
 		607F43F01588E19D0097D960 /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
 		607F43FA1588E1DD0097D960 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		607F43FB1588E1DD0097D960 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
-		607F43FE1588E20B0097D960 /* PCTwitterImageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTwitterImageDownloadOperation.m; sourceTree = "<group>"; };
-		607F43FF1588E20D0097D960 /* PCTwitterImageDownloadOperationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTwitterImageDownloadOperationDelegate.h; sourceTree = "<group>"; };
 		607F44031588E2490097D960 /* RssCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RssCategory.h; sourceTree = "<group>"; };
 		607F44041588E2490097D960 /* RssCategory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RssCategory.m; sourceTree = "<group>"; };
 		607F44051588E2490097D960 /* RssChannel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RssChannel.h; sourceTree = "<group>"; };
@@ -2414,37 +2321,6 @@
 		607F441D1588E2490097D960 /* RssSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RssSource.m; sourceTree = "<group>"; };
 		607F441E1588E2490097D960 /* RssTextInput.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RssTextInput.h; sourceTree = "<group>"; };
 		607F441F1588E2490097D960 /* RssTextInput.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RssTextInput.m; sourceTree = "<group>"; };
-		607F443D1588E28E0097D960 /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
-		607F443E1588E28F0097D960 /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
-		607F443F1588E2900097D960 /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
-		607F44401588E2920097D960 /* PCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadManager.m; sourceTree = "<group>"; };
-		607F44411588E2930097D960 /* PCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadOperation.h; sourceTree = "<group>"; };
-		607F44421588E2950097D960 /* PCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadOperation.m; sourceTree = "<group>"; };
-		607F44431588E2960097D960 /* PCElementDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementDownloadOperation.h; sourceTree = "<group>"; };
-		607F44441588E2970097D960 /* PCElementDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCElementDownloadOperation.m; sourceTree = "<group>"; };
-		607F44451588E2990097D960 /* PCElementDownloadOperationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementDownloadOperationDelegate.h; sourceTree = "<group>"; };
-		607F44461588E29A0097D960 /* PCElementDownloadoperationFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementDownloadoperationFactory.h; sourceTree = "<group>"; };
-		607F44471588E29B0097D960 /* PCElementDownloadoperationFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCElementDownloadoperationFactory.m; sourceTree = "<group>"; };
-		607F44481588E29C0097D960 /* PCElementHTML5DownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementHTML5DownloadOperation.h; sourceTree = "<group>"; };
-		607F44491588E29E0097D960 /* PCElementHTML5DownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCElementHTML5DownloadOperation.m; sourceTree = "<group>"; };
-		607F444A1588E29F0097D960 /* PCElementHTML5RssNewsDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementHTML5RssNewsDownloadOperation.h; sourceTree = "<group>"; };
-		607F444B1588E2A00097D960 /* PCElementHTML5RssNewsDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCElementHTML5RssNewsDownloadOperation.m; sourceTree = "<group>"; };
-		607F444C1588E2A10097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementHTML5TwitterJSONDownloadOperation.h; sourceTree = "<group>"; };
-		607F444D1588E2A20097D960 /* PCElementHTML5TwitterJSONDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCElementHTML5TwitterJSONDownloadOperation.m; sourceTree = "<group>"; };
-		607F444E1588E2A30097D960 /* PCElementMiniArticleDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCElementMiniArticleDownloadOperation.h; sourceTree = "<group>"; };
-		607F444F1588E2A50097D960 /* PCElementMiniArticleDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCElementMiniArticleDownloadOperation.m; sourceTree = "<group>"; };
-		607F44501588E2A60097D960 /* PCHelpPageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHelpPageDownloadOperation.h; sourceTree = "<group>"; };
-		607F44511588E2A70097D960 /* PCHelpPageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHelpPageDownloadOperation.m; sourceTree = "<group>"; };
-		607F44521588E2A90097D960 /* PCHelpPageDownloadOperationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHelpPageDownloadOperationDelegate.h; sourceTree = "<group>"; };
-		607F44531588E2AA0097D960 /* PCHorizontalPageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHorizontalPageDownloadOperation.h; sourceTree = "<group>"; };
-		607F44541588E2AB0097D960 /* PCHorizontalPageDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHorizontalPageDownloadOperation.m; sourceTree = "<group>"; };
-		607F44551588E2AC0097D960 /* PCHorizontalPageDownloadOperationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHorizontalPageDownloadOperationDelegate.h; sourceTree = "<group>"; };
-		607F44561588E2AD0097D960 /* PCMagazineDownloadingQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCMagazineDownloadingQueue.h; sourceTree = "<group>"; };
-		607F44571588E2AE0097D960 /* PCMagazineDownloadingQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMagazineDownloadingQueue.m; sourceTree = "<group>"; };
-		607F44581588E2B00097D960 /* PCTocItemDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTocItemDownloadOperation.h; sourceTree = "<group>"; };
-		607F44591588E2B10097D960 /* PCTocItemDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTocItemDownloadOperation.m; sourceTree = "<group>"; };
-		607F445A1588E2B20097D960 /* PCTocItemDownloadOperationDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTocItemDownloadOperationDelegate.h; sourceTree = "<group>"; };
-		607F445B1588E2B30097D960 /* PCTwitterImageDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTwitterImageDownloadOperation.h; sourceTree = "<group>"; };
 		607F447C1588E3130097D960 /* JSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSON.h; sourceTree = "<group>"; };
 		607F447D1588E3130097D960 /* NSObject+SBJSON.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSObject+SBJSON.h"; sourceTree = "<group>"; };
 		607F447E1588E3130097D960 /* NSObject+SBJSON.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSObject+SBJSON.m"; sourceTree = "<group>"; };
@@ -2458,12 +2334,6 @@
 		607F44861588E3130097D960 /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
 		607F44871588E3130097D960 /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		607F44881588E3130097D960 /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
-		607F44961588E3490097D960 /* QHTTPOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QHTTPOperation.h; sourceTree = "<group>"; };
-		607F44971588E34A0097D960 /* QHTTPOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QHTTPOperation.m; sourceTree = "<group>"; };
-		607F44981588E34C0097D960 /* QRunLoopOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QRunLoopOperation.h; sourceTree = "<group>"; };
-		607F44991588E34E0097D960 /* QRunLoopOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QRunLoopOperation.m; sourceTree = "<group>"; };
-		607F449A1588E3500097D960 /* QWatchedOperationQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = QWatchedOperationQueue.h; sourceTree = "<group>"; };
-		607F449B1588E3520097D960 /* QWatchedOperationQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = QWatchedOperationQueue.m; sourceTree = "<group>"; };
 		607F44A31588E3820097D960 /* Reachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Reachability.h; sourceTree = "<group>"; };
 		607F44A41588E3820097D960 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		607F44B61588E4880097D960 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
@@ -2500,6 +2370,12 @@
 		60A5DCFA158F45EE00E3E98A /* topNav_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_b.png; sourceTree = "<group>"; };
 		60A5DCFB158F45EE00E3E98A /* topNav_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_m.png; sourceTree = "<group>"; };
 		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
+		ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
+		ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
+		ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
+		ABF4D2E61590516400DAAD0F /* PCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadManager.m; sourceTree = "<group>"; };
+		ABF4D2E71590516400DAAD0F /* PCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadOperation.h; sourceTree = "<group>"; };
+		ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadOperation.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2533,45 +2409,7 @@
 		607F3E191588C3580097D960 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
-				607F44961588E3490097D960 /* QHTTPOperation.h */,
-				607F44971588E34A0097D960 /* QHTTPOperation.m */,
-				607F44981588E34C0097D960 /* QRunLoopOperation.h */,
-				607F44991588E34E0097D960 /* QRunLoopOperation.m */,
-				607F449A1588E3500097D960 /* QWatchedOperationQueue.h */,
-				607F449B1588E3520097D960 /* QWatchedOperationQueue.m */,
-				607F443D1588E28E0097D960 /* PCDownloadApiClient.h */,
-				607F443E1588E28F0097D960 /* PCDownloadApiClient.m */,
-				607F443F1588E2900097D960 /* PCDownloadManager.h */,
-				607F44401588E2920097D960 /* PCDownloadManager.m */,
-				607F44411588E2930097D960 /* PCDownloadOperation.h */,
-				607F44421588E2950097D960 /* PCDownloadOperation.m */,
-				607F44431588E2960097D960 /* PCElementDownloadOperation.h */,
-				607F44441588E2970097D960 /* PCElementDownloadOperation.m */,
-				607F44451588E2990097D960 /* PCElementDownloadOperationDelegate.h */,
-				607F44461588E29A0097D960 /* PCElementDownloadoperationFactory.h */,
-				607F44471588E29B0097D960 /* PCElementDownloadoperationFactory.m */,
-				607F44481588E29C0097D960 /* PCElementHTML5DownloadOperation.h */,
-				607F44491588E29E0097D960 /* PCElementHTML5DownloadOperation.m */,
-				607F444A1588E29F0097D960 /* PCElementHTML5RssNewsDownloadOperation.h */,
-				607F444B1588E2A00097D960 /* PCElementHTML5RssNewsDownloadOperation.m */,
-				607F444C1588E2A10097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h */,
-				607F444D1588E2A20097D960 /* PCElementHTML5TwitterJSONDownloadOperation.m */,
-				607F444E1588E2A30097D960 /* PCElementMiniArticleDownloadOperation.h */,
-				607F444F1588E2A50097D960 /* PCElementMiniArticleDownloadOperation.m */,
-				607F44501588E2A60097D960 /* PCHelpPageDownloadOperation.h */,
-				607F44511588E2A70097D960 /* PCHelpPageDownloadOperation.m */,
-				607F44521588E2A90097D960 /* PCHelpPageDownloadOperationDelegate.h */,
-				607F44531588E2AA0097D960 /* PCHorizontalPageDownloadOperation.h */,
-				607F44541588E2AB0097D960 /* PCHorizontalPageDownloadOperation.m */,
-				607F44551588E2AC0097D960 /* PCHorizontalPageDownloadOperationDelegate.h */,
-				607F44561588E2AD0097D960 /* PCMagazineDownloadingQueue.h */,
-				607F44571588E2AE0097D960 /* PCMagazineDownloadingQueue.m */,
-				607F44581588E2B00097D960 /* PCTocItemDownloadOperation.h */,
-				607F44591588E2B10097D960 /* PCTocItemDownloadOperation.m */,
-				607F445A1588E2B20097D960 /* PCTocItemDownloadOperationDelegate.h */,
-				607F445B1588E2B30097D960 /* PCTwitterImageDownloadOperation.h */,
-				607F43FE1588E20B0097D960 /* PCTwitterImageDownloadOperation.m */,
-				607F43FF1588E20D0097D960 /* PCTwitterImageDownloadOperationDelegate.h */,
+				ABF4D2E21590516400DAAD0F /* Networking */,
 				607F43E81588E19A0097D960 /* View */,
 				607F43591588D5AC0097D960 /* Other */,
 				607F3F991588D3DE0097D960 /* Controllers */,
@@ -2940,8 +2778,6 @@
 				607F3FAC1588D3DE0097D960 /* PCHorizontalPageController.m */,
 				607F3FAD1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.h */,
 				607F3FAE1588D3DE0097D960 /* PCHorizontalScrollingPageViewController.m */,
-				607F3FAF1588D3DE0097D960 /* PCHTML5PageViewController.h */,
-				607F3FB01588D3DE0097D960 /* PCHTML5PageViewController.m */,
 				607F3FB11588D3DE0097D960 /* PCHTMLPageViewController.h */,
 				607F3FB21588D3DE0097D960 /* PCHTMLPageViewController.m */,
 				607F3FB31588D3DE0097D960 /* PCInteractiveBulletWithFlash.h */,
@@ -2976,10 +2812,6 @@
 			children = (
 				607F3FCA1588D3DE0097D960 /* PCHorizontalPageElementViewController.h */,
 				607F3FCB1588D3DE0097D960 /* PCHorizontalPageElementViewController.m */,
-				607F3FCC1588D3DE0097D960 /* PCPageElementHTML5ViewController.h */,
-				607F3FCD1588D3DE0097D960 /* PCPageElementHTML5ViewController.m */,
-				607F3FCE1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.h */,
-				607F3FCF1588D3DE0097D960 /* PCPageElementProgressDownloadingViewController.m */,
 				607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */,
 				607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */,
 				607F3FD21588D3DE0097D960 /* PCResourceCache.h */,
@@ -3892,6 +3724,19 @@
 			path = "PadCMS-CocoaTouch-Core/Resource/Magazine";
 			sourceTree = SOURCE_ROOT;
 		};
+		ABF4D2E21590516400DAAD0F /* Networking */ = {
+			isa = PBXGroup;
+			children = (
+				ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */,
+				ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */,
+				ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */,
+				ABF4D2E61590516400DAAD0F /* PCDownloadManager.m */,
+				ABF4D2E71590516400DAAD0F /* PCDownloadOperation.h */,
+				ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */,
+			);
+			path = Networking;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3903,6 +3748,7 @@
 				607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */,
 				607F3E371588C3580097D960 /* PCKioskSubview.h in Headers */,
 				607F3E391588C3580097D960 /* PCKioskBaseControlElement.h in Headers */,
+				ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */,
 				607F3E3B1588C3580097D960 /* PCKioskBaseGalleryView.h in Headers */,
 				607F3E3D1588C3580097D960 /* PCKioskBaseShelfView.h in Headers */,
 				607F3E3F1588C3580097D960 /* PCKioskGalleryItem.h in Headers */,
@@ -3997,7 +3843,6 @@
 				607F40071588D3DF0097D960 /* PCGallaryWithFlashBulletsViewController.h in Headers */,
 				607F40091588D3DF0097D960 /* PCHorizontalPageController.h in Headers */,
 				607F400B1588D3DF0097D960 /* PCHorizontalScrollingPageViewController.h in Headers */,
-				607F400D1588D3DF0097D960 /* PCHTML5PageViewController.h in Headers */,
 				607F400F1588D3DF0097D960 /* PCHTMLPageViewController.h in Headers */,
 				607F40111588D3DF0097D960 /* PCInteractiveBulletWithFlash.h in Headers */,
 				607F40131588D3DF0097D960 /* PCLandscapeViewController.h in Headers */,
@@ -4011,8 +3856,6 @@
 				607F40231588D3DF0097D960 /* PCSliderBasedMiniArticleViewController.h in Headers */,
 				607F40251588D3DF0097D960 /* PCSlideshowViewController.h in Headers */,
 				607F40271588D3DF0097D960 /* PCHorizontalPageElementViewController.h in Headers */,
-				607F40291588D3DF0097D960 /* PCPageElementHTML5ViewController.h in Headers */,
-				607F402B1588D3DF0097D960 /* PCPageElementProgressDownloadingViewController.h in Headers */,
 				607F402D1588D3DF0097D960 /* PCPageElementViewController.h in Headers */,
 				607F402F1588D3DF0097D960 /* PCResourceCache.h in Headers */,
 				607F40311588D3DF0097D960 /* PCResourceFetch.h in Headers */,
@@ -4275,7 +4118,6 @@
 				607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */,
 				607F43F71588E19D0097D960 /* PCResourceView.h in Headers */,
 				607F43FC1588E1DD0097D960 /* MBProgressHUD.h in Headers */,
-				607F44011588E20D0097D960 /* PCTwitterImageDownloadOperationDelegate.h in Headers */,
 				607F44201588E2490097D960 /* RssCategory.h in Headers */,
 				607F44221588E2490097D960 /* RssChannel.h in Headers */,
 				607F44241588E2490097D960 /* RssCloud.h in Headers */,
@@ -4291,24 +4133,6 @@
 				607F44381588E2490097D960 /* RssParserDelegate.h in Headers */,
 				607F44391588E2490097D960 /* RssSource.h in Headers */,
 				607F443B1588E2490097D960 /* RssTextInput.h in Headers */,
-				607F445C1588E2B50097D960 /* PCDownloadApiClient.h in Headers */,
-				607F445E1588E2B50097D960 /* PCDownloadManager.h in Headers */,
-				607F44601588E2B50097D960 /* PCDownloadOperation.h in Headers */,
-				607F44621588E2B50097D960 /* PCElementDownloadOperation.h in Headers */,
-				607F44641588E2B50097D960 /* PCElementDownloadOperationDelegate.h in Headers */,
-				607F44651588E2B50097D960 /* PCElementDownloadoperationFactory.h in Headers */,
-				607F44671588E2B50097D960 /* PCElementHTML5DownloadOperation.h in Headers */,
-				607F44691588E2B50097D960 /* PCElementHTML5RssNewsDownloadOperation.h in Headers */,
-				607F446B1588E2B50097D960 /* PCElementHTML5TwitterJSONDownloadOperation.h in Headers */,
-				607F446D1588E2B50097D960 /* PCElementMiniArticleDownloadOperation.h in Headers */,
-				607F446F1588E2B50097D960 /* PCHelpPageDownloadOperation.h in Headers */,
-				607F44711588E2B50097D960 /* PCHelpPageDownloadOperationDelegate.h in Headers */,
-				607F44721588E2B50097D960 /* PCHorizontalPageDownloadOperation.h in Headers */,
-				607F44741588E2B50097D960 /* PCHorizontalPageDownloadOperationDelegate.h in Headers */,
-				607F44751588E2B50097D960 /* PCMagazineDownloadingQueue.h in Headers */,
-				607F44771588E2B50097D960 /* PCTocItemDownloadOperation.h in Headers */,
-				607F44791588E2B50097D960 /* PCTocItemDownloadOperationDelegate.h in Headers */,
-				607F447A1588E2B50097D960 /* PCTwitterImageDownloadOperation.h in Headers */,
 				607F44891588E3130097D960 /* JSON.h in Headers */,
 				607F448A1588E3130097D960 /* NSObject+SBJSON.h in Headers */,
 				607F448C1588E3130097D960 /* NSString+SBJSON.h in Headers */,
@@ -4316,14 +4140,13 @@
 				607F44901588E3130097D960 /* SBJsonBase.h in Headers */,
 				607F44921588E3130097D960 /* SBJsonParser.h in Headers */,
 				607F44941588E3130097D960 /* SBJsonWriter.h in Headers */,
-				607F449C1588E3540097D960 /* QHTTPOperation.h in Headers */,
-				607F449E1588E3540097D960 /* QRunLoopOperation.h in Headers */,
-				607F44A01588E3540097D960 /* QWatchedOperationQueue.h in Headers */,
 				607F44A51588E3820097D960 /* Reachability.h in Headers */,
 				607F44D51589E6F50097D960 /* PadCMSCoder.h in Headers */,
 				607F44D91589E7BD0097D960 /* VersionManager.h in Headers */,
 				607F44DD1589E82B0097D960 /* PCPadCMSAppDelegate.h in Headers */,
 				607F44E11589E8E00097D960 /* NKitWorks.h in Headers */,
+				ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */,
+				ABF4D2ED1590516400DAAD0F /* PCDownloadOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4509,7 +4332,6 @@
 				607F40081588D3DF0097D960 /* PCGallaryWithFlashBulletsViewController.m in Sources */,
 				607F400A1588D3DF0097D960 /* PCHorizontalPageController.m in Sources */,
 				607F400C1588D3DF0097D960 /* PCHorizontalScrollingPageViewController.m in Sources */,
-				607F400E1588D3DF0097D960 /* PCHTML5PageViewController.m in Sources */,
 				607F40101588D3DF0097D960 /* PCHTMLPageViewController.m in Sources */,
 				607F40121588D3DF0097D960 /* PCInteractiveBulletWithFlash.m in Sources */,
 				607F40141588D3DF0097D960 /* PCLandscapeViewController.m in Sources */,
@@ -4523,8 +4345,6 @@
 				607F40241588D3DF0097D960 /* PCSliderBasedMiniArticleViewController.m in Sources */,
 				607F40261588D3DF0097D960 /* PCSlideshowViewController.m in Sources */,
 				607F40281588D3DF0097D960 /* PCHorizontalPageElementViewController.m in Sources */,
-				607F402A1588D3DF0097D960 /* PCPageElementHTML5ViewController.m in Sources */,
-				607F402C1588D3DF0097D960 /* PCPageElementProgressDownloadingViewController.m in Sources */,
 				607F402E1588D3DF0097D960 /* PCPageElementViewController.m in Sources */,
 				607F40301588D3DF0097D960 /* PCResourceCache.m in Sources */,
 				607F40321588D3DF0097D960 /* PCResourceFetch.m in Sources */,
@@ -4743,7 +4563,6 @@
 				607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */,
 				607F43F81588E19D0097D960 /* PCResourceView.m in Sources */,
 				607F43FD1588E1DD0097D960 /* MBProgressHUD.m in Sources */,
-				607F44001588E20D0097D960 /* PCTwitterImageDownloadOperation.m in Sources */,
 				607F44211588E2490097D960 /* RssCategory.m in Sources */,
 				607F44231588E2490097D960 /* RssChannel.m in Sources */,
 				607F44251588E2490097D960 /* RssCloud.m in Sources */,
@@ -4758,33 +4577,20 @@
 				607F44371588E2490097D960 /* RssParser.m in Sources */,
 				607F443A1588E2490097D960 /* RssSource.m in Sources */,
 				607F443C1588E2490097D960 /* RssTextInput.m in Sources */,
-				607F445D1588E2B50097D960 /* PCDownloadApiClient.m in Sources */,
-				607F445F1588E2B50097D960 /* PCDownloadManager.m in Sources */,
-				607F44611588E2B50097D960 /* PCDownloadOperation.m in Sources */,
-				607F44631588E2B50097D960 /* PCElementDownloadOperation.m in Sources */,
-				607F44661588E2B50097D960 /* PCElementDownloadoperationFactory.m in Sources */,
-				607F44681588E2B50097D960 /* PCElementHTML5DownloadOperation.m in Sources */,
-				607F446A1588E2B50097D960 /* PCElementHTML5RssNewsDownloadOperation.m in Sources */,
-				607F446C1588E2B50097D960 /* PCElementHTML5TwitterJSONDownloadOperation.m in Sources */,
-				607F446E1588E2B50097D960 /* PCElementMiniArticleDownloadOperation.m in Sources */,
-				607F44701588E2B50097D960 /* PCHelpPageDownloadOperation.m in Sources */,
-				607F44731588E2B50097D960 /* PCHorizontalPageDownloadOperation.m in Sources */,
-				607F44761588E2B50097D960 /* PCMagazineDownloadingQueue.m in Sources */,
-				607F44781588E2B50097D960 /* PCTocItemDownloadOperation.m in Sources */,
 				607F448B1588E3130097D960 /* NSObject+SBJSON.m in Sources */,
 				607F448D1588E3130097D960 /* NSString+SBJSON.m in Sources */,
 				607F448F1588E3130097D960 /* SBJSON.m in Sources */,
 				607F44911588E3130097D960 /* SBJsonBase.m in Sources */,
 				607F44931588E3130097D960 /* SBJsonParser.m in Sources */,
 				607F44951588E3130097D960 /* SBJsonWriter.m in Sources */,
-				607F449D1588E3540097D960 /* QHTTPOperation.m in Sources */,
-				607F449F1588E3540097D960 /* QRunLoopOperation.m in Sources */,
-				607F44A11588E3540097D960 /* QWatchedOperationQueue.m in Sources */,
 				607F44A61588E3820097D960 /* Reachability.m in Sources */,
 				607F44D61589E6F50097D960 /* PadCMSCoder.m in Sources */,
 				607F44DA1589E7BD0097D960 /* VersionManager.m in Sources */,
 				607F44DE1589E82B0097D960 /* PCPadCMSAppDelegate.m in Sources */,
 				607F44E21589E8E00097D960 /* NKitWorks.m in Sources */,
+				ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */,
+				ABF4D2EC1590516400DAAD0F /* PCDownloadManager.m in Sources */,
+				ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
