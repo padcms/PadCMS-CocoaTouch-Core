@@ -7,24 +7,24 @@
 //
 
 #import "PCDownloadManager.h"
-#import "PCDownloadApiClient.h"
-#import "PCRevision.h"
+
+#import "AFHTTPClient.h"
+#import "AFHTTPRequestOperation.h"
+#import "AFNetworking.h"
+#import "Helper.h"
 #import "PCColumn.h"
+#import "PCConfig.h"
+#import "PCDownloadApiClient.h"
+#import "PCDownloadOperation.h"
+#import "PCHorizontalPage.h"
 #import "PCPage.h"
 #import "PCPageElement.h"
+#import "PCPageElementMiniArticle.h"
+#import "PCPageElemetTypes.h"
 #import "PCPageTemplate.h"
 #import "PCPageTemplatesPool.h"
-#import "PCPageElemetTypes.h"
-#import "AFHTTPRequestOperation.h"
-#import "PCPageElementMiniArticle.h"
+#import "PCRevision.h"
 #import "PCTocItem.h"
-#import "PCConfig.h"
-#import "PCHorizontalPage.h"
-#import "PCDownloadOperation.h"
-#import "Helper.h"
-#import "PCPageElemetTypes.h"
-#import "AFNetworking.h"
-#import "AFHTTPClient.h"
 
 @interface PCDownloadManager(ForwardDeclaration)
 
@@ -114,46 +114,40 @@ NSString* secondaryKey   = @"secondaryKey";
 
 -(void)startDownloading
 {
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-		if (!self.revision) return;
-		if ([PCDownloadApiClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
-		{
-			NSString* message = @"Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
-			dispatch_async(dispatch_get_main_queue(), ^{
-				UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-				[alert show];
-				[alert release];
-			});
-			return;
-
-		}
-		[self clearData];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boost:) name:PCBoostPageNotification object:nil];
-		self.operationsDic = [NSMutableDictionary dictionary];
-		UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-		if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
-		{
-			[self launchCoverPageDownloading];
-			[self launchTocDownloading];
-			[self launchHelpDownloading];
-			[self launchPortraitPagesDownloading];
-			[self launchHorizontalTocDownload];
-			[self launchHorizonalPagesDownload];
-			
-		}
-		else {
-			[self launchHorizontalTocDownload];
-			[self launchHorizonalPagesDownload];
-			[self launchCoverPageDownloading];
-			[self launchTocDownloading];
-			[self launchHelpDownloading];
-			[self launchPortraitPagesDownloading];
-			
-		}
-		self.isReady = YES;
-
-	});
- 
+    if (!self.revision) return;
+    if ([PCDownloadApiClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
+    {
+        NSString* message = @"Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        return;
+        
+    }
+    [self clearData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boost:) name:PCBoostPageNotification object:nil];
+    self.operationsDic = [NSMutableDictionary dictionary];
+    UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
+    if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+    {
+        [self launchCoverPageDownloading];
+        [self launchTocDownloading];
+        [self launchHelpDownloading];
+        [self launchPortraitPagesDownloading];
+        [self launchHorizontalTocDownload];
+        [self launchHorizonalPagesDownload];
+        
+    }
+    else {
+        [self launchHorizontalTocDownload];
+        [self launchHorizonalPagesDownload];
+        [self launchCoverPageDownloading];
+        [self launchTocDownloading];
+        [self launchHelpDownloading];
+        [self launchPortraitPagesDownloading];
+        
+    }
+    self.isReady = YES;
 }
 
 -(void)launchCoverPageDownloading
