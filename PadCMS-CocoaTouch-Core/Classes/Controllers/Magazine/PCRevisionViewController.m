@@ -7,20 +7,21 @@
 //
 
 #import "PCRevisionViewController.h"
-#import "PCMagazineViewControllersFactory.h"
-#import "PCStyler.h"
+
+#import "NSString+XMLEntities.h"
+#import "PCConfig.h"
 #import "PCDefaultStyleElements.h"
-#import "PCHelpViewController.h"
-#import "PCSearchProvider.h"
-#import "PCSearchViewController.h"
 #import "PCGalleryViewController.h"
+#import "PCGoogleAnalytics.h"
+#import "PCHelpViewController.h"
 #import "PCHorizontalPageController.h"
 #import "PCMacros.h"
-#import "NSString+XMLEntities.h"
+#import "PCMagazineViewControllersFactory.h"
 #import "PCRevision.h"
-#import "PCGoogleAnalytics.h"
-#import "PCConfig.h"
 #import "PCScrollView.h"
+#import "PCSearchProvider.h"
+#import "PCSearchViewController.h"
+#import "PCStyler.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -1172,6 +1173,10 @@
 
 - (void) updateViewsForCurrentIndexHorizontal
 {
+    if (horizontalPagesViewControllers == nil && horizontalPagesViewControllers.count == 0) {
+        return;
+    }
+
     CGFloat     index = horizontalScrollView.contentOffset.x / horizontalScrollView.frame.size.width;
     NSInteger   currentIndex = lrintf(round(index));
 	//NSAssert((currentIndex >= 0 && currentIndex < [horizontalPagesViewControllers count]),!"Ivalid currentIndex");

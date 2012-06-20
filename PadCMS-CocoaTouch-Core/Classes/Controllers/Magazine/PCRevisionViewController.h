@@ -6,21 +6,21 @@
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
-#import <UIKit/UIKit.h>
-#import "PCData.h"
-#import "PCPageViewController.h"
+
 #import "PCColumnViewController.h"
+#import "PCData.h"
 #import "PCEmailController.h"
+#import "PCFacebookViewController.h"
+#import "PCGalleryViewController.h"
+#import "PCHelpViewController.h"
+#import "PCLandscapeViewController.h"
+#import "PCMainViewController.h"
+#import "PCPageViewController.h"
+#import "PCSearchViewController.h"
 #import "PCTwitterNewController.h"
 #import "PCTwitterViewController.h"
-#import "PCFacebookViewController.h"
-#import "PCEmailController.h"
-#import "PCMainViewController.h"
 #import "PCVideoController.h"
-#import "PCGalleryViewController.h"
-#import "PCLandscapeViewController.h"
-#import "PCHelpViewController.h"
-#import "PCSearchViewController.h"
+#import <UIKit/UIKit.h>
 
 /**
  @class PCMagazineViewController
