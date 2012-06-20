@@ -7,15 +7,16 @@
 //
 
 #import "PCPageViewController.h"
+
+#import "Helper.h"
+#import "MBProgressHud.h"
+#import "PCDefaultStyleElements.h"
+#import "PCGoogleAnalytics.h"
+#import "PCRevision.h"
+#import "PCScrollView.h"
 #import "PCSliderBasedMiniArticleViewController.h"
 #import "PCStyler.h"
-#import "PCDefaultStyleElements.h"
 #import <QuartzCore/QuartzCore.h>
-#import "Helper.h"
-#import "PCRevision.h"
-#import "MBProgressHud.h"
-#import "PCGoogleAnalytics.h"
-#import "PCScrollView.h"
 
 @interface  PCPageViewController(ForwardDeclaration)
 
@@ -123,6 +124,10 @@
 	tapGestureRecognizer.cancelsTouchesInView = NO;
 	tapGestureRecognizer.delegate = self;
     [self.mainScrollView  addGestureRecognizer:tapGestureRecognizer];
+    
+    if (self.galleryButton != nil) {
+        [self.galleryButton.superview bringSubviewToFront:self.galleryButton];
+    }
 }
 
 - (void) loadFullView
@@ -136,6 +141,10 @@
     
     [self.mainScrollView setContentSize:bodySize];
     [self createGalleryButton];
+    
+    if (self.galleryButton != nil) {
+        [self.galleryButton.superview bringSubviewToFront:self.galleryButton];
+    }
 }
 
 - (void) unloadFullView
@@ -203,20 +212,24 @@
 {
 	if (!isLoaded) return;
 	if (self.page.isComplete) return;
-  if (HUD)
-  {
-	  return;
-	page.progressDelegate = nil;
-    [HUD removeFromSuperview];
-    [HUD release];
-    HUD = nil;
-  }
-  self.page.isUpdateProgress = YES;
-  HUD = [[MBProgressHUD alloc] initWithView:self.mainScrollView];
-  [self.view addSubview:HUD];
-  HUD.mode = MBProgressHUDModeAnnularDeterminate;
-  page.progressDelegate = HUD;
-  [HUD show:YES];
+    if (HUD)
+    {
+        return;
+        page.progressDelegate = nil;
+        [HUD removeFromSuperview];
+        [HUD release];
+        HUD = nil;
+    }
+    self.page.isUpdateProgress = YES;
+    HUD = [[MBProgressHUD alloc] initWithView:self.mainScrollView];
+    [self.view addSubview:HUD];
+    HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    page.progressDelegate = HUD;
+    [HUD show:YES];
+
+    if (self.galleryButton != nil) {
+        [self.galleryButton.superview bringSubviewToFront:self.galleryButton];
+    }
 }
 
 -(void)viewWillAppear:(BOOL)animated
