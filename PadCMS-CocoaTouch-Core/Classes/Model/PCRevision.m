@@ -273,8 +273,6 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     
     for (NSString *path in revisionContent)
     {
-        if([path isEqualToString:PCRevisionCoverImageFileName]) continue;
-        
         NSError *error = nil;
         [[NSFileManager defaultManager] removeItemAtPath:[self.contentDirectory stringByAppendingPathComponent:path] error:&error];
     

@@ -111,6 +111,13 @@
     // e.g. self.myOutlet = nil;
 }
 
+- (void)viewWillAppear:(BOOL)animated
+{
+    [self reloadSubviews];
+    
+    [super viewWillAppear:animated];
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	return YES;
@@ -235,11 +242,13 @@
 - (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index
 {
     [self.delegate deleteRevisionDataWithIndex:index];
+    [self reloadSubviews];
 }
 
 - (void) updateButtonTappedWithRevisionIndex:(NSInteger) index
 {
     [self.delegate updateRevisionWithIndex:index];
+    [self reloadSubviews];
 }
 
 - (void) purchaseButtonTappedWithRevisionIndex:(NSInteger) index

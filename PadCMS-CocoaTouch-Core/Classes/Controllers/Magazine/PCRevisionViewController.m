@@ -1170,7 +1170,7 @@
 
 - (void) updateViewsForCurrentIndexHorizontal
 {
-    if (horizontalPagesViewControllers == nil && horizontalPagesViewControllers.count == 0) {
+    if (horizontalPagesViewControllers == nil || horizontalPagesViewControllers.count == 0) {
         return;
     }
 
