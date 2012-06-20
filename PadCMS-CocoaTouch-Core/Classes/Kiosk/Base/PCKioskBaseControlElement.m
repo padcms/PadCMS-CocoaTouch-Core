@@ -108,6 +108,7 @@
 	[downloadButton titleLabel].textColor = [UIColor whiteColor];	
 	[downloadButton sizeToFit];
     downloadButton.hidden = YES;
+    downloadButton.exclusiveTouch = YES;
 	[self addSubview:downloadButton];
 	
 	readButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -119,6 +120,7 @@
 	[readButton titleLabel].textColor = [UIColor whiteColor];
 	[readButton sizeToFit];
     readButton.hidden = YES;
+    readButton.exclusiveTouch = YES;
 	[self addSubview:readButton];	
 	
 	cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -130,6 +132,7 @@
 	[cancelButton titleLabel].textColor = [UIColor whiteColor];	
 	[cancelButton sizeToFit];
     cancelButton.hidden = YES;
+    cancelButton.exclusiveTouch = YES;
 	[self addSubview:cancelButton];
 	
 	deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
@@ -141,6 +144,7 @@
 	[deleteButton titleLabel].textColor = [UIColor whiteColor];
 	[deleteButton sizeToFit];
     deleteButton.hidden = YES;
+    deleteButton.exclusiveTouch = YES;
 	[self addSubview:deleteButton];		
 
     downloadButton.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_FIRST_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, KIOSK_SHELF_CELL_BUTTONS_HEIGHT);
