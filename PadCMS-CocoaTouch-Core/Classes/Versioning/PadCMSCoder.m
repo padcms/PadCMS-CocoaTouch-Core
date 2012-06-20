@@ -47,14 +47,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	NSMutableDictionary *mainDict = [NSMutableDictionary dictionary];
 	[mainDict setObject:@"purchase.apple.verifyReceipt" forKey:@"method"];
   
-#ifdef RUE
-  NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData",@"f9103179a4044887ba078217e4a0cd76", @"sSecretPassword", nil];
-  
-#elif UNI
-   NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData",@"2bc3f7bac5f04609bd13ba27f878eaa9", @"sSecretPassword", nil];
-#else
-  NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData", nil];
-#endif
+    NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData", nil];
 	
 
 	
