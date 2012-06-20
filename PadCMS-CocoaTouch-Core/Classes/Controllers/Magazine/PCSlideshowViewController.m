@@ -7,12 +7,12 @@
 //
 
 #import "PCSlideshowViewController.h"
-#import "PCStyler.h"
+
+#import "MBProgressHUD.h"
 #import "PCDefaultStyleElements.h"
-//#import "MBProgressHUD.h"
 #import "PCRevision.h"
 #import "PCScrollView.h"
-#import "MBProgressHUD.h"
+#import "PCStyler.h"
 
 @interface PCSlideshowViewController(ForwardDeclaration)
     - (void) updateViewsForCurrentIndex;
@@ -180,13 +180,17 @@
 
 - (void) updateViewsForCurrentIndex
 {
-  PCPageElement* currentElement = [[self.slideViewControllers objectAtIndex:self.pageControll.currentPage] element];
-  if (currentElement && !currentElement.isComplete && self.pageControll.currentPage != 0)
-  {
-     [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:currentElement ];
-  }
- 
-  
+    if (self.slideViewControllers.count == 0) {
+        return;
+    }
+    
+    PCPageElement* currentElement = [[self.slideViewControllers objectAtIndex:self.pageControll.currentPage] element];
+    if (currentElement && !currentElement.isComplete && self.pageControll.currentPage != 0)
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:currentElement ];
+    }
+    
+    
     if(self.slidersView != nil)
     { 
         self.slidersView.scrollEnabled = YES;
@@ -220,6 +224,10 @@
 
 -(void)showHUDforSlideAtIndex:(NSInteger)index
 {
+    if (self.slideViewControllers.count == 0) {
+        return;
+    }
+    
 	if (!isLoaded) return;
 	if (!self.page.isComplete) return;
 	PCPageElement* currentElement = [[self.slideViewControllers objectAtIndex:index] element];
