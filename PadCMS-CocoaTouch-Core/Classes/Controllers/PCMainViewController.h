@@ -19,7 +19,6 @@
 #import "PCApplication.h"
 #import "PCKioskViewController.h"
 #import "PCSearchViewController.h"
-#import "PCTwitterViewController.h"
 
 @class MagManager, PCRevisionViewController, PadCMSCoder;
 
@@ -46,8 +45,6 @@ PCSearchViewControllerDelegate>
 	BOOL                        alreadyInit;
 	
 	BOOL                        currentTemplateLandscapeEnable;
-	
-	PCTwitterViewController     *twitterController;
     
 	BOOL                         IsNotificationsBinded;
 }

@@ -71,7 +71,6 @@
         barTimer = nil;
         issueLabel_h = nil;
         issueLabel_v = nil;
-        twitterController = nil;
     }
     return nil;
 }

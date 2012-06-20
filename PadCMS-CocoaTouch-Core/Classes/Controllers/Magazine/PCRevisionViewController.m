@@ -78,8 +78,6 @@
     tableOfContentButton = nil;
     [facebookViewController release];
     facebookViewController = nil;
-    [twitterViewController release];
-    twitterViewController = nil;
     [emailController release];
     emailController = nil;
     [_videoController release];
@@ -125,7 +123,6 @@
         topMenuView = nil;
         horizontalTopMenuView = nil;
         facebookViewController = nil;
-        twitterViewController = nil;
         emailController = nil;
         _videoController = nil;
         shareMenu = nil;
@@ -1502,16 +1499,6 @@
         PCTwitterNewController *twitterController = [[[PCTwitterNewController alloc] initWithMessage:twitterMessage] autorelease];
         twitterController.delegate = self;
         [twitterController showTwitterController];
-    }
-     
-    else
-    {
-        if (!twitterViewController)
-        {
-            //twitterViewController = [[PCTwitterViewController alloc] initWithNibName:@"PCTwitterViewController" bundle:nil];
-            twitterViewController = [[PCTwitterViewController alloc] initWithMessage:twitterMessage];
-        }
-        [self.view addSubview:twitterViewController.view];
     }
 }
 

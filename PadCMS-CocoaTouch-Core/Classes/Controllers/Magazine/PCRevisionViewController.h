@@ -18,7 +18,6 @@
 #import "PCPageViewController.h"
 #import "PCSearchViewController.h"
 #import "PCTwitterNewController.h"
-#import "PCTwitterViewController.h"
 #import "PCVideoController.h"
 #import <UIKit/UIKit.h>
 
@@ -50,7 +49,6 @@
     PCScrollView* horizontalSummaryView;
     IBOutlet PCScrollView* topSummaryScrollView;
     PCFacebookViewController* facebookViewController;
-    PCTwitterViewController* twitterViewController;
     PCEmailController* emailController;
     PCVideoController* _videoController;
     PCHelpViewController* helpController;
