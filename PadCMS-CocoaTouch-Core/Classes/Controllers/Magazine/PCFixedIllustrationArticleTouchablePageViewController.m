@@ -34,6 +34,7 @@
 //
 
 #import "PCFixedIllustrationArticleTouchablePageViewController.h"
+#import "PCScrollView.h"
 
 @implementation PCFixedIllustrationArticleTouchablePageViewController
 
@@ -68,11 +69,24 @@
 
 -(void)tapAction:(id)sender
 {
-    if (!self.bodyViewController.view.hidden && 
-        ((NSArray*)[super activeZonesAtPoint:[sender locationInView:[sender view]]]).count == 0)
+    CGPoint tapLocation = [sender locationInView:[sender view]];
+    
+    if (!self.bodyViewController.view.hidden&& 
+        ((NSArray*)[super activeZonesAtPoint:tapLocation]).count == 0)
     {
-        self.bodyViewController.view.hidden = YES;
+        CGPoint tapLocationWithOffset;
+        tapLocationWithOffset.x = self.articleView.contentOffset.x + tapLocation.x;
+        tapLocationWithOffset.y = self.articleView.contentOffset.y + tapLocation.y;
+        NSArray* actions = [self activeZonesAtPoint:tapLocationWithOffset];
+        for (PCPageActiveZone* action in actions)
+            if ([self pdfActiveZoneAction:action])
+                break;
+        if (actions.count == 0)
+        {
+            self.bodyViewController.view.hidden = YES;
+        }
     }
+
     else
     {
         [super tapAction:sender];
