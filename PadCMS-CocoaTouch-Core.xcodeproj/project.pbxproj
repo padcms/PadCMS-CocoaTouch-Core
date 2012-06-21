@@ -642,8 +642,6 @@
 		607F43DF1588D8940097D960 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43DD1588D8940097D960 /* FBRequest.m */; };
 		607F43E21588D8DA0097D960 /* PCMainViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E01588D8DA0097D960 /* PCMainViewController.h */; };
 		607F43E31588D8DA0097D960 /* PCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43E11588D8DA0097D960 /* PCMainViewController.m */; };
-		607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
-		607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */; };
 		607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EC1588E19D0097D960 /* PCCustomPageControll.m */; };
 		607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
@@ -710,7 +708,6 @@
 		607F44E41589EA010097D960 /* PCPage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E811588CE5F0097D960 /* PCPage.h */; };
 		607F44E51589EA180097D960 /* PCPageTemplate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E9E1588CE5F0097D960 /* PCPageTemplate.h */; };
 		607F44E61589EA390097D960 /* PCPageElement.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E861588CE5F0097D960 /* PCPageElement.h */; };
-		607F44FD1589EA890097D960 /* AlertPasswordPrompt.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
 		607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
 		607F45001589EA890097D960 /* PCResourceView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EF1588E19D0097D960 /* PCResourceView.h */; };
@@ -1177,7 +1174,6 @@
 				607F46151589EAD90097D960 /* AFNetworking.h in CopyFiles */,
 				607F46141589EABB0097D960 /* PCMacros.h in CopyFiles */,
 				607F46131589EAA90097D960 /* PCSQLiteKeys.h in CopyFiles */,
-				607F44FD1589EA890097D960 /* AlertPasswordPrompt.h in CopyFiles */,
 				607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */,
 				607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */,
 				607F45001589EA890097D960 /* PCResourceView.h in CopyFiles */,
@@ -2090,8 +2086,6 @@
 		607F43DD1588D8940097D960 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
 		607F43E01588D8DA0097D960 /* PCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCMainViewController.h; sourceTree = "<group>"; };
 		607F43E11588D8DA0097D960 /* PCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMainViewController.m; sourceTree = "<group>"; };
-		607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertPasswordPrompt.h; sourceTree = "<group>"; };
-		607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertPasswordPrompt.m; sourceTree = "<group>"; };
 		607F43EB1588E19D0097D960 /* PCCustomPageControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCustomPageControll.h; sourceTree = "<group>"; };
 		607F43EC1588E19D0097D960 /* PCCustomPageControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCustomPageControll.m; sourceTree = "<group>"; };
 		607F43ED1588E19D0097D960 /* PCFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCFlashButton.h; sourceTree = "<group>"; };
@@ -3254,8 +3248,6 @@
 		607F43E81588E19A0097D960 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */,
-				607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */,
 				607F43EB1588E19D0097D960 /* PCCustomPageControll.h */,
 				607F43EC1588E19D0097D960 /* PCCustomPageControll.m */,
 				607F43ED1588E19D0097D960 /* PCFlashButton.h */,
@@ -3791,7 +3783,6 @@
 				607F43DA1588D84A0097D960 /* FBLoginDialog.h in Headers */,
 				607F43DE1588D8940097D960 /* FBRequest.h in Headers */,
 				607F43E21588D8DA0097D960 /* PCMainViewController.h in Headers */,
-				607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */,
 				607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */,
 				607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */,
 				607F43F71588E19D0097D960 /* PCResourceView.h in Headers */,
@@ -4216,7 +4207,6 @@
 				607F43DB1588D84A0097D960 /* FBLoginDialog.m in Sources */,
 				607F43DF1588D8940097D960 /* FBRequest.m in Sources */,
 				607F43E31588D8DA0097D960 /* PCMainViewController.m in Sources */,
-				607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */,
 				607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */,
 				607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */,
 				607F43F81588E19D0097D960 /* PCResourceView.m in Sources */,
