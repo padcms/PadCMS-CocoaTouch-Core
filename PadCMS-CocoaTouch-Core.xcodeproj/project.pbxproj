@@ -2212,7 +2212,6 @@
 			children = (
 				ABF4D2E21590516400DAAD0F /* Networking */,
 				607F43E81588E19A0097D960 /* View */,
-				607F43591588D5AC0097D960 /* Other */,
 				607F3F991588D3DE0097D960 /* Controllers */,
 				607F3F7C1588D0BC0097D960 /* Versioning */,
 				607F3EF11588CF820097D960 /* Helpers */,
@@ -3212,13 +3211,6 @@
 				607F41E21588D4860097D960 /* JSONRepresentation.h */,
 			);
 			path = JSON;
-			sourceTree = "<group>";
-		};
-		607F43591588D5AC0097D960 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			path = Other;
 			sourceTree = "<group>";
 		};
 		607F435E1588D78D0097D960 /* Google Analytics */ = {
