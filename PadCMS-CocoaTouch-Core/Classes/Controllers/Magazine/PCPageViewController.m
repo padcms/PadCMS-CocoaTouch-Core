@@ -503,19 +503,28 @@
             [self showVideo:activeZone.URL];
             return YES;
         }
+        else 
+        {
+            if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:activeZone.URL]])
+            {
+                NSLog(@"Failed to open url:%@",[activeZone.URL description]);
+            }
+        }
     }
     return NO;
 }
 
 -(void)tapAction:(UIGestureRecognizer *)gestureRecognizer
 {
-   [self.magazineViewController tapAction:gestureRecognizer];
-
     CGPoint point = [gestureRecognizer locationInView:self.mainScrollView];
     NSArray* actions = [self activeZonesAtPoint:point];
     for (PCPageActiveZone* action in actions)
         if ([self pdfActiveZoneAction:action])
             break;
+    if (actions.count == 0)
+    {
+        [self.magazineViewController tapAction:gestureRecognizer];
+    }
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {

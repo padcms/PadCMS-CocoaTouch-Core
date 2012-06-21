@@ -38,7 +38,6 @@
 #import "JSON.h"
 #import "PCConfig.h"
 
-static NSString* kAppId = @"209011709219556";
 static NSString* PCFacebookDefaultDescription = @"Je lis ce magazine, et c'est merveilleux";
 static NSString* PCFacebookDefaultPictureURL = @"http://www.appleinsider.ru/wp-content/uploads/2012/03/1325776461_itunes_10_10.jpg";
 
@@ -110,7 +109,6 @@ static NSString* PCFacebookDefaultPictureURL = @"http://www.appleinsider.ru/wp-c
             pictureURLString = PCFacebookDefaultPictureURL;
         }
     }
-    NSLog(@"facebook message - %@", self.facebookMessage);
     if (range.length !=0)
     {
         pictureURLString = [stringHTML substringFromIndex:(range.length + range.location)];
@@ -135,7 +133,8 @@ static NSString* PCFacebookDefaultPictureURL = @"http://www.appleinsider.ru/wp-c
         NSString *facebookAppID = [PCConfig facebookApplicationId];
         if (!facebookAppID)
         {
-            facebookAppID = kAppId;
+            NSLog(@"Please, specify facebookID");
+            return;
         }
         self.facebook = [[Facebook alloc] initWithAppId:facebookAppID andDelegate:nil];
     }

@@ -35,7 +35,7 @@
 
 #import "PCVideoController.h"
 #import "Reachability.h"
-//#import "VersionManager.h"
+#import "PCConfig.h"
 #import "PCBrowserViewController.h"
 #import "PCDownloadApiClient.h"
 
@@ -93,10 +93,7 @@
 
 - (BOOL) isConnectionEstablished
 {
-	
-	AFNetworkReachabilityStatus remoteHostStatus = [PCDownloadApiClient sharedClient].networkReachabilityStatus;
-   // NetworkStatus remoteHostStatus = [[VersionManager sharedManager].reachability currentReachabilityStatus];
-    
+	AFNetworkReachabilityStatus remoteHostStatus = [PCDownloadApiClient sharedClient].networkReachabilityStatus;    
 	if(remoteHostStatus == AFNetworkReachabilityStatusNotReachable) 
 	{
 		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous devez être connecté à Internet pour partager ce contenu." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
@@ -116,6 +113,20 @@
     {
         return;
     }
+    
+    if ([[self.url absoluteString] hasPrefix:@"file://"])
+    {
+        NSString* videoPath = [self.url absoluteString];
+        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:videoPath];
+        if (!fileExists)
+        {
+            NSRange pathRange = [videoPath rangeOfString:@"/element"];
+            videoPath = [videoPath substringFromIndex:pathRange.location];
+            videoPath = [[[PCConfig serverURLString] stringByAppendingString:@"/resources/none"] stringByAppendingString:videoPath];
+            self.url = [NSURL URLWithString:videoPath];
+        }
+    }
+    
     [self startPlayingVideo];
 }
 
@@ -166,9 +177,7 @@
     {
         
         NSLog(@"Successfully instantiated the movie player.");
-        /* Scale the movie player to fit the aspect ratio */
-        //self.moviePlayer.scalingMode = MPMovieScalingModeAspectFit;
-        /* Let's start playing the video in full screen mode */
+
         [self.moviePlayer play];
         [self.moviePlayer setFullscreen:YES animated:YES];
         [self.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];

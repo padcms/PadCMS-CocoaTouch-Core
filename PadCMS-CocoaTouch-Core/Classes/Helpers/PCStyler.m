@@ -35,6 +35,7 @@
 
 #import "PCStyler.h"
 #import "PCConfig.h"
+#import "PCCustomPageControll.h"
 
 NSString * PCButtonImagesKey                    = @"PCButtonImages";
 NSString * PCButtonImageNormalKey               = @"PCButtonImageNormal";
@@ -192,8 +193,16 @@ NSString * PCButtonParentViewFrameKey           = @"PCButtonParentViewFrame";
                         NSDictionary* marginOption = [imageOption objectForKey:PCButtonMarginKey];
                         if ([aElement respondsToSelector:@selector(setFrame:)])
                         {
-                            CGFloat marginX = [[marginOption objectForKey:PCButtonMarginXKey] floatValue];
-                            CGFloat marginY = [[marginOption objectForKey:PCButtonMarginYKey] floatValue];
+                            CGFloat marginX = 0;
+                            CGFloat marginY = 0;
+                            if ([marginOption objectForKey:PCButtonMarginXKey])
+                            {
+                                marginX = [[marginOption objectForKey:PCButtonMarginXKey] floatValue];
+                            }
+                            if ([marginOption objectForKey:PCButtonMarginYKey])
+                            {
+                                marginY = [[marginOption objectForKey:PCButtonMarginYKey] floatValue];
+                            }
                             CGRect frame = [aElement frame];
                             frame = CGRectMake(frame.origin.x + marginX, frame.origin.y + marginY, frame.size.width, frame.size.height);
                             if ([imageOption objectForKey:PCButtonPositionKey])
@@ -204,7 +213,7 @@ NSString * PCButtonParentViewFrameKey           = @"PCButtonParentViewFrame";
                                     NSString *position = [imageOption objectForKey:PCButtonPositionKey];
                                     if ([position isEqualToString:PCButtonPositionTopRightCornerKey])
                                     {
-                                        frame = CGRectMake(parentFrame.size.width - (marginX + frame.size.width), frame.origin.y + marginY, frame.size.width, frame.size.height);
+                                        frame = CGRectMake(parentFrame.size.width - (marginX + frame.size.width), marginY, frame.size.width, frame.size.height);
                                     }
                                 }
                             }
@@ -235,8 +244,13 @@ NSString * PCButtonParentViewFrameKey           = @"PCButtonParentViewFrame";
         {
             CGFloat width = [[[elementStyle objectForKey:PCSizeKey] objectForKey:PCSizeWidthKey] floatValue];
             CGFloat height = [[[elementStyle objectForKey:PCSizeKey] objectForKey:PCSizeHeightKey] floatValue];
-
-            if ([aElement respondsToSelector:@selector(frame)])
+            
+            if ([aElement respondsToSelector:@selector(setDotSize:)])
+            {
+                [aElement setDotSize: CGSizeMake(width, height)];
+            }
+            
+            else if ([aElement respondsToSelector:@selector(frame)])
             {
                 CGRect frame = [aElement frame];
                 frame.size.width = width;

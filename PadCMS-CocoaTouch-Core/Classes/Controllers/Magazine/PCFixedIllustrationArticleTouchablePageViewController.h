@@ -40,9 +40,8 @@
  @brief Fixed Illustration Article Touchable Page View Controller 
  */
 
-@interface PCFixedIllustrationArticleTouchablePageViewController : PCFixedIllustrationArticleViewController <UIGestureRecognizerDelegate>
+@interface PCFixedIllustrationArticleTouchablePageViewController : PCFixedIllustrationArticleViewController 
 {
-    //UITapGestureRecognizer* tapGestureRecognizer; 
 }
 
 @end

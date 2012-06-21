@@ -62,16 +62,36 @@
     PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
     if(bodyElement)
         [self.bodyViewController.view setHidden:bodyElement.showTopLayer == NO];
-
+    
     [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
 }
+
 -(void)tapAction:(id)sender
 {
-    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
-    [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+    if (!self.bodyViewController.view.hidden && 
+        ((NSArray*)[super activeZonesAtPoint:[sender locationInView:[sender view]]]).count == 0)
+    {
+        self.bodyViewController.view.hidden = YES;
+    }
+    else
+    {
+        [super tapAction:sender];
+    }
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+-(BOOL) pdfActiveZoneAction:(PCPageActiveZone*)activeZone
+{
+    [super pdfActiveZoneAction:activeZone];
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
+    {
+        [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+        [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
 }
