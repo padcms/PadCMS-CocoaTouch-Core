@@ -2,7 +2,7 @@
 //  PCHorizontalPage.h
 //  Pad CMS
 //
-//  Created by Alexey Petrosyan on 5/7/12.
+//  Created by Alexey Igoshev on 5/7/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //

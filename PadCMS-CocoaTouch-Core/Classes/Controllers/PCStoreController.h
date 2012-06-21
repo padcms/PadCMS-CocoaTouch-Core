@@ -1,8 +1,8 @@
 //
-//  PCDownloadOperation.m
+//  StoreController.h
 //  Pad CMS
 //
-//  Created by Alexey Igoshev on 5/11/12.
+//  Created by Alexey Igoshev on 6/20/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,20 +33,23 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCDownloadOperation.h"
+#import <Foundation/Foundation.h>
+#import "PCKioskDataSourceProtocol.h"
+#import "PCKioskViewControllerDelegateProtocol.h"
+#import "PCSearchViewController.h"
 
-@implementation PCDownloadOperation
-@synthesize page, element, resource, isPrimary, isThumbnail, horizontalPageKey;
+@class PCApplication;
+@protocol PCStoreControllerDelegate;
+@interface PCStoreController : NSObject <PCKioskDataSourceProtocol,PCKioskViewControllerDelegateProtocol, PCSearchViewControllerDelegate>
 
--(void)dealloc
-{
-  page = nil;
-  element = nil;
-  horizontalPageKey = nil;
-  [resource release];
-  [super dealloc];
-   
-  
-}
+@property (nonatomic, readonly, retain) UIViewController<PCStoreControllerDelegate>* rootViewController;
+@property (nonatomic, readonly, retain) UINavigationController* navigationController;
+@property (nonatomic, readonly, retain) PCApplication* application;
+
+
+- (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController;
+- (void)launch;
+- (void)switchToKiosk;
+
 
 @end

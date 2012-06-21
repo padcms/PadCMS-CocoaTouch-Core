@@ -37,6 +37,7 @@
 #import "PCMagazineViewControllersFactory.h"
 #import "PCLandscapeViewController.h"
 #import "PCScrollView.h"
+#import "PCStoreController.h"
 
 @interface PCLanscapeSladeshowColumnViewController()
 
@@ -276,16 +277,16 @@
         {
             if (player)
                 [player pause];
-            if ([self.magazineViewController.mainViewController modalViewController]!=nil)
+            if ([self.magazineViewController.mainViewController.rootViewController modalViewController]!=nil)
             {
                 //[self.magazineViewController.mainViewController.modalViewController dismissModalViewControllerAnimated:YES];
-                if ([self.magazineViewController.mainViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
+                if ([self.magazineViewController.mainViewController.rootViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
                 {
-                    [self.magazineViewController.mainViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
+                    [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
                 } 
                 else
                 {
-                    [self.magazineViewController.mainViewController.modalViewController dismissModalViewControllerAnimated:YES];
+                    [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissModalViewControllerAnimated:YES];
                 }
             }
         }

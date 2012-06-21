@@ -644,8 +644,6 @@
 		607F43DB1588D84A0097D960 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43D71588D84A0097D960 /* FBLoginDialog.m */; };
 		607F43DE1588D8940097D960 /* FBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43DC1588D8940097D960 /* FBRequest.h */; };
 		607F43DF1588D8940097D960 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43DD1588D8940097D960 /* FBRequest.m */; };
-		607F43E21588D8DA0097D960 /* PCMainViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E01588D8DA0097D960 /* PCMainViewController.h */; };
-		607F43E31588D8DA0097D960 /* PCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43E11588D8DA0097D960 /* PCMainViewController.m */; };
 		607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
 		607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */; };
 		607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
@@ -702,10 +700,6 @@
 		607F44A61588E3820097D960 /* Reachability.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44A41588E3820097D960 /* Reachability.m */; };
 		607F44B71588E4880097D960 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F44B61588E4880097D960 /* libxml2.2.dylib */; };
 		607F44C21589E0AB0097D960 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F44C11589E0AB0097D960 /* SystemConfiguration.framework */; };
-		607F44D51589E6F50097D960 /* PadCMSCoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44D31589E6F50097D960 /* PadCMSCoder.h */; };
-		607F44D61589E6F50097D960 /* PadCMSCoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44D41589E6F50097D960 /* PadCMSCoder.m */; };
-		607F44D91589E7BD0097D960 /* VersionManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44D71589E7BD0097D960 /* VersionManager.h */; };
-		607F44DA1589E7BD0097D960 /* VersionManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44D81589E7BD0097D960 /* VersionManager.m */; };
 		607F44DD1589E82B0097D960 /* PCPadCMSAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44DB1589E82B0097D960 /* PCPadCMSAppDelegate.h */; };
 		607F44DE1589E82B0097D960 /* PCPadCMSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44DC1589E82B0097D960 /* PCPadCMSAppDelegate.m */; };
 		607F44E11589E8E00097D960 /* NKitWorks.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44DF1589E8E00097D960 /* NKitWorks.h */; };
@@ -728,11 +722,8 @@
 		607F45081589EA890097D960 /* PCTwitterNewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FEC1588D3DF0097D960 /* PCTwitterNewController.h */; };
 		607F450A1589EA890097D960 /* PCVideoController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FF11588D3DF0097D960 /* PCVideoController.h */; };
 		607F450B1589EA890097D960 /* PCRemouteNotificationCenter.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FF71588D3DF0097D960 /* PCRemouteNotificationCenter.h */; };
-		607F450C1589EA890097D960 /* PCMainViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43E01588D8DA0097D960 /* PCMainViewController.h */; };
 		607F450D1589EA890097D960 /* PCPadCMSAppDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44DB1589E82B0097D960 /* PCPadCMSAppDelegate.h */; };
 		607F450E1589EA890097D960 /* NKitWorks.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44DF1589E8E00097D960 /* NKitWorks.h */; };
-		607F450F1589EA890097D960 /* VersionManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44D71589E7BD0097D960 /* VersionManager.h */; };
-		607F45101589EA890097D960 /* PadCMSCoder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F44D31589E6F50097D960 /* PadCMSCoder.h */; };
 		607F45111589EA890097D960 /* InAppPurchases.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3F7D1588D0BC0097D960 /* InAppPurchases.h */; };
 		607F45121589EA890097D960 /* PCSQLLiteModelBuilder.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E731588CE5F0097D960 /* PCSQLLiteModelBuilder.h */; };
 		607F45131589EA890097D960 /* PCColumn.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E771588CE5F0097D960 /* PCColumn.h */; };
@@ -1078,6 +1069,10 @@
 		60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFA158F45EE00E3E98A /* topNav_b.png */; };
 		60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFB158F45EE00E3E98A /* topNav_m.png */; };
 		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
+		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
+		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
+		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
+		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
 		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
 		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
 		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
@@ -1095,6 +1090,8 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */,
+				AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
 				60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */,
@@ -1197,11 +1194,8 @@
 				607F45081589EA890097D960 /* PCTwitterNewController.h in CopyFiles */,
 				607F450A1589EA890097D960 /* PCVideoController.h in CopyFiles */,
 				607F450B1589EA890097D960 /* PCRemouteNotificationCenter.h in CopyFiles */,
-				607F450C1589EA890097D960 /* PCMainViewController.h in CopyFiles */,
 				607F450D1589EA890097D960 /* PCPadCMSAppDelegate.h in CopyFiles */,
 				607F450E1589EA890097D960 /* NKitWorks.h in CopyFiles */,
-				607F450F1589EA890097D960 /* VersionManager.h in CopyFiles */,
-				607F45101589EA890097D960 /* PadCMSCoder.h in CopyFiles */,
 				607F45111589EA890097D960 /* InAppPurchases.h in CopyFiles */,
 				607F45121589EA890097D960 /* PCSQLLiteModelBuilder.h in CopyFiles */,
 				607F45131589EA890097D960 /* PCColumn.h in CopyFiles */,
@@ -2098,8 +2092,6 @@
 		607F43D71588D84A0097D960 /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginDialog.m; sourceTree = "<group>"; };
 		607F43DC1588D8940097D960 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
 		607F43DD1588D8940097D960 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
-		607F43E01588D8DA0097D960 /* PCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCMainViewController.h; sourceTree = "<group>"; };
-		607F43E11588D8DA0097D960 /* PCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMainViewController.m; sourceTree = "<group>"; };
 		607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertPasswordPrompt.h; sourceTree = "<group>"; };
 		607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertPasswordPrompt.m; sourceTree = "<group>"; };
 		607F43EB1588E19D0097D960 /* PCCustomPageControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCustomPageControll.h; sourceTree = "<group>"; };
@@ -2156,10 +2148,6 @@
 		607F44A41588E3820097D960 /* Reachability.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Reachability.m; sourceTree = "<group>"; };
 		607F44B61588E4880097D960 /* libxml2.2.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libxml2.2.dylib; path = usr/lib/libxml2.2.dylib; sourceTree = SDKROOT; };
 		607F44C11589E0AB0097D960 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
-		607F44D31589E6F50097D960 /* PadCMSCoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PadCMSCoder.h; sourceTree = "<group>"; };
-		607F44D41589E6F50097D960 /* PadCMSCoder.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PadCMSCoder.m; sourceTree = "<group>"; };
-		607F44D71589E7BD0097D960 /* VersionManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = VersionManager.h; sourceTree = "<group>"; };
-		607F44D81589E7BD0097D960 /* VersionManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = VersionManager.m; sourceTree = "<group>"; };
 		607F44DB1589E82B0097D960 /* PCPadCMSAppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPadCMSAppDelegate.h; sourceTree = "<group>"; };
 		607F44DC1589E82B0097D960 /* PCPadCMSAppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPadCMSAppDelegate.m; sourceTree = "<group>"; };
 		607F44DF1589E8E00097D960 /* NKitWorks.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NKitWorks.h; sourceTree = "<group>"; };
@@ -2188,6 +2176,9 @@
 		60A5DCFA158F45EE00E3E98A /* topNav_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_b.png; sourceTree = "<group>"; };
 		60A5DCFB158F45EE00E3E98A /* topNav_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_m.png; sourceTree = "<group>"; };
 		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
+		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
+		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; };
+		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
 		ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
 		ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
 		ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
@@ -2520,10 +2511,6 @@
 			children = (
 				607F44DF1589E8E00097D960 /* NKitWorks.h */,
 				607F44E01589E8E00097D960 /* NKitWorks.m */,
-				607F44D71589E7BD0097D960 /* VersionManager.h */,
-				607F44D81589E7BD0097D960 /* VersionManager.m */,
-				607F44D31589E6F50097D960 /* PadCMSCoder.h */,
-				607F44D41589E6F50097D960 /* PadCMSCoder.m */,
 				607F3F7D1588D0BC0097D960 /* InAppPurchases.h */,
 				607F3F7E1588D0BC0097D960 /* InAppPurchases.m */,
 			);
@@ -2563,10 +2550,11 @@
 				607F3FDA1588D3DE0097D960 /* Other */,
 				607F3FF71588D3DF0097D960 /* PCRemouteNotificationCenter.h */,
 				607F3FF81588D3DF0097D960 /* PCRemouteNotificationCenter.m */,
-				607F43E01588D8DA0097D960 /* PCMainViewController.h */,
-				607F43E11588D8DA0097D960 /* PCMainViewController.m */,
+				AB32070D15927C5A0076361B /* PCStoreController.h */,
+				AB32070E15927C5A0076361B /* PCStoreController.m */,
 				607F44DB1589E82B0097D960 /* PCPadCMSAppDelegate.h */,
 				607F44DC1589E82B0097D960 /* PCPadCMSAppDelegate.m */,
+				AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */,
 			);
 			path = Controllers;
 			sourceTree = "<group>";
@@ -3359,7 +3347,6 @@
 			children = (
 				60891D991587971300894531 /* PadCMS-CocoaTouch-Core */,
 				60A5DCCF158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */,
-				60891D961587971300894531 /* Frameworks */,
 				60891D951587971300894531 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -3387,6 +3374,7 @@
 				60A5DCCB158B793F00E3E98A /* Other Frameworks */,
 			);
 			name = Frameworks;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		60891D991587971300894531 /* PadCMS-CocoaTouch-Core */ = {
@@ -3441,6 +3429,7 @@
 		60A5DCEE158F44D100E3E98A /* Magazine */ = {
 			isa = PBXGroup;
 			children = (
+				60891D961587971300894531 /* Frameworks */,
 				60A5DCFA158F45EE00E3E98A /* topNav_b.png */,
 				60A5DCFB158F45EE00E3E98A /* topNav_m.png */,
 				60A5DCFC158F45EE00E3E98A /* topNav_t.png */,
@@ -3475,6 +3464,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */,
+				AB32070F15927C5A0076361B /* PCStoreController.h in Headers */,
 				607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */,
 				607F3E371588C3580097D960 /* PCKioskSubview.h in Headers */,
 				607F3E391588C3580097D960 /* PCKioskBaseControlElement.h in Headers */,
@@ -3806,7 +3796,6 @@
 				607F43D81588D84A0097D960 /* FBDialog.h in Headers */,
 				607F43DA1588D84A0097D960 /* FBLoginDialog.h in Headers */,
 				607F43DE1588D8940097D960 /* FBRequest.h in Headers */,
-				607F43E21588D8DA0097D960 /* PCMainViewController.h in Headers */,
 				607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */,
 				607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */,
 				607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */,
@@ -3835,8 +3824,6 @@
 				607F44921588E3130097D960 /* SBJsonParser.h in Headers */,
 				607F44941588E3130097D960 /* SBJsonWriter.h in Headers */,
 				607F44A51588E3820097D960 /* Reachability.h in Headers */,
-				607F44D51589E6F50097D960 /* PadCMSCoder.h in Headers */,
-				607F44D91589E7BD0097D960 /* VersionManager.h in Headers */,
 				607F44DD1589E82B0097D960 /* PCPadCMSAppDelegate.h in Headers */,
 				607F44E11589E8E00097D960 /* NKitWorks.h in Headers */,
 				ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */,
@@ -4227,13 +4214,12 @@
 				607F43511588D4860097D960 /* NSDictionary_JSONExtensions.m in Sources */,
 				607F43531588D4860097D960 /* CJSONDeserializer.m in Sources */,
 				607F43551588D4860097D960 /* CJSONScanner.m in Sources */,
+				607F43DB1588D84A0097D960 /* FBLoginDialog.m in Sources */,
 				607F43571588D4860097D960 /* CJSONSerializer.m in Sources */,
 				607F435D1588D5AD0097D960 /* MagThreadQueue.m in Sources */,
 				607F43D31588D81F0097D960 /* Facebook.m in Sources */,
 				607F43D91588D84A0097D960 /* FBDialog.m in Sources */,
-				607F43DB1588D84A0097D960 /* FBLoginDialog.m in Sources */,
 				607F43DF1588D8940097D960 /* FBRequest.m in Sources */,
-				607F43E31588D8DA0097D960 /* PCMainViewController.m in Sources */,
 				607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */,
 				607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */,
 				607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */,
@@ -4260,13 +4246,12 @@
 				607F44931588E3130097D960 /* SBJsonParser.m in Sources */,
 				607F44951588E3130097D960 /* SBJsonWriter.m in Sources */,
 				607F44A61588E3820097D960 /* Reachability.m in Sources */,
-				607F44D61589E6F50097D960 /* PadCMSCoder.m in Sources */,
-				607F44DA1589E7BD0097D960 /* VersionManager.m in Sources */,
 				607F44DE1589E82B0097D960 /* PCPadCMSAppDelegate.m in Sources */,
 				607F44E21589E8E00097D960 /* NKitWorks.m in Sources */,
 				ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */,
 				ABF4D2EC1590516400DAAD0F /* PCDownloadManager.m in Sources */,
 				ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */,
+				AB32071015927C5A0076361B /* PCStoreController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

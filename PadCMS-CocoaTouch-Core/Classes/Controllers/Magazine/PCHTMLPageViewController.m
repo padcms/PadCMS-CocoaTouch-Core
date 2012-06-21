@@ -36,6 +36,7 @@
 #import "PCHTMLPageViewController.h"
 #import "PCVideoController.h"
 #import "PCLandscapeViewController.h"
+#import "PCStoreController.h"
 
 @interface PCHTMLPageViewController ()
 - (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation;
@@ -164,13 +165,13 @@
 {
     if (webViewIsShowed)
     {
-        if ([self.magazineViewController.mainViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
+        if ([self.magazineViewController.mainViewController.rootViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
         {
-            [self.magazineViewController.mainViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
+            [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
         } 
         else
         {
-            [self.magazineViewController.mainViewController.modalViewController dismissModalViewControllerAnimated:YES];
+            [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissModalViewControllerAnimated:YES];
         }
         webViewIsShowed = NO;
     }

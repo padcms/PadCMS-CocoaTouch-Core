@@ -34,7 +34,7 @@
 //
 
 #import "PCHelpViewController.h"
-#import "PCMainViewController.h"
+//#import "PCMainViewController.h"
 #import "PCStyler.h"
 #import "PCDefaultStyleElements.h"
 #import "PCIssue.h"

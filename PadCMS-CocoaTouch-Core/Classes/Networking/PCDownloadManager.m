@@ -2,7 +2,7 @@
 //  PCDownloadManager.m
 //  Pad CMS
 //
-//  Created by Alexey Petrosyan on 4/30/12.
+//  Created by Alexey Igoshev on 4/30/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //

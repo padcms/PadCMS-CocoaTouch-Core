@@ -41,7 +41,7 @@
 #import "PCGalleryViewController.h"
 #import "PCHelpViewController.h"
 #import "PCLandscapeViewController.h"
-#import "PCMainViewController.h"
+//#import "PCMainViewController.h"
 #import "PCPageViewController.h"
 #import "PCSearchViewController.h"
 #import "PCTwitterNewController.h"
@@ -58,7 +58,8 @@
 @class PCPageViewController;
 @class PCColumnViewController;
 @class PCFacebookViewController;
-@class PCMainViewController;
+//@class PCMainViewController;
+@class PCStoreController;
 @class PCScrollView;
 
 @interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate>
@@ -92,7 +93,7 @@
 
 @property (nonatomic, retain) PCRevision* revision;///< Mgazine data model
 @property (nonatomic, assign) NSInteger initialPageIndex;
-@property (nonatomic, assign) PCMainViewController *mainViewController;
+@property (nonatomic, assign) PCStoreController *mainViewController;
 @property (nonatomic, retain) IBOutlet PCScrollView* mainScrollView;
 @property (nonatomic, retain) IBOutlet PCLandscapeViewController* horizontalPagesViewController;
 @property (nonatomic, retain) IBOutlet UIView* topSummaryView;

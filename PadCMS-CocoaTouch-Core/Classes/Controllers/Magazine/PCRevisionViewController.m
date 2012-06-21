@@ -49,6 +49,7 @@
 #import "PCSearchProvider.h"
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
+#import "PCStoreController.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20

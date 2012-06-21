@@ -41,7 +41,7 @@
 #import "InAppPurchases.h"
 #import "PCConfig.h"
 
-NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
+NSString* PCNetworkServiceJSONRPCPath_ = @"/api/v1/jsonrpc.php";
 
 @implementation PadCMSCoder
 @synthesize validUDID;//,filter;
@@ -65,7 +65,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	
 	NSString *devId = [[UIDevice currentDevice] uniqueIdentifier];
 	
-	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
+	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath_];
 	
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:30.0];
 	
@@ -178,7 +178,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	
 	NSString *devId = [[UIDevice currentDevice]uniqueIdentifier];
 	
-	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
+	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath_];
 	
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
 	

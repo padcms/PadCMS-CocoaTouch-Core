@@ -913,11 +913,11 @@
 {
     [self.kioskViewController switchToNextSubview];
 }
-
+/*
 - (NSInteger) currentSubviewTag
 {
     return [self.kioskViewController currentSubviewTag];
-}
+}*/
 
 - (void) searchWithKeyphrase:(NSString*) keyphrase
 {
