@@ -46,7 +46,6 @@
 #import "PCGoogleAnalytics.h"
 #import "PCConfig.h"
 #import "PCResourceCache.h"
-#import "ImageCache.h"
 
 #define PCRevisionExportPath @"export/revision/id/"
 #define PCRevisionDirectoryPrefix @"revision"
@@ -293,7 +292,6 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
     [[PCResourceCache sharedInstance] removeAllObjects];
-    [[ImageCache sharedImageCache] removeAllImages];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *revisionContent = [fileManager contentsOfDirectoryAtPath:self.contentDirectory error:nil];
