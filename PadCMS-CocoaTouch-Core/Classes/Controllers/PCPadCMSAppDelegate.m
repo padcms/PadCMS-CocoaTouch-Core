@@ -35,7 +35,6 @@
 
 #import "PCPadCMSAppDelegate.h"
 #import "PCMainViewController.h"
-#import "ImageCache.h"
 #import "PCRemouteNotificationCenter.h"
 #import "InAppPurchases.h"
 #import "PCGoogleAnalytics.h"
@@ -94,7 +93,6 @@
 		return;
     }
     [[PCResourceCache sharedInstance] removeAllObjects];
-	[[ImageCache sharedImageCache] removeAllImages];
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 
 	[self.viewController.revisionViewController clearMemory];

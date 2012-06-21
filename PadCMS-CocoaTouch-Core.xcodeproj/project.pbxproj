@@ -104,8 +104,6 @@
 		607F3EF01588CF490097D960 /* TBXML.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EEE1588CF490097D960 /* TBXML.m */; };
 		607F3F101588CF820097D960 /* Helper.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3EF21588CF820097D960 /* Helper.h */; };
 		607F3F111588CF820097D960 /* Helper.mm in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EF31588CF820097D960 /* Helper.mm */; };
-		607F3F121588CF820097D960 /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3EF41588CF820097D960 /* ImageCache.h */; };
-		607F3F131588CF820097D960 /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EF51588CF820097D960 /* ImageCache.m */; };
 		607F3F141588CF820097D960 /* PCConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3EF61588CF820097D960 /* PCConfig.h */; };
 		607F3F151588CF820097D960 /* PCConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EF71588CF820097D960 /* PCConfig.m */; };
 		607F3F161588CF820097D960 /* PCConsts.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3EF81588CF820097D960 /* PCConsts.h */; };
@@ -632,8 +630,6 @@
 		607F43561588D4860097D960 /* CJSONSerializer.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F41E01588D4860097D960 /* CJSONSerializer.h */; };
 		607F43571588D4860097D960 /* CJSONSerializer.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F41E11588D4860097D960 /* CJSONSerializer.m */; };
 		607F43581588D4860097D960 /* JSONRepresentation.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F41E21588D4860097D960 /* JSONRepresentation.h */; };
-		607F435C1588D5AD0097D960 /* MagThreadQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F435A1588D5AD0097D960 /* MagThreadQueue.h */; };
-		607F435D1588D5AD0097D960 /* MagThreadQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F435B1588D5AD0097D960 /* MagThreadQueue.m */; };
 		607F43611588D78D0097D960 /* GANTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F435F1588D78D0097D960 /* GANTracker.h */; };
 		607F43621588D78D0097D960 /* libGoogleAnalytics.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F43601588D78D0097D960 /* libGoogleAnalytics.a */; };
 		607F43D21588D81F0097D960 /* Facebook.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43D01588D81F0097D960 /* Facebook.h */; };
@@ -646,8 +642,6 @@
 		607F43DF1588D8940097D960 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43DD1588D8940097D960 /* FBRequest.m */; };
 		607F43E21588D8DA0097D960 /* PCMainViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E01588D8DA0097D960 /* PCMainViewController.h */; };
 		607F43E31588D8DA0097D960 /* PCMainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43E11588D8DA0097D960 /* PCMainViewController.m */; };
-		607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
-		607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */; };
 		607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EC1588E19D0097D960 /* PCCustomPageControll.m */; };
 		607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
@@ -714,7 +708,6 @@
 		607F44E41589EA010097D960 /* PCPage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E811588CE5F0097D960 /* PCPage.h */; };
 		607F44E51589EA180097D960 /* PCPageTemplate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E9E1588CE5F0097D960 /* PCPageTemplate.h */; };
 		607F44E61589EA390097D960 /* PCPageElement.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E861588CE5F0097D960 /* PCPageElement.h */; };
-		607F44FD1589EA890097D960 /* AlertPasswordPrompt.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
 		607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
 		607F45001589EA890097D960 /* PCResourceView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EF1588E19D0097D960 /* PCResourceView.h */; };
@@ -1006,7 +999,6 @@
 		607F46331589EAF70097D960 /* PCResourceLoadRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD61588D3DE0097D960 /* PCResourceLoadRequest.h */; };
 		607F46341589EAF70097D960 /* PCResourceQueue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD81588D3DE0097D960 /* PCResourceQueue.h */; };
 		607F46351589EAF70097D960 /* Helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF21588CF820097D960 /* Helper.h */; };
-		607F46361589EAF70097D960 /* ImageCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF41588CF820097D960 /* ImageCache.h */; };
 		607F46371589EAF70097D960 /* PCConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF61588CF820097D960 /* PCConfig.h */; };
 		607F46381589EAF70097D960 /* PCConsts.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF81588CF820097D960 /* PCConsts.h */; };
 		607F46391589EAF70097D960 /* PCDefaultStyleElements.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF91588CF820097D960 /* PCDefaultStyleElements.h */; };
@@ -1130,7 +1122,6 @@
 				607F46331589EAF70097D960 /* PCResourceLoadRequest.h in CopyFiles */,
 				607F46341589EAF70097D960 /* PCResourceQueue.h in CopyFiles */,
 				607F46351589EAF70097D960 /* Helper.h in CopyFiles */,
-				607F46361589EAF70097D960 /* ImageCache.h in CopyFiles */,
 				607F46371589EAF70097D960 /* PCConfig.h in CopyFiles */,
 				607F46381589EAF70097D960 /* PCConsts.h in CopyFiles */,
 				607F46391589EAF70097D960 /* PCDefaultStyleElements.h in CopyFiles */,
@@ -1183,7 +1174,6 @@
 				607F46151589EAD90097D960 /* AFNetworking.h in CopyFiles */,
 				607F46141589EABB0097D960 /* PCMacros.h in CopyFiles */,
 				607F46131589EAA90097D960 /* PCSQLiteKeys.h in CopyFiles */,
-				607F44FD1589EA890097D960 /* AlertPasswordPrompt.h in CopyFiles */,
 				607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */,
 				607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */,
 				607F45001589EA890097D960 /* PCResourceView.h in CopyFiles */,
@@ -1550,8 +1540,6 @@
 		607F3EEE1588CF490097D960 /* TBXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TBXML.m; sourceTree = "<group>"; };
 		607F3EF21588CF820097D960 /* Helper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Helper.h; sourceTree = "<group>"; };
 		607F3EF31588CF820097D960 /* Helper.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = Helper.mm; sourceTree = "<group>"; };
-		607F3EF41588CF820097D960 /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
-		607F3EF51588CF820097D960 /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
 		607F3EF61588CF820097D960 /* PCConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCConfig.h; sourceTree = "<group>"; };
 		607F3EF71588CF820097D960 /* PCConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCConfig.m; sourceTree = "<group>"; };
 		607F3EF81588CF820097D960 /* PCConsts.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCConsts.h; sourceTree = "<group>"; };
@@ -2086,8 +2074,6 @@
 		607F41E01588D4860097D960 /* CJSONSerializer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CJSONSerializer.h; sourceTree = "<group>"; };
 		607F41E11588D4860097D960 /* CJSONSerializer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CJSONSerializer.m; sourceTree = "<group>"; };
 		607F41E21588D4860097D960 /* JSONRepresentation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JSONRepresentation.h; sourceTree = "<group>"; };
-		607F435A1588D5AD0097D960 /* MagThreadQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MagThreadQueue.h; sourceTree = "<group>"; };
-		607F435B1588D5AD0097D960 /* MagThreadQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MagThreadQueue.m; sourceTree = "<group>"; };
 		607F435F1588D78D0097D960 /* GANTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GANTracker.h; sourceTree = "<group>"; };
 		607F43601588D78D0097D960 /* libGoogleAnalytics.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libGoogleAnalytics.a; sourceTree = "<group>"; };
 		607F43D01588D81F0097D960 /* Facebook.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Facebook.h; sourceTree = "<group>"; };
@@ -2100,8 +2086,6 @@
 		607F43DD1588D8940097D960 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
 		607F43E01588D8DA0097D960 /* PCMainViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCMainViewController.h; sourceTree = "<group>"; };
 		607F43E11588D8DA0097D960 /* PCMainViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMainViewController.m; sourceTree = "<group>"; };
-		607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertPasswordPrompt.h; sourceTree = "<group>"; };
-		607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertPasswordPrompt.m; sourceTree = "<group>"; };
 		607F43EB1588E19D0097D960 /* PCCustomPageControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCustomPageControll.h; sourceTree = "<group>"; };
 		607F43EC1588E19D0097D960 /* PCCustomPageControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCustomPageControll.m; sourceTree = "<group>"; };
 		607F43ED1588E19D0097D960 /* PCFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCFlashButton.h; sourceTree = "<group>"; };
@@ -2228,7 +2212,6 @@
 			children = (
 				ABF4D2E21590516400DAAD0F /* Networking */,
 				607F43E81588E19A0097D960 /* View */,
-				607F43591588D5AC0097D960 /* Other */,
 				607F3F991588D3DE0097D960 /* Controllers */,
 				607F3F7C1588D0BC0097D960 /* Versioning */,
 				607F3EF11588CF820097D960 /* Helpers */,
@@ -2418,8 +2401,6 @@
 			children = (
 				607F3EF21588CF820097D960 /* Helper.h */,
 				607F3EF31588CF820097D960 /* Helper.mm */,
-				607F3EF41588CF820097D960 /* ImageCache.h */,
-				607F3EF51588CF820097D960 /* ImageCache.m */,
 				607F3EF61588CF820097D960 /* PCConfig.h */,
 				607F3EF71588CF820097D960 /* PCConfig.m */,
 				607F3EF81588CF820097D960 /* PCConsts.h */,
@@ -3232,15 +3213,6 @@
 			path = JSON;
 			sourceTree = "<group>";
 		};
-		607F43591588D5AC0097D960 /* Other */ = {
-			isa = PBXGroup;
-			children = (
-				607F435A1588D5AD0097D960 /* MagThreadQueue.h */,
-				607F435B1588D5AD0097D960 /* MagThreadQueue.m */,
-			);
-			path = Other;
-			sourceTree = "<group>";
-		};
 		607F435E1588D78D0097D960 /* Google Analytics */ = {
 			isa = PBXGroup;
 			children = (
@@ -3268,8 +3240,6 @@
 		607F43E81588E19A0097D960 /* View */ = {
 			isa = PBXGroup;
 			children = (
-				607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */,
-				607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */,
 				607F43EB1588E19D0097D960 /* PCCustomPageControll.h */,
 				607F43EC1588E19D0097D960 /* PCCustomPageControll.m */,
 				607F43ED1588E19D0097D960 /* PCFlashButton.h */,
@@ -3522,7 +3492,6 @@
 				607F3EE81588CE5F0097D960 /* PCTocItem.h in Headers */,
 				607F3EEF1588CF490097D960 /* TBXML.h in Headers */,
 				607F3F101588CF820097D960 /* Helper.h in Headers */,
-				607F3F121588CF820097D960 /* ImageCache.h in Headers */,
 				607F3F141588CF820097D960 /* PCConfig.h in Headers */,
 				607F3F161588CF820097D960 /* PCConsts.h in Headers */,
 				607F3F171588CF820097D960 /* PCDefaultStyleElements.h in Headers */,
@@ -3800,14 +3769,12 @@
 				607F43541588D4860097D960 /* CJSONScanner.h in Headers */,
 				607F43561588D4860097D960 /* CJSONSerializer.h in Headers */,
 				607F43581588D4860097D960 /* JSONRepresentation.h in Headers */,
-				607F435C1588D5AD0097D960 /* MagThreadQueue.h in Headers */,
 				607F43611588D78D0097D960 /* GANTracker.h in Headers */,
 				607F43D21588D81F0097D960 /* Facebook.h in Headers */,
 				607F43D81588D84A0097D960 /* FBDialog.h in Headers */,
 				607F43DA1588D84A0097D960 /* FBLoginDialog.h in Headers */,
 				607F43DE1588D8940097D960 /* FBRequest.h in Headers */,
 				607F43E21588D8DA0097D960 /* PCMainViewController.h in Headers */,
-				607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */,
 				607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */,
 				607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */,
 				607F43F71588E19D0097D960 /* PCResourceView.h in Headers */,
@@ -3978,7 +3945,6 @@
 				607F3EE91588CE5F0097D960 /* PCTocItem.m in Sources */,
 				607F3EF01588CF490097D960 /* TBXML.m in Sources */,
 				607F3F111588CF820097D960 /* Helper.mm in Sources */,
-				607F3F131588CF820097D960 /* ImageCache.m in Sources */,
 				607F3F151588CF820097D960 /* PCConfig.m in Sources */,
 				607F3F181588CF820097D960 /* PCDefaultStyleElements.m in Sources */,
 				607F3F1A1588CF820097D960 /* PCGoogleAnalytics.m in Sources */,
@@ -4228,13 +4194,11 @@
 				607F43531588D4860097D960 /* CJSONDeserializer.m in Sources */,
 				607F43551588D4860097D960 /* CJSONScanner.m in Sources */,
 				607F43571588D4860097D960 /* CJSONSerializer.m in Sources */,
-				607F435D1588D5AD0097D960 /* MagThreadQueue.m in Sources */,
 				607F43D31588D81F0097D960 /* Facebook.m in Sources */,
 				607F43D91588D84A0097D960 /* FBDialog.m in Sources */,
 				607F43DB1588D84A0097D960 /* FBLoginDialog.m in Sources */,
 				607F43DF1588D8940097D960 /* FBRequest.m in Sources */,
 				607F43E31588D8DA0097D960 /* PCMainViewController.m in Sources */,
-				607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */,
 				607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */,
 				607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */,
 				607F43F81588E19D0097D960 /* PCResourceView.m in Sources */,
