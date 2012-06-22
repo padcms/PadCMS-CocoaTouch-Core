@@ -41,7 +41,6 @@
 #import "PCScrollingPageViewController.h"
 #import "PCSlideshowViewController.h"
 #import "PCSliderBasedMiniArticleViewController.h"
-#import "PCPageWithOverlayViewController.h"
 #import "PCHTMLPageViewController.h"
 #import "PCInteractiveBulletWithFlash.h"
 #import "PCGallaryWithFlashBulletsViewController.h"
@@ -91,7 +90,6 @@
     [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCBasicArticlePageTemplate]];
     [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSimplePageTemplate]];
     [self registerPageControllerClass:[PCCoverPageViewControllerViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCCoverPageTemplate]];
-    [self registerPageControllerClass:[PCPageWithOverlayViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCArticleWithOverlayPageTemplate]];
     [self registerPageControllerClass:[PCHTMLPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHTMLPageTemplate]];
     [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCDragAndDropPageTemplate]];
     [self registerPageControllerClass:[PCInteractiveBulletWithFlash class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCFlashBulletInteractivePageTemplate]];

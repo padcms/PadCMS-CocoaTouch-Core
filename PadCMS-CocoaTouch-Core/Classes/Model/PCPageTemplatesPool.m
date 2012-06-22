@@ -120,14 +120,6 @@
                                 ]];
     
 
-    [self registerPageTemplate:[PCPageTemplate templateWithIdentifier:PCArticleWithOverlayPageTemplate 
-                                                                title:@"Article with overlay" 
-                                                          description:@"" 
-                                                           connectors:PCTemplateAllConnectors 
-                                                        engineVersion:1
-                                ]];
-    
-
     [self registerPageTemplate:[PCPageTemplate templateWithIdentifier:PCFixedIllustrationArticleTouchablePageTemplate 
                                                                 title:@"Touchable article with fixed illustration" 
                                                           description:@"" 

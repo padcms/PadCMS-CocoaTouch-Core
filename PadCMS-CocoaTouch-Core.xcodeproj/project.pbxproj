@@ -212,8 +212,6 @@
 		607F40181588D3DF0097D960 /* PCMagazineViewControllersFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FBA1588D3DE0097D960 /* PCMagazineViewControllersFactory.m */; };
 		607F40191588D3DF0097D960 /* PCPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FBB1588D3DE0097D960 /* PCPageViewController.h */; };
 		607F401A1588D3DF0097D960 /* PCPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FBC1588D3DE0097D960 /* PCPageViewController.m */; };
-		607F401B1588D3DF0097D960 /* PCPageWithOverlayViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FBD1588D3DE0097D960 /* PCPageWithOverlayViewController.h */; };
-		607F401C1588D3DF0097D960 /* PCPageWithOverlayViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FBE1588D3DE0097D960 /* PCPageWithOverlayViewController.m */; };
 		607F401D1588D3DF0097D960 /* PCRevisionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FBF1588D3DE0097D960 /* PCRevisionViewController.h */; };
 		607F401E1588D3DF0097D960 /* PCRevisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FC01588D3DE0097D960 /* PCRevisionViewController.m */; };
 		607F401F1588D3DF0097D960 /* PCScrollingPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FC11588D3DE0097D960 /* PCScrollingPageViewController.h */; };
@@ -986,7 +984,6 @@
 		607F46241589EAF70097D960 /* PCLanscapeSladeshowColumnViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FB71588D3DE0097D960 /* PCLanscapeSladeshowColumnViewController.h */; };
 		607F46251589EAF70097D960 /* PCMagazineViewControllersFactory.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FB91588D3DE0097D960 /* PCMagazineViewControllersFactory.h */; };
 		607F46261589EAF70097D960 /* PCPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FBB1588D3DE0097D960 /* PCPageViewController.h */; };
-		607F46271589EAF70097D960 /* PCPageWithOverlayViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FBD1588D3DE0097D960 /* PCPageWithOverlayViewController.h */; };
 		607F46281589EAF70097D960 /* PCRevisionViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FBF1588D3DE0097D960 /* PCRevisionViewController.h */; };
 		607F46291589EAF70097D960 /* PCScrollingPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FC11588D3DE0097D960 /* PCScrollingPageViewController.h */; };
 		607F462A1589EAF70097D960 /* PCScrollView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FC31588D3DE0097D960 /* PCScrollView.h */; };
@@ -1109,7 +1106,6 @@
 				607F46241589EAF70097D960 /* PCLanscapeSladeshowColumnViewController.h in CopyFiles */,
 				607F46251589EAF70097D960 /* PCMagazineViewControllersFactory.h in CopyFiles */,
 				607F46261589EAF70097D960 /* PCPageViewController.h in CopyFiles */,
-				607F46271589EAF70097D960 /* PCPageWithOverlayViewController.h in CopyFiles */,
 				607F46281589EAF70097D960 /* PCRevisionViewController.h in CopyFiles */,
 				607F46291589EAF70097D960 /* PCScrollingPageViewController.h in CopyFiles */,
 				607F462A1589EAF70097D960 /* PCScrollView.h in CopyFiles */,
@@ -1648,8 +1644,6 @@
 		607F3FBA1588D3DE0097D960 /* PCMagazineViewControllersFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCMagazineViewControllersFactory.m; sourceTree = "<group>"; };
 		607F3FBB1588D3DE0097D960 /* PCPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPageViewController.h; sourceTree = "<group>"; };
 		607F3FBC1588D3DE0097D960 /* PCPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPageViewController.m; sourceTree = "<group>"; };
-		607F3FBD1588D3DE0097D960 /* PCPageWithOverlayViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPageWithOverlayViewController.h; sourceTree = "<group>"; };
-		607F3FBE1588D3DE0097D960 /* PCPageWithOverlayViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPageWithOverlayViewController.m; sourceTree = "<group>"; };
 		607F3FBF1588D3DE0097D960 /* PCRevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCRevisionViewController.h; sourceTree = "<group>"; };
 		607F3FC01588D3DE0097D960 /* PCRevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCRevisionViewController.m; sourceTree = "<group>"; };
 		607F3FC11588D3DE0097D960 /* PCScrollingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCScrollingPageViewController.h; sourceTree = "<group>"; };
@@ -2587,8 +2581,6 @@
 				607F3FBA1588D3DE0097D960 /* PCMagazineViewControllersFactory.m */,
 				607F3FBB1588D3DE0097D960 /* PCPageViewController.h */,
 				607F3FBC1588D3DE0097D960 /* PCPageViewController.m */,
-				607F3FBD1588D3DE0097D960 /* PCPageWithOverlayViewController.h */,
-				607F3FBE1588D3DE0097D960 /* PCPageWithOverlayViewController.m */,
 				607F3FBF1588D3DE0097D960 /* PCRevisionViewController.h */,
 				607F3FC01588D3DE0097D960 /* PCRevisionViewController.m */,
 				607F3FC11588D3DE0097D960 /* PCScrollingPageViewController.h */,
@@ -3548,7 +3540,6 @@
 				607F40151588D3DF0097D960 /* PCLanscapeSladeshowColumnViewController.h in Headers */,
 				607F40171588D3DF0097D960 /* PCMagazineViewControllersFactory.h in Headers */,
 				607F40191588D3DF0097D960 /* PCPageViewController.h in Headers */,
-				607F401B1588D3DF0097D960 /* PCPageWithOverlayViewController.h in Headers */,
 				607F401D1588D3DF0097D960 /* PCRevisionViewController.h in Headers */,
 				607F401F1588D3DF0097D960 /* PCScrollingPageViewController.h in Headers */,
 				607F40211588D3DF0097D960 /* PCScrollView.h in Headers */,
@@ -3997,7 +3988,6 @@
 				607F40161588D3DF0097D960 /* PCLanscapeSladeshowColumnViewController.m in Sources */,
 				607F40181588D3DF0097D960 /* PCMagazineViewControllersFactory.m in Sources */,
 				607F401A1588D3DF0097D960 /* PCPageViewController.m in Sources */,
-				607F401C1588D3DF0097D960 /* PCPageWithOverlayViewController.m in Sources */,
 				607F401E1588D3DF0097D960 /* PCRevisionViewController.m in Sources */,
 				607F40201588D3DF0097D960 /* PCScrollingPageViewController.m in Sources */,
 				607F40221588D3DF0097D960 /* PCScrollView.m in Sources */,

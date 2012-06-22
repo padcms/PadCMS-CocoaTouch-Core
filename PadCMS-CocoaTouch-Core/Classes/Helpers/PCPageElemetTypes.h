@@ -44,7 +44,6 @@ PADCMS_EXTERN NSString* PCPageElementTypeAdvert;
 PADCMS_EXTERN NSString* PCPageElementTypeScrollingPane;
 PADCMS_EXTERN NSString* PCPageElementTypeMiniArticle;
 PADCMS_EXTERN NSString* PCPageElementTypeSlide;
-PADCMS_EXTERN NSString* PCPageElementTypeOverlay;
 PADCMS_EXTERN NSString* PCPageElementTypeSound;
 PADCMS_EXTERN NSString* PCPageElementTypeHtml;
 PADCMS_EXTERN NSString* PCPageElementTypeHtml5;
