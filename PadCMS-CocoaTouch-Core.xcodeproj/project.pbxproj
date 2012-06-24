@@ -638,8 +638,6 @@
 		607F43DB1588D84A0097D960 /* FBLoginDialog.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43D71588D84A0097D960 /* FBLoginDialog.m */; };
 		607F43DE1588D8940097D960 /* FBRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43DC1588D8940097D960 /* FBRequest.h */; };
 		607F43DF1588D8940097D960 /* FBRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43DD1588D8940097D960 /* FBRequest.m */; };
-		607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */; };
-		607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */; };
 		607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EC1588E19D0097D960 /* PCCustomPageControll.m */; };
 		607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
@@ -2074,8 +2072,6 @@
 		607F43D71588D84A0097D960 /* FBLoginDialog.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBLoginDialog.m; sourceTree = "<group>"; };
 		607F43DC1588D8940097D960 /* FBRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = FBRequest.h; sourceTree = "<group>"; };
 		607F43DD1588D8940097D960 /* FBRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = FBRequest.m; sourceTree = "<group>"; };
-		607F43E91588E19D0097D960 /* AlertPasswordPrompt.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AlertPasswordPrompt.h; sourceTree = "<group>"; };
-		607F43EA1588E19D0097D960 /* AlertPasswordPrompt.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AlertPasswordPrompt.m; sourceTree = "<group>"; };
 		607F43EB1588E19D0097D960 /* PCCustomPageControll.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCustomPageControll.h; sourceTree = "<group>"; };
 		607F43EC1588E19D0097D960 /* PCCustomPageControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCustomPageControll.m; sourceTree = "<group>"; };
 		607F43ED1588E19D0097D960 /* PCFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCFlashButton.h; sourceTree = "<group>"; };
@@ -3313,7 +3309,6 @@
 			children = (
 				60891D991587971300894531 /* PadCMS-CocoaTouch-Core */,
 				60A5DCCF158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */,
-				60891D951587971300894531 /* Products */,
 			);
 			sourceTree = "<group>";
 		};
@@ -3324,6 +3319,7 @@
 				60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */,
 			);
 			name = Products;
+			path = ../../..;
 			sourceTree = "<group>";
 		};
 		60891D961587971300894531 /* Frameworks */ = {
@@ -3404,6 +3400,7 @@
 				60A5DCF1158F44D100E3E98A /* button_partager.png */,
 				60A5DCF2158F44D100E3E98A /* button_summary.png */,
 				60A5DCF3158F44D100E3E98A /* panel_button.png */,
+				60891D951587971300894531 /* Products */,
 			);
 			name = Magazine;
 			path = "PadCMS-CocoaTouch-Core/Resource/Magazine";
@@ -3759,7 +3756,6 @@
 				607F43D81588D84A0097D960 /* FBDialog.h in Headers */,
 				607F43DA1588D84A0097D960 /* FBLoginDialog.h in Headers */,
 				607F43DE1588D8940097D960 /* FBRequest.h in Headers */,
-				607F43F11588E19D0097D960 /* AlertPasswordPrompt.h in Headers */,
 				607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */,
 				607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */,
 				607F43F71588E19D0097D960 /* PCResourceView.h in Headers */,
@@ -4180,7 +4176,6 @@
 				607F43D31588D81F0097D960 /* Facebook.m in Sources */,
 				607F43D91588D84A0097D960 /* FBDialog.m in Sources */,
 				607F43DF1588D8940097D960 /* FBRequest.m in Sources */,
-				607F43F21588E19D0097D960 /* AlertPasswordPrompt.m in Sources */,
 				607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */,
 				607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */,
 				607F43F81588E19D0097D960 /* PCResourceView.m in Sources */,

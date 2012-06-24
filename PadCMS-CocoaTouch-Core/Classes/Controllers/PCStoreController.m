@@ -46,7 +46,6 @@
 #import "PCIssue.h"
 #import "PCDownloadManager.h"
 #import "PCResourceCache.h"
-#import "ImageCache.h"
 #import "PCDownloadApiClient.h"
 #import "PCRevisionViewController.h"
 #import "InAppPurchases.h"
@@ -559,7 +558,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
       if (revision)
       {
         [[PCResourceCache sharedInstance] removeAllObjects];
-        [[ImageCache sharedImageCache] removeAllImages];
         [revision deleteContent];
         [self.rootViewController updateRevisionWithIndex:index];
       }
@@ -607,7 +605,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
   [[NSURLCache sharedURLCache] removeAllCachedResponses];
   [[PCResourceCache sharedInstance] removeAllObjects];
-  [[ImageCache sharedImageCache] removeAllImages];
   [[PCDownloadManager sharedManager] cancelAllOperations];
   [_revisionViewController.view removeFromSuperview];
   self.revisionViewController = nil;
