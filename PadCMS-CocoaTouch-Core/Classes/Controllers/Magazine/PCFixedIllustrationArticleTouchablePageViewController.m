@@ -34,6 +34,7 @@
 //
 
 #import "PCFixedIllustrationArticleTouchablePageViewController.h"
+#import "PCScrollView.h"
 
 @implementation PCFixedIllustrationArticleTouchablePageViewController
 
@@ -62,16 +63,49 @@
     PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
     if(bodyElement)
         [self.bodyViewController.view setHidden:bodyElement.showTopLayer == NO];
-
+    
     [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
 }
+
 -(void)tapAction:(id)sender
 {
-    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
-    [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+    CGPoint tapLocation = [sender locationInView:[sender view]];
+    
+    if (!self.bodyViewController.view.hidden&& 
+        ((NSArray*)[super activeZonesAtPoint:tapLocation]).count == 0)
+    {
+        CGPoint tapLocationWithOffset;
+        tapLocationWithOffset.x = self.articleView.contentOffset.x + tapLocation.x;
+        tapLocationWithOffset.y = self.articleView.contentOffset.y + tapLocation.y;
+        NSArray* actions = [self activeZonesAtPoint:tapLocationWithOffset];
+        for (PCPageActiveZone* action in actions)
+            if ([self pdfActiveZoneAction:action])
+                break;
+        if (actions.count == 0)
+        {
+            self.bodyViewController.view.hidden = YES;
+        }
+    }
+
+    else
+    {
+        [super tapAction:sender];
+    }
 }
 
-- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+-(BOOL) pdfActiveZoneAction:(PCPageActiveZone*)activeZone
+{
+    [super pdfActiveZoneAction:activeZone];
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
+    {
+        [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+        [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
 }

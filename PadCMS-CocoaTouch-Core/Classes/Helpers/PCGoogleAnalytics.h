@@ -37,12 +37,38 @@
 
 @class PCPage;
 
+/**
+ @brief Class for logging user actions with Google Analytics service
+ */
 @interface PCGoogleAnalytics : NSObject
 
+/**
+ @brief Starts Google Analytics tracking system if it is not started yet
+ */
 + (void)start;
+
+/**
+ @brief Stops Google Analytics tracking system if it is already started
+ */
 + (void)stop;
+
+/**
+ @brief Logs page view 
+ @param page - PCPage instance to be logged
+ */
 + (void)trackPageView:(PCPage *)page;
+
+/**
+ @brief Logs page view
+ @param pageName - page name to be logged
+ */
 + (void)trackPageNameView:(NSString *)pageName;
+
+/**
+ @brief Tracks user action
+ @param action - action name
+ @param category - action category name
+ */
 + (void)trackAction:(NSString *)action category:(NSString *)category;
 
 @end

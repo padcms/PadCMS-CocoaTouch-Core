@@ -76,7 +76,6 @@
 - (void)initializeBaseElements
 {
     [self registerPageElementClass:[PCPageElement class] forElementType:PCPageElementTypeBackground];
-    [self registerPageElementClass:[PCPageElement class] forElementType:PCPageElementTypeOverlay];
     [self registerPageElementClass:[PCPageElement class] forElementType:PCPageElementTypeSound];
     [self registerPageElementClass:[PCPageElement class] forElementType:PCPageElementTypePopup];
     

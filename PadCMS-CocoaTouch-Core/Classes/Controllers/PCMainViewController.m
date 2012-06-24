@@ -35,7 +35,6 @@
 
 #import "PCMainViewController.h"
 #import "ZipArchive.h"
-#import "ImageCache.h"
 #import "PCRevisionViewController.h"
 #import "Helper.h"
 #import "PCSQLLiteModelBuilder.h"
@@ -383,7 +382,6 @@
 {
 	[[NSURLCache sharedURLCache] removeAllCachedResponses];
     [[PCResourceCache sharedInstance] removeAllObjects];
-    [[ImageCache sharedImageCache] removeAllImages];
 	[[PCDownloadManager sharedManager] cancelAllOperations];
     if(_revisionViewController)
     {
@@ -494,9 +492,6 @@
 
 - (void) restart
 {
-    
-    [[ImageCache sharedImageCache] removeAllImages];
-	
 	self.magManagerExist = NO;
 	
 	if(alreadyInit)
@@ -991,7 +986,6 @@
             if (revision)
             {
                 [[PCResourceCache sharedInstance] removeAllObjects];
-                [[ImageCache sharedImageCache] removeAllImages];
                 [revision deleteContent];
                 [self.kioskViewController updateRevisionWithIndex:index];
             }

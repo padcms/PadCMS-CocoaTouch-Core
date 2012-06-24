@@ -46,7 +46,6 @@ typedef enum _PCPageTemplateType
     PCSlideshowPageTemplate                             = 6,  ///< Slideshow Page Template
     PCCoverPageTemplate                                 = 7,  ///< Cover Page Template
     PCSlidersBasedMiniArticlesVerticalPageTemplate      = 8,  ///< Sliders Based Mini Articles Vertical Page Template
-    PCArticleWithOverlayPageTemplate                    = 9,  ///< Article With Overlay Page Template
     PCFixedIllustrationArticleTouchablePageTemplate     = 10, ///< Fixed Illustration Article Touchable Page Template
     PCInteractiveBulletsPageTemplate                    = 11, ///< Interactive Bullets Page Template
     PCSlideshowLandscapePageTemplate                    = 12, ///< Slideshow Landscape Page Template

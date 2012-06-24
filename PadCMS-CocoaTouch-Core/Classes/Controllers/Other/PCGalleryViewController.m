@@ -204,7 +204,7 @@
     self.pageControll.numberOfPages = [self.images count];
     self.pageControll.currentPage = 0;
     [self.pageControll addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-    
+    self.pageControll.distance = self.pageControll.dotSize.height;
     [self.view addSubview:self.pageControll];
     [self.view bringSubviewToFront:self.pageControll];
     
@@ -217,7 +217,6 @@
     [self removeImageViews];
     _currentIndex = NSIntegerMax;
     self.galleryID = -1;
-    NSLog(@"self.images - %@, self.imageviews - %@", self.images, self.imageViews);
     [super viewDidDisappear:animated];
 }
 

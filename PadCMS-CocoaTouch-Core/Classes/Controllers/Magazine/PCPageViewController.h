@@ -96,6 +96,7 @@
 //- (CGRect) getActiveZoneRectFor:(PCPageElement *) pageElement type:(NSString*)zoneType viewController:(UIViewController*) viewController;
 
 - (BOOL) pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
+- (NSArray*) activeZonesAtPoint:(CGPoint)point;
 
 - (void) loadFullView;
 - (void) unloadFullView;
