@@ -43,7 +43,6 @@ NSString* PCPageElementTypeAdvert               = @"advert";
 NSString* PCPageElementTypeScrollingPane        = @"scrolling_pane";
 NSString* PCPageElementTypeMiniArticle          = @"mini_article";
 NSString* PCPageElementTypeSlide                = @"slide";
-NSString* PCPageElementTypeOverlay              = @"overlay";
 NSString* PCPageElementTypeSound                = @"sound";
 NSString* PCPageElementTypeHtml                 = @"html";
 NSString* PCPageElementTypeHtml5                = @"html5";
