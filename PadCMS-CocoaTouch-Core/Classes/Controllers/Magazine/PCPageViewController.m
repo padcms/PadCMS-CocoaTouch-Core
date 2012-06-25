@@ -158,11 +158,6 @@
 	tapGestureRecognizer.delegate = self;
     [self.mainScrollView  addGestureRecognizer:tapGestureRecognizer];
     
-    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
-    {
-        [self showVideoWebView];
-    }
-    
     if (self.galleryButton != nil) {
         [self.galleryButton.superview bringSubviewToFront:self.galleryButton];
     }
@@ -178,6 +173,12 @@
     CGSize bodySize = self.bodyViewController.view.frame.size;
     
     [self.mainScrollView setContentSize:bodySize];
+    
+    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
+    {
+        [self showVideoWebView];
+    }
+    
     [self createGalleryButton];
     
     if (self.galleryButton != nil) {
@@ -251,6 +252,8 @@
     if (!videoWebView)
     {
         videoWebView = [[UIWebView alloc] initWithFrame:[self activeZoneRectForType:PCPDFActiveZoneVideo]];
+        videoWebView.scrollView.scrollEnabled = NO; 
+        videoWebView.scrollView.bounces = NO;
     }
     PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
     [self.view addSubview:videoWebView];
