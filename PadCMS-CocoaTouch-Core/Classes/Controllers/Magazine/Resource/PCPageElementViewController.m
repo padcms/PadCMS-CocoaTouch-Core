@@ -228,24 +228,24 @@
 
 - (void) correctSize
 {
-//    CGSize imageSize = [Helper getSizeForImage:self.resource];
-//    
-//    if(!CGSizeEqualToSize(imageSize, CGSizeZero))
-//    {
-//        CGFloat scale = self.targetWidth / imageSize.width;
-//        
-//        CGSize newSize = CGSizeMake(imageSize.width * scale, imageSize.height * scale);
-//        
-//        [self.view setFrame:CGRectMake(self.view.frame.origin.x,
-//                                       self.view.frame.origin.y, 
-//                                       newSize.width,
-//                                       newSize.height)];
-//        
-//        if(imageView != nil)
-//        {
-//            [imageView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
-//        }
-//    }
+    CGSize imageSize = [Helper getSizeForImage:self.resource];
+    
+    if(!CGSizeEqualToSize(imageSize, CGSizeZero))
+    {
+        CGFloat scale = self.targetWidth / imageSize.width;
+        
+        CGSize newSize = CGSizeMake(imageSize.width * scale, imageSize.height * scale);
+        
+        [self.view setFrame:CGRectMake(self.view.frame.origin.x,
+                                       self.view.frame.origin.y, 
+                                       newSize.width,
+                                       newSize.height)];
+        
+        if(imageView != nil)
+        {
+            [imageView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
+        }
+    }
 }
 
 #pragma mark - View lifecycle
