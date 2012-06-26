@@ -133,7 +133,12 @@
         
         self.scrollingPaneContentView = [[[PCHorizontalPageElementViewController alloc] initWithResource:fullResource] autorelease];
         
-        self.scrollingPaneContentView.targetHeight = 768;
+        if(self.page.revision.horizontalOrientation)
+        {
+            self.scrollingPaneContentView.targetHeight = 768;
+        } else {
+            self.scrollingPaneContentView.targetHeight = 1024;
+        }
         
         [self.scrollingPane addSubview:self.scrollingPaneContentView.view];
         [self.scrollingPane setContentSize:self.scrollingPaneContentView.view.frame.size];

@@ -557,9 +557,8 @@ NSString* secondaryKey   = @"secondaryKey";
 
     if ((element.page.pageTemplate.identifier == PCHorizontalScrollingPageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane])) type = HORIZONTAL_SCROLLING_PANE;
     
-
     NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
-
+    
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
     [self moveItemWithPath:[self.revision.contentDirectory stringByAppendingPathComponent:path]];
