@@ -86,6 +86,12 @@
             self.bodyViewController.view.hidden = YES;
         }
     }
+    
+    else if (self.bodyViewController.view.hidden && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionButton])
+    {
+        [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+        [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+    }
 
     else
     {
