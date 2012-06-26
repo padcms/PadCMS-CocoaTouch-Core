@@ -111,7 +111,7 @@
                 }
 
                 [popupButton setFrame:rect];
-                [self.mainScrollView addSubview:popupButton];
+                //[self.mainScrollView addSubview:popupButton];
             }
         }
     }
