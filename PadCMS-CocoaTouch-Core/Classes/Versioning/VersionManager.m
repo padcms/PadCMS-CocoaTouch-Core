@@ -276,7 +276,7 @@ static VersionManager *sharedVersionManager = nil;
 	}
 #endif
 }
-
+*/
 - (void) productDataRecieved:(NSNotification *) notification
 {
 	NSLog(@"From VersionManager::productDataRecieved: %@ %@", [(NSDictionary *)[notification object] objectForKey:@"productIdentifier"], [(NSDictionary *)[notification object] objectForKey:@"localizedPrice"]);
@@ -290,7 +290,7 @@ static VersionManager *sharedVersionManager = nil;
 			return;
 		}
 	}
-}*/
+}
 /*
 - (void) extractRevisionsFromServer
 {
