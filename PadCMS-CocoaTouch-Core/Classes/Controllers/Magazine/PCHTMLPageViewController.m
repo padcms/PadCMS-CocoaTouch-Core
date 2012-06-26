@@ -204,7 +204,16 @@
         if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
         {
             if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
-                [self hideBrowser];
+            {
+                if (webViewIsShowed)
+                {
+                    [self hideBrowser];
+                }
+                else
+                {
+                    [self showBrowser];
+                }
+            }
         }
     }
     else if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]))
@@ -212,7 +221,16 @@
         if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
         {
             if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
-                 [self showBrowser];
+            {
+                if (webViewIsShowed)
+                {
+                    [self hideBrowser];
+                }
+                else
+                {
+                    [self showBrowser];
+                }
+            }
         }
     }
 }
