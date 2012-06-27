@@ -407,6 +407,7 @@
         if (photoID > 0)
         {
             [galleryViewController setCurrentPhoto:photoID - 1];
+            [galleryViewController showPhotoAtIndex:photoID - 1];
         }
     }
 }
@@ -538,8 +539,14 @@
     
     if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionPhotos])
     {
-        NSInteger photoID = [[activeZone.URL lastPathComponent] integerValue];
-        NSInteger galleryID = [[[activeZone.URL stringByDeletingLastPathComponent] lastPathComponent] integerValue];
+        NSString *url = activeZone.URL;
+        NSInteger photoID = [[url lastPathComponent] integerValue];
+        NSInteger galleryID = [[[url stringByDeletingLastPathComponent] lastPathComponent] integerValue];
+        if (galleryID == 0)
+        {
+            galleryID = photoID;
+            photoID = 0;
+        }
         NSLog(@"url - %@, gallery - %d, photo - %d", activeZone.URL, galleryID, photoID);
         [self showGalleryWithID:galleryID initialPhotoID:photoID];
         return YES;
