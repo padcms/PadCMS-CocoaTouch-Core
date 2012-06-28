@@ -204,7 +204,7 @@
     self.pageControll.numberOfPages = [self.images count];
     self.pageControll.currentPage = 0;
     [self.pageControll addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
-    self.pageControll.distance = self.pageControll.dotSize.height;
+    self.pageControll.distance = 5;
     [self.view addSubview:self.pageControll];
     [self.view bringSubviewToFront:self.pageControll];
     
