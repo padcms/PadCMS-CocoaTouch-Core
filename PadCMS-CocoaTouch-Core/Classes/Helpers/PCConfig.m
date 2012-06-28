@@ -35,61 +35,225 @@
 
 #import "PCConfig.h"
 
-NSString const *PCPADCMSConfigKey = @"PADCMSConfig";
-NSString const *PCConfigServerURLKey = @"PCConfigServerURL";
-NSString const *PCConfigClientIdentifierKey = @"PCConfigClientIdentifier";
+#import "PCMacros.h"
+
 NSString const *PCConfigApplicationIdentifierKey = @"PCConfigApplicationIdentifier";
+NSString const *PCConfigClientIdentifierKey = @"PCConfigClientIdentifier";
+NSString const *PCConfigDisableSearchingKey = @"PCDisableSearching";
+NSString const *PCConfigFacebookId	= @"PCConfigFacebookId";
 NSString const *PCConfigGANAccountId = @"PCConfigGANAccountId";
-NSString const *PCConfigUseSandBoxKey = @"PCConfigUseSandBoxKey";
+NSString const *PCConfigKiosqueType	= @"PCConfigKiosqueType";
+NSString const *PCConfigServerURLKey = @"PCConfigServerURL";
 NSString const *PCConfigSubscriptions = @"PCConfigSubscriptions";
 NSString const *PCConfigUseNewsstand = @"PCConfigUseNewsstand";
+NSString const *PCConfigUseSandBoxKey = @"PCConfigUseSandBoxKey";
+NSString const *PCPADCMSConfigKey = @"PADCMSConfig";
+NSString const *PCScrollViewScrollButtonsDisabledKey = @"PCScrollViewScrollButtonsDisabled";
+NSString const *PCScrollingPageVerticalScrollButtonsDisabledKey = @"PCScrollingPageVerticalScrollButtonsDisabled";
+NSString const *PCScrollingPageHorizontalScrollButtonsDisabledKey = @"PCScrollingPageHorizontalScrollButtonsDisabled";
 NSString const *PCStyleSheetKey = @"PCStyleSheet"; 
-NSString const *PCConfigDisableSearchingKey = @"PCDisableSearching";
-NSString const *PCConfigKiosqueType	= @"PCConfigKiosqueType";
-NSString const *PCConfigFacebookId	= @"PCConfigFacebookId";
-NSString const *PCScrollViewScrollButtonsDisabled = @"PCScrollViewScrollButtonsDisabled";
+
+
+@interface PCConfig ()
+
++ (NSDictionary *)padCMSConfig;
+
+@end
 
 @implementation PCConfig
 
-+(NSDictionary*)padCMSConfig
+#pragma mark - private class methods
+
++ (NSDictionary *)padCMSConfig
 {
-    static NSDictionary* padCMSConfig = nil;
-    if (padCMSConfig == nil)
-    {
+    static NSDictionary *padCMSConfig = nil;
+    
+    if (padCMSConfig == nil) {
         padCMSConfig = [[[[NSBundle mainBundle] infoDictionary] objectForKey:PCPADCMSConfigKey] retain];
-        if (padCMSConfig == nil)
+        
+        if (padCMSConfig == nil) {
             NSLog(@"WARNING! Please add 'PADCMSConfig' Dictionary to Info.plist file");
+        }
     }
     
     return padCMSConfig;
 }
 
-+(NSInteger)clientIdentifier
+#pragma mark - public class methods
+
++ (BOOL)isScrollViewScrollButtonsDisabled
 {
-    static NSNumber* clientIdentifierNumber = nil;
-    if (clientIdentifierNumber == nil)
-    {
-        clientIdentifierNumber = [[[self padCMSConfig] objectForKey:PCConfigClientIdentifierKey] retain];
+    static NSNumber *scrollViewScrollButtonsDisabled = nil;
+    
+    if (scrollViewScrollButtonsDisabled == nil) {
+        scrollViewScrollButtonsDisabled = [[[self padCMSConfig] 
+                                            objectForKey:PCScrollViewScrollButtonsDisabledKey] retain]; 
+        
+        if (scrollViewScrollButtonsDisabled == nil) {
+            scrollViewScrollButtonsDisabled = [[NSNumber numberWithBool:NO] retain];
+        }
     }
-    return [clientIdentifierNumber integerValue];
+    
+    return [scrollViewScrollButtonsDisabled boolValue];
 }
 
-+(NSInteger)applicationIdentifier
-{
-    static NSNumber* applicationIdentifierNumber = 0;
-    if (applicationIdentifierNumber == nil)
-    {
-        applicationIdentifierNumber = [[[self padCMSConfig] objectForKey:PCConfigApplicationIdentifierKey] retain]; 
++ (BOOL)isScrollingPageVerticalScrollButtonsDisabled
+{   
+    static NSNumber *scrollingPageVerticalScrollButtonsDisabled = nil;
+    
+    if (scrollingPageVerticalScrollButtonsDisabled == nil) {
+        scrollingPageVerticalScrollButtonsDisabled = [[[self padCMSConfig] 
+                                                       objectForKey:PCScrollingPageVerticalScrollButtonsDisabledKey] retain]; 
+        
+        if (scrollingPageVerticalScrollButtonsDisabled == nil) {
+            scrollingPageVerticalScrollButtonsDisabled = [[NSNumber numberWithBool:NO] retain];
+        }
     }
-    return [applicationIdentifierNumber integerValue];
+    
+    return [scrollingPageVerticalScrollButtonsDisabled boolValue];
+}
+
++ (BOOL)isScrollingPageHorizontalScrollButtonsDisabled
+{
+    static NSNumber *scrollingPageHorizontalScrollButtonsDisabled = nil;
+    
+    if (scrollingPageHorizontalScrollButtonsDisabled == nil) {
+        scrollingPageHorizontalScrollButtonsDisabled = [[[self padCMSConfig] 
+                                            objectForKey:PCScrollingPageHorizontalScrollButtonsDisabledKey] retain]; 
+        
+        if (scrollingPageHorizontalScrollButtonsDisabled == nil) {
+            scrollingPageHorizontalScrollButtonsDisabled = [[NSNumber numberWithBool:NO] retain];
+        }
+    }
+    
+    return [scrollingPageHorizontalScrollButtonsDisabled boolValue];
+}
+
++ (BOOL)isSearchDisabled
+{
+    static NSNumber *searchDisabled = 0;
+    
+    if (searchDisabled == nil) {
+        searchDisabled = [[[self padCMSConfig] objectForKey:PCConfigDisableSearchingKey] retain]; 
+        
+        if (searchDisabled == nil) {
+            searchDisabled = [[NSNumber numberWithBool:NO] retain];
+        }
+    }
+    
+    return [searchDisabled boolValue];
+}
+
++ (BOOL)useNewsstand
+{
+    static NSNumber *useNewsstand = nil;
+    
+    if (useNewsstand == nil) {
+        useNewsstand = [[[self padCMSConfig] objectForKey:PCConfigUseNewsstand] retain]; 
+        
+        if (useNewsstand == nil) {
+            useNewsstand = [[NSNumber numberWithBool:NO] retain];
+        }
+    }
+    
+    return [useNewsstand boolValue];
+}
+
++ (BOOL)useSandBox
+{
+    static NSNumber *useSandBox = 0;
+    
+    if (useSandBox == nil) {
+        useSandBox = [[[self padCMSConfig] objectForKey:PCConfigUseSandBoxKey] retain]; 
+        
+        if (useSandBox == nil) {
+            useSandBox = [[NSNumber numberWithBool:NO] retain];
+        }
+    }
+    
+    return [useSandBox boolValue];
+}
+
++ (KiosqueType)kiosqueType
+{
+	static NSNumber *kiosqueType = 0;
+    
+    if (kiosqueType == nil) {
+        kiosqueType = [[[self padCMSConfig] objectForKey:PCConfigKiosqueType] retain]; 
+    }
+    
+    return [kiosqueType intValue];
+}
+
++ (NSArray *)subscriptions
+{
+    static NSArray *subscriptions = nil;
+    
+    if (subscriptions == nil) {
+        subscriptions = [[self padCMSConfig] objectForKey:PCConfigSubscriptions];
+        
+        if (subscriptions == nil) {
+            NSLog(@"WARNING! Please add 'PCConfigSubscriptions' dictionary to 'PADCMSConfig' in Info.plist file");
+        }
+    }
+    
+    return subscriptions;
+}
+
++ (NSDictionary *)defaultStyleSheet
+{
+    static NSDictionary *defaultStyleSheet = nil;
+    
+    if (defaultStyleSheet == nil) {
+        defaultStyleSheet = [[self padCMSConfig] objectForKey:PCStyleSheetKey];
+        
+        if (defaultStyleSheet == nil) {
+            NSLog(@"WARNING! Please add 'PCStyleSheet' dictionary to 'PADCMSConfig' in Info.plist file");
+        }
+    }
+    
+    return defaultStyleSheet;
+}
+
++ (NSInteger)applicationIdentifier
+{
+    static NSNumber *applicationIdentifier = 0;
+    
+    if (applicationIdentifier == nil) {
+        applicationIdentifier = [[[self padCMSConfig] objectForKey:PCConfigApplicationIdentifierKey] retain]; 
+    }
+    
+    return [applicationIdentifier integerValue];
+}
+
++ (NSInteger)clientIdentifier
+{
+    static NSNumber *clientIdentifier = nil;
+    
+    if (clientIdentifier == nil) {
+        clientIdentifier = [[[self padCMSConfig] objectForKey:PCConfigClientIdentifierKey] retain];
+    }
+    
+    return [clientIdentifier integerValue];
+}
+
++ (NSString *)facebookApplicationId
+{
+    static NSString *facebookApplicationId = nil;
+    
+    if (facebookApplicationId == nil) {
+        facebookApplicationId = [[[PCConfig padCMSConfig] 
+                                  objectForKey:PCConfigFacebookId] retain]; 
+    }
+    
+    return facebookApplicationId;
 }
 
 + (NSString *)googleAnalyticsAccountId
 {
     static NSString *googleAnalyticsAccountId = nil;
     
-    if (googleAnalyticsAccountId == nil)
-    {
+    if (googleAnalyticsAccountId == nil) {
         googleAnalyticsAccountId = [[[PCConfig padCMSConfig] 
                                      objectForKey:PCConfigGANAccountId] retain]; 
     }
@@ -97,124 +261,27 @@ NSString const *PCScrollViewScrollButtonsDisabled = @"PCScrollViewScrollButtonsD
     return googleAnalyticsAccountId;
 }
 
-+ (NSString *)facebookApplicationId
++ (NSString *)serverURLString
 {
-    static NSString *facebookApplicationId = nil;
+    static NSString *serverURLString = nil;
     
-    if (facebookApplicationId == nil)
-    {
-        facebookApplicationId = [[[PCConfig padCMSConfig] 
-                                     objectForKey:PCConfigFacebookId] retain]; 
+    if (serverURLString == nil) {
+        serverURLString = [[[self padCMSConfig] objectForKey:PCConfigServerURLKey] copy];
     }
     
-    return facebookApplicationId;
+    return serverURLString;
 }
 
-+(NSURL*)serverURL
++ (NSURL *)serverURL
 {
-    static NSURL* serverURL = nil;
-    if (serverURL == nil)
-    {
-        NSString* serverURLString = [[self padCMSConfig] objectForKey:PCConfigServerURLKey] ;
+    static NSURL *serverURL = nil;
+    
+    if (serverURL == nil) {
+        NSString *serverURLString = [self serverURLString];
         serverURL = [[NSURL URLWithString:serverURLString] retain]; 
     }
-    return serverURL;
-}
-
-+(NSString*)serverURLString
-{
-    return [[self padCMSConfig] objectForKey:PCConfigServerURLKey];
-}
-
-+(BOOL)useSandBox
-{
-    static NSNumber* useSandBoxNumber = 0;
-    if (useSandBoxNumber == nil)
-    {
-        useSandBoxNumber = [[[self padCMSConfig] objectForKey:PCConfigUseSandBoxKey] retain]; 
-        if (useSandBoxNumber == nil)
-        {
-            useSandBoxNumber = [[NSNumber numberWithBool:NO] retain];
-        }
-    }
-    return [useSandBoxNumber boolValue];
-}
-
-+(NSArray*)subscriptions
-{
-  static NSArray* subscriptionsArray = nil;
-  if (subscriptionsArray == nil)
-  {
-    subscriptionsArray = [[self padCMSConfig] objectForKey:PCConfigSubscriptions] ;
-    if (subscriptionsArray == nil)
-      NSLog(@"WARNING! Please add 'PCConfigSubscriptions' dictionary to 'PADCMSConfig' in Info.plist file");
-  }
-  return subscriptionsArray;
-}
-
-+(BOOL)useNewsstand
-{
-  static NSNumber* useNewsstandNumber = 0;
-  if (useNewsstandNumber == nil)
-  {
-    useNewsstandNumber = [[[self padCMSConfig] objectForKey:PCConfigUseNewsstand] retain]; 
-    if (useNewsstandNumber == nil)
-    {
-      useNewsstandNumber = [[NSNumber numberWithBool:NO] retain];
-    }
-  }
-  return [useNewsstandNumber boolValue];
-}
-
-+(NSDictionary*)defaultStyleSheet
-{
-    static NSDictionary* defaultStyleSheet = nil;
-    if (defaultStyleSheet == nil)
-    {
-        defaultStyleSheet = [[self padCMSConfig] objectForKey:PCStyleSheetKey] ;
-        if (defaultStyleSheet == nil)
-            NSLog(@"WARNING! Please add 'PCStyleSheet' dictionary to 'PADCMSConfig' in Info.plist file");
-    }
-    return defaultStyleSheet;
-}
-
-+ (BOOL)IsDisableSearching
-{
-    static NSNumber* disableSearchingNumber = 0;
-    if (disableSearchingNumber == nil)
-    {
-        disableSearchingNumber = [[[self padCMSConfig] objectForKey:PCConfigDisableSearchingKey] retain]; 
-        if (disableSearchingNumber == nil)
-        {
-            disableSearchingNumber = [[NSNumber numberWithBool:NO] retain];
-        }
-    }
-    return [disableSearchingNumber boolValue];
-}
-
-+(KiosqueType)getKiosqueType
-{
-	static NSNumber* type = 0;
-    if (type == nil)
-    {
-        type = [[[self padCMSConfig] objectForKey:PCConfigKiosqueType] retain]; 
-    }
-    return [type intValue];
-	
-}
-
-+ (BOOL)isScrollViewScrollButtonsDisabled
-{
-    static NSNumber *isScrollViewScrollButtonsDisabled = nil;
-    if (isScrollViewScrollButtonsDisabled == nil) {
-        isScrollViewScrollButtonsDisabled = [[[self padCMSConfig] 
-                                              objectForKey:PCScrollViewScrollButtonsDisabled] retain]; 
-        if (isScrollViewScrollButtonsDisabled == nil) {
-            isScrollViewScrollButtonsDisabled = [[NSNumber numberWithBool:NO] retain];
-        }
-    }
     
-    return [isScrollViewScrollButtonsDisabled boolValue];
+    return serverURL;
 }
 
 @end

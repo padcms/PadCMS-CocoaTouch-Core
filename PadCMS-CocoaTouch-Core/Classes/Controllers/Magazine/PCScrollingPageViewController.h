@@ -39,15 +39,6 @@
  @class PCScrollingPageViewController
  @brief Scrolling Page View Controller
  */
-
 @interface PCScrollingPageViewController : PCPageViewController <UIScrollViewDelegate>
-{
-    PCScrollView* scrollingPane;
-    PCPageElementViewController* scrollingPaneContentView;
-    UIButton* scrollDownButton;
-    UIButton* scrollUpButton;
-}
 
-@property (nonatomic,retain) PCScrollView* scrollingPane; ///< scrolling pane
-@property (nonatomic,retain) PCPageElementViewController* scrollingPaneContentView; ///< scrolling pane content 
 @end

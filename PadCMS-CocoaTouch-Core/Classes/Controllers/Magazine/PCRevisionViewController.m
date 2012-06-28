@@ -773,7 +773,7 @@
         [self createHorizontalView];
         [self adjustHelpButton];
         
-        if([PCConfig IsDisableSearching])
+        if([PCConfig isSearchDisabled])
         {
             searchTextField.hidden = YES;
             searchTextField.enabled = NO;

@@ -34,41 +34,44 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PCMacros.h"
 
-PADCMS_EXTERN NSString *PCPADCMSConfigKey;
-PADCMS_EXTERN NSString *PCConfigServerURLKey;
-PADCMS_EXTERN NSString *PCConfigClientIdentifierKey;
+
 PADCMS_EXTERN NSString *PCConfigApplicationIdentifierKey;
-PADCMS_EXTERN NSString *PCConfigGANAccountId;
-PADCMS_EXTERN NSString *PCConfigUseSandBoxKey;
+PADCMS_EXTERN NSString *PCConfigClientIdentifierKey;
 PADCMS_EXTERN NSString *PCConfigDisableSearchingKey;
-PADCMS_EXTERN NSString *PCConfigKiosqueType;
 PADCMS_EXTERN NSString *PCConfigFacebookId;
-PADCMS_EXTERN NSString *PCScrollViewScrollButtonsDisabled;
+PADCMS_EXTERN NSString *PCConfigGANAccountId;
+PADCMS_EXTERN NSString *PCConfigKiosqueType;
+PADCMS_EXTERN NSString *PCConfigServerURLKey;
+PADCMS_EXTERN NSString *PCConfigUseSandBoxKey;
+PADCMS_EXTERN NSString *PCPADCMSConfigKey;
+PADCMS_EXTERN NSString *PCScrollViewScrollButtonsDisabledKey;
+PADCMS_EXTERN NSString *PCScrollingPageVerticalScrollButtonsDisabledKey;
+PADCMS_EXTERN NSString *PCScrollingPageHorizontalScrollButtonsDisabledKey;
+
 
 typedef enum _KiosqueType {
-	PC_KIOSQUE_DEFAULT_TYPE = 0,
-	PC_KIOSQUE_AIR_DCCV_TYPE  = 1,
-	
+	KiosqueTypeDefault = 0,
+	KiosqueTypeAirDccv = 1
 } KiosqueType;
-
 
 
 @interface PCConfig : NSObject
 
-+ (NSInteger)clientIdentifier;
-+ (NSInteger)applicationIdentifier;
-+ (NSString *)googleAnalyticsAccountId;
-+ (NSURL *)serverURL;
-+ (NSString*)serverURLString;
-+ (BOOL)useSandBox;
-+ (NSDictionary*)defaultStyleSheet;
-+ (NSArray*)subscriptions;
-+ (BOOL)useNewsstand;
-+ (BOOL)IsDisableSearching;
-+ (KiosqueType)getKiosqueType;
 + (BOOL)isScrollViewScrollButtonsDisabled;
++ (BOOL)isScrollingPageHorizontalScrollButtonsDisabled;
++ (BOOL)isScrollingPageVerticalScrollButtonsDisabled;
++ (BOOL)isSearchDisabled;
++ (BOOL)useNewsstand;
++ (BOOL)useSandBox;
++ (KiosqueType)kiosqueType;
++ (NSArray *)subscriptions;
++ (NSDictionary *)defaultStyleSheet;
++ (NSInteger)applicationIdentifier;
++ (NSInteger)clientIdentifier;
 + (NSString *)facebookApplicationId;
++ (NSString *)googleAnalyticsAccountId;
++ (NSString *)serverURLString;
++ (NSURL *)serverURL;
 
 @end
