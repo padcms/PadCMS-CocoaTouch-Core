@@ -70,6 +70,8 @@
 @property (nonatomic, assign) NSInteger galleryID;
 
 - (id) initWithPage: (PCPage *)initialPage;
-- (void) setCurrentPhoto: (int) index;
+- (void) showPhotoAtIndex:(NSInteger)currentIndex;
+- (void) setCurrentPhoto:(int)index;
+
 
 @end
