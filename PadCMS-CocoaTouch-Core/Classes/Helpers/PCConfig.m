@@ -46,7 +46,6 @@ NSString const *PCConfigKiosqueType	= @"PCConfigKiosqueType";
 NSString const *PCConfigServerURLKey = @"PCConfigServerURL";
 NSString const *PCConfigSubscriptions = @"PCConfigSubscriptions";
 NSString const *PCConfigUseNewsstand = @"PCConfigUseNewsstand";
-NSString const *PCConfigUseSandBoxKey = @"PCConfigUseSandBoxKey";
 NSString const *PCPADCMSConfigKey = @"PADCMSConfig";
 NSString const *PCScrollViewScrollButtonsDisabledKey = @"PCScrollViewScrollButtonsDisabled";
 NSString const *PCScrollingPageVerticalScrollButtonsDisabledKey = @"PCScrollingPageVerticalScrollButtonsDisabled";
@@ -157,21 +156,6 @@ NSString const *PCStyleSheetKey = @"PCStyleSheet";
     }
     
     return [useNewsstand boolValue];
-}
-
-+ (BOOL)useSandBox
-{
-    static NSNumber *useSandBox = 0;
-    
-    if (useSandBox == nil) {
-        useSandBox = [[[self padCMSConfig] objectForKey:PCConfigUseSandBoxKey] retain]; 
-        
-        if (useSandBox == nil) {
-            useSandBox = [[NSNumber numberWithBool:NO] retain];
-        }
-    }
-    
-    return [useSandBox boolValue];
 }
 
 + (KiosqueType)kiosqueType

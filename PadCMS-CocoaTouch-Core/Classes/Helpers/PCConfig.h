@@ -36,42 +36,85 @@
 #import <Foundation/Foundation.h>
 
 
-PADCMS_EXTERN NSString *PCConfigApplicationIdentifierKey;
-PADCMS_EXTERN NSString *PCConfigClientIdentifierKey;
-PADCMS_EXTERN NSString *PCConfigDisableSearchingKey;
-PADCMS_EXTERN NSString *PCConfigFacebookId;
-PADCMS_EXTERN NSString *PCConfigGANAccountId;
-PADCMS_EXTERN NSString *PCConfigKiosqueType;
-PADCMS_EXTERN NSString *PCConfigServerURLKey;
-PADCMS_EXTERN NSString *PCConfigUseSandBoxKey;
-PADCMS_EXTERN NSString *PCPADCMSConfigKey;
-PADCMS_EXTERN NSString *PCScrollViewScrollButtonsDisabledKey;
-PADCMS_EXTERN NSString *PCScrollingPageVerticalScrollButtonsDisabledKey;
-PADCMS_EXTERN NSString *PCScrollingPageHorizontalScrollButtonsDisabledKey;
-
-
 typedef enum _KiosqueType {
 	KiosqueTypeDefault = 0,
 	KiosqueTypeAirDccv = 1
 } KiosqueType;
 
-
+/**
+ @class PCConfig
+ @brief Per app configuration management class
+ */
 @interface PCConfig : NSObject
 
+/**
+ @brief returns YES if the app should hide scroll buttons in all PCScrollView instances  
+ */
 + (BOOL)isScrollViewScrollButtonsDisabled;
+
+/**
+ @brief returns YES if PCHorizontalScrollingPageViewController instances should disable scroll buttons
+ */
 + (BOOL)isScrollingPageHorizontalScrollButtonsDisabled;
+
+/**
+ @brief returns YES if PCScrollingPageViewController instances should disable scroll buttons
+ */
 + (BOOL)isScrollingPageVerticalScrollButtonsDisabled;
+
+/**
+ @brief returns YES if search ability should be disabled 
+ */
 + (BOOL)isSearchDisabled;
+
+/**
+ @brief returns YES if the app should use Nesstand feature
+ */
 + (BOOL)useNewsstand;
-+ (BOOL)useSandBox;
+
+/**
+ @brief returns kiosque type for current app
+ */
 + (KiosqueType)kiosqueType;
+
+/**
+ @brief subscriptions list
+ */
 + (NSArray *)subscriptions;
+
+/**
+ @brief default style sheet for styling current app
+ */
 + (NSDictionary *)defaultStyleSheet;
+
+/**
+ @brief application identifier number
+ */
 + (NSInteger)applicationIdentifier;
+
+/**
+ @brief client identifier number
+ */
 + (NSInteger)clientIdentifier;
+
+/**
+ @brief application id to be used for sharing in Facebook API 
+ */
 + (NSString *)facebookApplicationId;
+
+/**
+ @brief account id to be used for page views tracking in Google Analytics API
+ */
 + (NSString *)googleAnalyticsAccountId;
+
+/**
+ @brief PadCMS backend server url string
+ */
 + (NSString *)serverURLString;
+
+/**
+ @brief PadCMS backend server url string 
+ */
 + (NSURL *)serverURL;
 
 @end
