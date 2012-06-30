@@ -133,7 +133,7 @@ NSMutableSet *ViewsToIgnoreTouches = nil;
     if (_horizontalScrollButtonsEnabled) {
         
         if (_scrollLeftButton == nil) {
-            _scrollLeftButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];;
+            _scrollLeftButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
             [_scrollLeftButton setImage:[UIImage imageNamed:ScrollLeftButtonForegroundImage] 
                                forState:UIControlStateNormal];
             [_scrollLeftButton setBackgroundImage:[UIImage imageNamed:ScrollLeftButtonBackgroundImage] 
@@ -144,7 +144,7 @@ NSMutableSet *ViewsToIgnoreTouches = nil;
         }
         
         if (_scrollRightButton == nil) {
-            _scrollRightButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];;
+            _scrollRightButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
             [_scrollRightButton setImage:[UIImage imageNamed:ScrollRightButtonForegroundImage] 
                                 forState:UIControlStateNormal];
             [_scrollRightButton setBackgroundImage:[UIImage imageNamed:ScrollRightButtonBackgroundImage] 

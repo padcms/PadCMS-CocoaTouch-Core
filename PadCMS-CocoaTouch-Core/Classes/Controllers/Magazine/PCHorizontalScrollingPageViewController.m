@@ -34,34 +34,40 @@
 //
 
 #import "PCHorizontalScrollingPageViewController.h"
-#import "PCStyler.h"
-#import "PCDefaultStyleElements.h"
+
 #import "MBProgressHUD.h"
+#import "PCConfig.h"
+#import "PCDefaultStyleElements.h"
+#import "PCHorizontalPageElementViewController.h"
 #import "PCRevision.h"
 #import "PCScrollView.h"
+#import "PCStyler.h"
 
 @interface PCHorizontalScrollingPageViewController ()
-- (void)updateScrollButtonsWithOffset:(CGPoint)contentOffset;
-- (void)afterScroll;
+{
+    PCScrollView *_paneScrollView;
+    PCHorizontalPageElementViewController *_paneContentViewController;
+    UIButton *_scrollRightButton;
+    UIButton *_scrollLeftButton;
+}
+
+- (void)initializeScrollButtons;
+- (void)deinitializeScrollButtons;
+- (void)updateScrollButtons;
+
+- (void)scrollLeftButtonTapped:(UIButton *)sender;
+- (void)scrollRightButtonTapped:(UIButton *)sender;
+
 @end
 
 @implementation PCHorizontalScrollingPageViewController
 
-@synthesize scrollingPane;
-@synthesize scrollingPaneContentView;
-
 - (void)dealloc
 {
-    [scrollRightButton removeFromSuperview];
-    [scrollRightButton release];
-    scrollRightButton = nil;
+    [self deinitializeScrollButtons];
     
-    [scrollLeftButton removeFromSuperview];
-    [scrollLeftButton release];
-    scrollLeftButton = nil;
-    
-    self.scrollingPane = nil;
-    self.scrollingPaneContentView = nil;
+    _paneScrollView = nil;
+    _paneContentViewController = nil;
     
     [super dealloc];
 }
@@ -70,10 +76,10 @@
 {
     if (self = [super initWithPage:aPage])
     {
-        scrollingPane = nil;
-        scrollingPaneContentView = nil;
-        scrollRightButton = nil;
-        scrollLeftButton = nil;
+        _paneScrollView = nil;
+        _paneContentViewController = nil;
+        _scrollRightButton = nil;
+        _scrollLeftButton = nil;
     }
     return self;
 }
@@ -87,196 +93,198 @@
 {
     [super loadFullView];
     
-    [self.scrollingPaneContentView loadFullViewImmediate];
+    [_paneContentViewController loadFullViewImmediate];
     
-    CGRect frame = self.scrollingPaneContentView.view.frame;
+    CGRect frame = _paneContentViewController.view.frame;
     
-    frame.origin.y = -self.scrollingPane.frame.origin.y;
+    frame.origin.y = -_paneScrollView.frame.origin.y;
     frame.origin.x = 0;
-    [self.scrollingPaneContentView.view setFrame:frame];
+    [_paneContentViewController.view setFrame:frame];
     
-    [self.scrollingPane setContentSize:CGSizeMake([self.scrollingPaneContentView.view frame].size.width, 1)];
-    [self.scrollingPane setContentInset:UIEdgeInsetsMake(0, -self.scrollingPane.frame.origin.x, 0, 0)];
+    [_paneScrollView setContentSize:CGSizeMake([_paneContentViewController.view frame].size.width, 1)];
+    [_paneScrollView setContentInset:UIEdgeInsetsMake(0, -_paneScrollView.frame.origin.x, 0, 0)];
     
-    [self updateScrollButtonsWithOffset:[self.scrollingPane contentOffset]];
+    [self updateScrollButtons];
     
-    self.scrollingPane.scrollEnabled = YES;
+    _paneScrollView.scrollEnabled = YES;
 }
 
 - (void) unloadFullView
 { 
     [super unloadFullView];
     
-    [self.scrollingPaneContentView unloadView];
+    [_paneContentViewController unloadView];
 }
 
 -(void)viewDidLoad
 {
     [super viewDidLoad];
     
-    // Scroll pan
     CGRect scrollPaneRect = [self activeZoneRectForType:PCPDFActiveZoneScroller];
     
-    if (CGRectEqualToRect(scrollPaneRect, CGRectZero))
-        scrollPaneRect = [[self mainScrollView] bounds];
+    if (CGRectEqualToRect(scrollPaneRect, CGRectZero)) {
+        scrollPaneRect = self.mainScrollView.bounds;
+    }
     
-    self.scrollingPane = [[[PCScrollView alloc] initWithFrame:scrollPaneRect] autorelease];
-    self.scrollingPane.delegate = self;
-    self.scrollingPane.contentSize = CGSizeZero;
-    self.scrollingPane.showsVerticalScrollIndicator = NO;
-    self.scrollingPane.showsHorizontalScrollIndicator = NO;
+    _paneScrollView = [[PCScrollView alloc] initWithFrame:scrollPaneRect];
+    _paneScrollView.delegate = self;
+    _paneScrollView.contentSize = CGSizeZero;
+    _paneScrollView.showsVerticalScrollIndicator = NO;
+    _paneScrollView.showsHorizontalScrollIndicator = NO;
     
     PCPageElement* scrollingPaneElement = [page firstElementForType:PCPageElementTypeScrollingPane];
-    if (scrollingPaneElement != nil)
-    {
+    
+    if (scrollingPaneElement != nil) {
         NSString *fullResource = [page.revision.contentDirectory stringByAppendingPathComponent:scrollingPaneElement.resource];
+        _paneContentViewController = [[PCHorizontalPageElementViewController alloc] initWithResource:fullResource];
         
-        self.scrollingPaneContentView = [[[PCHorizontalPageElementViewController alloc] initWithResource:fullResource] autorelease];
-        
-        self.scrollingPaneContentView.targetHeight = 768;
-        
-        [self.scrollingPane addSubview:self.scrollingPaneContentView.view];
-        [self.scrollingPane setContentSize:self.scrollingPaneContentView.view.frame.size];
-        [self.scrollingPane setContentInset:UIEdgeInsetsMake(0, -self.scrollingPane.frame.origin.x, 0, 0)];
-    }
-    
-    [self.scrollingPane setUserInteractionEnabled:YES];
-    [self.mainScrollView addSubview: self.scrollingPane];
-    [self.mainScrollView setContentSize: self.scrollingPane.frame.size];
-    [self.mainScrollView bringSubviewToFront: self.scrollingPane];
-    
-    if (self.scrollingPane.frame.size.width > self.mainScrollView.frame.size.width)
-    {
-        CGRect scrollingPaneRect = self.scrollingPane.frame;
-        scrollingPaneRect.size.width = self.mainScrollView.frame.size.width;
-        self.scrollingPane.frame = scrollingPaneRect;
-    }
-    
-    if (self.scrollingPane.contentSize.width > self.scrollingPane.frame.size.width)
-    {
-        self.scrollingPane.contentSize = CGSizeMake(self.scrollingPane.frame.size.width, self.scrollingPane.contentSize.height);
-    }
-    
-    // Buttons
-    scrollRightButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    
-    NSDictionary* buttonOption = nil;
-    if (self.page.color)
-        buttonOption = [NSDictionary dictionaryWithObject:self.page.color forKey:PCButtonTintColorOptionKey];
-    
-    [[PCStyler defaultStyler] stylizeElement:scrollRightButton withStyleName:PCScrollControlKey withOptions:buttonOption];
-    
-    CGRect  scrollingPaneRect = self.scrollingPane.frame;
-
-    CGRect scrollRightButtonRect = CGRectMake(scrollingPaneRect.origin.x + scrollingPaneRect.size.width - scrollRightButton.frame.size.height,
-                                              scrollingPaneRect.origin.y + (scrollingPaneRect.size.height - scrollRightButton.frame.size.width)/2,
-                                              scrollRightButton.frame.size.height, scrollRightButton.frame.size.width);
-    
-    scrollRightButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
-    [scrollRightButton setFrame:scrollRightButtonRect];
-    [scrollRightButton addTarget:self action:@selector(scrollRight:) forControlEvents:UIControlEventTouchUpInside];
-    [self.mainScrollView addSubview:scrollRightButton];
-    
-    scrollLeftButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
-    [[PCStyler defaultStyler] stylizeElement:scrollLeftButton withStyleName:PCScrollControlKey withOptions:buttonOption];    
-    
-    CGRect  scrollLeftButtonRect = CGRectMake(scrollingPaneRect.origin.x,
-                                              scrollingPaneRect.origin.y + (scrollingPaneRect.size.height - scrollLeftButton.frame.size.width)/2,
-                                              scrollLeftButton.frame.size.height, scrollLeftButton.frame.size.width);
-    scrollLeftButton.transform = CGAffineTransformMakeRotation(M_PI_2);
-    [scrollLeftButton setFrame:scrollLeftButtonRect];
-    [scrollLeftButton addTarget:self action:@selector(scrollLeft:) forControlEvents:UIControlEventTouchUpInside];
-    [self.mainScrollView addSubview:scrollLeftButton];
-    [self.mainScrollView bringSubviewToFront:HUD];
-    
-    [self updateScrollButtonsWithOffset:[self.scrollingPane contentOffset]];
-}
-
--(void)updateScrollButtonsWithOffset:(CGPoint)contentOffset
-{
-    [scrollLeftButton setHidden:(contentOffset.x <= 0)];
-    [scrollRightButton setHidden:(contentOffset.x >= self.scrollingPane.contentSize.width-self.scrollingPane.frame.size.width)];
-}
-
--(void)scrollRight:(id)sender
-{
-    CGPoint contentOffset = [self.scrollingPane contentOffset];
-    contentOffset.x += self.scrollingPane.frame.size.width;
-    if (contentOffset.x > (self.scrollingPane.contentSize.width - self.scrollingPane.frame.size.width))
-        contentOffset.x = (self.scrollingPane.contentSize.width - self.scrollingPane.frame.size.width);
-    [self.scrollingPane  setContentOffset:contentOffset animated:YES];
-    [self updateScrollButtonsWithOffset:contentOffset];
-}
-
--(void)scrollLeft:(id)sender
-{
-    CGPoint contentOffset = [self.scrollingPane contentOffset];
-    contentOffset.x -= self.scrollingPane.frame.size.width;
-    if (contentOffset.x < 0)
-        contentOffset.x = 0;
-    [self.scrollingPane  setContentOffset:contentOffset animated:YES];
-    [self updateScrollButtonsWithOffset:contentOffset];
-    
-}
-
-- (void)afterScroll
-{
-    if(self.scrollingPane)
-        self.scrollingPane.scrollEnabled = YES;
-}
-
-- (void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-    if(!decelerate)
-    {
-        if (scrollView == self.scrollingPane)
-        {
-            [self updateScrollButtonsWithOffset:[self.scrollingPane contentOffset]];
+        if (self.page.revision.horizontalOrientation) {
+            _paneContentViewController.targetHeight = 768;
+        } else {
+            _paneContentViewController.targetHeight = 1024;
         }
         
-        [self afterScroll];
+        [_paneScrollView addSubview:_paneContentViewController.view];
+        [_paneScrollView setContentSize:_paneContentViewController.view.frame.size];
+        [_paneScrollView setContentInset:UIEdgeInsetsMake(0, -_paneScrollView.frame.origin.x, 0, 0)];
     }
+    
+    [_paneScrollView setUserInteractionEnabled:YES];
+    [mainScrollView addSubview:_paneScrollView];
+    [mainScrollView setContentSize:_paneScrollView.frame.size];
+    [mainScrollView bringSubviewToFront:_paneScrollView];
+    
+    if (_paneScrollView.frame.size.width > self.mainScrollView.frame.size.width) {
+        CGRect scrollingPaneRect = _paneScrollView.frame;
+        scrollingPaneRect.size.width = self.mainScrollView.frame.size.width;
+        _paneScrollView.frame = scrollingPaneRect;
+    }
+    
+    if (_paneScrollView.contentSize.width > _paneScrollView.frame.size.width) {
+        _paneScrollView.contentSize = CGSizeMake(_paneScrollView.frame.size.width, _paneScrollView.contentSize.height);
+    }
+    
+    [self initializeScrollButtons];
+    
+    [self.mainScrollView bringSubviewToFront:HUD];
 }
 
-- (void)scrollViewDidEndScrollingAnimation:(UIScrollView *)scrollView
+- (void)initializeScrollButtons
 {
-    if (scrollView == self.scrollingPane)
-    {
-        [self updateScrollButtonsWithOffset:[self.scrollingPane contentOffset]];
-        [self afterScroll];
+    if ([PCConfig isScrollingPageHorizontalScrollButtonsDisabled]) {
+        return;
     }
+    
+    NSDictionary *buttonOption = nil;
+    UIColor *pageColor = self.page.color;
+    if (pageColor != nil) {
+        buttonOption = [NSDictionary dictionaryWithObject:self.page.color
+                                                   forKey:PCButtonTintColorOptionKey];
+    }
+    // Scroll right button
+    _scrollRightButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    
+    [[PCStyler defaultStyler] stylizeElement:_scrollRightButton withStyleName:PCScrollControlKey 
+                                 withOptions:buttonOption];
+    
+    CGRect paneScrollViewFrame = _paneScrollView.frame;
+    CGRect scrollRightButtonFrame = 
+    CGRectMake(paneScrollViewFrame.origin.x + paneScrollViewFrame.size.width - _scrollRightButton.frame.size.height,
+               paneScrollViewFrame.origin.y + (paneScrollViewFrame.size.height - _scrollRightButton.frame.size.width) / 2,
+               _scrollRightButton.frame.size.height,
+               _scrollRightButton.frame.size.width);
+    
+    _scrollRightButton.transform = CGAffineTransformMakeRotation(-M_PI_2);
+    _scrollRightButton.frame = scrollRightButtonFrame;
+    [_scrollRightButton addTarget:self action:@selector(scrollRightButtonTapped:) 
+                 forControlEvents:UIControlEventTouchUpInside];
+    [self.mainScrollView addSubview:_scrollRightButton];
+    
+    _scrollLeftButton = [[UIButton buttonWithType:UIButtonTypeCustom] retain];
+    [[PCStyler defaultStyler] stylizeElement:_scrollLeftButton 
+                               withStyleName:PCScrollControlKey 
+                                 withOptions:buttonOption];    
+    
+    // Scroll left button
+    CGRect  scrollLeftButtonFrame = 
+    CGRectMake(paneScrollViewFrame.origin.x,
+               paneScrollViewFrame.origin.y + (paneScrollViewFrame.size.height - _scrollLeftButton.frame.size.width) / 2,
+               _scrollLeftButton.frame.size.height, 
+               _scrollLeftButton.frame.size.width);
+    
+    _scrollLeftButton.transform = CGAffineTransformMakeRotation(M_PI_2);
+    [_scrollLeftButton setFrame:scrollLeftButtonFrame];
+    [_scrollLeftButton addTarget:self action:@selector(scrollLeftButtonTapped:) 
+                forControlEvents:UIControlEventTouchUpInside];
+    [self.mainScrollView addSubview:_scrollLeftButton];
+
+    [self updateScrollButtons];
 }
 
--(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+- (void)deinitializeScrollButtons
 {
-    if (scrollView == self.scrollingPane)
-    {
-        [self updateScrollButtonsWithOffset:[self.scrollingPane contentOffset]];
-        [self afterScroll];
+    if (_scrollLeftButton != nil) {
+        [_scrollLeftButton removeFromSuperview];
+        [_scrollLeftButton release];
+        _scrollLeftButton = nil;
+    }
+
+    if (_scrollRightButton != nil) {
+        [_scrollRightButton removeFromSuperview];
+        [_scrollRightButton release];
+        _scrollRightButton = nil;
     }
 }
 
+- (void)updateScrollButtons
+{
+    _paneScrollView.scrollEnabled = YES;
+    
+    if (_scrollLeftButton) {
+        _scrollLeftButton.hidden = _paneScrollView.contentOffset.x <= 0;
+    }
+    
+    if (_scrollRightButton) {
+        _scrollRightButton.hidden = (_paneScrollView.contentOffset.x >= 
+        _paneScrollView.contentSize.width - _paneScrollView.frame.size.width);
+    }
+}
+
+- (void)scrollLeftButtonTapped:(UIButton *)sender
+{
+    [_paneScrollView scrollLeft];
+    [self updateScrollButtons];
+}
+
+- (void)scrollRightButtonTapped:(UIButton *)sender
+{
+    [_paneScrollView scrollRight];
+    [self updateScrollButtons];
+}
+
+#pragma mark - UIScrollViewDelegate
+ 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-    if (scrollView == self.scrollingPane)
-    {
-        if(scrollView.decelerating) return;
-        if (scrollView.contentOffset.x < 0)
-        {
-            if([self.magazineViewController showPrevColumn])
-            {
-                NSLog(@"PREV!!");
-                scrollView.scrollEnabled = NO;
-            }
+    if (scrollView == _paneScrollView) {
+        if (scrollView.decelerating) {
+            return;
         }
         
-        if (scrollView.contentOffset.x > scrollView.contentSize.width - scrollView.frame.size.width)
-        {
-            if([self.magazineViewController showNextColumn])
-            {
-                scrollView.scrollEnabled = NO;
-            }
+        if (scrollView.contentOffset.x < 0) {
+            _paneScrollView.scrollEnabled = NO;
+            [self.magazineViewController showPrevColumn];
+            return;
         }
+        
+        if (scrollView.contentOffset.x > scrollView.contentSize.width - scrollView.frame.size.width) {
+            _paneScrollView.scrollEnabled = NO;
+            [self.magazineViewController showNextColumn];
+            return;
+        }
+        
+        [self updateScrollButtons];
     }
 }
+
 @end

@@ -187,6 +187,11 @@
         
         CGRect newSlideRect = CGRectMake(self.view.frame.size.width * i, /*self.slidersView.frame.size.height - self.view.frame.size.height*/-sliderRect.origin.y, self.view.frame.size.width, self.view.frame.size.height);
 
+//        CGRect newSlideRect = CGRectMake(self.slidersView.frame.size.width * i,
+//                                         0, 
+//                                         self.slidersView.frame.size.width,
+//                                         self.slidersView.frame.size.height); 
+        
         [slideController.view setFrame:newSlideRect];
       
     }

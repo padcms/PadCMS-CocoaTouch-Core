@@ -52,6 +52,9 @@
 - (void) hideHUD;
 - (void) showGallery:(id)sender;
 - (void) showGalleryWithID:(NSInteger)ID initialPhotoID:(NSInteger)photoID;
+- (void) showVideoWebView;
+- (void) hideVideoWebView;
+- (void) hideSubviews;
 
 @end
 
@@ -67,6 +70,7 @@
 @synthesize videoButton;
 @synthesize isVisible;
 @synthesize galleryViewController;
+@synthesize videoWebView;
 
 -(void)dealloc
 {
@@ -87,6 +91,7 @@
     self.magazineViewController = nil;
     self.columnViewController = nil;
     self.galleryViewController = nil;
+    self.videoWebView = nil;
     [HUD release];
     [super dealloc];
 }
@@ -104,6 +109,7 @@
         mainScrollView = nil;
         galleryButton = nil;
         videoButton = nil;
+        videoWebView = nil;
         if ([self.page elementsForType:PCPageElementTypeGallery].count > 0)
         {
             galleryViewController = [[PCGalleryViewController alloc] initWithPage:self.page];
@@ -167,6 +173,12 @@
     CGSize bodySize = self.bodyViewController.view.frame.size;
     
     [self.mainScrollView setContentSize:bodySize];
+    
+    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
+    {
+        [self showVideoWebView];
+    }
+    
     [self createGalleryButton];
     
     if (self.galleryButton != nil) {
@@ -177,7 +189,7 @@
 - (void) unloadFullView
 {
 	isLoaded = NO;
-	[self hideHUD];
+	[self hideSubviews];
     [self.backgroundViewController unloadView];
     [self.bodyViewController unloadView];
 }
@@ -231,8 +243,36 @@
 
 - (void)viewWillDisappear:(BOOL)animated
 {
-    [self hideHUD];
+    [self hideSubviews];
     [super viewWillDisappear:animated];
+}
+
+- (void)showVideoWebView
+{
+    if (!videoWebView)
+    {
+        videoWebView = [[UIWebView alloc] initWithFrame:[self activeZoneRectForType:PCPDFActiveZoneVideo]];
+        videoWebView.scrollView.scrollEnabled = NO; 
+        videoWebView.scrollView.bounces = NO;
+    }
+    PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+    [self.view addSubview:videoWebView];
+    [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+}
+
+- (void)hideVideoWebView
+{
+    if (videoWebView)
+    {
+        [videoWebView removeFromSuperview];
+        [videoWebView release], videoWebView = nil;
+    }
+}
+
+- (void) hideSubviews
+{
+    [self hideHUD];
+    [self hideVideoWebView];
 }
 
 -(void)showHUD
@@ -326,7 +366,7 @@
 }
 
 - (void) showVideo:(NSString *)resourcePath
-{   
+{      
     if (resourcePath == nil) return;
     
     if([[resourcePath pathExtension] isEqualToString:@""])
@@ -362,11 +402,12 @@
         galleryViewController.delegate = self;
         galleryViewController.horizontalOrientation = self.magazineViewController.revision.horizontalOrientation;
         galleryViewController.galleryID = ID;
-        [self hideHUD];
+        [self hideSubviews];
         [self.magazineViewController showGalleryViewController:galleryViewController];
         if (photoID > 0)
         {
             [galleryViewController setCurrentPhoto:photoID - 1];
+            [galleryViewController showPhotoAtIndex:photoID - 1];
         }
     }
 }
@@ -450,8 +491,17 @@
             }
         }
     }
-    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]||[activeZone.URL hasPrefix:PCPDFActiveZoneVideo])
+    //if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]||[activeZone.URL hasPrefix:PCPDFActiveZoneVideo])
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo])
     {
+        if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo])
+        {
+            if (videoWebView && videoWebView.superview)
+                [self hideVideoWebView];
+            else
+                [self showVideoWebView];
+            return YES;
+        }
         NSArray* videoElements = [page elementsForType:PCPageElementTypeVideo];
         PCPageElementVideo* video = nil;
         if ([videoElements count]>1)
@@ -477,20 +527,26 @@
         
         if (video)
         {
-            
             if (video.stream)
                 [self showVideo:video.stream];
-            
+                
             if (video.resource)
                 [self showVideo:[page.revision.contentDirectory stringByAppendingPathComponent:video.resource]];
+            
             return YES;
         }
     }
     
     if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionPhotos])
     {
-        NSInteger photoID = [[activeZone.URL lastPathComponent] integerValue];
-        NSInteger galleryID = [[[activeZone.URL stringByDeletingLastPathComponent] lastPathComponent] integerValue];
+        NSString *url = activeZone.URL;
+        NSInteger photoID = [[url lastPathComponent] integerValue];
+        NSInteger galleryID = [[[url stringByDeletingLastPathComponent] lastPathComponent] integerValue];
+        if (galleryID == 0)
+        {
+            galleryID = photoID;
+            photoID = 0;
+        }
         NSLog(@"url - %@, gallery - %d, photo - %d", activeZone.URL, galleryID, photoID);
         [self showGalleryWithID:galleryID initialPhotoID:photoID];
         return YES;
@@ -569,10 +625,15 @@
 
 - (void) galleryViewControllerWillDismiss
 {
-  if (!self.page.isComplete) {
-     [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:self.page userInfo:nil];
-    [self showHUD];
-  }
+    if (!self.page.isComplete) 
+    {
+        [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:self.page userInfo:nil];
+        [self showHUD];
+    }
+    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
+    {
+        [self showVideoWebView];
+    }
     [self.magazineViewController dismissGalleryViewController];
 }
 

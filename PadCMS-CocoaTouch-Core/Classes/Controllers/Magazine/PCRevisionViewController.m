@@ -372,6 +372,20 @@
 
 - (void)createTableOfContents
 {
+    BOOL isStripesExists = NO;
+        
+    for (PCTocItem *tempTocItem in revision.toc)
+    {
+        if (tempTocItem.thumbStripe)
+        {
+            isStripesExists = YES;
+            break;
+        }
+    }
+  
+    if (!isStripesExists)
+        return;
+       
     CGFloat viewHeight = self.view.frame.size.height;
     CGFloat viewWidth = self.view.frame.size.width;
     
@@ -560,6 +574,20 @@
 
 - (void)createTopSummaryView
 {
+    BOOL isSummaryExists = NO;
+       
+    for (PCTocItem *tempTocItem in revision.toc)
+    {
+        if (tempTocItem.thumbSummary)
+        {
+            isSummaryExists = YES;
+            break;
+        }
+    }
+        
+    if (!isSummaryExists)
+        return;
+    
     CGFloat imageSize = 85;
     CGFloat imageMargin = 10;
     CGFloat verticalPos = 43;
@@ -704,12 +732,25 @@
     topMenuView.alpha = 0;
     [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 43)];
 
+    int lastTocSummaryIndex = -1;
     if ([revision.toc count] > 0)
     {
-        PCTocItem* tocItem = [revision.toc objectAtIndex:[revision.toc count] - 2];
-        NSString* imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
-        topSummaryButton.hidden = !fileExists;
+        for (int i = [revision.toc count]-1; i >= 0; i--)
+            {
+                PCTocItem *tempTocItem = [revision.toc objectAtIndex:i];
+                if (tempTocItem.thumbSummary)
+                {
+                    lastTocSummaryIndex = i;
+                    break;
+                }
+            }
+        if (lastTocSummaryIndex != -1)
+        {
+            PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocSummaryIndex];
+            NSString* imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+            topSummaryButton.hidden = !fileExists;
+        }
     }
     
     [self.view addSubview:topMenuView];
@@ -720,6 +761,7 @@
     
     [self.view addSubview:horizontalTopMenuView];
 }
+    
 - (void) adjustHelpButton
 {
     BOOL        hide = NO;
@@ -774,7 +816,7 @@
         [self createHorizontalView];
         [self adjustHelpButton];
         
-        if([PCConfig IsDisableSearching])
+        if([PCConfig isSearchDisabled])
         {
             searchTextField.hidden = YES;
             searchTextField.enabled = NO;
@@ -1282,17 +1324,39 @@
 
     [UIView animateWithDuration:0.3f animations:^{
 
-        if (revision.toc.count > 0) {
-            PCTocItem *tocItem = [revision.toc objectAtIndex:revision.toc.count - 2];
-            NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
-            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
-            if (fileExists) {
-                tableOfContentButton.hidden = !tableOfContentButton.hidden;
-            } else {
-                tableOfContentButton.hidden = YES;
+        if ([revision.toc count] > 0)
+        {
+            int lastTocStripeIndex = -1;
+                           
+            for (int i = [revision.toc count]-1; i >= 0; i--)
+            {
+                PCTocItem *tempTocItem = [revision.toc objectAtIndex:i];
+                if (tempTocItem.thumbStripe)
+                {
+                    lastTocStripeIndex = i;
+                    break;
+                }
             }
-            tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
-        } else {
+             
+            if (lastTocStripeIndex != -1)
+            {
+                PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocStripeIndex];
+                NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+                BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+                if (fileExists) 
+                {
+                    tableOfContentButton.hidden = !tableOfContentButton.hidden;
+                } 
+            
+                else 
+                {
+                    tableOfContentButton.hidden = YES;
+                }
+                tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
+             }
+        } 
+        
+        else {
             tableOfContentButton.hidden = YES;
             tableOfContentButton.alpha = 0;
         }

@@ -551,12 +551,15 @@ NSString* secondaryKey   = @"secondaryKey";
 
 -(void)addOperationForResourcePath:(NSString*)path element:(PCPageElement*)element inPage:(PCPage*)page isPrimary:(BOOL)isPrimary isThumbnail:(BOOL) isThumbnail resumeOperation:(PCDownloadOperation*)canceledOperation
 {
-  NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
-  NSNumber* elementIdentifier = [NSNumber numberWithInteger:element.identifier];
-  ItemType type = isThumbnail? THUMBNAIL : PAGE;
-	if ((element.page.pageTemplate.identifier == PCHorizontalScrollingPageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane])) type = HORIZONTAL_SCROLLING_PANE;
-  NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
-  AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
+    NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
+    NSNumber* elementIdentifier = [NSNumber numberWithInteger:element.identifier];
+    ItemType type = isThumbnail? THUMBNAIL : PAGE;
+
+    if ((element.page.pageTemplate.identifier == PCHorizontalScrollingPageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane])) type = HORIZONTAL_SCROLLING_PANE;
+    
+    NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
+    
+    AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
     [self moveItemWithPath:[self.revision.contentDirectory stringByAppendingPathComponent:path]];
     if (!isThumbnail) element.isComplete = YES;
@@ -738,10 +741,10 @@ NSString* secondaryKey   = @"secondaryKey";
 	{
 		if ([Helper currentDeviceResolution] == RETINA)
 		{
-			return [NSString stringWithFormat:@"/resources/2048-1536-h%@",resource];
+			return horizontalOrientation ? [NSString stringWithFormat:@"/resources/2048-1536-h%@",resource] : [NSString stringWithFormat:@"/resources/1536-2048-h%@",resource];
 			
 		}else {
-			return [NSString stringWithFormat:@"/resources/1024-768-h%@",resource];
+			return horizontalOrientation ? [NSString stringWithFormat:@"/resources/1024-768-h%@",resource] : [NSString stringWithFormat:@"/resources/768-1024-h%@",resource];
 		}
 		break;  
 	}

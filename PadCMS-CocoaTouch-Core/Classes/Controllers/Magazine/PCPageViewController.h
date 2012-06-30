@@ -66,7 +66,7 @@
     BOOL isVisible;
     MBProgressHUD *HUD;
 	BOOL isLoaded;
-	
+	UIWebView *videoWebView;
 }
 
 @property (nonatomic,assign) PCRevisionViewController* magazineViewController;///< Main magazine view controller 
@@ -80,6 +80,7 @@
 @property (nonatomic,retain) UIButton* videoButton;///< Video button
 @property (nonatomic,retain) PCGalleryViewController* galleryViewController;
 @property (nonatomic,assign) BOOL isVisible;
+@property (nonatomic,retain) UIWebView *videoWebView;
 
 /**
  @brief Initiolize page view controller with Page
