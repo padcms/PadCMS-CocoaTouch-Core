@@ -64,7 +64,7 @@
 
 - (void)rotateToPortraitOrientation;
 - (void)rotateToLandscapeOrientation;
-- (void)rotateInterfaceIfNeedWithRevision:(PCRevision*)revision;
+- (void)checkInterfaceOrientationForRevision:(PCRevision*)revision;
 
 @end
 
@@ -717,7 +717,7 @@
 
     if (currentRevision)
     {
-        [self rotateInterfaceIfNeedWithRevision:currentRevision];
+        [self checkInterfaceOrientationForRevision:currentRevision];
 
         [PCDownloadManager sharedManager].revision = currentRevision;
         [[PCDownloadManager sharedManager] startDownloading];
@@ -948,7 +948,7 @@
     
     if (currentRevision)
     {
-        [self rotateInterfaceIfNeedWithRevision:currentRevision];
+        [self checkInterfaceOrientationForRevision:currentRevision];
         
         [PCDownloadManager sharedManager].revision = currentRevision;
         [[PCDownloadManager sharedManager] startDownloading];
@@ -996,7 +996,7 @@
 	}
 }
 
-#pragma mark - misc
+#pragma mark - Orientations
 
 - (void)rotateToPortraitOrientation
 {
@@ -1040,25 +1040,20 @@
     }];
 }
 
-- (void)rotateInterfaceIfNeedWithRevision:(PCRevision*)revision
+- (void)checkInterfaceOrientationForRevision:(PCRevision*)revision
 {
-    if (!revision.horizontalOrientation && !revision.horizontalMode) {
-        // vertical(portrait) only revision
+    if (revision != nil) {
+        UIInterfaceOrientation currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
         
-        if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            [self rotateToPortraitOrientation];   
+        BOOL currentInterfaceAvailable = [revision interfaceOrientationAvailable:currentInterfaceOrientation];
+        
+        if (!currentInterfaceAvailable) {
+            if (UIDeviceOrientationIsLandscape(currentInterfaceOrientation)) {
+                [self rotateToPortraitOrientation];
+            } else {
+                [self rotateToLandscapeOrientation];
+            }
         }
-        
-    } else if (revision.horizontalOrientation && !revision.horizontalMode) {
-        // horizontal(landscape) only revision
-        
-        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            [self rotateToLandscapeOrientation];   
-        }
-        
-    } else if (!revision.horizontalOrientation && revision.horizontalMode) {
-        // vertical and horizontal revision
-        
     }
 }
 
