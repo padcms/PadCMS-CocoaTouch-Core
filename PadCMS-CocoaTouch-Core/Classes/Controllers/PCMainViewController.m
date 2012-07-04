@@ -45,7 +45,7 @@
 #import "InAppPurchases.h"
 #import "PCDownloadApiClient.h"
 
-@interface PCMainViewController (private)
+@interface PCMainViewController ()
 
 - (void) initManager;
 - (void) showMagManagerView;
@@ -62,7 +62,10 @@
 - (void)downloadRevisionCanceledWithIndex:(NSNumber*)index;
 - (void)downloadingRevisionProgressUpdate:(NSDictionary*)info;
 
-- (void)rotateInterfaceIfNeedWithRevision:(PCRevision*) revision;
+- (void)rotateToPortraitOrientation;
+- (void)rotateToLandscapeOrientation;
+- (void)rotateInterfaceIfNeedWithRevision:(PCRevision*)revision;
+
 @end
 
 @implementation PCMainViewController
@@ -995,37 +998,67 @@
 
 #pragma mark - misc
 
-- (void)rotateInterfaceIfNeedWithRevision:(PCRevision*) revision
+- (void)rotateToPortraitOrientation
 {
-    if(revision.horizontalOrientation)
-    {
-        UIInterfaceOrientation curOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+    NSTimeInterval duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
         
-        // if we enter in view controller in portrait with revision with horizontal orientation
-        if(UIDeviceOrientationIsPortrait(curOrientation))
-        {
-            [UIView beginAnimations:@"View Flip" context:nil];
-            [UIView setAnimationCurve:UIViewAnimationCurveEaseInOut];
-            [UIView setAnimationDidStopSelector:@selector(animationDidStop:finished:context:)];
-            [UIView setAnimationDelegate:self];
-            
-            self.view.frame = CGRectMake(0.0, 0.0, 1024, 768);
-            self.view.center = CGPointMake(512, 384);
-            [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft];
-            CGAffineTransform landscapeTransform = CGAffineTransformMakeRotation( 90.0 * M_PI / -180.0 );
-            landscapeTransform = CGAffineTransformTranslate( landscapeTransform, -128.0, -128.0 );
-            self.view.transform = landscapeTransform;
-            
-            [UIView commitAnimations];
-        }
-    } 
+        self.view.frame = CGRectMake(0, 0, 1024, 768);
+        self.view.center = CGPointMake(512, 384);
+        
+        CGAffineTransform portraitTransform = CGAffineTransformMakeRotation(M_PI * 2);
+        portraitTransform = CGAffineTransformTranslate(portraitTransform, -128.0, 128.0);
+        self.view.transform = portraitTransform;
+        
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationPortrait];
+        
+    } completion:^(BOOL finished) {
+        
+        [self.kioskViewController deviceOrientationDidChange];
+        
+    }];
 }
 
-- (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
+- (void)rotateToLandscapeOrientation
 {
-    if([animationID isEqualToString:@"View Flip"])
-    {
+    NSTimeInterval duration = [UIApplication sharedApplication].statusBarOrientationAnimationDuration;
+    [UIView animateWithDuration:duration delay:0 options:UIViewAnimationCurveEaseInOut animations:^{
+        
+        self.view.frame = CGRectMake(0, 0, 1024, 768);
+        self.view.center = CGPointMake(512, 384);
+        
+        CGAffineTransform landscapeTransform = CGAffineTransformMakeRotation( 90.0 * M_PI / -180.0 );
+        landscapeTransform = CGAffineTransformTranslate( landscapeTransform, -128.0, -128.0 );
+        self.view.transform = landscapeTransform;
+        
+        [[UIApplication sharedApplication] setStatusBarOrientation:UIInterfaceOrientationLandscapeLeft];
+        
+    } completion:^(BOOL finished) {
+        
         [self.kioskViewController deviceOrientationDidChange];
+        
+    }];
+}
+
+- (void)rotateInterfaceIfNeedWithRevision:(PCRevision*)revision
+{
+    if (!revision.horizontalOrientation && !revision.horizontalMode) {
+        // vertical(portrait) only revision
+        
+        if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            [self rotateToPortraitOrientation];   
+        }
+        
+    } else if (revision.horizontalOrientation && !revision.horizontalMode) {
+        // horizontal(landscape) only revision
+        
+        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            [self rotateToLandscapeOrientation];   
+        }
+        
+    } else if (!revision.horizontalOrientation && revision.horizontalMode) {
+        // vertical and horizontal revision
+        
     }
 }
 
