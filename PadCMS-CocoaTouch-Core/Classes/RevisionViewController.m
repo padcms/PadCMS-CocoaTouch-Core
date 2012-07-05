@@ -9,6 +9,7 @@
 #import "RevisionViewController.h"
 #import "PCMagazineViewControllersFactory.h"
 #import "PCPageViewController.h"
+#import "RRComplexScrollView.h"
 
 @interface RevisionViewController ()
 
@@ -45,11 +46,14 @@
 {
     [super viewDidLoad];
 	
-	self.view.backgroundColor = [UIColor greenColor];
+    _mainScroll = [[RRComplexScrollView alloc] initWithFrame:self.view.bounds];
+    
+//	self.view.backgroundColor = [UIColor greenColor];
 	PCPageViewController* initialPageController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:self.onScreenPage];
-	//[self.mainScroll setCurrentElementView:initialPageController.view];
+    [self.mainScroll setCurrentElementView:initialPageController.view];
+    [self.view addSubview:self.mainScroll];
 	 [initialPageController.view setFrame:self.view.bounds];
-	[self.view addSubview:initialPageController.view];
+//	[self.view addSubview:initialPageController.view];
 	self.currentPageController = initialPageController;
 	[initialPageController unloadFullView];
 	[initialPageController loadFullView];
