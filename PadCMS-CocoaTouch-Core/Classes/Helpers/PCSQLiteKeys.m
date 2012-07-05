@@ -45,6 +45,7 @@
 
  NSString* PCSQLiteIDColumnName                                 = @"id";
  NSString* PCSQLiteTitleColumnName                              = @"title";
+ NSString* PCSQLiteHorizontalTitleColumnName                    = @"name";
  NSString* PCSQLiteHorisontalPageIDColumnName                   = @"horisontal_page_id";
  NSString* PCSQLiteTemplateColumnName                           = @"template";
  NSString* PCSQLiteMachineNameColumnName                        = @"machine_name";

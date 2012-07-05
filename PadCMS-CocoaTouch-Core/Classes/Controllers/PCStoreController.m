@@ -49,6 +49,7 @@
 #import "PCDownloadApiClient.h"
 #import "PCRevisionViewController.h"
 #import "InAppPurchases.h"
+#import "RevisionViewController.h"
 
 NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
@@ -56,13 +57,18 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 @interface PCStoreController()
 @property (nonatomic, readwrite, retain) PCApplication* application;
 @property (nonatomic, retain) PCRevisionViewController* revisionViewController;
+
+
+//---TEST----
+@property (nonatomic, retain) RevisionViewController* revisionController;
 @end
 
 @implementation PCStoreController
 @synthesize rootViewController=_rootViewController;
-@synthesize navigationController=_navigationController;
+//@synthesize navigationController=_navigationController;
 @synthesize application=_application;
 @synthesize revisionViewController=_revisionViewController;
+@synthesize revisionController=_revisionController;
 
 - (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController
 {
@@ -82,21 +88,22 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 -(void)dealloc
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self];
-  [_navigationController release], _navigationController = nil;
+  //[_navigationController release], _navigationController = nil;
   [_rootViewController release], _rootViewController = nil;
   [_application release], _application = nil;
   [_revisionViewController release], _revisionViewController = nil;
+  [_revisionController release], _revisionController = nil;
   [super dealloc];
 }
 
--(UINavigationController *)navigationController
+/*-(UINavigationController *)navigationController
 {
   if (_navigationController)
   {
     _navigationController = [[UINavigationController alloc] initWithRootViewController:_rootViewController];
   }
   return _navigationController;
-}
+}*/
 
 -(void)launch
 {
@@ -355,7 +362,17 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [PCDownloadManager sharedManager].revision = currentRevision;
     [[PCDownloadManager sharedManager] startDownloading];
     
-    if (_revisionViewController == nil)
+    if (_revisionController == nil)
+    {
+            
+      _revisionController = [[RevisionViewController alloc] initWithRevision:currentRevision];
+      [self.rootViewController.navigationController pushViewController:_revisionController animated:NO];
+      
+      
+      
+    }
+    
+ /*   if (_revisionViewController == nil)
     {
       NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
       
@@ -366,11 +383,12 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
       [_revisionViewController setRevision:currentRevision];
       _revisionViewController.mainViewController = self;
       _revisionViewController.initialPageIndex = 0;
-      [self.rootViewController.view addSubview:_revisionViewController.view];
+   //   [self.rootViewController.view addSubview:_revisionViewController.view];
+		[self.rootViewController.navigationController pushViewController:_revisionViewController animated:NO];
      
       
       
-    }
+    }*/
   }
 }
 
@@ -606,7 +624,8 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   [[NSURLCache sharedURLCache] removeAllCachedResponses];
   [[PCResourceCache sharedInstance] removeAllObjects];
   [[PCDownloadManager sharedManager] cancelAllOperations];
-  [_revisionViewController.view removeFromSuperview];
+ // [_revisionViewController.view removeFromSuperview];
+	[self.rootViewController.navigationController popToRootViewControllerAnimated:NO];
   self.revisionViewController = nil;
   
 }
@@ -618,14 +637,8 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   searchViewController.application = self.application;
   searchViewController.delegate = self;
   
-  if ([self respondsToSelector:@selector(presentViewController:animated:completion:)]) 
-  {
-    [self.rootViewController presentViewController:searchViewController animated:YES completion:nil];
-  } 
-  else 
-  {
-    [self.rootViewController presentModalViewController:searchViewController animated:YES];   
-  }
+  [self.rootViewController presentViewController:searchViewController animated:YES completion:nil];
+ 
   [searchViewController release];
 }
 

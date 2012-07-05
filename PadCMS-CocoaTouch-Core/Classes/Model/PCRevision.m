@@ -96,6 +96,8 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 @synthesize color = _color;
 @synthesize startVideo = _startVideo;
 @synthesize downloadStartVideoOperation = _downloadStartVideoOperation;
+@synthesize newHorizontalPages=_newHorizontalPages;
+
 
 - (void)dealloc
 {
@@ -112,7 +114,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     self.downloadStartVideoOperation = nil;
     self.color = nil;
     self.startVideo = nil;
-    
+	self.newHorizontalPages = nil;
     [super dealloc];
 }
 
@@ -130,9 +132,9 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         _horizontalPages = [[NSMutableDictionary alloc] init];
         _horisontalPagesObjects = [[NSMutableDictionary alloc] init];
         _horisontalTocItems = [[NSMutableDictionary alloc] init];
+		_newHorizontalPages = [[NSMutableArray alloc] init];
         _columns = [[NSMutableArray alloc] init];
         self.helpPages = [parameters objectForKey:PCJSONIssueHelpPagesKey];
-        _color = nil;
         _horizontalMode = NO;
         
         NSString *identifierString = [parameters objectForKey:PCJSONRevisionIDKey];
@@ -178,17 +180,17 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
                 _state = PCRevisionStateWorkInProgress;   
             }
             
-            if ([stateString isEqualToString:PCJSONIssuePublishedStateValue])
+            else if ([stateString isEqualToString:PCJSONIssuePublishedStateValue])
             {
                 _state = PCRevisionStatePublished;
             }
             
-            if ([stateString isEqualToString:PCJSONIssueArchivedStateValue])
+            else if ([stateString isEqualToString:PCJSONIssueArchivedStateValue])
             {
                 _state = PCRevisionStateArchived;   
             }
             
-            if ([stateString isEqualToString:PCJSONIssueForReviewStateValue])
+            else if ([stateString isEqualToString:PCJSONIssueForReviewStateValue])
             {
                 _state = PCRevisionStateForReview;
             }
@@ -203,10 +205,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
                 _horizontalOrientation = YES;
             }
         }
-        /// FOR simulation only
-        //_horizontalOrientation = YES;
-        ///
-        
+               
         _isHorizontalHelpComplete = YES;
 		_isVerticalHelpComplete = YES;
         
@@ -460,8 +459,9 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     if ([[NSFileManager defaultManager] fileExistsAtPath:databasePath])
     {
         NSError *error = nil;
-        NSDictionary *fileAttributes = [[NSFileManager defaultManager] attributesOfItemAtPath:databasePath
-                                                                                        error:&error];
+        NSDictionary *fileAttributes = [[NSFileManager defaultManager]
+										attributesOfItemAtPath:databasePath
+										error:&error];
         if (error != nil)
         {
             NSLog(@"ERROR ([PCRevision isDownloaded]): %@", error.localizedDescription);

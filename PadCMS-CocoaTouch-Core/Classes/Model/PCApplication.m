@@ -67,11 +67,6 @@
     if (self)
     {
         _identifier = -1;
-        _title = nil;
-        _applicationDescription = nil;
-        _productIdentifier = nil;
-        _notifications = nil;
-        _issues = nil;
         _notifications = [[NSMutableDictionary alloc] init];
         _issues = [[NSMutableArray alloc] init];
     }
@@ -152,16 +147,13 @@
                 NSDictionary *issueParameters = [issuesList objectForKey:key];
                 PCIssue *issue = [[PCIssue alloc] initWithParameters:issueParameters 
                                                        rootDirectory:_contentDirectory];
-                if (issue != nil)
-                {
-                    [_issues addObject:issue];
-                    [issue release];
-                }
-                
+                if (issue != nil) [_issues addObject:issue];
                 issue.application = self;
+				[issue release];
             }
         }
         
+		//Sorting issues to ensure that they will be shown in the proper order
 		[_issues sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
             PCIssue *issue1 = (PCIssue *)obj1;
             NSNumber *number1 = [NSNumber numberWithInteger:issue1.number.integerValue];

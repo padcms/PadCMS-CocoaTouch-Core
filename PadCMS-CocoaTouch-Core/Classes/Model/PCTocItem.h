@@ -34,7 +34,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBXML.h"
 
 /**
  @class PCTocItem

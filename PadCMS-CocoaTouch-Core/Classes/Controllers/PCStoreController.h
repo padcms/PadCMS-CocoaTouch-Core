@@ -43,7 +43,7 @@
 @interface PCStoreController : NSObject <PCKioskDataSourceProtocol,PCKioskViewControllerDelegateProtocol, PCSearchViewControllerDelegate>
 
 @property (nonatomic, readonly, retain) UIViewController<PCStoreControllerDelegate>* rootViewController;
-@property (nonatomic, readonly, retain) UINavigationController* navigationController;
+//@property (nonatomic, readonly, retain) UINavigationController* navigationController;
 @property (nonatomic, readonly, retain) PCApplication* application;
 
 

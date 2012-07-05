@@ -81,12 +81,7 @@
         _subscriptionType = PCIssueUnknownSubscriptionType;
         _paid = NO;
         _identifier = -1;
-        _productIdentifier =nil;
-        _title = nil;
-        _number = nil;
-        _updatedDate = nil;
-		_price = nil;
-    }
+	}
 
     return self;
 }
@@ -112,6 +107,8 @@
         _productIdentifier = [[parameters objectForKey:PCJSONIssueProductIDKey] copy];
         
         _paid = [[parameters objectForKey:PCJSONIssuePaidKey] boolValue];
+		
+		//if there is no product identifuer the this issue is free
 		if ([_productIdentifier isEqualToString:@""])
 		{
 			_paid = YES;
@@ -119,6 +116,7 @@
         
         NSString *issueSubscriptionType = [parameters objectForKey:PCJSONIssueSubscriptionTypeKey];
         
+		//if user is subscribed then issueSubscriptionType not empty
         if (issueSubscriptionType)
         {
             if ([issueSubscriptionType isEqualToString:PCJSONIssueAutoRenewableSubscriptionTypeValue])
@@ -128,8 +126,6 @@
             }
         }
         
-     //   NSDictionary *helpPages = [parameters objectForKey:PCJSONIssueHelpPagesKey];
-        
         _revisions = [[NSMutableArray alloc] init];
         NSDictionary *revisionsParameters = [parameters objectForKey:PCJSONRevisionsKey];
         if ([revisionsParameters count] > 0)
@@ -137,8 +133,9 @@
             NSArray *revisionsKeys = [revisionsParameters allKeys];
             for (NSString *key in revisionsKeys)
             {
-                PCRevision *revision = [[PCRevision alloc] initWithParameters:[revisionsParameters objectForKey:key]
-                                                                rootDirectory:_contentDirectory];
+                PCRevision *revision = [[PCRevision alloc]
+										initWithParameters:[revisionsParameters objectForKey:key]
+										rootDirectory:_contentDirectory];
                 
                 if (revision != nil)
                 {
@@ -146,8 +143,6 @@
                 }
                 
                 revision.issue = self;
-       //         revision.helpPages = helpPages;
-                
                 [revision release];
             }
 			[_revisions sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -189,23 +184,6 @@
 
 }
 
-
-/*
-- (PCRevision *)currentRevision
-{
-    if (_revisions == nil || [_revisions count] == 0) return nil;
-    
-    for (PCRevision *revision in _revisions)
-    {
-        if (revision.state = PCRevisionStatePublished)
-        {
-            return revision;
-        }
-    }
-    
-    return nil;
-}
-*/
 - (NSString *)description
 {
     NSString *descriptionString = [NSString stringWithFormat:@"%@\ridentifier: %d\rtitle: %@\r"

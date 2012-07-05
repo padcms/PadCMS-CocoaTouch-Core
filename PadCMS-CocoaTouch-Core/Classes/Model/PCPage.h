@@ -34,7 +34,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBXML.h"
 
 #import "PCPageTemplate.h"
 #import "PCPageElement.h"
@@ -130,6 +129,16 @@ PADCMS_EXTERN NSString* const PCBoostPageNotification;
 @property (assign) NSTimer *repeatingTimer;
 
 @property (assign) BOOL isUpdateProgress;
+
+@property (assign) BOOL isHorizontal;
+
+@property (nonatomic, readonly) PCPage* rightPage;
+
+@property (nonatomic, readonly) PCPage* leftPage;
+
+@property (nonatomic, readonly) PCPage* bottomPage;
+
+@property (nonatomic, readonly) PCPage* topPage;
 
 - (id)init;
 

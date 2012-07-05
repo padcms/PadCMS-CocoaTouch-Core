@@ -34,7 +34,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "TBXML.h"
 #import "PCPage.h"
 
 @class PCApplication;
@@ -54,11 +53,6 @@ typedef enum
 @interface PCIssue : NSObject
 
 @property (nonatomic, assign) PCApplication *application;
-
-/**
- @brief Current published revision
- */ 
-//@property (readonly) PCRevision *currentRevision;
 
 /**
  @brief Directory where PCIssue instances stores data
@@ -101,11 +95,6 @@ typedef enum
 @property (nonatomic, retain) NSString *productIdentifier;
 
 /**
- @brief Basic magazine color
- */ 
-//@property (nonatomic, retain) UIColor *color;
-
-/**
  @brief Path to the thumbnail of the magazine cover page
  */ 
 @property (nonatomic, retain) NSString *coverImageThumbnailURL;
@@ -126,11 +115,6 @@ typedef enum
 @property (nonatomic, retain) NSDate *updatedDate;
 
 @property (nonatomic, copy) NSString* price;
-
-/**
- @brief Support for the horizontal mode flag
- */ 
-//@property (nonatomic, assign) BOOL horizontalMode;
 
 /**
  @brief Designated initializer.

@@ -39,6 +39,7 @@
 #import "PCDownloadProgressProtocol.h"
 #import "PCPageElementMiniArticle.h"
 #import "PCPageActiveZone.h"
+//#import "PCPageTemplate.h"
 
 NSString* endOfDownloadingPageNotification   = @"endOfDownloadingPageNotification";
 NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
@@ -62,6 +63,7 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
 @synthesize secondaryElements=_secondaryElements;
 @synthesize repeatingTimer=_repeatingTimer;
 @synthesize isUpdateProgress=_isUpdateProgress;
+@synthesize isHorizontal=_isHorizontal;
 
 - (void)dealloc
 {
@@ -83,20 +85,13 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
     self = [super init];
     if (self)
     {
-        _revision = nil;
-        column = nil;
         identifier = -1;
-        title = nil;
-        pageTemplate = nil;
-	
-        machineName = nil;
         horisontalPageIdentifier = -1;
 
         elements = [[NSMutableArray alloc] init];
         links = [[NSMutableDictionary alloc] init];
-        color = nil;
         isComplete = YES;
-      _isUpdateProgress = NO;
+		_isUpdateProgress = NO;
     }
     return self;
 }
@@ -405,6 +400,28 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
 
 }
 
+
+-(PCPage *)rightPage
+{
+	return [self.revision pageForLink:[self.links objectForKey:[NSNumber numberWithInt:PCTemplateRightConnector]]];
+}
+
+-(PCPage *)leftPage
+{
+	NSNumber* leftPageId = [self.links objectForKey:[NSNumber numberWithInt:PCTemplateLeftConnector]];
+	PCPage* ressultPage = [self.revision pageForLink:leftPageId];
+	return ressultPage;
+}
+
+-(PCPage *)bottomPage
+{
+	return [self.revision pageForLink:[self.links objectForKey:[NSNumber numberWithInt:PCTemplateBottomConnector]]];
+}
+
+-(PCPage *)topPage
+{
+	return [self.revision pageForLink:[self.links objectForKey:[NSNumber numberWithInt:PCTemplateTopConnector]]];
+}
 
 
 @end

@@ -46,6 +46,7 @@ PADCMS_EXTERN NSString* PCSQLitePageHorisontalTableName;
 
 PADCMS_EXTERN NSString* PCSQLiteIDColumnName;
 PADCMS_EXTERN NSString* PCSQLiteTitleColumnName;
+PADCMS_EXTERN NSString* PCSQLiteHorizontalTitleColumnName;
 PADCMS_EXTERN NSString* PCSQLiteHorisontalPageIDColumnName;
 PADCMS_EXTERN NSString* PCSQLiteTemplateColumnName;
 PADCMS_EXTERN NSString* PCSQLiteMachineNameColumnName;

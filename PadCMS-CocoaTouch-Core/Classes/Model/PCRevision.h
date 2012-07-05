@@ -47,7 +47,6 @@ typedef void (^PCRevisionDownloadProgressBlock)(float progress);
 
 @class PCPage;
 @class PCIssue;
-
 @protocol PCDownloadProgressProtocol;
 
 
@@ -88,6 +87,8 @@ typedef enum
 @property (nonatomic, assign) id<PCDownloadProgressProtocol> progressDelegate;
 @property (nonatomic, retain) AFHTTPRequestOperation *downloadOperation;
 @property (nonatomic, retain) AFHTTPRequestOperation *downloadStartVideoOperation;
+@property (nonatomic, retain) NSMutableArray* newHorizontalPages;
+
 
 /**
  @brief Designated initializer.
@@ -145,5 +146,7 @@ typedef enum
  @brief Cancel download process
  */ 
 - (void)cancelDownloading;
+
+
 
 @end

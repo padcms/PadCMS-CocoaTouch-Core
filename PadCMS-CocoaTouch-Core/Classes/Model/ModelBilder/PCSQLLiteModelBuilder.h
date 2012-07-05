@@ -47,19 +47,5 @@
 
 + (void)addPagesFromSQLiteBaseWithPath:(NSString*)path toRevision:(PCRevision*)revision;
 
-/**
- @brief Creates data model
- 
- @param applicatinDictionary - Dictionary with information received from client.getIssues
- */
-//+(PCApplication*)buildApplicationFromDictionary:(NSDictionary*)applicatinDictionary;
-
-/**
- @brief Updates data model
- 
- @param application - PCApplication object which needs updating
- @param applicatinDictionary - Dictionary with information received from client.getIssues
- */
-//+(void)updateApplication:(PCApplication*)application withDictionary:(NSDictionary*)applicatinDictionary;
 
 @end

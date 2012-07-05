@@ -141,25 +141,8 @@
 
     if (self) 
     {
-        revision = nil;
         columnsViewControllers = [[NSMutableArray alloc] init];
-        tableOfContentsView = nil;
-        mainScrollView = nil;
-        tapGestureRecognizer = nil;
-        horizontalTapGestureRecognizer = nil;
-        tableOfContentButton = nil;
-        topMenuView = nil;
-        horizontalTopMenuView = nil;
-        facebookViewController = nil;
-        emailController = nil;
-        _videoController = nil;
-        shareMenu = nil;
         initialPageIndex = 0;
-        horizontalScrollView = nil;
-        topSummaryView = nil;
-        topSummaryScrollView = nil;
-        horizontalSummaryView = nil;
-        helpController = nil;
         horizontalPagesViewControllers = [[NSMutableArray alloc] init];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
