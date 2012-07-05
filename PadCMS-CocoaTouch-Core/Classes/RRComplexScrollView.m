@@ -251,6 +251,7 @@
 - (void)scrollToRightElementAnimated:(BOOL)animated
 {
 	UIView* view = [self.datasource viewForConnection:RIGHT];
+    
     if (view != nil) {
 
         CGRect currentElementViewFrame = _currentElementView.frame;

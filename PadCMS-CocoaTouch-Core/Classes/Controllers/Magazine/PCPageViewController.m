@@ -149,9 +149,9 @@
         self.mainScrollView.scrollEnabled = YES;
     }
     
-    if (self.page.color != nil) {
-        self.mainScrollView.scrollButtonsTintColor = self.page.color; 
-    }
+//    if (self.page.color != nil) {
+//        self.mainScrollView.scrollButtonsTintColor = self.page.color; 
+//    }
     
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 	tapGestureRecognizer.cancelsTouchesInView = NO;

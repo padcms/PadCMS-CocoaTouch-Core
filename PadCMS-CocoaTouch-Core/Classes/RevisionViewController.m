@@ -47,7 +47,7 @@
     [super viewDidLoad];
 	
     _mainScroll = [[RRComplexScrollView alloc] initWithFrame:self.view.bounds];
-    
+    _mainScroll.datasource = self;
 //	self.view.backgroundColor = [UIColor greenColor];
 	PCPageViewController* initialPageController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:self.onScreenPage];
     [self.mainScroll setCurrentElementView:initialPageController.view];
@@ -89,7 +89,7 @@
 
 -(UIView *)viewForConnection:(RRConnectionType)coonectionType
 {
-	PCPage* nextPage;
+	PCPage *nextPage = nil;
 	switch (coonectionType) {
 		case TOP:
 			nextPage = _onScreenPage.topPage; 
@@ -107,11 +107,19 @@
 		default:
 			break;
 	}
-	
+
+	if (nextPage == nil) {
+        return nil;
+    }
+    
 	PCPageViewController* nextPageController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage];
+    
 	self.previousPageController = _currentPageController;
 	self.currentPageController = nextPageController;
 	self.onScreenPage = nextPage;
+    
+    [nextPageController loadFullView];
+    
 	return nextPageController.view;
 }
 
