@@ -186,14 +186,12 @@ NSString* secondaryKey   = @"secondaryKey";
 
 -(void)launchPortraitPagesDownloading
 {
-  for (PCColumn* column in self.revision.columns) {
-    for (PCPage* page in column.pages) {
-      if (page == [self.revision coverPage]) continue;
-      [self launchDownloadingForPage:page];    
-      
+    for (PCPage* page in self.revision.pages) {
+        if (page == [self.revision coverPage]) {
+            continue;   
+        }
+        [self launchDownloadingForPage:page];    
     }
-  }
-  
 }
 
 -(void)launchDownloadingForPage:(PCPage*)page

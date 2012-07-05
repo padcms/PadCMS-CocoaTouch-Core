@@ -141,10 +141,36 @@
 	//Creating backward links
 	
 	for (PCPage* page in revision.pages) {
-		PCPage* rightPage = [revision pageForLink:[page.links objectForKey:[NSNumber numberWithInt:PCTemplateRightConnector]]];
-		[rightPage.links setObject:[NSNumber numberWithInt:page.identifier] forKey:[NSNumber numberWithInt:PCTemplateLeftConnector]];
-		PCPage* bottomPage = [revision pageForLink:[page.links objectForKey:[NSNumber numberWithInt:PCTemplateBottomConnector]]];
-		[bottomPage.links setObject:[NSNumber numberWithInt:page.identifier] forKey:[NSNumber numberWithInt:PCTemplateTopConnector]];
+
+        NSNumber *pageIdentifier = [NSNumber numberWithInt:page.identifier];
+
+        // horizontal connections
+        NSNumber *leftConnector = [NSNumber numberWithInt:PCTemplateLeftConnector];
+        NSNumber *rightConnector = [NSNumber numberWithInt:PCTemplateRightConnector];
+
+        PCPage *leftPage = [revision pageForLink:[page.links objectForKey:leftConnector]];
+        if (leftPage != nil) {
+            [leftPage.links setObject:pageIdentifier forKey:rightConnector];
+        }
+
+        PCPage *rightPage = [revision pageForLink:[page.links objectForKey:rightConnector]];
+        if (rightPage != nil) {
+            [rightPage.links setObject:pageIdentifier forKey:leftConnector];
+        }
+
+        // vertical connections
+        NSNumber *topConnector = [NSNumber numberWithInt:PCTemplateTopConnector];
+        NSNumber *bottomConnector = [NSNumber numberWithInt:PCTemplateBottomConnector];
+        
+        PCPage *topPage = [revision pageForLink:[page.links objectForKey:topConnector]];
+        if (topPage != nil) {
+            [topPage.links setObject:pageIdentifier forKey:bottomConnector];
+        }
+
+        PCPage *bottomPage = [revision pageForLink:[page.links objectForKey:bottomConnector]];
+        if (bottomPage != nil) {
+            [bottomPage.links setObject:pageIdentifier forKey:topConnector];
+        }
 	}
     
     NSString* horisontalPagesQuery = [NSString stringWithFormat:@"select * from %@",PCSQLitePageHorisontalTableName];

@@ -118,6 +118,10 @@
 	self.currentPageController = nextPageController;
 	self.onScreenPage = nextPage;
     
+    if (nextPageController.view) {
+        // send [PCPageViewController loadView] message
+    }
+    
     [nextPageController loadFullView];
     
 	return nextPageController.view;
