@@ -52,6 +52,7 @@
 #import "PCPageTemplatesPool.h"
 #import "PCRevision.h"
 #import "PCTocItem.h"
+#import "PCPageElementGallery.h"
 
 @interface PCDownloadManager(ForwardDeclaration)
 
@@ -522,30 +523,42 @@ NSString* secondaryKey   = @"secondaryKey";
 
 -(void)addOperationsForPage:(PCPage*)page
 {
-  NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
-  NSMutableDictionary* pageDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableArray array], primaryKey,[NSMutableDictionary dictionary] ,secondaryKey, nil];
-  [self.operationsDic setObject:pageDictionary forKey:pageIdentifier];
-  BOOL isMiniArticleMet = NO;
-  for (PCPageElement* element in page.primaryElements) 
-  {
-    if ([element isKindOfClass:[PCPageElementMiniArticle class]]) {
-      if (!isMiniArticleMet) 
-      {
-        [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
-      }
-      isMiniArticleMet = YES;
-      PCPageElementMiniArticle* miniArticle = (PCPageElementMiniArticle*)element;
-      [self addOperationForResourcePath:miniArticle.thumbnail element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
-      [self addOperationForResourcePath:miniArticle.thumbnailSelected element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
-    }
-    else {
-      [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
-    }
-  }
+   NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
+   NSMutableDictionary* pageDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableArray array], primaryKey,[NSMutableDictionary dictionary] ,secondaryKey, nil];
+   [self.operationsDic setObject:pageDictionary forKey:pageIdentifier];
+   BOOL isMiniArticleMet = NO;
+   for (PCPageElement* element in page.primaryElements) 
+   {
+       if ([element isKindOfClass:[PCPageElementMiniArticle class]])
+       {
+           if (!isMiniArticleMet) 
+           {
+               [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+           }
+           isMiniArticleMet = YES;
+           PCPageElementMiniArticle* miniArticle = (PCPageElementMiniArticle*)element;
+           [self addOperationForResourcePath:miniArticle.thumbnail element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
+           [self addOperationForResourcePath:miniArticle.thumbnailSelected element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
+       }
+       else {
+           [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+       }
+   }
   
-  for (PCPageElement* element in page.secondaryElements) {
-    [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
-  }
+   for (PCPageElement* element in page.secondaryElements)
+   {
+      [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
+
+      if([element isKindOfClass:[PCPageElementGallery class]])
+      {
+          PCPageElementGallery      *galleryElement = (PCPageElementGallery*) element;
+          
+          if(galleryElement.overlayResource)
+          {
+//              [self addOperationForResourcePath:galleryElement.overlayResource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
+          }
+      }
+   }
 }
 
 
@@ -616,11 +629,19 @@ NSString* secondaryKey   = @"secondaryKey";
         else {
           element.downloadProgress = progress;
         }
-      }
-      else {
-        element.downloadProgress = progress;
-      }
+      } else
+          if([element isKindOfClass:[PCPageElementGallery class]])
+          {
+              PCPageElementGallery* galleryElement = (PCPageElementGallery*)element;
+              if ([galleryElement.overlayResource isEqualToString:path]) galleryElement.overlayProgress = progress;
+              else element.downloadProgress = progress;
 
+              if ([galleryElement.overlayResource isEqualToString:path]) NSLog(@"overlay for %d = %.0f", galleryElement.identifier, progress);
+              else NSLog(@"gallery for %d = %.0f", galleryElement.identifier, progress);
+          }
+          else {
+              element.downloadProgress = progress;
+          }
     });
  
   } itemLocation:path];

@@ -386,7 +386,10 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
   }
   else if (self.pageTemplate.identifier == PCFixedIllustrationArticleTouchablePageTemplate)
   {
-    
+      NSArray* galleryElements = [self elementsForType:PCPageElementTypeGallery];
+      if (galleryElements) [array addObjectsFromArray:galleryElements];
+      NSArray* popupsElements = [self elementsForType:PCPageElementTypePopup];
+	  if (popupsElements) [array addObjectsFromArray:popupsElements];
   }
   else if (self.pageTemplate.identifier == PCInteractiveBulletsPageTemplate)
   {

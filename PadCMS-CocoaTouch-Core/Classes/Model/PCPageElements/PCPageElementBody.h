@@ -45,10 +45,12 @@
     BOOL hasPhotoGalleryLink;
     BOOL showTopLayer;
     NSInteger top;
+    BOOL showGalleryOnRotate;
 }
 
 @property (nonatomic,assign) BOOL hasPhotoGalleryLink; ///< If YES means that body template have a link to launch photo gallery, and there is no need to show the default one. If NO, the default one will be shown.
 @property (nonatomic,assign) BOOL showTopLayer; ///< Do we have to show scroller
 @property (nonatomic,assign) NSInteger top; ///< Says where the body content should be positioned from the top of the screen
+@property (nonatomic,assign) BOOL showGalleryOnRotate; ///< Do we have to show gallery after changing device orientation that opposite to magazine orientation
 
 @end

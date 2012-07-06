@@ -1,8 +1,8 @@
 //
-//  PCPageElementGallery.h
-//  Pad CMS
+//  PCGalleryWithOverlaysViewController.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by admin on 28.05.12.
+//  Created by Oleg Zhitnik on 04.07.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,16 +33,37 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCPageElement.h"
+#import <UIKit/UIKit.h>
+@class PCPage;
+@class PCScrollView;
 
-@interface PCPageElementGallery : PCPageElement
+@protocol PCGalleryWithOverlaysViewControllerDelegate <NSObject>
+
+@required
+
+- (void)galleryWithOverlayViewControllerWillDismiss;
+
+@end
+
+@interface PCGalleryWithOverlaysViewController : UIViewController <UIScrollViewDelegate>
 {
+    PCPage *_page;
+    PCScrollView *_mainScrollView;
     NSInteger _galleryID;
-    NSString* overlayResource;
+    BOOL _horizontalOrientation;
+    NSMutableArray *_galleryElements;
+  	NSUInteger _currentIndex;
 }
 
+@property (nonatomic, retain) PCScrollView *mainScrollView;
+@property (nonatomic, retain) PCPage *page;
 @property (nonatomic, assign) NSInteger galleryID;
-@property (nonatomic,retain) NSString* overlayResource; ///< Relative path to the overlay resource
-@property (nonatomic,assign) float overlayProgress;
+@property (nonatomic, assign) BOOL horizontalOrientation;
+@property (nonatomic, retain) NSMutableArray *galleryElements;
+@property (nonatomic, retain) NSMutableArray* imageViews;
+@property (nonatomic, retain) NSMutableArray* overlayImageViews;
+@property (nonatomic, assign) NSInteger currentPage;
+
+- (id) initWithPage: (PCPage *)initialPage;
 
 @end

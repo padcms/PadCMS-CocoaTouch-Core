@@ -35,8 +35,18 @@
 
 #import "PCFixedIllustrationArticleTouchablePageViewController.h"
 #import "PCScrollView.h"
+#import "PCGalleryWithOverlaysViewController.h"
+
+@interface PCFixedIllustrationArticleTouchablePageViewController ()
+- (void)deviceOrientationDidChange;
+- (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation;
+- (void)showGallery;
+- (void)hideGallery;
+@end
 
 @implementation PCFixedIllustrationArticleTouchablePageViewController
+
+@synthesize galleryWithOverlaysViewController;
 
 - (void)dealloc
 {
@@ -55,6 +65,31 @@
 {
     [super viewDidLoad];
     [self.bodyViewController.view setHidden:YES];
+    
+    PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
+    
+    if (bodyElement && bodyElement.showGalleryOnRotate && [self.page elementsForType:PCPageElementTypeGallery].count > 0)
+    {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        currentMagazineOrientation = [[UIDevice currentDevice] orientation];
+        if(currentMagazineOrientation==UIDeviceOrientationUnknown)
+        {
+            UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+            if(UIInterfaceOrientationIsLandscape(currentOrientation))
+            {
+                currentMagazineOrientation = currentOrientation == UIInterfaceOrientationLandscapeLeft ? UIDeviceOrientationLandscapeLeft : UIDeviceOrientationLandscapeRight;
+            } else
+                if(UIInterfaceOrientationIsPortrait(currentOrientation))
+                {
+                    currentMagazineOrientation = currentOrientation == UIInterfaceOrientationPortrait ? UIDeviceOrientationPortrait : UIDeviceOrientationPortraitUpsideDown;
+                } 
+        }
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+        NSLog(@"registered");
+
+        galleryWithOverlaysViewController = [[PCGalleryWithOverlaysViewController alloc] initWithPage:self.page];
+    }
+    galleryIsShowed = NO;
 }
 
 -(void)loadView
@@ -114,6 +149,116 @@
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
+}
+
+#pragma mark - private
+
+/*
+- (void) showGalleryWithID:(NSInteger)ID initialPhotoID:(NSInteger)photoID
+{
+    if (galleryWithOverlaysViewController)
+    {
+        galleryWithOverlaysViewController.delegate = self;
+        galleryWithOverlaysViewController.horizontalOrientation = self.magazineViewController.revision.horizontalOrientation;
+        galleryWithOverlaysViewController.galleryID = ID;
+        [self hideSubviews];
+        [self.magazineViewController showGalleryViewController:galleryViewController];
+        if (photoID > 0)
+        {
+            [galleryViewController setCurrentPhoto:photoID - 1];
+            [galleryViewController showPhotoAtIndex:photoID - 1];
+        }
+    }
+}
+*/
+-(void)showGallery
+{
+    if(!galleryIsShowed)
+    {
+        if ([self.magazineViewController.mainViewController respondsToSelector:@selector(presentViewController:animated:completion:)]) 
+        {
+            [self.magazineViewController.mainViewController presentViewController:self.galleryWithOverlaysViewController animated:YES completion:nil];
+            NSLog(@"Show overlayed gallery");
+        } 
+        else 
+        {
+            [self.magazineViewController.mainViewController presentModalViewController:self.galleryWithOverlaysViewController animated:YES];
+        }
+        galleryIsShowed = YES;
+    }
+}
+
+-(void)hideGallery
+{
+    if (galleryIsShowed)
+    {
+        if ([self.magazineViewController.mainViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
+        {
+            [self.magazineViewController.mainViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
+        } 
+        else
+        {
+            [self.magazineViewController.mainViewController.modalViewController dismissModalViewControllerAnimated:YES];
+        }
+        galleryIsShowed = NO;
+    }
+}
+
+-(void)deviceOrientationDidChange
+{
+    NSLog(@"Notification DEV");
+    if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
+    {
+        if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
+        {
+            if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
+            {
+                if (galleryIsShowed)
+                {
+                    [self hideGallery];
+                }
+                else
+                {
+                    [self showGallery];
+                }
+            }
+        }
+    }
+    else if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]))
+    {
+        if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
+        {
+            if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
+            {
+                if (galleryIsShowed)
+                {
+                    [self hideGallery];
+                }
+                else
+                {
+                    [self showGallery];
+                }
+            }
+        }
+    }
+}
+
+- (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation
+{
+    UIDeviceOrientation tempOrientation;
+    tempOrientation = currentMagazineOrientation;
+    
+    if (UIDeviceOrientationIsLandscape(orientation))
+    {
+        currentMagazineOrientation = orientation;
+        return (UIDeviceOrientationIsPortrait(tempOrientation));
+    }
+    else if (UIDeviceOrientationIsPortrait(orientation))
+    {
+        currentMagazineOrientation = orientation;
+        return (UIDeviceOrientationIsLandscape(tempOrientation));
+    }
+    return NO;
 }
 
 @end

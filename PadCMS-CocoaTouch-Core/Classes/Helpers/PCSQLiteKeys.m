@@ -99,9 +99,11 @@
  NSString* PCSQLiteElementStreamAttributeName                   = @"stream";
  NSString* PCSQLiteElementShowTopLayerAttributeName             = @"showTopLayer";
  NSString* PCSQLiteElementHasPhotoGalleryLinkAttributeName      = @"hasPhotoGalleryLink";
+ NSString* PCSQLiteElementShowGalleryOnRotateAttributeName      = @"showGalleryOnRotate";
  NSString* PCSQLiteElementHeightAttributeName                   = @"height";
  NSString* PCSQLiteElementWidthAttributeName                    = @"width";
  NSString* PCSQLiteElementActiveZoneAttributeName               = @"active_zone";
+ NSString* PCSQLiteElementOverlayResourceAttributeName          = @"overlay";
 
  NSString* PCSQLiteTemplateTouchType                            = @"touch";
  NSString* PCSQLiteTemplateRotationType                         = @"rotation";

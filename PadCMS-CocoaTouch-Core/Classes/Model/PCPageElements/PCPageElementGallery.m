@@ -38,9 +38,13 @@
 @implementation PCPageElementGallery
 
 @synthesize galleryID = _galleryID;
+@synthesize overlayResource;
+@synthesize overlayProgress;
 
 - (void)dealloc
 {
+    if(overlayResource)[overlayResource release];
+    overlayResource = nil;
     [super dealloc];
 }
 
@@ -50,6 +54,7 @@
     if (self)
     {
         _galleryID = -1;
+        overlayResource = nil;
     }
     return self;
 }
@@ -57,7 +62,8 @@
 - (void)pushElementData:(NSDictionary*)data
 {
     [super pushElementData:data];
-    self.galleryID = [[data objectForKey:PCSQLiteElementGalleryIDName] integerValue];    
+    self.galleryID = [[data objectForKey:PCSQLiteElementGalleryIDName] integerValue];
+    self.overlayResource = [data objectForKey:PCSQLiteElementOverlayResourceAttributeName];
 }
 
 @end
