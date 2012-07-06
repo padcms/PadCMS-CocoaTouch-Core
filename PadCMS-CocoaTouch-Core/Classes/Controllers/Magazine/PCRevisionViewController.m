@@ -585,7 +585,11 @@
     }
         
     if (!isSummaryExists)
+    {
+        // hide top summary button if toc is absent
+        topSummaryButton.hidden = YES;
         return;
+    }
     
     CGFloat imageSize = 85;
     CGFloat imageMargin = 10;
