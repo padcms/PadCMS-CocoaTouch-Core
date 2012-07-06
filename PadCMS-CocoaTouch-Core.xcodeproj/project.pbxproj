@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */; };
+		6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */; };
 		607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */; };
 		607F3E341588C3580097D960 /* PCKioskAbstractControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */; };
 		607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */; };
@@ -1447,6 +1449,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGalleryWithOverlaysViewController.h; sourceTree = "<group>"; };
+		6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGalleryWithOverlaysViewController.m; sourceTree = "<group>"; };
 		607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractControlElement.h; sourceTree = "<group>"; };
 		607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskAbstractControlElement.m; sourceTree = "<group>"; };
 		607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractSubviewsFactory.h; sourceTree = "<group>"; };
@@ -2627,6 +2631,8 @@
 				607F3FE11588D3DE0097D960 /* PCFacebookViewController.m */,
 				607F3FE21588D3DE0097D960 /* PCGalleryViewController.h */,
 				607F3FE31588D3DE0097D960 /* PCGalleryViewController.m */,
+				6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */,
+				6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */,
 				607F3FE41588D3DE0097D960 /* PCHelpViewController.h */,
 				607F3FE51588D3DE0097D960 /* PCHelpViewController.m */,
 				607F3FE61588D3DE0097D960 /* PCSearchResultViewCell.h */,
@@ -3799,6 +3805,7 @@
 				607F44E11589E8E00097D960 /* NKitWorks.h in Headers */,
 				ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */,
 				ABF4D2ED1590516400DAAD0F /* PCDownloadOperation.h in Headers */,
+				6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4221,6 +4228,7 @@
 				ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */,
 				ABF4D2EC1590516400DAAD0F /* PCDownloadManager.m in Sources */,
 				ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */,
+				6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

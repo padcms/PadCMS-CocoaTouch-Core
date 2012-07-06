@@ -343,6 +343,9 @@
     
     PCPageElementBody* bodyElement = (PCPageElementBody*)[page firstElementForType:PCPageElementTypeBody];
     
+    // Base controller must ignore gallery in page with template that show gallery when device orientation changed
+    if (bodyElement && bodyElement.showGalleryOnRotate) return;
+    
     if (galleryElement != nil || (bodyElement && bodyElement.hasPhotoGalleryLink))
     {
         if(self.galleryButton != nil)

@@ -40,6 +40,7 @@
 @synthesize hasPhotoGalleryLink;
 @synthesize showTopLayer;
 @synthesize top;
+@synthesize showGalleryOnRotate;
 
 - (id)init
 {
@@ -48,6 +49,7 @@
         hasPhotoGalleryLink = NO;
         showTopLayer = NO;
         top = -1;
+        showGalleryOnRotate = NO;
     }
     return self;
 }
@@ -64,6 +66,9 @@
    
     if ([data objectForKey:PCSQLiteElementTopAttributeName])
         self.top = [[data objectForKey:PCSQLiteElementTopAttributeName] integerValue];
+
+    if ([data objectForKey:PCSQLiteElementShowGalleryOnRotateAttributeName])
+        self.showGalleryOnRotate = [[data objectForKey:PCSQLiteElementShowGalleryOnRotateAttributeName] boolValue];
 }
 
 -(NSString*)description
