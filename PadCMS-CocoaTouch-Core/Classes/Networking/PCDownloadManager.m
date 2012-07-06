@@ -122,7 +122,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		AFNetworkReachabilityStatus oldStatus = [[change objectForKey: NSKeyValueChangeOldKey] intValue];
 		if (newStatus == AFNetworkReachabilityStatusNotReachable)
 		{
-			NSString* message = @"Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
+			NSString* message = @"Vous devez être connecté à Internet.";
 			dispatch_async(dispatch_get_main_queue(), ^{
 				UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
 				[alert show];
@@ -145,7 +145,7 @@ NSString* secondaryKey   = @"secondaryKey";
     if (!self.revision) return;
     if ([PCDownloadApiClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
     {
-        NSString* message = @"Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
+        NSString* message = @"Vous devez être connecté à Internet.";
         UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert show];
         [alert release];

@@ -618,6 +618,24 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	
 }
 
+- (BOOL)interfaceOrientationAvailable:(UIInterfaceOrientation)interfaceOrientation
+{
+    if (!self.horizontalOrientation && !self.horizontalMode) {
+        // vertical(portrait) only revision
+        return !UIDeviceOrientationIsLandscape(interfaceOrientation);
+        
+    } else if (self.horizontalOrientation && !self.horizontalMode) {
+        // horizontal(landscape) only revision
+        return !UIDeviceOrientationIsPortrait(interfaceOrientation);
+        
+    } else if (!self.horizontalOrientation && self.horizontalMode) {
+        // vertical and horizontal revision
+        return YES;
+    }
+    
+    return NO;
+}
+
 - (NSString *)description
 {
     return [NSString stringWithFormat:
