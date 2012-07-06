@@ -7,15 +7,22 @@
 //
 
 #import "RRComplexScrollView.h"
+#import "PCPageViewController.h"
 
 @interface RRComplexScrollView ()
 {
-  
-    UIView *_nextElementView;
+    PCPageViewController *_currentPageController;
+    PCPageViewController *_nextPageController;
 }
 
 - (void)initialize;
 - (void)deinitialize;
+
+- (PCPageViewController *)initialPageController;
+- (PCPageViewController *)topPageController;
+- (PCPageViewController *)bottomPageController;
+- (PCPageViewController *)leftPageController;
+- (PCPageViewController *)rightPageController;
 
 - (void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer;
 - (void)swipeDownGesture:(UISwipeGestureRecognizer *)recognizer;
@@ -25,12 +32,13 @@
 @end
 
 @implementation RRComplexScrollView
-@synthesize datasource=_datasource;
-@synthesize delegate=_delegate;
-@synthesize currentElementView=_currentElementView;
+@synthesize dataSource = _dataSource;
 
 - (void)initialize
 {
+    _currentPageController = nil;
+    _nextPageController = nil;
+    
     UISwipeGestureRecognizer *swipeUpGestureRecognizer = 
     [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUpGesture:)];
     swipeUpGestureRecognizer.direction = UISwipeGestureRecognizerDirectionUp;
@@ -63,8 +71,7 @@
 - (void)dealloc
 {
     [self deinitialize];
-	_datasource = nil;
-	_delegate = nil;
+	_dataSource = nil;
     [super dealloc];
 }
 
@@ -80,39 +87,27 @@
 }
 
 
--(void)setCurrentElementView:(UIView *)currentElementView
-{
-	if (_currentElementView != currentElementView) {
-       
-        
-        if (_currentElementView == nil) {
-            CGRect currentElementViewFrame = CGRectMake(self.bounds.origin.x + 10, 
-                                                        self.bounds.origin.y + 10,
-                                                        self.bounds.size.width - 20,
-                                                        self.bounds.size.height - 20);
-            
-            _currentElementView = [currentElementView retain];
-			[_currentElementView setFrame:currentElementViewFrame];
-            [self addSubview:_currentElementView];
-        }
-		
-       
-        [self setNeedsLayout];
-    }
-
-}
-
-- (void)layoutSubviews
-{
-    [super layoutSubviews];
-    
-//    NSArray *subviews = self.subviews;
-//    for (UIView *subview in subviews) {
-//        if ([subview isKindOfClass:RRElementView.class]) {
+//-(void)setCurrentElementView:(UIView *)currentElementView
+//{
+//	if (_currentElementView != currentElementView) {
+//       
+//        
+//        if (_currentElementView == nil) {
+//            CGRect currentElementViewFrame = CGRectMake(self.bounds.origin.x + 10, 
+//                                                        self.bounds.origin.y + 10,
+//                                                        self.bounds.size.width - 20,
+//                                                        self.bounds.size.height - 20);
 //            
+//            _currentElementView = [currentElementView retain];
+//			[_currentElementView setFrame:currentElementViewFrame];
+//            [self addSubview:_currentElementView];
 //        }
+//		
+//       
+//        [self setNeedsLayout];
 //    }
-}
+//
+//}
 
 - (void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer
 {
@@ -134,38 +129,108 @@
     [self scrollToLeftElementAnimated:YES];
 }
 
+- (PCPageViewController *)initialPageController
+{
+    if ([self.dataSource respondsToSelector:@selector(pageControllerForPageController:connection:scrollView:)]) {
+        return [self.dataSource pageControllerForPageController:nil 
+                                                     connection:RRPageConnectionInvalid 
+                                                     scrollView:self];
+    }
+    
+    return nil;
+}
+
+- (PCPageViewController *)topPageController
+{
+    if ([self.dataSource respondsToSelector:@selector(pageControllerForPageController:connection:scrollView:)]) {
+        return [self.dataSource pageControllerForPageController:_currentPageController 
+                                                     connection:RRPageConnectionTop 
+                                                     scrollView:self];
+    }
+    
+    return nil;
+}
+
+- (PCPageViewController *)bottomPageController
+{
+    if ([self.dataSource respondsToSelector:@selector(pageControllerForPageController:connection:scrollView:)]) {
+        return [self.dataSource pageControllerForPageController:_currentPageController 
+                                                     connection:RRPageConnectionBottom 
+                                                     scrollView:self];
+    }
+    
+    return nil;
+}
+
+- (PCPageViewController *)leftPageController
+{
+    if ([self.dataSource respondsToSelector:@selector(pageControllerForPageController:connection:scrollView:)]) {
+        return [self.dataSource pageControllerForPageController:_currentPageController 
+                                                     connection:RRPageConnectionLeft 
+                                                     scrollView:self];
+    }
+    
+    return nil;
+}
+
+- (PCPageViewController *)rightPageController
+{
+    if ([self.dataSource respondsToSelector:@selector(pageControllerForPageController:connection:scrollView:)]) {
+        return [self.dataSource pageControllerForPageController:_currentPageController 
+                                                     connection:RRPageConnectionRight
+                                                     scrollView:self];
+    }
+    
+    return nil;
+}
+
+- (void)reloadData
+{
+    PCPageViewController *initialPageController = [self initialPageController];
+    
+    if (initialPageController != nil) {
+        
+        _currentPageController = initialPageController;
+        initialPageController.view.frame = self.bounds;
+        [self addSubview:initialPageController.view];
+        
+    } else {
+        NSLog(@"Invalid initial page controller");
+    }
+}
+
 - (void)scrollToTopElementAnimated:(BOOL)animated
 {
-	UIView* view = [self.datasource viewForConnection:TOP];
-    if (view != nil) {
+    PCPageViewController *topPageController = [self topPageController];
+    
+    if (topPageController != nil) {
         
-        CGRect currentElementViewFrame = _currentElementView.frame;
-        CGRect nextElementViewFrame = CGRectMake(currentElementViewFrame.origin.x,  
-                                                 currentElementViewFrame.origin.y - currentElementViewFrame.size.height - 20, 
-                                                 currentElementViewFrame.size.width, 
-                                                 currentElementViewFrame.size.height);
-        _nextElementView = view;
-        _nextElementView.frame = nextElementViewFrame;
-        [self addSubview:_nextElementView];
+        CGRect currentPageFrame = _currentPageController.view.frame;
+        CGRect nextPageFrame = CGRectMake(currentPageFrame.origin.x,  
+                                          currentPageFrame.origin.y - currentPageFrame.size.height - 20, 
+                                          currentPageFrame.size.width, 
+                                          currentPageFrame.size.height);
+        
+        _nextPageController = topPageController;
+        _nextPageController.view.frame = nextPageFrame;
+        [self addSubview:_nextPageController.view];
         
         [UIView animateWithDuration:0.3f animations:^{
             
-            CGRect nextElementViewNewFrame = _currentElementView.frame;
-            CGRect currentElementNewFrame = CGRectMake(currentElementViewFrame.origin.x, 
-                                                       currentElementViewFrame.origin.y + currentElementViewFrame.size.height, 
-                                                       currentElementViewFrame.size.width, 
-                                                       currentElementViewFrame.size.height);
+            CGRect nextPageNewFrame = _currentPageController.view.frame;
+            CGRect currentPageNewFrame = CGRectMake(currentPageFrame.origin.x, 
+                                                    currentPageFrame.origin.y + currentPageFrame.size.height, 
+                                                    currentPageFrame.size.width, 
+                                                    currentPageFrame.size.height);
             
-            _nextElementView.frame = nextElementViewNewFrame;
-            _currentElementView.frame = currentElementNewFrame;
+            _nextPageController.view.frame = nextPageNewFrame;
+            _currentPageController.view.frame = currentPageNewFrame;
             
         } completion:^(BOOL finished) {
             
-            
-            [_currentElementView removeFromSuperview];
-            _currentElementView = _nextElementView;
-			[_delegate viewDidMoved];
-            
+            [_currentPageController.view removeFromSuperview];
+            _currentPageController = _nextPageController;
+
         }];
         
     } else {
@@ -175,35 +240,36 @@
 
 - (void)scrollToBottomElementAnimated:(BOOL)animated
 {
-	UIView* view = [self.datasource viewForConnection:BOTTOM];
-    if (view != nil) {
+    PCPageViewController *bottomPageController = [self bottomPageController];
+    
+    if (bottomPageController != nil) {
         
-        CGRect currentElementViewFrame = _currentElementView.frame;
-        CGRect nextElementViewFrame = CGRectMake(currentElementViewFrame.origin.x,  
-                                                 currentElementViewFrame.origin.y + currentElementViewFrame.size.height + 20, 
-                                                 currentElementViewFrame.size.width, 
-                                                 currentElementViewFrame.size.height);
-        _nextElementView = view;
-        _nextElementView.frame = nextElementViewFrame;
-        [self addSubview:_nextElementView];
+        CGRect currentPageFrame = _currentPageController.view.frame;
+        CGRect nextPageFrame = CGRectMake(currentPageFrame.origin.x,  
+                                          currentPageFrame.origin.y + currentPageFrame.size.height + 20, 
+                                          currentPageFrame.size.width, 
+                                          currentPageFrame.size.height);
+        
+        _nextPageController = bottomPageController;
+        _nextPageController.view.frame = nextPageFrame;
+        [self addSubview:_nextPageController.view];
         
         [UIView animateWithDuration:0.3f animations:^{
             
-            CGRect nextElementViewNewFrame = _currentElementView.frame;
-            CGRect currentElementNewFrame = CGRectMake(currentElementViewFrame.origin.x, 
-                                                       currentElementViewFrame.origin.y - currentElementViewFrame.size.height, 
-                                                       currentElementViewFrame.size.width, 
-                                                       currentElementViewFrame.size.height);
+            CGRect nextPageNewFrame = _currentPageController.view.frame;
+            CGRect currentPageNewFrame = CGRectMake(currentPageFrame.origin.x, 
+                                                    currentPageFrame.origin.y - currentPageFrame.size.height, 
+                                                    currentPageFrame.size.width, 
+                                                    currentPageFrame.size.height);
             
-            _nextElementView.frame = nextElementViewNewFrame;
-            _currentElementView.frame = currentElementNewFrame;
+            _nextPageController.view.frame = nextPageNewFrame;
+            _currentPageController.view.frame = currentPageNewFrame;
             
         } completion:^(BOOL finished) {
             
-           
-            [_currentElementView removeFromSuperview];
-             _currentElementView = _nextElementView;
-            [_delegate viewDidMoved];
+            [_currentPageController.view removeFromSuperview];
+            _currentPageController = _nextPageController;
+            
         }];
         
     } else {
@@ -213,34 +279,36 @@
 
 - (void)scrollToLeftElementAnimated:(BOOL)animated
 {
-	UIView* view = [self.datasource viewForConnection:LEFT];
-    if (view != nil) {
+    PCPageViewController *leftPageController = [self leftPageController];
+
+    if (leftPageController != nil) {
         
-        CGRect currentElementViewFrame = _currentElementView.frame;
-        CGRect nextElementViewFrame = CGRectMake(currentElementViewFrame.origin.x - currentElementViewFrame.size.width - 20, 
-                                                 currentElementViewFrame.origin.y, 
-                                                 currentElementViewFrame.size.width, 
-                                                 currentElementViewFrame.size.height);
-        _nextElementView =  view;
-        _nextElementView.frame = nextElementViewFrame;
-        [self addSubview:_nextElementView];
+        CGRect currentPageFrame = _currentPageController.view.frame;
+        CGRect nextPageFrame = CGRectMake(currentPageFrame.origin.x - currentPageFrame.size.width - 20, 
+                                                 currentPageFrame.origin.y, 
+                                                 currentPageFrame.size.width, 
+                                                 currentPageFrame.size.height);
+        
+        _nextPageController = leftPageController;
+        _nextPageController.view.frame = nextPageFrame;
+        [self addSubview:_nextPageController.view];
         
         [UIView animateWithDuration:0.3f animations:^{
             
-            CGRect nextElementViewNewFrame = _currentElementView.frame;
-            CGRect currentElementNewFrame = CGRectMake(currentElementViewFrame.origin.x + currentElementViewFrame.size.width, 
-                                                       currentElementViewFrame.origin.y, 
-                                                       currentElementViewFrame.size.width, 
-                                                       currentElementViewFrame.size.height);
+            CGRect nextPageNewFrame = _currentPageController.view.frame;
+            CGRect currentPageNewFrame = CGRectMake(currentPageFrame.origin.x + currentPageFrame.size.width, 
+                                                    currentPageFrame.origin.y, 
+                                                    currentPageFrame.size.width, 
+                                                    currentPageFrame.size.height);
             
-            _nextElementView.frame = nextElementViewNewFrame;
-            _currentElementView.frame = currentElementNewFrame;
+            _nextPageController.view.frame = nextPageNewFrame;
+            _currentPageController.view.frame = currentPageNewFrame;
             
         } completion:^(BOOL finished) {
             
-			[_currentElementView removeFromSuperview];
-            _currentElementView = _nextElementView;
-            [_delegate viewDidMoved];
+            [_currentPageController.view removeFromSuperview];
+            _currentPageController = _nextPageController;
+            
         }];
         
     } else {
@@ -250,35 +318,36 @@
 
 - (void)scrollToRightElementAnimated:(BOOL)animated
 {
-	UIView* view = [self.datasource viewForConnection:RIGHT];
+    PCPageViewController *rightPageController = [self rightPageController];
     
-    if (view != nil) {
+    if (rightPageController != nil) {
 
-        CGRect currentElementViewFrame = _currentElementView.frame;
-        CGRect nextElementViewFrame = CGRectMake(currentElementViewFrame.origin.x + currentElementViewFrame.size.width + 20, 
-                                                 currentElementViewFrame.origin.y, 
-                                                 currentElementViewFrame.size.width, 
-                                                 currentElementViewFrame.size.height);
-        _nextElementView = view;
-        _nextElementView.frame = nextElementViewFrame;
-        [self addSubview:_nextElementView];
+        CGRect currentPageFrame = _currentPageController.view.frame;
+        CGRect nextPageFrame = CGRectMake(currentPageFrame.origin.x + currentPageFrame.size.width + 20, 
+                                          currentPageFrame.origin.y, 
+                                          currentPageFrame.size.width, 
+                                          currentPageFrame.size.height);
+        
+        _nextPageController = rightPageController;
+        _nextPageController.view.frame = nextPageFrame;
+        [self addSubview:_nextPageController.view];
         
         [UIView animateWithDuration:0.3f animations:^{
             
-            CGRect nextElementViewNewFrame = _currentElementView.frame;
-            CGRect currentElementNewFrame = CGRectMake(currentElementViewFrame.origin.x - currentElementViewFrame.size.width, 
-                                                       currentElementViewFrame.origin.y, 
-                                                       currentElementViewFrame.size.width, 
-                                                       currentElementViewFrame.size.height);
+            CGRect nextPageNewFrame = _currentPageController.view.frame;
+            CGRect currentPageNewFrame = CGRectMake(currentPageFrame.origin.x - currentPageFrame.size.width, 
+                                                       currentPageFrame.origin.y, 
+                                                       currentPageFrame.size.width, 
+                                                       currentPageFrame.size.height);
             
-            _nextElementView.frame = nextElementViewNewFrame;
-            _currentElementView.frame = currentElementNewFrame;
+            _nextPageController.view.frame = nextPageNewFrame;
+            _currentPageController.view.frame = currentPageNewFrame;
             
         } completion:^(BOOL finished) {
             
-            [_currentElementView removeFromSuperview];
-             _currentElementView = _nextElementView;
-            [_delegate viewDidMoved];
+            [_currentPageController.view removeFromSuperview];
+            _currentPageController = _nextPageController;
+            
         }];
         
     } else {

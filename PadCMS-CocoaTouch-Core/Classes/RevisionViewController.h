@@ -10,20 +10,11 @@
 #import "RRComplexScrollView.h"
 
 @class PCRevision;
-@class PCPage;
-@class PCPageViewController;
-@interface RevisionViewController : UIViewController <RRComplexScrollViewDatasource, RRComplexScrollViewDelegate>
 
-@property (nonatomic, readonly) PCRevision* revision;
-@property (nonatomic, retain) PCPageViewController* currentPageController;
-@property (nonatomic, retain) PCPageViewController* previousPageController;
-@property (nonatomic, retain) PCPage* onScreenPage;
+@interface RevisionViewController : UIViewController <RRComplexScrollViewDatasource>
 
+@property (readonly, nonatomic) PCRevision *revision;
 
-
-@property (nonatomic, retain) IBOutlet RRComplexScrollView* mainScroll;
-
-
--(id)initWithRevision:(PCRevision*)revision;
+- (id)initWithRevision:(PCRevision *)revision;
 
 @end

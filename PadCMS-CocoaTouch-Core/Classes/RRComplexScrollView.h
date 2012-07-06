@@ -8,43 +8,39 @@
 
 #import <UIKit/UIKit.h>
 
-typedef enum _RRConnectionType
-{
-	LEFT = 0,
-	RIGHT = 1,
-	BOTTOM = 2,
-	TOP = 3,
-	ROTATE = 4
-	
-} RRConnectionType;
+@class PCPageViewController;
 
-@protocol RRComplexScrollViewDatasource;
-@protocol RRComplexScrollViewDelegate;
+typedef enum _RRPageConnection
+{
+	RRPageConnectionInvalid = -1,
+	RRPageConnectionLeft = 0,
+	RRPageConnectionRight = 1,
+	RRPageConnectionTop = 2,
+	RRPageConnectionBottom = 3,
+	RRPageConnectionRotation = 4
+	
+} RRPageConnection;
+
+@class RRComplexScrollView;
+
+@protocol RRComplexScrollViewDatasource <NSObject>
+
+- (PCPageViewController *)pageControllerForPageController:(PCPageViewController *)pageController 
+                                               connection:(RRPageConnection)connection 
+                                               scrollView:(RRComplexScrollView *)scrollView;
+
+@end
+
 
 @interface RRComplexScrollView : UIView
 
-@property (assign, nonatomic) IBOutlet id<RRComplexScrollViewDatasource> datasource;
-@property (assign, nonatomic) IBOutlet id<RRComplexScrollViewDelegate> delegate;
-@property (assign, nonatomic) UIView* currentElementView;
+@property (assign, nonatomic) IBOutlet id<RRComplexScrollViewDatasource> dataSource;
+
+- (void)reloadData;
 
 - (void)scrollToTopElementAnimated:(BOOL)animated;
 - (void)scrollToBottomElementAnimated:(BOOL)animated;
 - (void)scrollToLeftElementAnimated:(BOOL)animated;
 - (void)scrollToRightElementAnimated:(BOOL)animated;
-
-
-
-@end
-
-@protocol RRComplexScrollViewDatasource 
-
--(UIView*)viewForConnection:(RRConnectionType)coonectionType;
-
-
-@end
-
-@protocol RRComplexScrollViewDelegate
-
--(void)viewDidMoved;
 
 @end

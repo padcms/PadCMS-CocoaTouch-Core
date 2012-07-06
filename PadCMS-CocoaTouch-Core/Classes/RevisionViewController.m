@@ -9,77 +9,44 @@
 #import "RevisionViewController.h"
 #import "PCMagazineViewControllersFactory.h"
 #import "PCPageViewController.h"
-#import "RRComplexScrollView.h"
 
 @interface RevisionViewController ()
+{
+    RRComplexScrollView *_mainScrollView;
+}
 
 @end
 
 @implementation RevisionViewController
-@synthesize mainScroll=_mainScroll;
-@synthesize revision=_revision;
-@synthesize currentPageController=_currentPageController;
-@synthesize previousPageController=_previousPageController;
-@synthesize onScreenPage=_onScreenPage;
+@synthesize revision = _revision;
 
--(id)initWithRevision:(PCRevision *)revision
+- (id)initWithRevision:(PCRevision *)revision
 {
-	self = [super initWithNibName:nil bundle:nil];
+	self = [super init];
+    
     if (self) {
         _revision = [revision retain];
-		_onScreenPage = [revision.coverPage retain];
     }
+    
     return self;
 }
-
-/*-(void)loadView
-{
-	RRComplexScrollView* mainScroll = [[RRComplexScrollView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame];
-	mainScroll.delegate = self;
-	mainScroll.datasource = self;
-	self.view = mainScroll;
-	self.mainScroll = mainScroll;
-	[mainScroll release];
-}*/
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-	
-    _mainScroll = [[RRComplexScrollView alloc] initWithFrame:self.view.bounds];
-    _mainScroll.datasource = self;
-//	self.view.backgroundColor = [UIColor greenColor];
-	PCPageViewController* initialPageController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:self.onScreenPage];
-    [self.mainScroll setCurrentElementView:initialPageController.view];
-    [self.view addSubview:self.mainScroll];
-	 [initialPageController.view setFrame:self.view.bounds];
-//	[self.view addSubview:initialPageController.view];
-	self.currentPageController = initialPageController;
-	[initialPageController unloadFullView];
-	[initialPageController loadFullView];
-	
-    // Do any additional setup after loading the view from its nib.
+
+    _mainScrollView = [[RRComplexScrollView alloc] initWithFrame:self.view.bounds];
+    _mainScrollView.dataSource = self;
+    [self.view addSubview:_mainScrollView];
+    [_mainScrollView reloadData];
 }
 
 - (void)viewDidUnload
 {	
     [super viewDidUnload];
-	[self releaseViews];
-    // Release any retained subviews of the main view.
-    // e.g. self.myOutlet = nil;
-}
 
--(void)releaseViews
-{
-	self.mainScroll = nil;
-	self.currentPageController = nil;
-	self.previousPageController = nil;
-}
--(void)dealloc
-{
-	[_onScreenPage release], _onScreenPage = nil;
-	[self releaseViews];
-	[super dealloc];
+    [_mainScrollView removeFromSuperview];
+    [_mainScrollView release];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -87,49 +54,54 @@
 	return YES;
 }
 
--(UIView *)viewForConnection:(RRConnectionType)coonectionType
-{
-	PCPage *nextPage = nil;
-	switch (coonectionType) {
-		case TOP:
-			nextPage = _onScreenPage.topPage; 
-			break;
-		case BOTTOM:
-			nextPage = _onScreenPage.bottomPage; 
-			break;
-		case RIGHT:
-			nextPage = _onScreenPage.rightPage; 
-			break;
-		case LEFT:
-			nextPage = _onScreenPage.leftPage; 
-			break;
-			
-		default:
-			break;
-	}
+#pragma mark - RRComplexScrollViewDatasource
 
-	if (nextPage == nil) {
-        return nil;
+- (PCPageViewController *)pageControllerForPageController:(PCPageViewController *)pageController 
+                                               connection:(RRPageConnection)connection 
+                                               scrollView:(RRComplexScrollView *)scrollView
+{
+    PCPage *nextPage = nil;
+    
+    switch (connection) {
+        case RRPageConnectionInvalid:
+            nextPage = self.revision.coverPage;
+            break;
+            
+        case RRPageConnectionLeft:
+            nextPage = pageController.page.leftPage;
+            break;
+            
+        case RRPageConnectionRight:
+            nextPage = pageController.page.rightPage;
+            break;
+            
+        case RRPageConnectionTop:
+            nextPage = pageController.page.topPage;
+            break;
+            
+        case RRPageConnectionBottom:
+            nextPage = pageController.page.bottomPage;
+            break;
+            
+        case RRPageConnectionRotation:
+            
+            break;
+            
+        default:
+            break;
     }
     
-	PCPageViewController* nextPageController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage];
-    
-	self.previousPageController = _currentPageController;
-	self.currentPageController = nextPageController;
-	self.onScreenPage = nextPage;
-    
-    if (nextPageController.view) {
-        // send [PCPageViewController loadView] message
+    if (nextPage != nil) {
+        PCPageViewController *nextPageController = [[[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage] retain];
+        
+        if (nextPageController.view) { // allways YES. Used to load view
+            [nextPageController loadFullView];
+        }
+        
+        return nextPageController;
     }
     
-    [nextPageController loadFullView];
-    
-	return nextPageController.view;
-}
-
--(void)viewDidMoved
-{
-	self.previousPageController = nil;
+    return nil;
 }
 
 @end
