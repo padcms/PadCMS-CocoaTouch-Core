@@ -83,7 +83,7 @@
 @property (nonatomic,retain) UIWebView *videoWebView;
 
 /**
- @brief Initiolize page view controller with Page
+ @brief Initialize page view controller with Page
  @param page - page data model
  */
 - (id)initWithPage:(PCPage *)page;

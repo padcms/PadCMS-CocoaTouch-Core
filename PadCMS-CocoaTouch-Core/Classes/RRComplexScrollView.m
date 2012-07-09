@@ -80,7 +80,7 @@
 {
     self = [super initWithFrame:frame];
     if (self != nil) {
-        self.backgroundColor = [UIColor greenColor];
+        self.backgroundColor = [UIColor whiteColor];
         [self initialize];
     }
     return self;

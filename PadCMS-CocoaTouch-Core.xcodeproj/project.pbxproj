@@ -1060,6 +1060,35 @@
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
 		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
+		ABC7E1D315A9C2F800B06A38 /* PageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* PageViewController.h */; };
+		ABC7E1D415A9C2F800B06A38 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* PageViewController.m */; };
+		ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
+		ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */; };
+		ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D815A9C42100B06A38 /* JCTiledView.h */; };
+		ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D915A9C42100B06A38 /* JCTiledView.m */; };
+		ABC7E1E015A9C42100B06A38 /* JCTiledLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */; };
+		ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1DB15A9C42100B06A38 /* JCTiledLayer.m */; };
+		ABC7E1F215A9CCA400B06A38 /* JCAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */; };
+		ABC7E1F315A9CCA400B06A38 /* JCAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */; };
+		ABC7E1F415A9CCA400B06A38 /* JCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */; };
+		ABC7E1F515A9CCA400B06A38 /* JCVisibleAnnotationTuple.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */; };
+		ABC7E1F615A9CCA400B06A38 /* JCVisibleAnnotationTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */; };
+		ABC7E1FC15AA1D8F00B06A38 /* NYXImagesHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1FA15AA1D8D00B06A38 /* NYXImagesHelper.h */; };
+		ABC7E1FD15AA1D8F00B06A38 /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1FB15AA1D8E00B06A38 /* NYXImagesHelper.m */; };
+		ABC7E20015AA1D9F00B06A38 /* UIImage+Saving.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1FE15AA1D9700B06A38 /* UIImage+Saving.h */; };
+		ABC7E20115AA1D9F00B06A38 /* UIImage+Saving.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1FF15AA1D9900B06A38 /* UIImage+Saving.m */; };
+		ABC7E21715AA53FB00B06A38 /* SimplePageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */; };
+		ABC7E21815AA53FB00B06A38 /* SimplePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */; };
+		ABC7E21B15AA542C00B06A38 /* AbstractBasePageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */; };
+		ABC7E21C15AA542C00B06A38 /* AbstractBasePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E21A15AA542C00B06A38 /* AbstractBasePageViewController.m */; };
+		ABC7E21F15AA611C00B06A38 /* ScrollingPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21D15AA611A00B06A38 /* ScrollingPageViewController.h */; };
+		ABC7E22015AA611C00B06A38 /* ScrollingPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E21E15AA611A00B06A38 /* ScrollingPageViewController.m */; };
+		ABC7E22715AA7F4100B06A38 /* TouchableArticleWithFixedIllustrationViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E22515AA7F3F00B06A38 /* TouchableArticleWithFixedIllustrationViewController.h */; };
+		ABC7E22815AA7F4100B06A38 /* TouchableArticleWithFixedIllustrationViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E22615AA7F4000B06A38 /* TouchableArticleWithFixedIllustrationViewController.m */; };
+		ABC7E23715AAA33F00B06A38 /* SliderBasedMiniArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */; };
+		ABC7E23815AAA33F00B06A38 /* SliderBasedMiniArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E23615AAA33D00B06A38 /* SliderBasedMiniArticleViewController.m */; };
+		ABC7E24715AAAA7D00B06A38 /* EasyTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E24515AAAA7900B06A38 /* EasyTableView.h */; };
+		ABC7E24815AAAA7D00B06A38 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */; };
 		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
 		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
 		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
@@ -2153,6 +2182,35 @@
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
+		ABC7E1D115A9C2F800B06A38 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
+		ABC7E1D215A9C2F800B06A38 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledScrollView.h; sourceTree = "<group>"; };
+		ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTiledScrollView.m; sourceTree = "<group>"; };
+		ABC7E1D815A9C42100B06A38 /* JCTiledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledView.h; sourceTree = "<group>"; };
+		ABC7E1D915A9C42100B06A38 /* JCTiledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTiledView.m; sourceTree = "<group>"; };
+		ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledLayer.h; sourceTree = "<group>"; };
+		ABC7E1DB15A9C42100B06A38 /* JCTiledLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTiledLayer.m; sourceTree = "<group>"; };
+		ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAnnotation.h; sourceTree = "<group>"; };
+		ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAnnotationView.h; sourceTree = "<group>"; };
+		ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAnnotationView.m; sourceTree = "<group>"; };
+		ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVisibleAnnotationTuple.h; sourceTree = "<group>"; };
+		ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVisibleAnnotationTuple.m; sourceTree = "<group>"; };
+		ABC7E1FA15AA1D8D00B06A38 /* NYXImagesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYXImagesHelper.h; sourceTree = "<group>"; };
+		ABC7E1FB15AA1D8E00B06A38 /* NYXImagesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYXImagesHelper.m; sourceTree = "<group>"; };
+		ABC7E1FE15AA1D9700B06A38 /* UIImage+Saving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Saving.h"; sourceTree = "<group>"; };
+		ABC7E1FF15AA1D9900B06A38 /* UIImage+Saving.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Saving.m"; sourceTree = "<group>"; };
+		ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePageViewController.h; sourceTree = "<group>"; };
+		ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePageViewController.m; sourceTree = "<group>"; };
+		ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractBasePageViewController.h; sourceTree = "<group>"; };
+		ABC7E21A15AA542C00B06A38 /* AbstractBasePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AbstractBasePageViewController.m; sourceTree = "<group>"; };
+		ABC7E21D15AA611A00B06A38 /* ScrollingPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ScrollingPageViewController.h; sourceTree = "<group>"; };
+		ABC7E21E15AA611A00B06A38 /* ScrollingPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ScrollingPageViewController.m; sourceTree = "<group>"; };
+		ABC7E22515AA7F3F00B06A38 /* TouchableArticleWithFixedIllustrationViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TouchableArticleWithFixedIllustrationViewController.h; sourceTree = "<group>"; };
+		ABC7E22615AA7F4000B06A38 /* TouchableArticleWithFixedIllustrationViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TouchableArticleWithFixedIllustrationViewController.m; sourceTree = "<group>"; };
+		ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SliderBasedMiniArticleViewController.h; sourceTree = "<group>"; };
+		ABC7E23615AAA33D00B06A38 /* SliderBasedMiniArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderBasedMiniArticleViewController.m; sourceTree = "<group>"; };
+		ABC7E24515AAAA7900B06A38 /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
+		ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
 		ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
 		ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
 		ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
@@ -2288,9 +2346,17 @@
 		607F3E711588CE5F0097D960 /* Model */ = {
 			isa = PBXGroup;
 			children = (
-				607F3E721588CE5F0097D960 /* ModelBilder */,
+				ABC7E1CF15A9B2B800B06A38 /* Search */,
+				607F3E721588CE5F0097D960 /* ModelBuilder */,
+				607F3E851588CE5F0097D960 /* PCPageElements */,
 				607F3E751588CE5F0097D960 /* PCApplication.h */,
 				607F3E761588CE5F0097D960 /* PCApplication.m */,
+				607F3E7F1588CE5F0097D960 /* PCIssue.h */,
+				607F3E801588CE5F0097D960 /* PCIssue.m */,
+				607F3EA21588CE5F0097D960 /* PCRevision.h */,
+				607F3EA31588CE5F0097D960 /* PCRevision.m */,
+				607F3E811588CE5F0097D960 /* PCPage.h */,
+				607F3E821588CE5F0097D960 /* PCPage.m */,
 				607F3E771588CE5F0097D960 /* PCColumn.h */,
 				607F3E781588CE5F0097D960 /* PCColumn.m */,
 				607F3E791588CE5F0097D960 /* PCData.h */,
@@ -2299,40 +2365,25 @@
 				607F3E7C1588CE5F0097D960 /* PCDownloadProgressProtocol.h */,
 				607F3E7D1588CE5F0097D960 /* PCHorizontalPage.h */,
 				607F3E7E1588CE5F0097D960 /* PCHorizontalPage.m */,
-				607F3E7F1588CE5F0097D960 /* PCIssue.h */,
-				607F3E801588CE5F0097D960 /* PCIssue.m */,
-				607F3E811588CE5F0097D960 /* PCPage.h */,
-				607F3E821588CE5F0097D960 /* PCPage.m */,
 				607F3E831588CE5F0097D960 /* PCPageActiveZone.h */,
 				607F3E841588CE5F0097D960 /* PCPageActiveZone.m */,
-				607F3E851588CE5F0097D960 /* PCPageElements */,
 				607F3E9E1588CE5F0097D960 /* PCPageTemplate.h */,
 				607F3E9F1588CE5F0097D960 /* PCPageTemplate.m */,
 				607F3EA01588CE5F0097D960 /* PCPageTemplatesPool.h */,
 				607F3EA11588CE5F0097D960 /* PCPageTemplatesPool.m */,
-				607F3EA21588CE5F0097D960 /* PCRevision.h */,
-				607F3EA31588CE5F0097D960 /* PCRevision.m */,
-				607F3EA41588CE5F0097D960 /* PCSearchProvider.h */,
-				607F3EA51588CE5F0097D960 /* PCSearchProvider.m */,
-				607F3EA61588CE5F0097D960 /* PCSearchResult.h */,
-				607F3EA71588CE5F0097D960 /* PCSearchResult.m */,
-				607F3EA81588CE5F0097D960 /* PCSearchResultItem.h */,
-				607F3EA91588CE5F0097D960 /* PCSearchResultItem.m */,
-				607F3EAA1588CE5F0097D960 /* PCSearchTask.h */,
-				607F3EAB1588CE5F0097D960 /* PCSearchTask.m */,
-				607F3EAC1588CE5F0097D960 /* PCSearchTaskDelegate.h */,
 				607F3EAD1588CE5F0097D960 /* PCTocItem.h */,
 				607F3EAE1588CE5F0097D960 /* PCTocItem.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
 		};
-		607F3E721588CE5F0097D960 /* ModelBilder */ = {
+		607F3E721588CE5F0097D960 /* ModelBuilder */ = {
 			isa = PBXGroup;
 			children = (
 				607F3E731588CE5F0097D960 /* PCSQLLiteModelBuilder.h */,
 				607F3E741588CE5F0097D960 /* PCSQLLiteModelBuilder.m */,
 			);
+			name = ModelBuilder;
 			path = ModelBilder;
 			sourceTree = "<group>";
 		};
@@ -3386,12 +3437,73 @@
 		AB0A0E7215A40F4E00B9758C /* newTest */ = {
 			isa = PBXGroup;
 			children = (
+				ABC7E1D515A9C3FF00B06A38 /* externals */,
+				ABC7E1D015A9C1D600B06A38 /* Templates */,
 				AB0A0F3815A4769800B9758C /* RRComplexScrollView.h */,
 				AB0A0F3915A4769900B9758C /* RRComplexScrollView.m */,
 				AB0A0E7815A4278E00B9758C /* RevisionViewController.h */,
 				AB0A0E7915A4278E00B9758C /* RevisionViewController.m */,
 			);
 			name = newTest;
+			sourceTree = "<group>";
+		};
+		ABC7E1CF15A9B2B800B06A38 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				607F3EA41588CE5F0097D960 /* PCSearchProvider.h */,
+				607F3EA51588CE5F0097D960 /* PCSearchProvider.m */,
+				607F3EA61588CE5F0097D960 /* PCSearchResult.h */,
+				607F3EA71588CE5F0097D960 /* PCSearchResult.m */,
+				607F3EA81588CE5F0097D960 /* PCSearchResultItem.h */,
+				607F3EA91588CE5F0097D960 /* PCSearchResultItem.m */,
+				607F3EAA1588CE5F0097D960 /* PCSearchTask.h */,
+				607F3EAB1588CE5F0097D960 /* PCSearchTask.m */,
+				607F3EAC1588CE5F0097D960 /* PCSearchTaskDelegate.h */,
+			);
+			name = Search;
+			sourceTree = "<group>";
+		};
+		ABC7E1D015A9C1D600B06A38 /* Templates */ = {
+			isa = PBXGroup;
+			children = (
+				ABC7E1D115A9C2F800B06A38 /* PageViewController.h */,
+				ABC7E1D215A9C2F800B06A38 /* PageViewController.m */,
+				ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */,
+				ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */,
+				ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */,
+				ABC7E21A15AA542C00B06A38 /* AbstractBasePageViewController.m */,
+				ABC7E21D15AA611A00B06A38 /* ScrollingPageViewController.h */,
+				ABC7E21E15AA611A00B06A38 /* ScrollingPageViewController.m */,
+				ABC7E22515AA7F3F00B06A38 /* TouchableArticleWithFixedIllustrationViewController.h */,
+				ABC7E22615AA7F4000B06A38 /* TouchableArticleWithFixedIllustrationViewController.m */,
+				ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */,
+				ABC7E23615AAA33D00B06A38 /* SliderBasedMiniArticleViewController.m */,
+			);
+			name = Templates;
+			sourceTree = "<group>";
+		};
+		ABC7E1D515A9C3FF00B06A38 /* externals */ = {
+			isa = PBXGroup;
+			children = (
+				ABC7E24515AAAA7900B06A38 /* EasyTableView.h */,
+				ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */,
+				ABC7E1FE15AA1D9700B06A38 /* UIImage+Saving.h */,
+				ABC7E1FF15AA1D9900B06A38 /* UIImage+Saving.m */,
+				ABC7E1FA15AA1D8D00B06A38 /* NYXImagesHelper.h */,
+				ABC7E1FB15AA1D8E00B06A38 /* NYXImagesHelper.m */,
+				ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */,
+				ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */,
+				ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */,
+				ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */,
+				ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */,
+				ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */,
+				ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */,
+				ABC7E1D815A9C42100B06A38 /* JCTiledView.h */,
+				ABC7E1D915A9C42100B06A38 /* JCTiledView.m */,
+				ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */,
+				ABC7E1DB15A9C42100B06A38 /* JCTiledLayer.m */,
+			);
+			name = externals;
 			sourceTree = "<group>";
 		};
 		ABF4D2E21590516400DAAD0F /* Networking */ = {
@@ -3775,6 +3887,21 @@
 				ABF4D2ED1590516400DAAD0F /* PCDownloadOperation.h in Headers */,
 				AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */,
 				AB0A0F3A15A4769900B9758C /* RRComplexScrollView.h in Headers */,
+				ABC7E1D315A9C2F800B06A38 /* PageViewController.h in Headers */,
+				ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */,
+				ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */,
+				ABC7E1E015A9C42100B06A38 /* JCTiledLayer.h in Headers */,
+				ABC7E1F215A9CCA400B06A38 /* JCAnnotation.h in Headers */,
+				ABC7E1F315A9CCA400B06A38 /* JCAnnotationView.h in Headers */,
+				ABC7E1F515A9CCA400B06A38 /* JCVisibleAnnotationTuple.h in Headers */,
+				ABC7E1FC15AA1D8F00B06A38 /* NYXImagesHelper.h in Headers */,
+				ABC7E20015AA1D9F00B06A38 /* UIImage+Saving.h in Headers */,
+				ABC7E21715AA53FB00B06A38 /* SimplePageViewController.h in Headers */,
+				ABC7E21B15AA542C00B06A38 /* AbstractBasePageViewController.h in Headers */,
+				ABC7E21F15AA611C00B06A38 /* ScrollingPageViewController.h in Headers */,
+				ABC7E22715AA7F4100B06A38 /* TouchableArticleWithFixedIllustrationViewController.h in Headers */,
+				ABC7E23715AAA33F00B06A38 /* SliderBasedMiniArticleViewController.h in Headers */,
+				ABC7E24715AAAA7D00B06A38 /* EasyTableView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4195,6 +4322,20 @@
 				AB32071015927C5A0076361B /* PCStoreController.m in Sources */,
 				AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */,
 				AB0A0F3B15A4769900B9758C /* RRComplexScrollView.m in Sources */,
+				ABC7E1D415A9C2F800B06A38 /* PageViewController.m in Sources */,
+				ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */,
+				ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */,
+				ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */,
+				ABC7E1F415A9CCA400B06A38 /* JCAnnotationView.m in Sources */,
+				ABC7E1F615A9CCA400B06A38 /* JCVisibleAnnotationTuple.m in Sources */,
+				ABC7E1FD15AA1D8F00B06A38 /* NYXImagesHelper.m in Sources */,
+				ABC7E20115AA1D9F00B06A38 /* UIImage+Saving.m in Sources */,
+				ABC7E21815AA53FB00B06A38 /* SimplePageViewController.m in Sources */,
+				ABC7E21C15AA542C00B06A38 /* AbstractBasePageViewController.m in Sources */,
+				ABC7E22015AA611C00B06A38 /* ScrollingPageViewController.m in Sources */,
+				ABC7E22815AA7F4100B06A38 /* TouchableArticleWithFixedIllustrationViewController.m in Sources */,
+				ABC7E23815AAA33F00B06A38 /* SliderBasedMiniArticleViewController.m in Sources */,
+				ABC7E24815AAAA7D00B06A38 /* EasyTableView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

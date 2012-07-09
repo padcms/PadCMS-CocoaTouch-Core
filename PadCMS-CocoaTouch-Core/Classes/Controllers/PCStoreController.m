@@ -116,6 +116,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
   [self showActivity];
   NSString *devId = [[UIDevice currentDevice]uniqueIdentifier];
+  NSLog(@"Device ID - %@", devId);
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
 	NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:theURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:5.0];
 	[request setHTTPMethod:@"POST"];
@@ -136,6 +137,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [tmpJsonWriter release];
     NSString* stringWithoutNull = [temp stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
 		NSDictionary* theDict = [stringWithoutNull JSONValue];
+    NSLog(@"RESPONSE - %@", theDict);
     [[theDict objectForKey:@"result"] writeToFile:[[Helper getHomeDirectory] stringByAppendingPathComponent:@"server.plist"] atomically:YES];
     [self loadApplicationFromPlist];
   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {

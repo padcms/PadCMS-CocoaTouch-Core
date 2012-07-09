@@ -1,0 +1,19 @@
+//
+//  PageViewController.h
+//  PadCMS-CocoaTouch-Core
+//
+//  Created by Alexey Petrosyan on 7/8/12.
+//  Copyright (c) 2012 Adyax. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import "JCTiledScrollView.h"
+#import "AbstractBasePageViewController.h"
+
+
+@interface PageViewController : AbstractBasePageViewController<JCTileSource>
+
+@property (nonatomic, retain) JCTiledScrollView *scrollView;
+
+
+@end

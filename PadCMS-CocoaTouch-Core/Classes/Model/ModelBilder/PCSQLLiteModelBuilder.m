@@ -110,6 +110,10 @@
           if (element != nil){
             [page.elements addObject:element];
             element.page = page;
+			if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+			{
+			  element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
+			}
 
           }
         }

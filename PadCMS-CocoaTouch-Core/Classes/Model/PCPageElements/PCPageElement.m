@@ -53,6 +53,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 @synthesize downloadProgress=_downloadProgress;
 @synthesize progressDelegate=_progressDelegate;
 @synthesize page=_page;
+@synthesize elementContentSize=_elementContentSize;
 
 - (void)dealloc
 {

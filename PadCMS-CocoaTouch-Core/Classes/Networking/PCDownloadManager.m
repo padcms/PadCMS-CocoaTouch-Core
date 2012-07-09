@@ -52,6 +52,8 @@
 #import "PCPageTemplatesPool.h"
 #import "PCRevision.h"
 #import "PCTocItem.h"
+#import "UIImage+Saving.h"
+#import "ZipArchive.h"
 
 @interface PCDownloadManager(ForwardDeclaration)
 
@@ -86,6 +88,7 @@ NSString* secondaryKey   = @"secondaryKey";
 @synthesize helpOperations=_helpOperations;
 @synthesize horizontalPageOperations=_horizontalPageOperations;
 @synthesize horizontalTocOperations=_horizontalTocOperations;
+@synthesize callbackQueue=_callbackQueue;
 
 + (PCDownloadManager *)sharedManager {
   static PCDownloadManager *_sharedManager = nil;
@@ -154,6 +157,7 @@ NSString* secondaryKey   = @"secondaryKey";
     [self clearData];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boost:) name:PCBoostPageNotification object:nil];
     self.operationsDic = [NSMutableDictionary dictionary];
+	self.callbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
     {
@@ -552,14 +556,51 @@ NSString* secondaryKey   = @"secondaryKey";
     NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
     NSNumber* elementIdentifier = [NSNumber numberWithInteger:element.identifier];
     ItemType type = isThumbnail? THUMBNAIL : PAGE;
-
+	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+	{
+		type = TILED;
+	}
     if ((element.page.pageTemplate.identifier == PCHorizontalScrollingPageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane])) type = HORIZONTAL_SCROLLING_PANE;
     
     NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
-    
+	
+    NSLog(@"url - %@", url);
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
     [self moveItemWithPath:[self.revision.contentDirectory stringByAppendingPathComponent:path]];
+		
+	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+	{
+		NSString *archivePath = [[page.revision contentDirectory] stringByAppendingPathComponent:path];
+		
+		ZipArchive *zipArchive = [[ZipArchive alloc] init];
+		BOOL openFileResult = [zipArchive UnzipOpenFile:archivePath];
+		NSString *outputDirectory = [archivePath stringByDeletingLastPathComponent];
+		
+		if (openFileResult)
+		{
+			
+			
+			[zipArchive UnzipFileTo:outputDirectory overWrite:YES];
+			
+			[zipArchive UnzipCloseFile];
+		}
+		
+		[zipArchive release];
+		[self archiveCroppedImageSizeToDirectory:outputDirectory];
+		
+		
+	/*	NSString* resourceFullPath = [self.revision.contentDirectory stringByAppendingPathComponent:path];
+		UIImage* basicArticleBodyImage = [UIImage imageWithContentsOfFile:resourceFullPath];
+		NSLog(@"SCALE - %f", basicArticleBodyImage.scale);
+		if (basicArticleBodyImage)
+		{
+			element.elementContentSize = basicArticleBodyImage.size;
+			[self saveTilesOfSize:CGSizeMake(256.0, 256.0) forImage:basicArticleBodyImage toDirectory:[resourceFullPath stringByDeletingLastPathComponent]  usingPrefix:[[resourceFullPath stringByDeletingPathExtension] lastPathComponent]];
+		}
+	 */
+	}
+		
     if (!isThumbnail) element.isComplete = YES;
     
     if (isPrimary)
@@ -664,9 +705,11 @@ NSString* secondaryKey   = @"secondaryKey";
   if ([[NSFileManager defaultManager] fileExistsAtPath:[self.revision.contentDirectory stringByAppendingPathComponent:locationPath]]) return nil;
   NSURLRequest* request = [[PCDownloadApiClient sharedClient] requestWithMethod:@"GET" path:url parameters:nil];
   AFHTTPRequestOperation* operation = [[[PCDownloadOperation alloc] initWithRequest:request] autorelease];
-  operation.successCallbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
+  //operation.successCallbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
+	operation.successCallbackQueue = _callbackQueue;
   [operation setCompletionBlockWithSuccess:success failure:^(AFHTTPRequestOperation *operation, NSError *error) {
     NSLog(@"operation failed! %@", operation);
+	   NSLog(@"Error description - %@", error.description);
   }];
   [operation setDownloadProgressBlock:progressBlock];
   operation.responseFilePath = [self streamForFilePath:[self.revision.contentDirectory stringByAppendingPathComponent:locationPath]];
@@ -680,9 +723,8 @@ NSString* secondaryKey   = @"secondaryKey";
 -(NSString*)getUrlForResource:(NSString*)resource withType:(ItemType) type withHorizontalOrientation:(BOOL) horizontalOrientation
 
 {
-  NSString* pathExtension = [[resource pathExtension] lowercaseString];
-  BOOL isImageExtension = ([pathExtension isEqualToString:@"png"]||[pathExtension isEqualToString:@"jpg"]
-                           ||[pathExtension isEqualToString:@"jpeg"]);
+   NSString* pathExtension = [[resource pathExtension] lowercaseString];
+	BOOL isImageExtension = ([pathExtension isEqualToString:@"png"]||[pathExtension isEqualToString:@"jpg"]||[pathExtension isEqualToString:@"jpeg"]);
   
   switch (type) {
     case PAGE:
@@ -745,6 +787,17 @@ NSString* secondaryKey   = @"secondaryKey";
 			return horizontalOrientation ? [NSString stringWithFormat:@"/resources/1024-768-h%@",resource] : [NSString stringWithFormat:@"/resources/768-1024-h%@",resource];
 		}
 		break;  
+	}
+	case TILED:
+	{
+		if ([Helper currentDeviceResolution] == RETINA)
+		{
+			return horizontalOrientation ? [NSString stringWithFormat:@"/resources/2048-1536%@",resource] : [NSString stringWithFormat:@"/resources/1536-2048%@",resource];
+			//   return [NSString stringWithFormat:@"/resources/768-1024%@",resource];
+		}else {
+			return horizontalOrientation ? [NSString stringWithFormat:@"/resources/1024-768%@",resource] : [NSString stringWithFormat:@"/resources/768-1024%@",resource];
+		}
+		break;
 	}
         
     default:
@@ -1045,6 +1098,109 @@ NSString* secondaryKey   = @"secondaryKey";
   self.helpOperations = nil;
   self.horizontalTocOperations = nil;
   self.horizontalTocOperations = nil;
+	if (_callbackQueue) { 
+        dispatch_release(_callbackQueue);
+        _callbackQueue = NULL;
+    }
+
+}
+
+- (void)saveTilesOfSize:(CGSize)size 
+               forImage:(UIImage*)image 
+            toDirectory:(NSString*)directoryPath 
+            usingPrefix:(NSString*)prefix
+{
+	CGFloat cols = [image size].width / size.width;
+	CGFloat rows = [image size].height / size.height;
+	
+	int fullColumns = floorf(cols);
+	int fullRows = floorf(rows);
+	
+	CGFloat remainderWidth = [image size].width - 
+	(fullColumns * size.width);
+	CGFloat remainderHeight = [image size].height - 
+	(fullRows * size.height);
+	
+	
+	if (cols > fullColumns) fullColumns++;
+	if (rows > fullRows) fullRows++;
+	NSLog(@"FULL ROWS - %d, FULL COLUMS - %d",fullRows, fullColumns);
+	
+	CGImageRef fullImage = [image CGImage];
+	
+	for (int y = 0; y < fullRows; ++y) {
+		for (int x = 0; x < fullColumns; ++x) {
+			CGSize tileSize = size;
+			if (x + 1 == fullColumns && remainderWidth > 0) {
+				// Last column
+				tileSize.width = remainderWidth;
+			}
+			if (y + 1 == fullRows && remainderHeight > 0) {
+				// Last row
+				tileSize.height = remainderHeight;
+			}
+			
+			CGImageRef tileImage = CGImageCreateWithImageInRect(fullImage, 
+																(CGRect){{x*size.width, y*size.height}, 
+																	tileSize});
+			//NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:tileImage]);
+			NSString *path = [NSString stringWithFormat:@"%@/%@%d_%d.png", 
+							  directoryPath, prefix, x, y];
+			@autoreleasepool {
+				[[UIImage imageWithCGImage:tileImage] saveToPath:path type:NYXImageTypePNG backgroundFillColor:[UIColor whiteColor]];
+			}
+			NSLog(@"tile [%d, %d] processed, total - [%d, %d]",y,x,fullRows,fullColumns);
+			
+			//[imageData writeToFile:path atomically:NO];
+		}
+	}    
+}
+
+- (void)setSuccessCallbackQueue:(dispatch_queue_t)successCallbackQueue {
+    if (successCallbackQueue != _callbackQueue) {
+        if (_callbackQueue) {
+            dispatch_release(_callbackQueue);
+            _callbackQueue = NULL;
+        }
+		
+        if (successCallbackQueue) {
+            dispatch_retain(successCallbackQueue);
+            _callbackQueue = successCallbackQueue;
+        }
+    }    
+}
+
+-(void)archiveCroppedImageSizeToDirectory:(NSString*)directoryPath
+{
+	NSArray* fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
+	NSMutableArray* rowNumbers = [NSMutableArray array];
+	for (NSString* filename in fileNames) {
+		NSArray* stringComponents = [filename componentsSeparatedByString:@"_"];
+		if ([stringComponents count] != 3) continue;// 3 components : name, row, column
+		NSNumber* number = [NSNumber numberWithInt:[[stringComponents objectAtIndex:1] intValue]];
+		[rowNumbers addObject:number];
+		
+	}
+	[rowNumbers sortUsingSelector:@selector(compare:)];
+	NSString* lastRowNumber = [NSString stringWithFormat:@"%@",[rowNumbers lastObject]];
+	NSString* lastRowPNGname;
+	for (NSString* filename in fileNames) {
+		NSArray* stringComponents = [filename componentsSeparatedByString:@"_"];
+		if ([stringComponents containsObject:lastRowNumber]) 
+		{
+			lastRowPNGname = filename;
+			break;
+		}
+		
+	}
+	NSLog(@"ROW number - %@", lastRowPNGname);
+	
+	UIImage* image = [UIImage imageWithContentsOfFile:[directoryPath stringByAppendingPathComponent:lastRowPNGname]];
+	float height = (256 * ([lastRowNumber intValue] - 1) + image.size.height)/[UIScreen mainScreen].scale;
+	NSDictionary* information = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:height] forKey:@"height"];
+	 [information writeToFile:[directoryPath stringByAppendingPathComponent:@"information.plist"] atomically:YES];
+	
+
 }
 
 @end

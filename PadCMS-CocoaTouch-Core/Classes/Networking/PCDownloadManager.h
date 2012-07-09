@@ -47,7 +47,8 @@ typedef enum _ItemType {
   HORIZONTAL_HELP = 3,
   HORIZONTAL_TOC = 4,
   THUMBNAIL = 5,
-	HORIZONTAL_SCROLLING_PANE = 6
+	HORIZONTAL_SCROLLING_PANE = 6,
+	TILED = 7
 } ItemType;
 
 @class PCRevision;
@@ -60,6 +61,7 @@ typedef enum _ItemType {
 @property(retain) NSMutableDictionary* helpOperations;
 @property(retain) NSMutableDictionary* horizontalPageOperations;
 @property(retain) NSMutableArray* horizontalTocOperations;
+@property (nonatomic) dispatch_queue_t callbackQueue;
 @property BOOL isReady;
 
 + (PCDownloadManager *)sharedManager;
