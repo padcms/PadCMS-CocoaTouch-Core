@@ -109,6 +109,7 @@
 {   
 	self.url = (NSURL *)notification.object;
 	NSLog(@"url = %@", self.url);
+    
     if (![[self.url absoluteString] hasPrefix:@"file://"] &&  ![self isConnectionEstablished] )
     {
         return;
@@ -116,7 +117,7 @@
     
     if ([[self.url absoluteString] hasPrefix:@"file://"])
     {
-        NSString* videoPath = [self.url absoluteString];
+        NSString* videoPath = [self.url path];
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:videoPath];
         if (!fileExists)
         {
