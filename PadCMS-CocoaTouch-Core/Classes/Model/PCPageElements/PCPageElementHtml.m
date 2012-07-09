@@ -37,20 +37,20 @@
 
 @implementation PCPageElementHtml
 
-@synthesize htmlUrl;
-@synthesize templateType;
+@synthesize htmlUrl = _htmlUrl;
+@synthesize templateType = _templateType;
 
 - (void)dealloc
 {
-    [htmlUrl release];
-    htmlUrl = nil;
+    [_htmlUrl release];
+    _htmlUrl = nil;
     [super dealloc];
 }
 
 - (id)init
 {
-    if (self = [super init])
-    {
+    self = [super init];
+    if (self != nil) {
         templateType = PCPageElementHtmlUnknowType;
         htmlUrl = nil;
     }
@@ -60,13 +60,14 @@
 - (void)pushElementData:(NSDictionary*)data
 {
     [super pushElementData:data];
-    NSString* tepmplateType = [data objectForKey:PCSQLiteElementTemplateTypeAttributeName];
-   
-    if ([tepmplateType isEqualToString:PCSQLiteTemplateTouchType]) 
-        self.templateType = PCPageElementHtmlTouchType;
     
-    if ([tepmplateType isEqualToString:PCSQLiteTemplateRotationType])
+    NSString *tepmplateType = [data objectForKey:PCSQLiteElementTemplateTypeAttributeName];
+   
+    if ([tepmplateType isEqualToString:PCSQLiteTemplateTouchType]) {
+        self.templateType = PCPageElementHtmlTouchType;
+    } else if ([tepmplateType isEqualToString:PCSQLiteTemplateRotationType]) {
         self.templateType = PCPageElementHtmlRotationType;
+    }
 
     self.htmlUrl = [data objectForKey:PCSQLiteElementHtmlURLAttributeName];    
 }

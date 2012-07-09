@@ -112,13 +112,14 @@
 
 - (void) dealloc
 {
-  @try{
-    if (_element && [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle]) {
-      [_element removeObserver:self forKeyPath:@"isComplete"];
+    @try {
+        if (_element && [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle]) {
+            [_element removeObserver:self forKeyPath:@"isComplete"];
+        }
     }
-  }@catch(id anException){
-    NSLog(@"Exception");
-  }
+    @catch (id anException) {
+        NSLog(@"Exception = %@", anException);
+    }
   
   
 
