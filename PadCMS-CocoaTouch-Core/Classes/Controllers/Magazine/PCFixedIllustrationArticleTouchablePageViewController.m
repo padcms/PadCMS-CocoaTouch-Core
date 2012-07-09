@@ -64,9 +64,13 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.bodyViewController.view setHidden:YES];
     
     PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
+    
+    if(bodyElement)
+        [self.bodyViewController.view setHidden:!bodyElement.showTopLayer];
+    
+    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
     
     if (bodyElement && bodyElement.showGalleryOnRotate && [self.page elementsForType:PCPageElementTypeGallery].count > 0)
     {
@@ -95,11 +99,11 @@
 -(void)loadView
 {
     [super loadView];
-    PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
+    /*PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
     if(bodyElement)
-        [self.bodyViewController.view setHidden:bodyElement.showTopLayer == NO];
+        [self.bodyViewController.view setHidden:!bodyElement.showTopLayer];
     
-    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];*/
 }
 
 -(void)tapAction:(id)sender

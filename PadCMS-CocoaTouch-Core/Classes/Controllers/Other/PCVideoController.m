@@ -244,7 +244,6 @@
     if (self.moviePlayer.loadState & MPMovieLoadStatePlayable)
     {
         NSLog(@"MPMovieLoadStatePlayable");
-        return;
     }
     if (self.moviePlayer.loadState & MPMovieLoadStateUnknown)
     {
