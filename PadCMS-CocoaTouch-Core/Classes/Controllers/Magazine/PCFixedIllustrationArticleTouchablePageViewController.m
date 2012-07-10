@@ -68,7 +68,10 @@
     PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
     
     if(bodyElement)
+    {
         [self.bodyViewController.view setHidden:!bodyElement.showTopLayer];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
+    }
     
     [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
     
@@ -123,6 +126,7 @@
         if (actions.count == 0)
         {
             self.bodyViewController.view.hidden = YES;
+            [self changeVideoLayout:self.bodyViewController.view.hidden];
         }
     }
     
@@ -130,6 +134,7 @@
     {
         [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
         [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
     }
 
     else
@@ -145,6 +150,7 @@
     {
         [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
         [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
         return YES;
     }
     return NO;

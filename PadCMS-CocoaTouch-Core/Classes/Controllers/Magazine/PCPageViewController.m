@@ -256,8 +256,23 @@
         videoWebView.scrollView.bounces = NO;
     }
     PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
-    [self.view addSubview:videoWebView];
+    [self.mainScrollView addSubview:videoWebView];
     [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+}
+
+- (void)changeVideoLayout: (BOOL)isVideoEnabled
+{
+    if (videoWebView)
+    {
+        if (isVideoEnabled)
+        {
+            [self.mainScrollView bringSubviewToFront:videoWebView];
+        }
+        else 
+        {
+            [self.mainScrollView insertSubview:videoWebView aboveSubview:self.backgroundViewController.view];    
+        }
+    }
 }
 
 - (void)hideVideoWebView

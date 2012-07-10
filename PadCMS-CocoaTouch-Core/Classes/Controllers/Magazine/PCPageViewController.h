@@ -103,6 +103,7 @@
 - (void) unloadFullView;
 - (void) showVideo:(NSString *)resourcePath;
 - (void) showHUD;
+- (void) changeVideoLayout: (BOOL)isVideoEnabled;
 
 - (void) tapAction:(UIGestureRecognizer *)gestureRecognizer;
 
