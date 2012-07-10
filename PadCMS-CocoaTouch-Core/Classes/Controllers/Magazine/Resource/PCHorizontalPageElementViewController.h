@@ -36,10 +36,7 @@
 #import "PCPageElementViewController.h"
 
 @interface PCHorizontalPageElementViewController : PCPageElementViewController
-{
-    CGFloat targetHeight;
-}
 
-@property CGFloat targetHeight;
+@property (assign, nonatomic) CGFloat targetHeight;
 
 @end
