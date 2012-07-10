@@ -628,7 +628,7 @@
 
 - (void) galleryViewControllerWillDismiss
 {
-    if (!self.page.isComplete) 
+    if (!self.page.isComplete || ![self.page isSecondaryElementsComplete]) 
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:self.page userInfo:nil];
         [self showHUD];
