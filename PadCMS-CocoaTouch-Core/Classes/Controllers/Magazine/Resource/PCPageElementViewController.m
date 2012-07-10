@@ -56,6 +56,7 @@
 
 -(void) showHUD;
 -(void) hideHUD;
+- (void)applicationDidChangeStatusBarOrientationNotification;
 
 @end
 
@@ -79,11 +80,20 @@
         self.view = nil;
         imageView = nil;
         
-        targetWidth = [[UIScreen mainScreen] bounds].size.width; //default application width
+        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            targetWidth = [UIScreen mainScreen].bounds.size.width;
+        } else {
+            targetWidth = [UIScreen mainScreen].bounds.size.height;
+        }
         
         _resource = nil;
         
         _resourceBQ = nil;
+        
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(applicationDidChangeStatusBarOrientationNotification) 
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
+                                                   object:nil];
         
     }
     return self;
@@ -112,6 +122,8 @@
 
 - (void) dealloc
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
     @try {
         if (_element && [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle]) {
             [_element removeObserver:self forKeyPath:@"isComplete"];
@@ -133,6 +145,17 @@
     [_resourceBQ release], _resourceBQ = nil;
     
     [super dealloc];
+}
+
+- (void)applicationDidChangeStatusBarOrientationNotification
+{
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        targetWidth = [UIScreen mainScreen].bounds.size.width;
+    } else {
+        targetWidth = [UIScreen mainScreen].bounds.size.height;
+    }
+    
+    [self correctSize];
 }
 
 - (BOOL)isEqual:(id)object
@@ -206,13 +229,13 @@
         
         [imageView release];
     }
-     UIImage *image = [[PCResourceCache sharedInstance] resourceLoadRequestImmediate:[self request]];
+    UIImage *image = [[PCResourceCache sharedInstance] resourceLoadRequestImmediate:[self request]];
     
     if ([image isKindOfClass:[UIImage class]])
     {
         [imageView showImage:image];
     }
-  }
+}
 
 - (void) unloadView
 {
@@ -312,7 +335,6 @@
 {
 	return YES;
 }
-
 
 -(void) observeValueForKeyPath: (NSString *)keyPath ofObject: (id) object
                         change: (NSDictionary *) change context: (void *) context
