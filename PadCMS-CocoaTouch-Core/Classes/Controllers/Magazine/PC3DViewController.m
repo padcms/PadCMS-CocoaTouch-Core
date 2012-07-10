@@ -90,14 +90,20 @@
     self.view.multipleTouchEnabled = YES;
 	self.view.backgroundColor = [UIColor grayColor];
     
-    CGFloat left = (self.view.frame.size.width - 500) / 2;
-    CGFloat top = (self.view.frame.size.height - 500) / 2;
-    CGRect backgroundImageFrame = CGRectMake(left, top, 500, 500);
+    CGRect backgroundImageFrame = [self activeZoneRectForType:PCPDFActiveZone3d];
+    
+    if (CGRectIsEmpty(backgroundImageFrame)) {
+        CGFloat left = (self.view.frame.size.width - 500) / 2;
+        CGFloat top = (self.view.frame.size.height - 500) / 2;
+        backgroundImageFrame = CGRectMake(left, top, 500, 500);
+    }
+    
     _graphicsContainerView = [[UIView alloc] initWithFrame:backgroundImageFrame];
-    _graphicsContainerView.backgroundColor = [UIColor greenColor];
+    _graphicsContainerView.backgroundColor = [UIColor blackColor];
     _graphicsContainerView.userInteractionEnabled = YES;
     _graphicsContainerView.multipleTouchEnabled = YES;
     _graphicsContainerView.tag = 111;
+    
     [self.view addSubview:_graphicsContainerView];
     
     [self setUpGestureRecognizers];
@@ -185,13 +191,14 @@
 	//  5. If you are using BOTH multisampling antialiasing AND node picking from touch events,
 	//     use the CC3EAGLView class instead of EAGLView. When using EAGLView, multisampling
 	//     antialiasing interferes with the color-testing algorithm used for touch-event node picking.
-	_glView = [CC3EAGLView viewWithFrame:_graphicsContainerView.bounds
-									  pixelFormat:kEAGLColorFormatRGBA8
-									  depthFormat:GL_DEPTH_COMPONENT16_OES
-							   preserveBackbuffer:NO
-									   sharegroup:nil
-									multiSampling:NO
-								  numberOfSamples:4];
+	
+    _glView = [CC3EAGLView viewWithFrame:_graphicsContainerView.bounds
+                             pixelFormat:kEAGLColorFormatRGBA8
+                             depthFormat:GL_DEPTH_COMPONENT16_OES
+                      preserveBackbuffer:NO
+                              sharegroup:nil
+                           multiSampling:NO
+                         numberOfSamples:4];
 	
     [PCScrollView addViewToIgnoreTouches:_glView];
 	// Turn on multiple touches if needed
