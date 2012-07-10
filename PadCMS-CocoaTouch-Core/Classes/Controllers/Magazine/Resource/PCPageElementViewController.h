@@ -39,37 +39,24 @@
 
 @interface PCPageElementViewController : UIViewController
 {
-@private // Instance variables
-    MBProgressHUD* HUD;
-  
-    CGFloat targetWidth;
-    
-    NSString *_resource;
-    
-    NSString *_resourceBQ;
-    
-	BOOL isLoaded;
-
 @protected
-    PCResourceView *imageView;
-	
+    PCResourceView *_imageView;
 }
 
 @property (retain) NSString *resource;
 @property (retain) NSString *resourceBQ;
 @property (retain) PCPageElement* element;
-@property (nonatomic, assign) MBProgressHUD* HUD;
-
-@property          CGFloat   targetWidth;
+@property (assign, nonatomic) MBProgressHUD* HUD;
+@property (assign, nonatomic) CGFloat targetWidth;
 
 - (id)initWithResource:(NSString *)aResource;
 - (id)initWithResource:(NSString *)aResource resourceBadQuality:(NSString *)aResourceBQ;
 
-- (void) loadFullView;
-- (void) loadFullViewImmediate;
-- (void) unloadView;
+- (void)loadFullView;
+- (void)loadFullViewImmediate;
+- (void)unloadView;
 
-- (void) correctSize;
--(void)showHUD;
+- (void)correctSize;
+- (void)showHUD;
 
 @end
