@@ -37,10 +37,21 @@
 #import "PCVideoController.h"
 #import "PCStyler.h"
 #import "PCDefaultStyleElements.h"
+#import "MBProgressHUD.h"
+
+@interface PCBrowserViewController()
+
+- (void) createWebView;
+- (void) createReturnButton;
+- (void) showHUD;
+- (void) hideHUD;
+
+@end
 
 @implementation PCBrowserViewController
 
 @synthesize webView = _webView;
+@synthesize HUD = _HUD;
 
 - (id) init
 {
@@ -48,6 +59,7 @@
     if (self)
     {
         _webView = nil;
+        _HUD = nil;
     }
     return self;
 }
@@ -55,6 +67,7 @@
 - (void) dealloc
 {
     [_webView release], _webView = nil;
+    [_HUD release], _HUD = nil;
     
     [super dealloc];
 }
@@ -62,56 +75,100 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+}
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    [super viewWillAppear:animated];
     
-    UIWebView *tempWebView = [[UIWebView alloc] initWithFrame:CGRectMake(0,0,768,1024)];
+    [self createWebView];
+    [self createReturnButton];
+}
+
+- (void)viewDidDisappear:(BOOL)animated
+{
+    [self hideHUD];
+    [self backButtonTap];
+    
+    [super viewDidDisappear:animated];
+}
+
+- (void) createWebView
+{
+    UIWebView *tempWebView = [[UIWebView alloc] initWithFrame:self.view.frame];
     self.webView = tempWebView;
     [tempWebView release];
+    self.webView.delegate = self;
+    self.webView.scrollView.scrollEnabled = NO; 
+    self.webView.scrollView.bounces = NO;
     [self.view addSubview:self.webView];
-    
-    UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [backButton addTarget:self action:@selector(backButtonTap) forControlEvents:UIControlEventTouchUpInside];
-    [[PCStyler defaultStyler] stylizeElement:backButton withStyleName:PCGallaryReturnButtonKey withOptions:nil];
-    backButton.frame = CGRectMake(710, 945, backButton.frame.size.width, backButton.frame.size.height);
-    [self.view addSubview:backButton];
+}
+
+- (void) createReturnButton
+{
+    if (CGSizeEqualToSize(self.view.frame.size, [[UIScreen mainScreen] bounds].size))
+    {
+        UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
+        [backButton addTarget:self action:@selector(backButtonTap) forControlEvents:UIControlEventTouchUpInside];
+        NSDictionary *buttonOption = [NSDictionary dictionaryWithObject:[NSValue valueWithCGRect:self.view.frame] forKey:PCButtonParentViewFrameKey];
+        [[PCStyler defaultStyler] stylizeElement:backButton withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
+        [backButton setFrame:CGRectMake(self.view.frame.size.width - backButton.frame.size.width, 0, backButton.frame.size.width, backButton.frame.size.height)];
+        [[PCStyler defaultStyler] stylizeElement:backButton withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
+        [self.view addSubview:backButton];
+    }
 }
 
 - (void) backButtonTap
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:MPMoviePlayerPlaybackDidFinishNotification object:nil];
-	[self.webView loadHTMLString:@"" baseURL:nil];
-    if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
+	//[self.webView loadHTMLString:@"" baseURL:nil];
+    [self.webView removeFromSuperview];
+    [self.webView release], self.webView = nil;
+    for (UIView *subview in self.view.subviews)
     {
-        [self dismissViewControllerAnimated:YES completion:nil];
-    } 
-    else
-    {
-        [self dismissModalViewControllerAnimated:YES];
+        [subview removeFromSuperview];
     }
+    [self.view removeFromSuperview];
 }
 
 - (void) presentURL:(NSString*) url
 {
     [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+    [self showHUD];
 }
 
-- (void) presentFile:(NSString*) file
+-(void)showHUD
 {
-	[self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL fileURLWithPath:file] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+    if (!self.HUD)
+    {
+        self.HUD = [[MBProgressHUD alloc] initWithView:self.webView];
+        self.HUD.labelText = @"Loading"; 
+    }
+    
+    [self.webView addSubview:self.HUD];
+    [self.HUD show:YES];
 }
 
-- (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{	
-	return YES;
-}
-
-- (void)didReceiveMemoryWarning 
+-(void)hideHUD
 {
-    [super didReceiveMemoryWarning];
+	if (self.HUD)
+	{
+        [self.HUD hide:YES];
+		[self.HUD removeFromSuperview];
+		[self.HUD release];
+		self.HUD = nil;
+	}
 }
 
-- (void)viewDidUnload
+- (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
-    [super viewDidUnload];
+    [self hideHUD];
+}
+
+- (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
+{
+    [self hideHUD];
+    [self backButtonTap];
 }
 
 @end

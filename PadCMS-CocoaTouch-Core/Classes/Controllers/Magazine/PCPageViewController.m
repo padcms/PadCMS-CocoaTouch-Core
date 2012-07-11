@@ -43,6 +43,7 @@
 #import "PCScrollView.h"
 #import "PCSliderBasedMiniArticleViewController.h"
 #import "PCStyler.h"
+#import "PCBrowserViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface  PCPageViewController(ForwardDeclaration)
@@ -258,6 +259,16 @@
     PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
     [self.mainScrollView addSubview:videoWebView];
     [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+    
+    /*CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+    PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+    if (!webBrowserViewController)
+    {
+        webBrowserViewController = [[PCBrowserViewController alloc] init];
+    }
+    webBrowserViewController.view.frame = videoRect;
+    [self.mainScrollView addSubview:webBrowserViewController.view];
+    [webBrowserViewController presentURL:videoElement.stream];*/
 }
 
 - (void)changeVideoLayout: (BOOL)isVideoEnabled
@@ -282,6 +293,10 @@
         [videoWebView removeFromSuperview];
         [videoWebView release], videoWebView = nil;
     }
+    /*if (webBrowserViewController)
+    {
+        [webBrowserViewController.view removeFromSuperview];
+    }*/
 }
 
 - (void) hideSubviews
@@ -389,8 +404,16 @@
     
     if([[resourcePath pathExtension] isEqualToString:@""])
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:PCVCPushVideoScreenNotification object:resourcePath];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:PCVCPushVideoScreenNotification object:resourcePath];
         
+        CGRect mainScreenRect = [[UIScreen mainScreen] bounds];
+        if (!webBrowserViewController)
+        {
+            webBrowserViewController = [[PCBrowserViewController alloc] init];
+        }
+        webBrowserViewController.view.frame = mainScreenRect;
+        [self.view addSubview:webBrowserViewController.view];
+        [webBrowserViewController presentURL:resourcePath];
     }
     else
     {

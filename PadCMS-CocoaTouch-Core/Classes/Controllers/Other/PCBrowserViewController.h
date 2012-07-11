@@ -33,16 +33,18 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <Foundation/Foundation.h>
+@class MBProgressHUD;
 
-@interface PCBrowserViewController : UIViewController
+@interface PCBrowserViewController : UIViewController <UIWebViewDelegate>
 {
     UIWebView *_webView;
+    MBProgressHUD *_HUD;
 }
 
 @property (nonatomic, retain) UIWebView *webView;
+@property (nonatomic, retain) MBProgressHUD *HUD;
 
-- (void) presentURL:(NSString *) url;
-- (void) presentFile:(NSString *) file;
+- (id) init;
+- (void) presentURL: (NSString *) url;
 
 @end
