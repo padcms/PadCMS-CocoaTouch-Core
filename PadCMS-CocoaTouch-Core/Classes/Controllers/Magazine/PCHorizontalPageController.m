@@ -34,8 +34,6 @@
 //
 
 #import "PCHorizontalPageController.h"
-#import "PCResourceView.h"
-#import "PCResourceCache.h"
 #import "PCConfig.h"
 #import "PCRevisionViewController.h"
 #import "MBProgressHUD.h"

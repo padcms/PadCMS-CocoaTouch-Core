@@ -40,17 +40,15 @@
 @interface PCPageElementViewController : UIViewController
 {
 @protected
-    PCResourceView *_imageView;
+    PCResourceView *_resourceView;
 }
 
 @property (retain) NSString *resource;
-@property (retain) NSString *resourceBQ;
 @property (retain) PCPageElement* element;
 @property (assign, nonatomic) MBProgressHUD* HUD;
 @property (assign, nonatomic) CGFloat targetWidth;
 
 - (id)initWithResource:(NSString *)aResource;
-- (id)initWithResource:(NSString *)aResource resourceBadQuality:(NSString *)aResourceBQ;
 
 - (void)loadFullView;
 - (void)loadFullViewImmediate;
