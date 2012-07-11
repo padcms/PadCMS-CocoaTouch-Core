@@ -1,5 +1,5 @@
 //
-//  PCResourceCache.m
+//  PCResourceView.m
 //  Pad CMS
 //
 //  Created by Maxim Pervushin on 7/11/12.
@@ -33,75 +33,87 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
+#import "PCResourceView.h"
+
 #import "PCResourceCache.h"
 
-static PCResourceCache *defaultResourceCache = nil;
+static NSInteger instanceCount = 0;
 
-@interface PCResourceCache ()
+@interface PCResourceView ()
 
-@property (retain, nonatomic) NSCache *cache;
+- (void)initialize;
+- (void)deinitialize;
+- (void)loadResource;
 
 @end
 
-@implementation PCResourceCache
-@synthesize cache = _cache;
+@implementation PCResourceView
+@synthesize resourceName = _resourceName;
 
-+ (PCResourceCache *)defaultResourceCache
+- (void)initialize
 {
-    if (defaultResourceCache == nil) {
-        defaultResourceCache = [[super allocWithZone:NULL] init];
-        defaultResourceCache.cache = [[[NSCache alloc] init] autorelease];
-        defaultResourceCache.cache.delegate = defaultResourceCache;
+    ++instanceCount;
+    _resourceName = nil;
+}
+
+- (void)deinitialize
+{
+    --instanceCount;
+    [_resourceName release];
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self) {
+        [self initialize];
     }
+    return self;
+}
+
+- (id)init
+{
+    self = [super init];
+    if (self) {
+        [self initialize];
+    }
+    return self;
+}
+
+- (void)dealloc
+{
+    [self deinitialize];
+    [super dealloc];
+}
+
+- (void)setResourceName:(NSString *)resourceName
+{
+    if (resourceName == nil) {
+        [_resourceName release];
+        _resourceName = nil;
+        self.image = nil;
+    } else if (_resourceName != resourceName) {
+        [_resourceName release];
+        _resourceName = [resourceName copy];
+        
+        id resource = [[PCResourceCache defaultResourceCache] objectForKey:_resourceName];
+        
+        if (resource != nil && [resource isKindOfClass:UIImage.class]) {
+            self.image = (UIImage *)resource;
+        } else {
+            [self performSelectorInBackground:@selector(loadResource) withObject:nil];
+        }
+    }
+}
+
+- (void)loadResource
+{
+    id resource = [UIImage imageWithContentsOfFile:_resourceName];
     
-    return defaultResourceCache;
-}
-
-+ (id)allocWithZone:(NSZone *)zone
-{
-    return [[self defaultResourceCache] retain];
-}
-
-- (id)copyWithZone:(NSZone *)zone
-{
-    return self;
-}
-
-- (id)retain
-{
-    return self;
-}
-
-- (NSUInteger)retainCount
-{
-    return NSUIntegerMax;  //denotes an object that cannot be released
-}
-
-- (void)release
-{
-    //do nothing
-}
-
-- (id)autorelease
-{
-    return self;
-}
-
-- (id)objectForKey:(id)key
-{
-    return [_cache objectForKey:key];
-}
-
-- (void)setObject:(id)object forKey:(id)key
-{
-    [_cache setObject:object forKey:key];
-}
-
-#pragma mark - NSCacheDelegate
-
-- (void)cache:(NSCache *)cache willEvictObject:(id)obj
-{
-    NSLog(@"[PCResourceCache cache:%@ willEvictObject:%@]", cache, obj);
+    if (resource != nil && [resource isKindOfClass:UIImage.class]) {
+        [[PCResourceCache defaultResourceCache] setObject:resource forKey:_resourceName];
+        [self performSelectorOnMainThread:@selector(setImage:) withObject:resource waitUntilDone:YES];
+    }
 }
 
 @end

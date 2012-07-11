@@ -40,9 +40,6 @@
 #import "PCPage.h"
 #import "PCPageElement.h"
 #import "PCPageElemetTypes.h"
-#import "PCResourceCache.h"
-#import "PCResourceLoadRequest.h"
-#import "PCResourceQueue.h"
 #import "PCResourceView.h"
 
 @interface PCPageElementViewController()
@@ -51,7 +48,6 @@
     MBProgressHUD* _HUD;
     CGFloat _targetWidth;
     NSString *_resource;
-    NSString *_resourceBQ;
 	BOOL _loaded;
 }
 
@@ -62,7 +58,6 @@
 
 @implementation PCPageElementViewController
 @synthesize resource = _resource;
-@synthesize resourceBQ = _resourceBQ;
 @synthesize element = _element;
 @synthesize targetWidth = _targetWidth; 
 @synthesize HUD = _HUD;
@@ -75,7 +70,7 @@
     if (self)
     {
         self.view = nil;
-        _imageView = nil;
+        _resourceView = nil;
         
         if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
             _targetWidth = [UIScreen mainScreen].bounds.size.width;
@@ -85,14 +80,13 @@
         
         _resource = nil;
         
-        _resourceBQ = nil;
-        
         [[NSNotificationCenter defaultCenter] addObserver:self 
                                                  selector:@selector(applicationDidChangeStatusBarOrientationNotification) 
                                                      name:UIApplicationDidChangeStatusBarOrientationNotification
                                                    object:nil];
         
     }
+    
     return self;
 }
 
@@ -103,17 +97,7 @@
     {
         _resource = [aResource copy];
     }
-    return self;
-}
 
-- (id)initWithResource:(NSString *)aResource resourceBadQuality:(NSString *)aResourceBQ
-{
-    self = [self initWithResource:aResource];
-    if (self)
-    {
-        _resource = [aResource copy];
-        _resourceBQ = [aResourceBQ copy];
-    }
     return self;
 }
 
@@ -127,7 +111,6 @@
         }
     }
     @catch (id anException) {
-        NSLog(@"Exception = %@", anException);
     }
   
   
@@ -138,8 +121,6 @@
     [_element release], _element = nil;
     
     [_resource release], _resource = nil;
-    
-    [_resourceBQ release], _resourceBQ = nil;
     
     [super dealloc];
 }
@@ -168,83 +149,46 @@
     return [self.resource isEqualToString:anotherObject.resource];
 }
 
-- (PCResourceLoadRequest *) request
-{
-    PCResourceLoadRequest *resourceRequest = [PCResourceLoadRequest forView:_imageView
-                                                                    fileURL:self.resource
-                                                          fileBadQualityURL:self.resourceBQ];
-    
-    return resourceRequest;
-}
-
 - (void) loadFullView
 {
-	_loaded = YES;
     [self correctSize];
     
-    if(_imageView != nil) {
+    if (_resourceView != nil) {
+        _loaded = YES;
         return;
     }
     
-    _imageView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
-    
-    [self.view addSubview:_imageView];
-    [_imageView release];
-   
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		UIImage *image = [[PCResourceCache sharedInstance] resourceLoadBadQualityRequest:[self request]]; 
-		
-		if ([image isKindOfClass:[UIImage class]])
-		{
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[_imageView showImage:image];
-			});
-			
-		}
-
-	});
+    _resourceView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
+    _resourceView.resourceName = self.resource;
+    [self.view addSubview:_resourceView];
+    _loaded = YES;
 }
 
 - (void) loadFullViewImmediate
 {
-	_loaded = YES;
     [self correctSize];
-	//[self showHUD];
     
-    if(_imageView != nil)
-    {
-        if([_imageView isLoaded] || ![[PCResourceQueue sharedInstance] cancelNotStartedOperationWithObject:_imageView])
-        {
-            return;
-        }
+    if (_resourceView != nil) {
+        _loaded = YES;
+        return;
     }
-    else
-    {
-        _imageView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
-        
-        [self.view addSubview:_imageView];
-        
-        [_imageView release];
-    }
-    UIImage *image = [[PCResourceCache sharedInstance] resourceLoadRequestImmediate:[self request]];
     
-    if ([image isKindOfClass:[UIImage class]])
-    {
-        [_imageView showImage:image];
-    }
+    _resourceView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
+    _resourceView.resourceName = self.resource;
+    [self.view addSubview:_resourceView];
+    _loaded = YES;
 }
 
 - (void) unloadView
 {
 	_loaded = NO;
 	[self hideHUD];
-    if(_imageView)
-    {
-        [[PCResourceQueue sharedInstance] cancelNotStartedOperationWithObject:_imageView];
-        
-        [_imageView removeFromSuperview], _imageView = nil;
+    if (_resourceView != nil) {
+        _resourceView.resourceName = nil;
+        [_resourceView removeFromSuperview], 
+        [_resourceView release];
+        _resourceView = nil;
     }
-
 }
 
 - (void) correctSize
@@ -262,9 +206,9 @@
                                        newSize.width,
                                        newSize.height)];
         
-        if(_imageView != nil)
+        if(_resourceView != nil)
         {
-            [_imageView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
+            [_resourceView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
         }
     }
 }

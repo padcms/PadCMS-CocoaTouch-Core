@@ -45,7 +45,6 @@
 #import "UIColor+HexString.h"
 #import "PCGoogleAnalytics.h"
 #import "PCConfig.h"
-#import "PCResourceCache.h"
 
 #define PCRevisionExportPath @"export/revision/id/"
 #define PCRevisionDirectoryPrefix @"revision"
@@ -291,7 +290,6 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 - (void)deleteContent
 {
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
-    [[PCResourceCache sharedInstance] removeAllObjects];
     
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *revisionContent = [fileManager contentsOfDirectoryAtPath:self.contentDirectory error:nil];

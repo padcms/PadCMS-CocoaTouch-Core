@@ -59,8 +59,8 @@
                                        newSize.width,
                                        newSize.height)];
         
-        if (_imageView != nil) {
-            [_imageView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
+        if (_resourceView != nil) {
+            [_resourceView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
         }
     }
 }
