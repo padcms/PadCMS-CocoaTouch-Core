@@ -446,6 +446,13 @@
     {
         [self.controlElement update];
     }
+    
+    // update cover image
+    PCKioskGalleryItem* layer = [self.galleryView.layer.sublayers objectAtIndex:index];
+    if(layer)
+    {
+        [layer setNeedsDisplay];
+    }
 }
 
 #pragma mark - PCKioskSubviewDelegateProtocol

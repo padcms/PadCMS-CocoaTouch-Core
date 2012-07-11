@@ -45,6 +45,7 @@
 @class PCColumnViewController;
 @class MBProgressHUD;
 @class PCScrollView;
+@class PCBrowserViewController;
 
 /**
  @class PCPageViewController
@@ -67,6 +68,7 @@
     MBProgressHUD *HUD;
 	BOOL isLoaded;
 	UIWebView *videoWebView;
+    PCBrowserViewController *webBrowserViewController;
 }
 
 @property (nonatomic,assign) PCRevisionViewController* magazineViewController;///< Main magazine view controller 
@@ -103,6 +105,7 @@
 - (void) unloadFullView;
 - (void) showVideo:(NSString *)resourcePath;
 - (void) showHUD;
+- (void) changeVideoLayout: (BOOL)isVideoEnabled;
 
 - (void) tapAction:(UIGestureRecognizer *)gestureRecognizer;
 

@@ -269,13 +269,11 @@
 - (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index
 {
     [self.delegate deleteRevisionDataWithIndex:index];
-    [self reloadSubviews];
 }
 
 - (void) updateButtonTappedWithRevisionIndex:(NSInteger) index
 {
     [self.delegate updateRevisionWithIndex:index];
-    [self reloadSubviews];
 }
 
 - (void) purchaseButtonTappedWithRevisionIndex:(NSInteger) index

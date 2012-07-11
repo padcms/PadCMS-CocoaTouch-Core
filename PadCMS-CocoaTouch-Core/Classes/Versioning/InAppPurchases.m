@@ -70,6 +70,12 @@ static InAppPurchases *singleton = nil;
 	return [[[SKPaymentQueue defaultQueue] transactions] count] == 0;
 }
 
+- (void)repurchase
+{
+	_isSubscribed = YES;
+	[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
+}
+
 - (void)purchaseForProductId:(NSString *)productId
 {
 	//[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
@@ -203,7 +209,11 @@ static InAppPurchases *singleton = nil;
              _isSubscribed = NO;
                 break;
             case SKPaymentTransactionStateRestored:
+				
+				[[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerTransactionSucceededNotification
+																	object:[[[[NSString alloc] initWithData:[transaction transactionReceipt] encoding:NSASCIIStringEncoding] autorelease] substringWithRange:NSMakeRange(1, [[transaction transactionReceipt] length] - 2)]];
 				[self finishTransaction:transaction];
+				 _isSubscribed = NO;
                 break;
             default:
                 break;

@@ -63,6 +63,7 @@ PADCMS_EXTERN NSString* const PCBoostPageNotification;
     NSMutableArray* elements;
     NSMutableDictionary* links;
     UIColor* color;
+	BOOL _isSecondaryElementComplete;
 }
 
 /**
@@ -169,5 +170,6 @@ PADCMS_EXTERN NSString* const PCBoostPageNotification;
 
 - (BOOL)hasPageActiveZonesOfType: (NSString*)zoneType;
 
+-(BOOL)isSecondaryElementsComplete;
 
 @end

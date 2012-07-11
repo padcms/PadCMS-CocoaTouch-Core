@@ -35,8 +35,19 @@
 
 #import "PCFixedIllustrationArticleTouchablePageViewController.h"
 #import "PCScrollView.h"
+#import "PCGalleryWithOverlaysViewController.h"
+#import "PCStoreController.h"
+
+@interface PCFixedIllustrationArticleTouchablePageViewController ()
+- (void)deviceOrientationDidChange;
+- (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation;
+- (void)showGallery;
+- (void)hideGallery;
+@end
 
 @implementation PCFixedIllustrationArticleTouchablePageViewController
+
+@synthesize galleryWithOverlaysViewController;
 
 - (void)dealloc
 {
@@ -54,17 +65,49 @@
 -(void)viewDidLoad
 {
     [super viewDidLoad];
-    [self.bodyViewController.view setHidden:YES];
+    
+    PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
+    
+    if(bodyElement)
+    {
+        [self.bodyViewController.view setHidden:!bodyElement.showTopLayer];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
+    }
+    
+    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+    
+    if (bodyElement && bodyElement.showGalleryOnRotate && [self.page elementsForType:PCPageElementTypeGallery].count > 0)
+    {
+        [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+        currentMagazineOrientation = [[UIDevice currentDevice] orientation];
+        if(currentMagazineOrientation==UIDeviceOrientationUnknown)
+        {
+            UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+            if(UIInterfaceOrientationIsLandscape(currentOrientation))
+            {
+                currentMagazineOrientation = currentOrientation == UIInterfaceOrientationLandscapeLeft ? UIDeviceOrientationLandscapeLeft : UIDeviceOrientationLandscapeRight;
+            } else
+                if(UIInterfaceOrientationIsPortrait(currentOrientation))
+                {
+                    currentMagazineOrientation = currentOrientation == UIInterfaceOrientationPortrait ? UIDeviceOrientationPortrait : UIDeviceOrientationPortraitUpsideDown;
+                } 
+        }
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange) name:UIDeviceOrientationDidChangeNotification object:nil];
+        NSLog(@"registered");
+
+        galleryWithOverlaysViewController = [[PCGalleryWithOverlaysViewController alloc] initWithPage:self.page];
+    }
+    galleryIsShowed = NO;
 }
 
 -(void)loadView
 {
     [super loadView];
-    PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
+    /*PCPageElementBody* bodyElement = (PCPageElementBody*)[self.page firstElementForType:PCPageElementTypeBody];
     if(bodyElement)
-        [self.bodyViewController.view setHidden:bodyElement.showTopLayer == NO];
+        [self.bodyViewController.view setHidden:!bodyElement.showTopLayer];
     
-    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+    [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];*/
 }
 
 -(void)tapAction:(id)sender
@@ -84,6 +127,7 @@
         if (actions.count == 0)
         {
             self.bodyViewController.view.hidden = YES;
+            [self changeVideoLayout:self.bodyViewController.view.hidden];
         }
     }
     
@@ -91,6 +135,7 @@
     {
         [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
         [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
     }
 
     else
@@ -106,6 +151,7 @@
     {
         [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
         [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
         return YES;
     }
     return NO;
@@ -114,6 +160,101 @@
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
+}
+
+#pragma mark - private
+
+/*
+- (void) showGalleryWithID:(NSInteger)ID initialPhotoID:(NSInteger)photoID
+{
+    if (galleryWithOverlaysViewController)
+    {
+        galleryWithOverlaysViewController.delegate = self;
+        galleryWithOverlaysViewController.horizontalOrientation = self.magazineViewController.revision.horizontalOrientation;
+        galleryWithOverlaysViewController.galleryID = ID;
+        [self hideSubviews];
+        [self.magazineViewController showGalleryViewController:galleryViewController];
+        if (photoID > 0)
+        {
+            [galleryViewController setCurrentPhoto:photoID - 1];
+            [galleryViewController showPhotoAtIndex:photoID - 1];
+        }
+    }
+}
+*/
+-(void)showGallery
+{
+    if(!galleryIsShowed)
+    {
+		[self.magazineViewController.mainViewController.rootViewController presentViewController:self.galleryWithOverlaysViewController animated:YES completion:nil];
+        galleryIsShowed = YES;
+    }
+}
+
+-(void)hideGallery
+{
+    if (galleryIsShowed)
+    {
+        [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
+        galleryIsShowed = NO;
+    }
+}
+
+-(void)deviceOrientationDidChange
+{
+    NSLog(@"Notification DEV");
+    if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
+    {
+        if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
+        {
+            if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
+            {
+                if (galleryIsShowed)
+                {
+                    [self hideGallery];
+                }
+                else
+                {
+                    [self showGallery];
+                }
+            }
+        }
+    }
+    else if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]))
+    {
+        if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
+        {
+            if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
+            {
+                if (galleryIsShowed)
+                {
+                    [self hideGallery];
+                }
+                else
+                {
+                    [self showGallery];
+                }
+            }
+        }
+    }
+}
+
+- (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation
+{
+    UIDeviceOrientation tempOrientation;
+    tempOrientation = currentMagazineOrientation;
+    
+    if (UIDeviceOrientationIsLandscape(orientation))
+    {
+        currentMagazineOrientation = orientation;
+        return (UIDeviceOrientationIsPortrait(tempOrientation));
+    }
+    else if (UIDeviceOrientationIsPortrait(orientation))
+    {
+        currentMagazineOrientation = orientation;
+        return (UIDeviceOrientationIsLandscape(tempOrientation));
+    }
+    return NO;
 }
 
 @end

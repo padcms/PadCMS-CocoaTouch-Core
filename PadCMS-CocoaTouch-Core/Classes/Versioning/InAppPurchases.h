@@ -60,5 +60,6 @@
 - (void)purchaseForProductId:(NSString *)productId;
 
 -(void)subscribe;
+- (void)repurchase;
 
 @end

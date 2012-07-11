@@ -1,4 +1,8 @@
 //
+//  PCGalleryWithOverlaysViewController.h
+//  PadCMS-CocoaTouch-Core
+//
+//  Created by Oleg Zhitnik on 04.07.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -29,70 +33,37 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCResourceLoadRequest.h"
-#import "PCResourceView.h"
+#import <UIKit/UIKit.h>
+@class PCPage;
+@class PCScrollView;
 
-@implementation PCResourceLoadRequest
+@protocol PCGalleryWithOverlaysViewControllerDelegate <NSObject>
 
-#pragma mark Properties
+@required
 
-@synthesize fileURL             = _fileURL;
-@synthesize fileBadQualityURL   = _fileBadQualityURL;
-@synthesize resourceView        = _resourceView;
-@synthesize targetTag           = _targetTag;
-@synthesize scale               = _scale;
+- (void)galleryWithOverlayViewControllerWillDismiss;
 
-#pragma mark PCResourceLoadRequest class methods
+@end
 
-+ (id)forView:(PCResourceView *)view fileURL:(NSString *)url fileBadQualityURL:(NSString *)urlbq
+@interface PCGalleryWithOverlaysViewController : UIViewController <UIScrollViewDelegate>
 {
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-	return [[[PCResourceLoadRequest alloc] initWithView:view fileURL:url fileBadQualityURL:urlbq] autorelease];
+    PCPage *_page;
+    PCScrollView *_mainScrollView;
+    NSInteger _galleryID;
+    BOOL _horizontalOrientation;
+    NSMutableArray *_galleryElements;
+  	NSUInteger _currentIndex;
 }
 
-#pragma mark PCResourceLoadRequest instance methods
+@property (nonatomic, retain) PCScrollView *mainScrollView;
+@property (nonatomic, retain) PCPage *page;
+@property (nonatomic, assign) NSInteger galleryID;
+@property (nonatomic, assign) BOOL horizontalOrientation;
+@property (nonatomic, retain) NSMutableArray *galleryElements;
+@property (nonatomic, retain) NSMutableArray* imageViews;
+@property (nonatomic, retain) NSMutableArray* overlayImageViews;
+@property (nonatomic, assign) NSInteger currentPage;
 
-- (id)initWithView:(PCResourceView *)view fileURL:(NSString *)url fileBadQualityURL:(NSString *)urlbq
-{
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-    self = [super init];
-    
-	if (self) // Initialize object
-	{
-		_resourceView = [view retain];
-
-		_fileURL = [url copy];
-        
-        _fileBadQualityURL = [urlbq copy];
-
-        _targetTag = [_fileURL hash]; 
-        _resourceView.targetTag = _targetTag;
-        
-        _scale = 1.0f;
-	}
-
-	return self;
-}
-
-- (void)dealloc
-{
-#ifdef DEBUGX
-	NSLog(@"%s", __FUNCTION__);
-#endif
-
-	[_fileURL release], _fileURL = nil;
-    
-    [_fileBadQualityURL release], _fileBadQualityURL = nil;
-
-	[_resourceView release], _resourceView = nil;
-
-	[super dealloc];
-}
+- (id) initWithPage: (PCPage *)initialPage;
 
 @end

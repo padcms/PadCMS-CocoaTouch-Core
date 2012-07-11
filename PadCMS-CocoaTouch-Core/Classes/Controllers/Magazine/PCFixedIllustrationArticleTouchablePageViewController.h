@@ -35,6 +35,8 @@
 
 #import "PCFixedIllustrationArticleViewController.h"
 
+@class PCGalleryWithOverlaysViewController;
+
 /**
  @class PCFixedIllustrationArticleTouchablePageViewController
  @brief Fixed Illustration Article Touchable Page View Controller 
@@ -42,6 +44,11 @@
 
 @interface PCFixedIllustrationArticleTouchablePageViewController : PCFixedIllustrationArticleViewController 
 {
+    PCGalleryWithOverlaysViewController *galleryWithOverlaysViewController;
+    UIDeviceOrientation currentMagazineOrientation;
+    BOOL galleryIsShowed;
 }
+
+@property (nonatomic,retain) PCGalleryWithOverlaysViewController* galleryWithOverlaysViewController;
 
 @end

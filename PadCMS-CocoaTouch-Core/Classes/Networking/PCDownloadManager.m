@@ -52,8 +52,10 @@
 #import "PCPageTemplatesPool.h"
 #import "PCRevision.h"
 #import "PCTocItem.h"
-#import "UIImage+Saving.h"
+//#import "UIImage+Saving.h"
 #import "ZipArchive.h"
+#import "PCPageElementGallery.h"
+
 
 @interface PCDownloadManager(ForwardDeclaration)
 
@@ -524,30 +526,42 @@ NSString* secondaryKey   = @"secondaryKey";
 
 -(void)addOperationsForPage:(PCPage*)page
 {
-  NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
-  NSMutableDictionary* pageDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableArray array], primaryKey,[NSMutableDictionary dictionary] ,secondaryKey, nil];
-  [self.operationsDic setObject:pageDictionary forKey:pageIdentifier];
-  BOOL isMiniArticleMet = NO;
-  for (PCPageElement* element in page.primaryElements) 
-  {
-    if ([element isKindOfClass:[PCPageElementMiniArticle class]]) {
-      if (!isMiniArticleMet) 
-      {
-        [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
-      }
-      isMiniArticleMet = YES;
-      PCPageElementMiniArticle* miniArticle = (PCPageElementMiniArticle*)element;
-      [self addOperationForResourcePath:miniArticle.thumbnail element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
-      [self addOperationForResourcePath:miniArticle.thumbnailSelected element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
-    }
-    else {
-      [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
-    }
-  }
+   NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
+   NSMutableDictionary* pageDictionary = [NSMutableDictionary dictionaryWithObjectsAndKeys:[NSMutableArray array], primaryKey,[NSMutableDictionary dictionary] ,secondaryKey, nil];
+   [self.operationsDic setObject:pageDictionary forKey:pageIdentifier];
+   BOOL isMiniArticleMet = NO;
+   for (PCPageElement* element in page.primaryElements) 
+   {
+       if ([element isKindOfClass:[PCPageElementMiniArticle class]])
+       {
+           if (!isMiniArticleMet) 
+           {
+               [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+           }
+           isMiniArticleMet = YES;
+           PCPageElementMiniArticle* miniArticle = (PCPageElementMiniArticle*)element;
+           [self addOperationForResourcePath:miniArticle.thumbnail element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
+           [self addOperationForResourcePath:miniArticle.thumbnailSelected element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
+       }
+       else {
+           [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+       }
+   }
   
-  for (PCPageElement* element in page.secondaryElements) {
-    [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
-  }
+   for (PCPageElement* element in page.secondaryElements)
+   {
+      [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
+
+      if([element isKindOfClass:[PCPageElementGallery class]])
+      {
+          PCPageElementGallery      *galleryElement = (PCPageElementGallery*) element;
+          
+          if(galleryElement.overlayResource)
+          {
+//              [self addOperationForResourcePath:galleryElement.overlayResource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
+          }
+      }
+   }
 }
 
 
@@ -655,11 +669,19 @@ NSString* secondaryKey   = @"secondaryKey";
         else {
           element.downloadProgress = progress;
         }
-      }
-      else {
-        element.downloadProgress = progress;
-      }
+      } else
+          if([element isKindOfClass:[PCPageElementGallery class]])
+          {
+              PCPageElementGallery* galleryElement = (PCPageElementGallery*)element;
+              if ([galleryElement.overlayResource isEqualToString:path]) galleryElement.overlayProgress = progress;
+              else element.downloadProgress = progress;
 
+              if ([galleryElement.overlayResource isEqualToString:path]) NSLog(@"overlay for %d = %.0f", galleryElement.identifier, progress);
+              else NSLog(@"gallery for %d = %.0f", galleryElement.identifier, progress);
+          }
+          else {
+              element.downloadProgress = progress;
+          }
     });
  
   } itemLocation:path];
@@ -1105,56 +1127,6 @@ NSString* secondaryKey   = @"secondaryKey";
 
 }
 
-- (void)saveTilesOfSize:(CGSize)size 
-               forImage:(UIImage*)image 
-            toDirectory:(NSString*)directoryPath 
-            usingPrefix:(NSString*)prefix
-{
-	CGFloat cols = [image size].width / size.width;
-	CGFloat rows = [image size].height / size.height;
-	
-	int fullColumns = floorf(cols);
-	int fullRows = floorf(rows);
-	
-	CGFloat remainderWidth = [image size].width - 
-	(fullColumns * size.width);
-	CGFloat remainderHeight = [image size].height - 
-	(fullRows * size.height);
-	
-	
-	if (cols > fullColumns) fullColumns++;
-	if (rows > fullRows) fullRows++;
-	NSLog(@"FULL ROWS - %d, FULL COLUMS - %d",fullRows, fullColumns);
-	
-	CGImageRef fullImage = [image CGImage];
-	
-	for (int y = 0; y < fullRows; ++y) {
-		for (int x = 0; x < fullColumns; ++x) {
-			CGSize tileSize = size;
-			if (x + 1 == fullColumns && remainderWidth > 0) {
-				// Last column
-				tileSize.width = remainderWidth;
-			}
-			if (y + 1 == fullRows && remainderHeight > 0) {
-				// Last row
-				tileSize.height = remainderHeight;
-			}
-			
-			CGImageRef tileImage = CGImageCreateWithImageInRect(fullImage, 
-																(CGRect){{x*size.width, y*size.height}, 
-																	tileSize});
-			//NSData *imageData = UIImagePNGRepresentation([UIImage imageWithCGImage:tileImage]);
-			NSString *path = [NSString stringWithFormat:@"%@/%@%d_%d.png", 
-							  directoryPath, prefix, x, y];
-			@autoreleasepool {
-				[[UIImage imageWithCGImage:tileImage] saveToPath:path type:NYXImageTypePNG backgroundFillColor:[UIColor whiteColor]];
-			}
-			NSLog(@"tile [%d, %d] processed, total - [%d, %d]",y,x,fullRows,fullColumns);
-			
-			//[imageData writeToFile:path atomically:NO];
-		}
-	}    
-}
 
 - (void)setSuccessCallbackQueue:(dispatch_queue_t)successCallbackQueue {
     if (successCallbackQueue != _callbackQueue) {

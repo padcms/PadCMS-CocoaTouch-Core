@@ -37,20 +37,26 @@
 #import "PCVideoController.h"
 #import "PCLandscapeViewController.h"
 #import "PCStoreController.h"
+#import "ZipArchive.h"
+
 
 @interface PCHTMLPageViewController ()
-- (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation;
+{
+    BOOL _webViewVisible;
+    PCLandscapeViewController* _webViewController;
+}
+
 - (void)showBrowser;
 - (void)hideBrowser;
+
 @end
 
 @implementation PCHTMLPageViewController
 
-@synthesize webViewController;
-
 -(void)dealloc
 {
-    self.webViewController = nil;
+    [_webViewController release];
+    
     [super dealloc];
 }
 
@@ -69,24 +75,45 @@
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(deviceOrientationDidChange) name:UIDeviceOrientationDidChangeNotification object:nil];
     }
-    currentMagazineOrientation = [[UIDevice currentDevice] orientation];
-    webViewIsShowed = NO;
+
+    _webViewVisible = NO;
 }
 
 -(void)loadFullView
 {
     [super loadFullView];
 
-    if (self.webViewController==nil)
-    {
-        PCPageElementHtml* pageElement =(PCPageElementHtml*)[self.page firstElementForType:PCPageElementTypeHtml];
-        NSURL* url = [NSURL URLWithString:pageElement.htmlUrl];
-        self.webViewController = [[[PCLandscapeViewController alloc] init] autorelease];
+    if (_webViewController == nil) {
+        PCPageElementHtml *pageElement =(PCPageElementHtml *)[self.page firstElementForType:PCPageElementTypeHtml];
+
+        NSURL *url = nil;
+        if (pageElement.htmlUrl != nil) {
+            url = [NSURL URLWithString:pageElement.htmlUrl];    
+        } else {
+
+            NSString *archivePath = [[page.revision contentDirectory] stringByAppendingPathComponent:pageElement.resource];
+            
+            ZipArchive *zipArchive = [[ZipArchive alloc] init];
+            BOOL openFileResult = [zipArchive UnzipOpenFile:archivePath];
+            
+            if (openFileResult)
+            {
+                NSString *outputDirectory = [[archivePath stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"resource"];
+
+                [zipArchive UnzipFileTo:outputDirectory overWrite:YES];
+                url = [NSURL fileURLWithPath:[outputDirectory stringByAppendingPathComponent:@"index.html"]];
+                
+                [zipArchive UnzipCloseFile];
+            }
+            
+            [zipArchive release];
+        }
+        
+        _webViewController = [[PCLandscapeViewController alloc] init];
         
         CGRect      webViewRect;
         
-        if(self.columnViewController.horizontalOrientation)
-        {
+        if (self.columnViewController.horizontalOrientation) {
             webViewRect = CGRectMake(0, 0, 768, 1024);
         } else {
             webViewRect = CGRectMake(0, 0, 1024, 786);
@@ -95,86 +122,49 @@
         UIWebView* webView = [[UIWebView alloc] initWithFrame:webViewRect];
         webView.backgroundColor = [UIColor blackColor];
         [webView setDelegate:self];
-        [self.webViewController.view addSubview:webView];
+        
+        [_webViewController.view addSubview:webView];
+        
         UIActivityIndicatorView* activityView = [[UIActivityIndicatorView alloc] initWithActivityIndicatorStyle:UIActivityIndicatorViewStyleWhiteLarge];
         [activityView setFrame:CGRectMake((webView.frame.size.width-activityView.frame.size.width)/2, (webView.frame.size.height-activityView.frame.size.height)/2, activityView.frame.size.width, activityView.frame.size.height)];
         [activityView setTag:100];
         [activityView startAnimating];
-        [self.webViewController.view addSubview:activityView];
+        [_webViewController.view addSubview:activityView];
         [activityView release];
+        
         [webView loadRequest:[NSURLRequest requestWithURL:url]];
         [webView release];
     }
 }
 
-- (void)webViewDidFinishLoad:(UIWebView *)webView
-{
-    UIActivityIndicatorView* activityView = (UIActivityIndicatorView*)[self.webViewController.view viewWithTag:100];
-    [activityView stopAnimating];
-    activityView.hidden = YES;
-}
-
 -(void)unloadFullView
 {
     [super unloadFullView];
-    self.webViewController = nil;
+    _webViewController = nil;
 }
 
 -(void)showBrowser
 {
-
-    if(!webViewIsShowed)
-    {
-        if ([self.magazineViewController.mainViewController respondsToSelector:@selector(presentViewController:animated:completion:)]) 
-        {
-            [self.magazineViewController.mainViewController presentViewController:self.webViewController animated:YES completion:nil];
-        } 
-        else 
-        {
-            [self.magazineViewController.mainViewController presentModalViewController:self.webViewController animated:YES];   
-        }
-        webViewIsShowed = YES;
+    if (_webViewVisible) {
+        return;
     }
     
-    /*if (self.magazineViewController.mainViewController.modalViewController == nil)
-    {
-        if ([self.magazineViewController.mainViewController respondsToSelector:@selector(presentViewController:animated:completion:)]) 
-        {
-            [self.magazineViewController.mainViewController presentViewController:self.webViewController animated:YES completion:nil];
-        } 
-        else 
-        {
-            [self.magazineViewController.mainViewController presentModalViewController:self.webViewController animated:YES];   
-        }
-    }
-    else 
-    {
-        if ([self.magazineViewController.mainViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
-        {
-            [self.magazineViewController.mainViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
-        } 
-        else
-        {
-            [self.magazineViewController.mainViewController.modalViewController dismissModalViewControllerAnimated:YES];
-        }
-    }
-    */
+    [self.magazineViewController.mainViewController presentViewController:_webViewController animated:YES completion:nil];
+
+    _webViewVisible = YES;
 }
 
 - (void)hideBrowser
 {
-    if (webViewIsShowed)
-    {
-        if ([self.magazineViewController.mainViewController.rootViewController.modalViewController respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
-        {
-            [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
-        } 
-        else
-        {
-            [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissModalViewControllerAnimated:YES];
-        }
-        webViewIsShowed = NO;
+	if (!_webViewVisible) {
+        return;
+		
     }
+
+           
+    [self.magazineViewController.mainViewController.rootViewController.modalViewController dismissViewControllerAnimated:YES completion:nil];
+
+    _webViewVisible = NO;
 }
 
 -(void)tapAction:(UIGestureRecognizer *)gestureRecognizer
@@ -200,60 +190,20 @@
 
 -(void)deviceOrientationDidChange
 {
-    if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
-    {
-        if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
-        {
-            if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
-            {
-                if (webViewIsShowed)
-                {
-                    [self hideBrowser];
-                }
-                else
-                {
-                    [self showBrowser];
-                }
-            }
-        }
-    }
-    else if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation]))
-    {
-        if ([self isOrientationChanged:[[UIDevice currentDevice] orientation]])
-        {
-            if (self.columnViewController.currentPageViewController == self && self.columnViewController.magazineViewController.currentColumnViewController == self.columnViewController)
-            {
-                if (webViewIsShowed)
-                {
-                    [self hideBrowser];
-                }
-                else
-                {
-                    [self showBrowser];
-                }
-            }
-        }
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+        [self showBrowser];
+    } else {
+        [self hideBrowser];
     }
 }
 
-#pragma mark - private
+#pragma mark - UIWebViewDelegate
 
-- (BOOL)isOrientationChanged:(UIDeviceOrientation)orientation
+- (void)webViewDidFinishLoad:(UIWebView *)webView
 {
-    UIDeviceOrientation tempOrientation;
-    tempOrientation = currentMagazineOrientation;
-    
-    if (UIDeviceOrientationIsLandscape(orientation))
-    {
-        currentMagazineOrientation = orientation;
-        return (UIDeviceOrientationIsPortrait(tempOrientation));
-    }
-    else if (UIDeviceOrientationIsPortrait(orientation))
-    {
-        currentMagazineOrientation = orientation;
-        return (UIDeviceOrientationIsLandscape(tempOrientation));
-    }
-    return NO;
+    UIActivityIndicatorView *activityView = (UIActivityIndicatorView*)[_webViewController.view viewWithTag:100];
+    [activityView stopAnimating];
+    activityView.hidden = YES;
 }
 
 @end

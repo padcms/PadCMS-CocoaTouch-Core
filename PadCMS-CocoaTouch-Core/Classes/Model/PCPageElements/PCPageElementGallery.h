@@ -38,8 +38,11 @@
 @interface PCPageElementGallery : PCPageElement
 {
     NSInteger _galleryID;
+    NSString* overlayResource;
 }
 
 @property (nonatomic, assign) NSInteger galleryID;
+@property (nonatomic,retain) NSString* overlayResource; ///< Relative path to the overlay resource
+@property (nonatomic,assign) float overlayProgress;
 
 @end

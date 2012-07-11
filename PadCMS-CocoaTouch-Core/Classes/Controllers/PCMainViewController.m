@@ -41,7 +41,6 @@
 #import "PCPathHelper.h"
 #import "PCMacros.h"
 #import "PCDownloadManager.h"
-#import "PCResourceCache.h"
 #import "InAppPurchases.h"
 #import "PCDownloadApiClient.h"
 
@@ -384,7 +383,6 @@
 - (void) switchToKiosk
 {
 	[[NSURLCache sharedURLCache] removeAllCachedResponses];
-    [[PCResourceCache sharedInstance] removeAllObjects];
 	[[PCDownloadManager sharedManager] cancelAllOperations];
     if(_revisionViewController)
     {
@@ -988,7 +986,6 @@
             
             if (revision)
             {
-                [[PCResourceCache sharedInstance] removeAllObjects];
                 [revision deleteContent];
                 [self.kioskViewController updateRevisionWithIndex:index];
             }

@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */; };
+		6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */; };
 		607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */; };
 		607F3E341588C3580097D960 /* PCKioskAbstractControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */; };
 		607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */; };
@@ -224,14 +226,6 @@
 		607F40281588D3DF0097D960 /* PCHorizontalPageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FCB1588D3DE0097D960 /* PCHorizontalPageElementViewController.m */; };
 		607F402D1588D3DF0097D960 /* PCPageElementViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */; };
 		607F402E1588D3DF0097D960 /* PCPageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */; };
-		607F402F1588D3DF0097D960 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD21588D3DE0097D960 /* PCResourceCache.h */; };
-		607F40301588D3DF0097D960 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD31588D3DE0097D960 /* PCResourceCache.m */; };
-		607F40311588D3DF0097D960 /* PCResourceFetch.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD41588D3DE0097D960 /* PCResourceFetch.h */; };
-		607F40321588D3DF0097D960 /* PCResourceFetch.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD51588D3DE0097D960 /* PCResourceFetch.m */; };
-		607F40331588D3DF0097D960 /* PCResourceLoadRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD61588D3DE0097D960 /* PCResourceLoadRequest.h */; };
-		607F40341588D3DF0097D960 /* PCResourceLoadRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD71588D3DE0097D960 /* PCResourceLoadRequest.m */; };
-		607F40351588D3DF0097D960 /* PCResourceQueue.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FD81588D3DE0097D960 /* PCResourceQueue.h */; };
-		607F40361588D3DF0097D960 /* PCResourceQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD91588D3DE0097D960 /* PCResourceQueue.m */; };
 		607F40371588D3DF0097D960 /* PCBrowserViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FDC1588D3DE0097D960 /* PCBrowserViewController.h */; };
 		607F40381588D3DF0097D960 /* PCBrowserViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FDD1588D3DE0097D960 /* PCBrowserViewController.m */; };
 		607F40391588D3DF0097D960 /* PCEmailController.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3FDE1588D3DE0097D960 /* PCEmailController.h */; };
@@ -640,8 +634,6 @@
 		607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EC1588E19D0097D960 /* PCCustomPageControll.m */; };
 		607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
 		607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43EE1588E19D0097D960 /* PCFlashButton.m */; };
-		607F43F71588E19D0097D960 /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43EF1588E19D0097D960 /* PCResourceView.h */; };
-		607F43F81588E19D0097D960 /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43F01588E19D0097D960 /* PCResourceView.m */; };
 		607F43FC1588E1DD0097D960 /* MBProgressHUD.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F43FA1588E1DD0097D960 /* MBProgressHUD.h */; };
 		607F43FD1588E1DD0097D960 /* MBProgressHUD.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F43FB1588E1DD0097D960 /* MBProgressHUD.m */; };
 		607F44201588E2490097D960 /* RssCategory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44031588E2490097D960 /* RssCategory.h */; };
@@ -697,7 +689,6 @@
 		607F44E61589EA390097D960 /* PCPageElement.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E861588CE5F0097D960 /* PCPageElement.h */; };
 		607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EB1588E19D0097D960 /* PCCustomPageControll.h */; };
 		607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43ED1588E19D0097D960 /* PCFlashButton.h */; };
-		607F45001589EA890097D960 /* PCResourceView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43EF1588E19D0097D960 /* PCResourceView.h */; };
 		607F45011589EA890097D960 /* PCBrowserViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FDC1588D3DE0097D960 /* PCBrowserViewController.h */; };
 		607F45021589EA890097D960 /* PCEmailController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FDE1588D3DE0097D960 /* PCEmailController.h */; };
 		607F45031589EA890097D960 /* PCFacebookViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FE01588D3DE0097D960 /* PCFacebookViewController.h */; };
@@ -976,10 +967,6 @@
 		607F462C1589EAF70097D960 /* PCSlideshowViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FC71588D3DE0097D960 /* PCSlideshowViewController.h */; };
 		607F462D1589EAF70097D960 /* PCHorizontalPageElementViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FCA1588D3DE0097D960 /* PCHorizontalPageElementViewController.h */; };
 		607F46301589EAF70097D960 /* PCPageElementViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */; };
-		607F46311589EAF70097D960 /* PCResourceCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD21588D3DE0097D960 /* PCResourceCache.h */; };
-		607F46321589EAF70097D960 /* PCResourceFetch.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD41588D3DE0097D960 /* PCResourceFetch.h */; };
-		607F46331589EAF70097D960 /* PCResourceLoadRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD61588D3DE0097D960 /* PCResourceLoadRequest.h */; };
-		607F46341589EAF70097D960 /* PCResourceQueue.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3FD81588D3DE0097D960 /* PCResourceQueue.h */; };
 		607F46351589EAF70097D960 /* Helper.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF21588CF820097D960 /* Helper.h */; };
 		607F46371589EAF70097D960 /* PCConfig.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF61588CF820097D960 /* PCConfig.h */; };
 		607F46381589EAF70097D960 /* PCConsts.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3EF81588CF820097D960 /* PCConsts.h */; };
@@ -1073,10 +1060,6 @@
 		ABC7E1F415A9CCA400B06A38 /* JCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */; };
 		ABC7E1F515A9CCA400B06A38 /* JCVisibleAnnotationTuple.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */; };
 		ABC7E1F615A9CCA400B06A38 /* JCVisibleAnnotationTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */; };
-		ABC7E1FC15AA1D8F00B06A38 /* NYXImagesHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1FA15AA1D8D00B06A38 /* NYXImagesHelper.h */; };
-		ABC7E1FD15AA1D8F00B06A38 /* NYXImagesHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1FB15AA1D8E00B06A38 /* NYXImagesHelper.m */; };
-		ABC7E20015AA1D9F00B06A38 /* UIImage+Saving.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1FE15AA1D9700B06A38 /* UIImage+Saving.h */; };
-		ABC7E20115AA1D9F00B06A38 /* UIImage+Saving.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1FF15AA1D9900B06A38 /* UIImage+Saving.m */; };
 		ABC7E21715AA53FB00B06A38 /* SimplePageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */; };
 		ABC7E21815AA53FB00B06A38 /* SimplePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */; };
 		ABC7E21B15AA542C00B06A38 /* AbstractBasePageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */; };
@@ -1097,6 +1080,10 @@
 		ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */; };
 		ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; };
 		ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
+		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
+		C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
+		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
+		C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1137,10 +1124,6 @@
 				607F462C1589EAF70097D960 /* PCSlideshowViewController.h in CopyFiles */,
 				607F462D1589EAF70097D960 /* PCHorizontalPageElementViewController.h in CopyFiles */,
 				607F46301589EAF70097D960 /* PCPageElementViewController.h in CopyFiles */,
-				607F46311589EAF70097D960 /* PCResourceCache.h in CopyFiles */,
-				607F46321589EAF70097D960 /* PCResourceFetch.h in CopyFiles */,
-				607F46331589EAF70097D960 /* PCResourceLoadRequest.h in CopyFiles */,
-				607F46341589EAF70097D960 /* PCResourceQueue.h in CopyFiles */,
 				607F46351589EAF70097D960 /* Helper.h in CopyFiles */,
 				607F46371589EAF70097D960 /* PCConfig.h in CopyFiles */,
 				607F46381589EAF70097D960 /* PCConsts.h in CopyFiles */,
@@ -1196,7 +1179,6 @@
 				607F46131589EAA90097D960 /* PCSQLiteKeys.h in CopyFiles */,
 				607F44FE1589EA890097D960 /* PCCustomPageControll.h in CopyFiles */,
 				607F44FF1589EA890097D960 /* PCFlashButton.h in CopyFiles */,
-				607F45001589EA890097D960 /* PCResourceView.h in CopyFiles */,
 				607F45011589EA890097D960 /* PCBrowserViewController.h in CopyFiles */,
 				607F45021589EA890097D960 /* PCEmailController.h in CopyFiles */,
 				607F45031589EA890097D960 /* PCFacebookViewController.h in CopyFiles */,
@@ -1466,6 +1448,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGalleryWithOverlaysViewController.h; sourceTree = "<group>"; };
+		6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGalleryWithOverlaysViewController.m; sourceTree = "<group>"; };
 		607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractControlElement.h; sourceTree = "<group>"; };
 		607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskAbstractControlElement.m; sourceTree = "<group>"; };
 		607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractSubviewsFactory.h; sourceTree = "<group>"; };
@@ -1675,14 +1659,6 @@
 		607F3FCB1588D3DE0097D960 /* PCHorizontalPageElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHorizontalPageElementViewController.m; sourceTree = "<group>"; };
 		607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCPageElementViewController.h; sourceTree = "<group>"; };
 		607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCPageElementViewController.m; sourceTree = "<group>"; };
-		607F3FD21588D3DE0097D960 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
-		607F3FD31588D3DE0097D960 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
-		607F3FD41588D3DE0097D960 /* PCResourceFetch.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceFetch.h; sourceTree = "<group>"; };
-		607F3FD51588D3DE0097D960 /* PCResourceFetch.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceFetch.m; sourceTree = "<group>"; };
-		607F3FD61588D3DE0097D960 /* PCResourceLoadRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceLoadRequest.h; sourceTree = "<group>"; };
-		607F3FD71588D3DE0097D960 /* PCResourceLoadRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceLoadRequest.m; sourceTree = "<group>"; };
-		607F3FD81588D3DE0097D960 /* PCResourceQueue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceQueue.h; sourceTree = "<group>"; };
-		607F3FD91588D3DE0097D960 /* PCResourceQueue.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceQueue.m; sourceTree = "<group>"; };
 		607F3FDB1588D3DE0097D960 /* LandscapeController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = LandscapeController.xib; sourceTree = "<group>"; };
 		607F3FDC1588D3DE0097D960 /* PCBrowserViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCBrowserViewController.h; sourceTree = "<group>"; };
 		607F3FDD1588D3DE0097D960 /* PCBrowserViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCBrowserViewController.m; sourceTree = "<group>"; };
@@ -2099,8 +2075,6 @@
 		607F43EC1588E19D0097D960 /* PCCustomPageControll.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCustomPageControll.m; sourceTree = "<group>"; };
 		607F43ED1588E19D0097D960 /* PCFlashButton.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCFlashButton.h; sourceTree = "<group>"; };
 		607F43EE1588E19D0097D960 /* PCFlashButton.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCFlashButton.m; sourceTree = "<group>"; };
-		607F43EF1588E19D0097D960 /* PCResourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceView.h; sourceTree = "<group>"; };
-		607F43F01588E19D0097D960 /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
 		607F43FA1588E1DD0097D960 /* MBProgressHUD.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MBProgressHUD.h; sourceTree = "<group>"; };
 		607F43FB1588E1DD0097D960 /* MBProgressHUD.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MBProgressHUD.m; sourceTree = "<group>"; };
 		607F44031588E2490097D960 /* RssCategory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RssCategory.h; sourceTree = "<group>"; };
@@ -2195,10 +2169,6 @@
 		ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAnnotationView.m; sourceTree = "<group>"; };
 		ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVisibleAnnotationTuple.h; sourceTree = "<group>"; };
 		ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVisibleAnnotationTuple.m; sourceTree = "<group>"; };
-		ABC7E1FA15AA1D8D00B06A38 /* NYXImagesHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NYXImagesHelper.h; sourceTree = "<group>"; };
-		ABC7E1FB15AA1D8E00B06A38 /* NYXImagesHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NYXImagesHelper.m; sourceTree = "<group>"; };
-		ABC7E1FE15AA1D9700B06A38 /* UIImage+Saving.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Saving.h"; sourceTree = "<group>"; };
-		ABC7E1FF15AA1D9900B06A38 /* UIImage+Saving.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Saving.m"; sourceTree = "<group>"; };
 		ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePageViewController.h; sourceTree = "<group>"; };
 		ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePageViewController.m; sourceTree = "<group>"; };
 		ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractBasePageViewController.h; sourceTree = "<group>"; };
@@ -2217,6 +2187,10 @@
 		ABF4D2E61590516400DAAD0F /* PCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadManager.m; sourceTree = "<group>"; };
 		ABF4D2E71590516400DAAD0F /* PCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadOperation.h; sourceTree = "<group>"; };
 		ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadOperation.m; sourceTree = "<group>"; };
+		C51D595515AD5CAB001EEE0A /* PCResourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceView.h; sourceTree = "<group>"; };
+		C51D595615AD5CAB001EEE0A /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
+		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
+		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2628,14 +2602,10 @@
 				607F3FCB1588D3DE0097D960 /* PCHorizontalPageElementViewController.m */,
 				607F3FD01588D3DE0097D960 /* PCPageElementViewController.h */,
 				607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */,
-				607F3FD21588D3DE0097D960 /* PCResourceCache.h */,
-				607F3FD31588D3DE0097D960 /* PCResourceCache.m */,
-				607F3FD41588D3DE0097D960 /* PCResourceFetch.h */,
-				607F3FD51588D3DE0097D960 /* PCResourceFetch.m */,
-				607F3FD61588D3DE0097D960 /* PCResourceLoadRequest.h */,
-				607F3FD71588D3DE0097D960 /* PCResourceLoadRequest.m */,
-				607F3FD81588D3DE0097D960 /* PCResourceQueue.h */,
-				607F3FD91588D3DE0097D960 /* PCResourceQueue.m */,
+				C51D595515AD5CAB001EEE0A /* PCResourceView.h */,
+				C51D595615AD5CAB001EEE0A /* PCResourceView.m */,
+				C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */,
+				C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */,
 			);
 			path = Resource;
 			sourceTree = "<group>";
@@ -2652,6 +2622,8 @@
 				607F3FE11588D3DE0097D960 /* PCFacebookViewController.m */,
 				607F3FE21588D3DE0097D960 /* PCGalleryViewController.h */,
 				607F3FE31588D3DE0097D960 /* PCGalleryViewController.m */,
+				6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */,
+				6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */,
 				607F3FE41588D3DE0097D960 /* PCHelpViewController.h */,
 				607F3FE51588D3DE0097D960 /* PCHelpViewController.m */,
 				607F3FE61588D3DE0097D960 /* PCSearchResultViewCell.h */,
@@ -3261,8 +3233,6 @@
 				607F43EC1588E19D0097D960 /* PCCustomPageControll.m */,
 				607F43ED1588E19D0097D960 /* PCFlashButton.h */,
 				607F43EE1588E19D0097D960 /* PCFlashButton.m */,
-				607F43EF1588E19D0097D960 /* PCResourceView.h */,
-				607F43F01588E19D0097D960 /* PCResourceView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3487,10 +3457,6 @@
 			children = (
 				ABC7E24515AAAA7900B06A38 /* EasyTableView.h */,
 				ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */,
-				ABC7E1FE15AA1D9700B06A38 /* UIImage+Saving.h */,
-				ABC7E1FF15AA1D9900B06A38 /* UIImage+Saving.m */,
-				ABC7E1FA15AA1D8D00B06A38 /* NYXImagesHelper.h */,
-				ABC7E1FB15AA1D8E00B06A38 /* NYXImagesHelper.m */,
 				ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */,
 				ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */,
 				ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */,
@@ -3637,10 +3603,6 @@
 				607F40251588D3DF0097D960 /* PCSlideshowViewController.h in Headers */,
 				607F40271588D3DF0097D960 /* PCHorizontalPageElementViewController.h in Headers */,
 				607F402D1588D3DF0097D960 /* PCPageElementViewController.h in Headers */,
-				607F402F1588D3DF0097D960 /* PCResourceCache.h in Headers */,
-				607F40311588D3DF0097D960 /* PCResourceFetch.h in Headers */,
-				607F40331588D3DF0097D960 /* PCResourceLoadRequest.h in Headers */,
-				607F40351588D3DF0097D960 /* PCResourceQueue.h in Headers */,
 				607F40371588D3DF0097D960 /* PCBrowserViewController.h in Headers */,
 				607F40391588D3DF0097D960 /* PCEmailController.h in Headers */,
 				607F403B1588D3DF0097D960 /* PCFacebookViewController.h in Headers */,
@@ -3857,7 +3819,6 @@
 				607F43DE1588D8940097D960 /* FBRequest.h in Headers */,
 				607F43F31588E19D0097D960 /* PCCustomPageControll.h in Headers */,
 				607F43F51588E19D0097D960 /* PCFlashButton.h in Headers */,
-				607F43F71588E19D0097D960 /* PCResourceView.h in Headers */,
 				607F43FC1588E1DD0097D960 /* MBProgressHUD.h in Headers */,
 				607F44201588E2490097D960 /* RssCategory.h in Headers */,
 				607F44221588E2490097D960 /* RssChannel.h in Headers */,
@@ -3894,14 +3855,15 @@
 				ABC7E1F215A9CCA400B06A38 /* JCAnnotation.h in Headers */,
 				ABC7E1F315A9CCA400B06A38 /* JCAnnotationView.h in Headers */,
 				ABC7E1F515A9CCA400B06A38 /* JCVisibleAnnotationTuple.h in Headers */,
-				ABC7E1FC15AA1D8F00B06A38 /* NYXImagesHelper.h in Headers */,
-				ABC7E20015AA1D9F00B06A38 /* UIImage+Saving.h in Headers */,
 				ABC7E21715AA53FB00B06A38 /* SimplePageViewController.h in Headers */,
 				ABC7E21B15AA542C00B06A38 /* AbstractBasePageViewController.h in Headers */,
 				ABC7E21F15AA611C00B06A38 /* ScrollingPageViewController.h in Headers */,
 				ABC7E22715AA7F4100B06A38 /* TouchableArticleWithFixedIllustrationViewController.h in Headers */,
 				ABC7E23715AAA33F00B06A38 /* SliderBasedMiniArticleViewController.h in Headers */,
 				ABC7E24715AAAA7D00B06A38 /* EasyTableView.h in Headers */,
+				6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */,
+				C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */,
+				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4097,10 +4059,6 @@
 				607F40261588D3DF0097D960 /* PCSlideshowViewController.m in Sources */,
 				607F40281588D3DF0097D960 /* PCHorizontalPageElementViewController.m in Sources */,
 				607F402E1588D3DF0097D960 /* PCPageElementViewController.m in Sources */,
-				607F40301588D3DF0097D960 /* PCResourceCache.m in Sources */,
-				607F40321588D3DF0097D960 /* PCResourceFetch.m in Sources */,
-				607F40341588D3DF0097D960 /* PCResourceLoadRequest.m in Sources */,
-				607F40361588D3DF0097D960 /* PCResourceQueue.m in Sources */,
 				607F40381588D3DF0097D960 /* PCBrowserViewController.m in Sources */,
 				607F403A1588D3DF0097D960 /* PCEmailController.m in Sources */,
 				607F403C1588D3DF0097D960 /* PCFacebookViewController.m in Sources */,
@@ -4292,7 +4250,6 @@
 				607F43DF1588D8940097D960 /* FBRequest.m in Sources */,
 				607F43F41588E19D0097D960 /* PCCustomPageControll.m in Sources */,
 				607F43F61588E19D0097D960 /* PCFlashButton.m in Sources */,
-				607F43F81588E19D0097D960 /* PCResourceView.m in Sources */,
 				607F43FD1588E1DD0097D960 /* MBProgressHUD.m in Sources */,
 				607F44211588E2490097D960 /* RssCategory.m in Sources */,
 				607F44231588E2490097D960 /* RssChannel.m in Sources */,
@@ -4328,14 +4285,15 @@
 				ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */,
 				ABC7E1F415A9CCA400B06A38 /* JCAnnotationView.m in Sources */,
 				ABC7E1F615A9CCA400B06A38 /* JCVisibleAnnotationTuple.m in Sources */,
-				ABC7E1FD15AA1D8F00B06A38 /* NYXImagesHelper.m in Sources */,
-				ABC7E20115AA1D9F00B06A38 /* UIImage+Saving.m in Sources */,
 				ABC7E21815AA53FB00B06A38 /* SimplePageViewController.m in Sources */,
 				ABC7E21C15AA542C00B06A38 /* AbstractBasePageViewController.m in Sources */,
 				ABC7E22015AA611C00B06A38 /* ScrollingPageViewController.m in Sources */,
 				ABC7E22815AA7F4100B06A38 /* TouchableArticleWithFixedIllustrationViewController.m in Sources */,
 				ABC7E23815AAA33F00B06A38 /* SliderBasedMiniArticleViewController.m in Sources */,
 				ABC7E24815AAAA7D00B06A38 /* EasyTableView.m in Sources */,
+				6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */,
+				C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */,
+				C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

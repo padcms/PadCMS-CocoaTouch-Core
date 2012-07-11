@@ -92,6 +92,8 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
         links = [[NSMutableDictionary alloc] init];
         isComplete = YES;
 		_isUpdateProgress = NO;
+		_isSecondaryElementComplete = NO;
+
     }
     return self;
 }
@@ -105,7 +107,12 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
 {
     if (elements == nil || [elements count] == 0)
         return nil;
-    return [elements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"fieldTypeName == %@",elementType]];
+	NSArray* result = [elements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"fieldTypeName == %@",elementType]];
+	if ([elementType isEqualToString:PCPageElementTypeMiniArticle])
+	{
+		result = [result sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"weight" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES],nil]];
+	}
+    return result;
 }
 
 - (PCPageElement*)firstElementForType:(NSString*)elementType
@@ -381,7 +388,10 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
   }
   else if (self.pageTemplate.identifier == PCFixedIllustrationArticleTouchablePageTemplate)
   {
-    
+      NSArray* galleryElements = [self elementsForType:PCPageElementTypeGallery];
+      if (galleryElements) [array addObjectsFromArray:galleryElements];
+      NSArray* popupsElements = [self elementsForType:PCPageElementTypePopup];
+	  if (popupsElements) [array addObjectsFromArray:popupsElements];
   }
   else if (self.pageTemplate.identifier == PCInteractiveBulletsPageTemplate)
   {
@@ -398,6 +408,16 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
   
   return _secondaryElements;
 
+}
+
+-(BOOL)isSecondaryElementsComplete
+{
+	if (_isSecondaryElementComplete) return YES;
+	for (PCPageElement* element in self.secondaryElements) {
+		if (!element.isComplete) return NO;
+	}
+	_isSecondaryElementComplete = YES;
+	return YES;
 }
 
 

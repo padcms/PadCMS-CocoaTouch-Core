@@ -38,7 +38,6 @@
 #import "PCRemouteNotificationCenter.h"
 #import "InAppPurchases.h"
 #import "PCGoogleAnalytics.h"
-#import "PCResourceCache.h"
 #import "PCDownloadManager.h"
 @implementation PCPadCMSAppDelegate
 
@@ -92,7 +91,7 @@
 	if ([viewController modalViewController]) {
 		return;
     }
-    [[PCResourceCache sharedInstance] removeAllObjects];
+
     [[NSURLCache sharedURLCache] removeAllCachedResponses];
 
 	[self.viewController.revisionViewController clearMemory];

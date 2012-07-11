@@ -1,3 +1,8 @@
+//
+//  PCResourceView.h
+//  Pad CMS
+//
+//  Created by Maxim Pervushin on 7/11/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -30,31 +35,14 @@
 
 #import <UIKit/UIKit.h>
 
-@interface PCResourceView : UIView
-{
-@private // Instance variables
+/**
+ @brief PCResourceView loads resources to memory in separate thread and automatically uses PCResourceCache instance to store loaded resources. 
+ */
+@interface PCResourceView : UIImageView
 
-	NSUInteger _targetTag;
-
-	NSOperation *_operation;
-
-@protected // Instance variables
-
-	UIImageView *imageView;
-    
-    BOOL loaded;
-}
-
-@property (assign, readwrite) NSOperation *operation;
-
-@property (nonatomic, assign, readwrite) NSUInteger targetTag;
-
-- (void)showImage:(UIImage *)image;
-
-- (void)showTouched:(BOOL)touched;
-
-- (void)reuse;
-
-- (BOOL)isLoaded;
+/**
+ @brief Image resource file absolute path
+ */
+@property (copy, nonatomic) NSString *resourceName;
 
 @end

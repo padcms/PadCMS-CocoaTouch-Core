@@ -577,7 +577,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
       
       if (revision)
       {
-        [[PCResourceCache sharedInstance] removeAllObjects];
         [revision deleteContent];
         [self.rootViewController updateRevisionWithIndex:index];
       }
@@ -624,7 +623,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 - (void) switchToKiosk
 {
   [[NSURLCache sharedURLCache] removeAllCachedResponses];
-  [[PCResourceCache sharedInstance] removeAllObjects];
   [[PCDownloadManager sharedManager] cancelAllOperations];
  // [_revisionViewController.view removeFromSuperview];
 	[self.rootViewController.navigationController popToRootViewControllerAnimated:NO];

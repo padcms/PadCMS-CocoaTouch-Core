@@ -35,39 +35,32 @@
 
 #import "PCPageElementViewController.h"
 
-#import "PCResourceLoadRequest.h"
-
+#import "Helper.h"
+#import "MBProgressHUD.h"
+#import "PCPage.h"
+#import "PCPageElement.h"
+#import "PCPageElemetTypes.h"
 #import "PCResourceView.h"
 
-#import "PCResourceCache.h"
+@interface PCPageElementViewController()
+{
+@private
+    MBProgressHUD* _HUD;
+    CGFloat _targetWidth;
+    NSString *_resource;
+	BOOL _loaded;
+}
 
-#import "PCResourceQueue.h"
-
-#import "Helper.h"
-
-#import "MBProgressHUD.h"
-
-#import "PCPageElement.h"
-
-#import "PCPage.h"
-
-
-@interface  PCPageElementViewController(ForwardDeclaration)
-
--(void) showHUD;
--(void) hideHUD;
+- (void)hideHUD;
+- (void)applicationDidChangeStatusBarOrientationNotification;
 
 @end
 
 @implementation PCPageElementViewController
-
-#pragma mark Properties
-
-@synthesize resource   = _resource;
-@synthesize resourceBQ = _resourceBQ;
-@synthesize element=_element;
-
-@synthesize targetWidth, HUD;
+@synthesize resource = _resource;
+@synthesize element = _element;
+@synthesize targetWidth = _targetWidth; 
+@synthesize HUD = _HUD;
 
 #pragma mark PCPageElementViewController instance methods
 
@@ -77,15 +70,23 @@
     if (self)
     {
         self.view = nil;
-        imageView = nil;
+        _resourceView = nil;
         
-        targetWidth = [[UIScreen mainScreen] bounds].size.width; //default application width
+        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            _targetWidth = [UIScreen mainScreen].bounds.size.width;
+        } else {
+            _targetWidth = [UIScreen mainScreen].bounds.size.height;
+        }
         
         _resource = nil;
         
-        _resourceBQ = nil;
+        [[NSNotificationCenter defaultCenter] addObserver:self 
+                                                 selector:@selector(applicationDidChangeStatusBarOrientationNotification) 
+                                                     name:UIApplicationDidChangeStatusBarOrientationNotification
+                                                   object:nil];
         
     }
+    
     return self;
 }
 
@@ -96,29 +97,21 @@
     {
         _resource = [aResource copy];
     }
-    return self;
-}
 
-- (id)initWithResource:(NSString *)aResource resourceBadQuality:(NSString *)aResourceBQ
-{
-    self = [self initWithResource:aResource];
-    if (self)
-    {
-        _resource = [aResource copy];
-        _resourceBQ = [aResourceBQ copy];
-    }
     return self;
 }
 
 - (void) dealloc
 {
-  @try{
-    if (_element && [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle]) {
-      [_element removeObserver:self forKeyPath:@"isComplete"];
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+    
+    @try {
+        if (_element && [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle]) {
+            [_element removeObserver:self forKeyPath:@"isComplete"];
+        }
     }
-  }@catch(id anException){
-    NSLog(@"Exception");
-  }
+    @catch (id anException) {
+    }
   
   
 
@@ -129,9 +122,18 @@
     
     [_resource release], _resource = nil;
     
-    [_resourceBQ release], _resourceBQ = nil;
-    
     [super dealloc];
+}
+
+- (void)applicationDidChangeStatusBarOrientationNotification
+{
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        _targetWidth = [UIScreen mainScreen].bounds.size.width;
+    } else {
+        _targetWidth = [UIScreen mainScreen].bounds.size.height;
+    }
+    
+    [self correctSize];
 }
 
 - (BOOL)isEqual:(id)object
@@ -147,83 +149,46 @@
     return [self.resource isEqualToString:anotherObject.resource];
 }
 
-- (PCResourceLoadRequest *) request
-{
-    PCResourceLoadRequest *resourceRequest = [PCResourceLoadRequest forView:imageView
-                                                                    fileURL:self.resource
-                                                          fileBadQualityURL:self.resourceBQ];
-    
-    return resourceRequest;
-}
-
 - (void) loadFullView
 {
-	isLoaded = YES;
     [self correctSize];
-	//[self showHUD];
     
-    if(imageView != nil)
+    if (_resourceView != nil) {
+        _loaded = YES;
         return;
+    }
     
-    imageView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
-    
-    [self.view addSubview:imageView];
-    [imageView release];
-   
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		UIImage *image = [[PCResourceCache sharedInstance] resourceLoadBadQualityRequest:[self request]]; 
-		
-		if ([image isKindOfClass:[UIImage class]])
-		{
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[imageView showImage:image];
-			});
-			
-		}
-
-	});
+    _resourceView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
+    _resourceView.resourceName = self.resource;
+    [self.view addSubview:_resourceView];
+    _loaded = YES;
 }
 
 - (void) loadFullViewImmediate
 {
-	isLoaded = YES;
     [self correctSize];
-	//[self showHUD];
     
-    if(imageView != nil)
-    {
-        if([imageView isLoaded] || ![[PCResourceQueue sharedInstance] cancelNotStartedOperationWithObject:imageView])
-        {
-            return;
-        }
+    if (_resourceView != nil) {
+        _loaded = YES;
+        return;
     }
-    else
-    {
-        imageView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
-        
-        [self.view addSubview:imageView];
-        
-        [imageView release];
-    }
-     UIImage *image = [[PCResourceCache sharedInstance] resourceLoadRequestImmediate:[self request]];
     
-    if ([image isKindOfClass:[UIImage class]])
-    {
-        [imageView showImage:image];
-    }
-  }
+    _resourceView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
+    _resourceView.resourceName = self.resource;
+    [self.view addSubview:_resourceView];
+    _loaded = YES;
+}
 
 - (void) unloadView
 {
-	isLoaded = NO;
+	_loaded = NO;
 	[self hideHUD];
-    if(imageView)
-    {
-        [[PCResourceQueue sharedInstance] cancelNotStartedOperationWithObject:imageView];
-        
-        [imageView removeFromSuperview], imageView = nil;
+    if (_resourceView != nil) {
+        _resourceView.resourceName = nil;
+        [_resourceView removeFromSuperview], 
+        [_resourceView release];
+        _resourceView = nil;
     }
-
 }
 
 - (void) correctSize
@@ -232,7 +197,7 @@
     
     if(!CGSizeEqualToSize(imageSize, CGSizeZero))
     {
-        CGFloat scale = self.targetWidth / imageSize.width;
+        CGFloat scale = _targetWidth / imageSize.width;
         
         CGSize newSize = CGSizeMake(imageSize.width * scale, imageSize.height * scale);
         
@@ -241,9 +206,9 @@
                                        newSize.width,
                                        newSize.height)];
         
-        if(imageView != nil)
+        if(_resourceView != nil)
         {
-            [imageView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
+            [_resourceView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
         }
     }
 }
@@ -272,37 +237,37 @@
 
 -(void)showHUD
 {
-	if(!isLoaded) return;
+	if(!_loaded) return;
 	
 	if (!_element) return;
 	BOOL isGallery = [_element.fieldTypeName isEqualToString:PCPageElementTypeGallery];
 	if (!_element.page.isComplete && !isGallery) return; 
 	if (_element.isComplete) return;
   
-	if (HUD)
+	if (_HUD)
 	{
-		[HUD removeFromSuperview];
-		[HUD release];
-		HUD = nil;
+		[_HUD removeFromSuperview];
+		[_HUD release];
+		_HUD = nil;
 	}
-	HUD = [[MBProgressHUD alloc] initWithView:self.view];
-	[self.view addSubview:HUD];
+	_HUD = [[MBProgressHUD alloc] initWithView:self.view];
+	[self.view addSubview:_HUD];
   //[HUD setFrame:self.view.bounds];
-	HUD.mode = MBProgressHUDModeAnnularDeterminate;
-	_element.progressDelegate = HUD;
-	[HUD show:YES];
+	_HUD.mode = MBProgressHUDModeAnnularDeterminate;
+	_element.progressDelegate = _HUD;
+	[_HUD show:YES];
 	
 }
 
 -(void)hideHUD
 {
-	if (HUD)
+	if (_HUD)
 	{
-		[HUD hide:YES];
+		[_HUD hide:YES];
 		_element.progressDelegate = nil;
-		[HUD removeFromSuperview];
-		[HUD release];
-		HUD = nil;
+		[_HUD removeFromSuperview];
+		[_HUD release];
+		_HUD = nil;
 	}
 }
 
@@ -311,7 +276,6 @@
 {
 	return YES;
 }
-
 
 -(void) observeValueForKeyPath: (NSString *)keyPath ofObject: (id) object
                         change: (NSDictionary *) change context: (void *) context
