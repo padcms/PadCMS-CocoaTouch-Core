@@ -1062,6 +1062,17 @@
 		ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */; };
 		ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; };
 		ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
+		C50E498615AEA20E00222413 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F3E601588C8D00097D960 /* UIKit.framework */; };
+		C50E498715AEA20E00222413 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60891D971587971300894531 /* Foundation.framework */; };
+		C50E498815AEA20E00222413 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F3E621588C8D70097D960 /* CoreGraphics.framework */; };
+		C50E498E15AEA20E00222413 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C50E498C15AEA20E00222413 /* InfoPlist.strings */; };
+		C50E499015AEA20E00222413 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E498F15AEA20E00222413 /* main.m */; };
+		C50E499A15AEA39B00222413 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50E499915AEA39B00222413 /* GHUnitIOS.framework */; };
+		C50E499C15AEA43200222413 /* PCResourceViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E499B15AEA43200222413 /* PCResourceViewTest.m */; };
+		C50E499D15AEA4D500222413 /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
+		C50E499E15AEA4E200222413 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */; };
+		C50E49A115AEAA4800222413 /* test-resource.png in Resources */ = {isa = PBXBuildFile; fileRef = C50E49A015AEAA4800222413 /* test-resource.png */; };
+		C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */; };
 		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
 		C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
@@ -2150,6 +2161,15 @@
 		ABF4D2E61590516400DAAD0F /* PCDownloadManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadManager.m; sourceTree = "<group>"; };
 		ABF4D2E71590516400DAAD0F /* PCDownloadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadOperation.h; sourceTree = "<group>"; };
 		ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadOperation.m; sourceTree = "<group>"; };
+		C50E498415AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "PadCMS-CocoaTouch-Core-Tests.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		C50E498B15AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "PadCMS-CocoaTouch-Core-Tests-Info.plist"; sourceTree = "<group>"; };
+		C50E498D15AEA20E00222413 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		C50E498F15AEA20E00222413 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		C50E499115AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Tests-Prefix.pch"; sourceTree = "<group>"; };
+		C50E499915AEA39B00222413 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = "PadCMS-CocoaTouch-Core-Tests/Frameworks/GHUnitIOS.framework"; sourceTree = "<group>"; };
+		C50E499B15AEA43200222413 /* PCResourceViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceViewTest.m; sourceTree = "<group>"; };
+		C50E49A015AEAA4800222413 /* test-resource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "test-resource.png"; path = "Resources/test-resource.png"; sourceTree = "<group>"; };
+		C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCacheTest.m; sourceTree = "<group>"; };
 		C51D595515AD5CAB001EEE0A /* PCResourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceView.h; sourceTree = "<group>"; };
 		C51D595615AD5CAB001EEE0A /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
@@ -2177,6 +2197,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C50E498115AEA20E00222413 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C50E498615AEA20E00222413 /* UIKit.framework in Frameworks */,
+				C50E498715AEA20E00222413 /* Foundation.framework in Frameworks */,
+				C50E498815AEA20E00222413 /* CoreGraphics.framework in Frameworks */,
+				C50E499A15AEA39B00222413 /* GHUnitIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3299,6 +3330,7 @@
 			children = (
 				60891D991587971300894531 /* PadCMS-CocoaTouch-Core */,
 				60A5DCCF158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */,
+				C50E498915AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests */,
 				60891D961587971300894531 /* Frameworks */,
 				60891D951587971300894531 /* Products */,
 			);
@@ -3309,6 +3341,7 @@
 			children = (
 				60891D941587971300894531 /* libPadCMS-CocoaTouch-Core.a */,
 				60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */,
+				C50E498415AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3316,6 +3349,7 @@
 		60891D961587971300894531 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				C50E499915AEA39B00222413 /* GHUnitIOS.framework */,
 				607F46A9158A0EAF0097D960 /* libsqlite3.dylib */,
 				607F469C1589FE4A0097D960 /* QuartzCore.framework */,
 				607F44C11589E0AB0097D960 /* SystemConfiguration.framework */,
@@ -3405,6 +3439,36 @@
 				ABF4D2E81590516400DAAD0F /* PCDownloadOperation.m */,
 			);
 			path = Networking;
+			sourceTree = "<group>";
+		};
+		C50E498915AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests */ = {
+			isa = PBXGroup;
+			children = (
+				C50E498A15AEA20E00222413 /* Supporting Files */,
+				C50E499B15AEA43200222413 /* PCResourceViewTest.m */,
+				C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */,
+			);
+			path = "PadCMS-CocoaTouch-Core-Tests";
+			sourceTree = "<group>";
+		};
+		C50E498A15AEA20E00222413 /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				C50E499F15AEAA1F00222413 /* Resources */,
+				C50E498B15AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests-Info.plist */,
+				C50E498C15AEA20E00222413 /* InfoPlist.strings */,
+				C50E498F15AEA20E00222413 /* main.m */,
+				C50E499115AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		C50E499F15AEAA1F00222413 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				C50E49A015AEAA4800222413 /* test-resource.png */,
+			);
+			name = Resources;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -3816,6 +3880,23 @@
 			productReference = 60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */;
 			productType = "com.apple.product-type.bundle";
 		};
+		C50E498315AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = C50E499715AEA20E00222413 /* Build configuration list for PBXNativeTarget "PadCMS-CocoaTouch-Core-Tests" */;
+			buildPhases = (
+				C50E498015AEA20E00222413 /* Sources */,
+				C50E498115AEA20E00222413 /* Frameworks */,
+				C50E498215AEA20E00222413 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = "PadCMS-CocoaTouch-Core-Tests";
+			productName = "PadCMS-CocoaTouch-Core-Tests";
+			productReference = C50E498415AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests.app */;
+			productType = "com.apple.product-type.application";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -3839,6 +3920,7 @@
 			targets = (
 				60891D931587971300894531 /* PadCMS-CocoaTouch-Core */,
 				60A5DCC7158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources */,
+				C50E498315AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -3861,6 +3943,15 @@
 				60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */,
 				60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */,
 				60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		C50E498215AEA20E00222413 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C50E498E15AEA20E00222413 /* InfoPlist.strings in Resources */,
+				C50E49A115AEAA4800222413 /* test-resource.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4205,6 +4296,18 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C50E498015AEA20E00222413 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				C50E499015AEA20E00222413 /* main.m in Sources */,
+				C50E499C15AEA43200222413 /* PCResourceViewTest.m in Sources */,
+				C50E499D15AEA4D500222413 /* PCResourceView.m in Sources */,
+				C50E499E15AEA4E200222413 /* PCResourceCache.m in Sources */,
+				C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
@@ -4212,6 +4315,14 @@
 			isa = PBXVariantGroup;
 			children = (
 				60A5DCD3158B793F00E3E98A /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+		C50E498C15AEA20E00222413 /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				C50E498D15AEA20E00222413 /* en */,
 			);
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
@@ -4347,6 +4458,49 @@
 			};
 			name = Release;
 		};
+		C50E499515AEA20E00222413 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Prefix.pch";
+				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Info.plist";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Debug;
+		};
+		C50E499615AEA20E00222413 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks\"",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Prefix.pch";
+				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Info.plist";
+				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
+				OTHER_LDFLAGS = (
+					"-ObjC",
+					"-all_load",
+				);
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = "1,2";
+				WRAPPER_EXTENSION = app;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -4376,6 +4530,14 @@
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
+		};
+		C50E499715AEA20E00222413 /* Build configuration list for PBXNativeTarget "PadCMS-CocoaTouch-Core-Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				C50E499515AEA20E00222413 /* Debug */,
+				C50E499615AEA20E00222413 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
 		};
 /* End XCConfigurationList section */
 	};
