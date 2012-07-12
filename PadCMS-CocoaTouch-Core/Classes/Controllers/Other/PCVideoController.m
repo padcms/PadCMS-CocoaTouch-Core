@@ -38,6 +38,7 @@
 #import "PCConfig.h"
 #import "PCBrowserViewController.h"
 #import "PCDownloadApiClient.h"
+#import "MBProgressHUD.h"
 
 @interface PCVideoController () 
 
@@ -49,6 +50,8 @@
 - (void) videoHasFinishedPlaying:(NSNotification *) paramNotification;
 - (void) videoHasChanged:(NSNotification *) paramNotification;
 - (void) videoHasExitedFullScreen:(NSNotification *) paramNotification;
+- (void) showHUD;
+- (void) hideHUD;
 
 @end
 
@@ -58,6 +61,7 @@
 @synthesize url = _url;
 @synthesize isVideoPlaying = _isVideoPlaying;
 @synthesize delegate = _delegate;
+@synthesize HUD = _HUD;
 
 - (id) init
 {
@@ -68,6 +72,7 @@
         _moviePlayer = nil;
         _url = nil;
         _delegate = nil;
+        _HUD = nil;
         _isVideoPlaying = NO;
         
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenMovie:) name:PCVCFullScreenMovieNotification object:nil];
@@ -86,6 +91,7 @@
     
     [_moviePlayer release], _moviePlayer = nil;
     [_url release], _url = nil;
+    [_HUD release], _HUD = nil;
     _isVideoPlaying = NO;
     
     [super dealloc];
@@ -156,7 +162,6 @@
         return;
     }
     
-    
     if (self.moviePlayer != nil)
     {
         [self stopPlayingVideo];
@@ -166,6 +171,7 @@
     self.moviePlayer = newMoviePlayer;
     [newMoviePlayer release];
     [self.moviePlayer prepareToPlay];
+    [self showHUD];
     
     if ([self.delegate respondsToSelector:@selector(videoControllerShow:)]) 
     {
@@ -194,6 +200,7 @@
     if (self.moviePlayer != nil)
     {
         self.isVideoPlaying = NO;
+        [self hideHUD];
         [self.moviePlayer stop];
         [self.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
 
@@ -202,6 +209,29 @@
             [self.delegate videoControllerHide:self];
         }
     }
+}
+
+-(void)showHUD
+{
+    if (!self.HUD)
+    {
+        self.HUD = [[MBProgressHUD alloc] initWithView:self.moviePlayer.view];
+        self.HUD.labelText = @"Loading"; 
+    }
+    
+    [self.moviePlayer.view addSubview:self.HUD];
+    [self.HUD show:YES];
+}
+
+-(void)hideHUD
+{
+	if (self.HUD)
+	{
+        [self.HUD hide:YES];
+		[self.HUD removeFromSuperview];
+		[self.HUD release];
+		self.HUD = nil;
+	}
 }
 
 #pragma mark - notification functions
@@ -244,6 +274,7 @@
     if (self.moviePlayer.loadState & MPMovieLoadStatePlayable)
     {
         NSLog(@"MPMovieLoadStatePlayable");
+        [self hideHUD];
     }
     if (self.moviePlayer.loadState & MPMovieLoadStateUnknown)
     {

@@ -250,7 +250,7 @@
 
 - (void)showVideoWebView
 {
-    if (!videoWebView)
+    /*if (!videoWebView)
     {
         videoWebView = [[UIWebView alloc] initWithFrame:[self activeZoneRectForType:PCPDFActiveZoneVideo]];
         videoWebView.scrollView.scrollEnabled = NO; 
@@ -258,45 +258,49 @@
     }
     PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
     [self.mainScrollView addSubview:videoWebView];
-    [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+    [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];*/
     
-    /*CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+    CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
     PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
     if (!webBrowserViewController)
     {
         webBrowserViewController = [[PCBrowserViewController alloc] init];
     }
-    webBrowserViewController.view.frame = videoRect;
+    webBrowserViewController.videoRect = videoRect;
     [self.mainScrollView addSubview:webBrowserViewController.view];
-    [webBrowserViewController presentURL:videoElement.stream];*/
+    if (self.page.pageTemplate == [[PCPageTemplatesPool templatesPool] templateForId:PCFixedIllustrationArticleTouchablePageTemplate])
+    {
+        [self.mainScrollView insertSubview:webBrowserViewController.view aboveSubview:self.backgroundViewController.view];    
+    }
+    [webBrowserViewController presentURL:videoElement.stream];
 }
 
 - (void)changeVideoLayout: (BOOL)isVideoEnabled
 {
-    if (videoWebView)
+    if (webBrowserViewController)
     {
         if (isVideoEnabled)
         {
-            [self.mainScrollView bringSubviewToFront:videoWebView];
+            [self.mainScrollView bringSubviewToFront:webBrowserViewController.view];
         }
         else 
         {
-            [self.mainScrollView insertSubview:videoWebView aboveSubview:self.backgroundViewController.view];    
+            [self.mainScrollView insertSubview:webBrowserViewController.view aboveSubview:self.backgroundViewController.view];    
         }
     }
 }
 
 - (void)hideVideoWebView
 {
-    if (videoWebView)
+    /*if (videoWebView)
     {
         [videoWebView removeFromSuperview];
         [videoWebView release], videoWebView = nil;
-    }
-    /*if (webBrowserViewController)
+    }*/
+    if (webBrowserViewController)
     {
         [webBrowserViewController.view removeFromSuperview];
-    }*/
+    }
 }
 
 - (void) hideSubviews
@@ -411,7 +415,7 @@
         {
             webBrowserViewController = [[PCBrowserViewController alloc] init];
         }
-        webBrowserViewController.view.frame = mainScreenRect;
+        webBrowserViewController.videoRect = mainScreenRect;
         [self.view addSubview:webBrowserViewController.view];
         [webBrowserViewController presentURL:resourcePath];
     }
