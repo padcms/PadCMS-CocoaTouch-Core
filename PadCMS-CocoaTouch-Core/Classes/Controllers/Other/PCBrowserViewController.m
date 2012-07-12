@@ -182,7 +182,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self hideHUD];
-    [self backButtonTap];
 }
 
 @end
