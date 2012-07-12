@@ -104,4 +104,9 @@ static PCResourceCache *defaultResourceCache = nil;
     NSLog(@"[PCResourceCache cache:%@ willEvictObject:%@]", cache, obj);
 }
 
+- (void)memoryWarningNotification
+{
+    NSLog(@"[PCResourceCache memoryWarningNotification]");
+}
+
 @end
