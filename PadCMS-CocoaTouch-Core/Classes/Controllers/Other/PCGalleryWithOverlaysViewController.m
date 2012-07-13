@@ -118,6 +118,14 @@
 {
     [self removeImageViews];
     _currentIndex = NSIntegerMax;
+    
+    [_popupsIndexes release];
+    _popupsIndexes = nil;
+    [_popupsGalleryElementLinks release];
+    _popupsGalleryElementLinks = nil;
+    [_popupsZones release];
+    _popupsZones = nil;
+    
     self.galleryID = -1;
     [super viewDidDisappear:animated];
 }
@@ -263,7 +271,7 @@
             
             innerScrollView.delegate = self;
             innerScrollView.bouncesZoom = NO;
-            innerScrollView.maximumZoomScale = 2.0;
+            innerScrollView.maximumZoomScale = 4.0;
             innerScrollView.zoomScale = 1;
         } else {                   // no zoom      [UIView]-[UIImageView](gallery element)(rotated)
                                    //                  '----[UIImageView](popup)(rotated) ...
