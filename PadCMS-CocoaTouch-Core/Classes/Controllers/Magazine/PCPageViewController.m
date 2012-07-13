@@ -53,7 +53,7 @@
 - (void) hideHUD;
 - (void) showGallery:(id)sender;
 - (void) showGalleryWithID:(NSInteger)ID initialPhotoID:(NSInteger)photoID;
-- (void) showVideoWebView;
+- (void) showVideoWebView: (NSString *)videoWebViewURL inRect: (CGRect)videoWebViewRect;
 - (void) hideVideoWebView;
 - (void) hideSubviews;
 
@@ -175,9 +175,17 @@
     
     [self.mainScrollView setContentSize:bodySize];
     
-    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
+    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && 
+        ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
     {
-        [self showVideoWebView];
+        CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+        PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+        
+        if (videoElement.stream)
+            [self showVideoWebView:videoElement.stream inRect:videoRect];
+        
+        else if (videoElement.resource)
+            [self showVideoWebView:[page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource] inRect:videoRect];
     }
     
     [self createGalleryButton];
@@ -248,31 +256,25 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)showVideoWebView
+- (void)showVideoWebView: (NSString *)videoWebViewURL inRect: (CGRect)videoWebViewRect
 {
-    /*if (!videoWebView)
+    CGRect videoRect = videoWebViewRect;
+    if (CGRectEqualToRect(videoRect, CGRectZero))
     {
-        videoWebView = [[UIWebView alloc] initWithFrame:[self activeZoneRectForType:PCPDFActiveZoneVideo]];
-        videoWebView.scrollView.scrollEnabled = NO; 
-        videoWebView.scrollView.bounces = NO;
+        videoRect = [[UIScreen mainScreen] bounds];
     }
-    PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
-    [self.mainScrollView addSubview:videoWebView];
-    [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];*/
-    
-    CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
-    PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
     if (!webBrowserViewController)
     {
         webBrowserViewController = [[PCBrowserViewController alloc] init];
     }
     webBrowserViewController.videoRect = videoRect;
     [self.mainScrollView addSubview:webBrowserViewController.view];
-    if (self.page.pageTemplate == [[PCPageTemplatesPool templatesPool] templateForId:PCFixedIllustrationArticleTouchablePageTemplate])
+    if (self.page.pageTemplate == 
+        [[PCPageTemplatesPool templatesPool] templateForId:PCFixedIllustrationArticleTouchablePageTemplate])
     {
-        [self.mainScrollView insertSubview:webBrowserViewController.view aboveSubview:self.backgroundViewController.view];    
+        [self changeVideoLayout:bodyViewController.view.hidden];
     }
-    [webBrowserViewController presentURL:videoElement.stream];
+    [webBrowserViewController presentURL:videoWebViewURL];
 }
 
 - (void)changeVideoLayout: (BOOL)isVideoEnabled
@@ -544,7 +546,11 @@
             if (videoWebView && videoWebView.superview)
                 [self hideVideoWebView];
             else
-                [self showVideoWebView];
+            {
+                CGRect videoRect = [[UIScreen mainScreen] bounds];
+                PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+                [self showVideoWebView:videoElement.stream inRect:videoRect];
+            }
             return YES;
         }
         NSArray* videoElements = [page elementsForType:PCPageElementTypeVideo];
@@ -604,6 +610,17 @@
             [self showVideo:activeZone.URL];
             return YES;
         }
+        
+        else if ([activeZone.URL hasPrefix:@"http://youtube.com"] || [activeZone.URL hasPrefix:@"http://www.youtube.com"] ||
+                  [activeZone.URL hasPrefix:@"http://youtu.be"] || [activeZone.URL hasPrefix:@"http://www.youtu.be"] || 
+                  [activeZone.URL hasPrefix:@"http://dailymotion.com"] || [activeZone.URL hasPrefix:@"http://www.dailymotion.com"] ||
+                  [activeZone.URL hasPrefix:@"http://vimeo.com"] || [activeZone.URL hasPrefix:@"http://www.vimeo.com"])
+        {
+            CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+            [self showVideoWebView:activeZone.URL inRect:videoRect];            
+            return YES;
+        }
+        
         else 
         {
             if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:activeZone.URL]])
@@ -677,7 +694,13 @@
     }
     if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
     {
-        [self showVideoWebView];
+        CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+        PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+        if (videoElement.stream)
+            [self showVideoWebView:videoElement.stream inRect:videoRect];
+        
+        else if (videoElement.resource)
+            [self showVideoWebView:[page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource] inRect:videoRect];
     }
     [self.magazineViewController dismissGalleryViewController];
 }
