@@ -25,16 +25,17 @@
 	if (!_page.isComplete) return;
 	[self loadBackground];
 	CGRect frameRect;
-	self.miniArticles = [[_page elementsForType:PCPageElementTypeMiniArticle]  sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"weight" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES],nil]];
+	self.miniArticles = [_page elementsForType:PCPageElementTypeMiniArticle];
 	
 	self.selectedMiniArticle = [_miniArticles objectAtIndex:0];
 	
-	NSString *fullResource = [_page.revision.contentDirectory stringByAppendingPathComponent:_selectedMiniArticle.resource];
-	UIImage* bodyImage = [UIImage imageWithContentsOfFile:fullResource];
-	UIImageView* imageView = [[UIImageView alloc] initWithImage:bodyImage];
-	self.bodyView = imageView;
-	[imageView release];
-	[self.view addSubview:_bodyView];
+	PageElementViewController* miniArticleController = [[PageElementViewController alloc] initWithElement:_selectedMiniArticle];
+	[miniArticleController loadElementView];
+	self.bodyViewController = miniArticleController;
+	[miniArticleController release];
+	[self.view addSubview:self.bodyViewController.view];
+	
+	
 	
 	UIImage* image = [UIImage imageWithContentsOfFile:[_page.revision.contentDirectory stringByAppendingPathComponent:((PCPageElementMiniArticle*)[_miniArticles lastObject]).thumbnail]];
 	CGSize thumbSize = image.size;
@@ -89,15 +90,6 @@
 	// Set the image for the given index
 	PCPageElementMiniArticle* miniArticle = [self.miniArticles objectAtIndex:indexPath.row];
 	NSString* path = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnail];
-//	if (_selectedMiniArticle == miniArticle)
-//	{
-//		path =[_page.revision.contentDirectory stringByAppendingPathComponent:_selectedMiniArticle.thumbnailSelected];
-//	}
-//	else
-//	{
-//		 path = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnail];
-//	}
-	
 	UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
 	imageView.image = [UIImage imageWithContentsOfFile:path];
 }
@@ -112,8 +104,9 @@
 	NSString* selectedThumbailPath = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnailSelected];
 	UIImageView *imageView = (UIImageView *)[selectedView viewWithTag:IMAGE_TAG];
 	imageView.image = [UIImage imageWithContentsOfFile:selectedThumbailPath];
-	NSString *fullResource = [_page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.resource];
-	[self.bodyView setImage:[UIImage imageWithContentsOfFile:fullResource]];
+	
+	self.bodyViewController.element = miniArticle;
+	[self.bodyViewController loadElementView];
 	self.selectedMiniArticle = miniArticle;
 
 }

@@ -10,7 +10,7 @@
 #import "SimplePageViewController.h"
 
 @interface TouchableArticleWithFixedIllustrationViewController : SimplePageViewController
-@property (nonatomic, retain) UIScrollView* bodyScrollView;
+
 @property (nonatomic, retain) UITapGestureRecognizer* tapGestureRecognizer;
 
 @end

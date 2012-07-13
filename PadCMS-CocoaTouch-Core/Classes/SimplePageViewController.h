@@ -11,10 +11,13 @@
 
 @interface SimplePageViewController : AbstractBasePageViewController
 {
-	UIImageView* _backgroundView;
-	UIImageView* _bodyView;
+	PageElementViewController* _backgroundViewController;
+	PageElementViewController* _bodyViewController;
+	
 }
-@property (nonatomic, retain) UIImageView* backgroundView;
-@property (nonatomic, retain) UIImageView* bodyView;
+@property (nonatomic, retain) PageElementViewController* backgroundViewController;
+@property (nonatomic, retain) PageElementViewController* bodyViewController;
+
+
 -(void)loadBackground;
 @end

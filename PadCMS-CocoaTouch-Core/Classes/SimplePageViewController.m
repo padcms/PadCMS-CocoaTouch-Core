@@ -11,25 +11,26 @@
 #import "PCPageElementBody.h"
 
 
+
 @interface SimplePageViewController ()
 
 @end
 
 @implementation SimplePageViewController
-@synthesize bodyView=_bodyView;
-@synthesize backgroundView=_backgroundView;
+@synthesize bodyViewController=_bodyViewController;
+@synthesize backgroundViewController=_backgroundViewController;
 
 -(void)dealloc
 {
-	[_backgroundView release], _backgroundView = nil;
-	[_bodyView release], _bodyView = nil;
+	[_backgroundViewController release], _backgroundViewController = nil;
+	[_bodyViewController release], _bodyViewController = nil;
 	[super dealloc];
 }
 
 -(void)releaseViews
 {
-	self.backgroundView = nil;
-	self.bodyView = nil;
+	self.backgroundViewController = nil;
+	self.bodyViewController = nil;
 }
 
 
@@ -40,13 +41,14 @@
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_page firstElementForType:PCPageElementTypeBody];
     if (bodyElement != nil)
     {
-        NSString *fullResource = [_page.revision.contentDirectory stringByAppendingPathComponent:bodyElement.resource];
-        UIImage* bodyImage = [UIImage imageWithContentsOfFile:fullResource];
-		UIImageView* imageView = [[UIImageView alloc] initWithImage:bodyImage];
-		imageView.frame = CGRectOffset(imageView.frame, 0.0f, (CGFloat)bodyElement.top);
-		self.bodyView = imageView;
-		[imageView release];
-		[self.view addSubview:_bodyView];
+		PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:bodyElement];
+		elementController.view.frame = self.view.bounds;
+		elementController.view.frame = CGRectOffset(elementController.view.frame, 0.0f, (CGFloat)bodyElement.top);
+		[elementController loadElementView];
+		self.bodyViewController = elementController;
+		[elementController release];
+		[self.view addSubview:self.bodyViewController.scrollView];
+		
 	}
 
 }
@@ -56,12 +58,15 @@
 	PCPageElement* backgroundElement = [_page firstElementForType:PCPageElementTypeBackground];
     if (backgroundElement != nil)
 	{
-		NSString *fullResource = [_page.revision.contentDirectory stringByAppendingPathComponent:backgroundElement.resource];
-		UIImage* backgroundImage = [UIImage imageWithContentsOfFile:fullResource];
-		UIImageView* imageView = [[UIImageView alloc] initWithImage:backgroundImage];
-		self.backgroundView = imageView;
-		[imageView release];
-		[self.view addSubview:_backgroundView];
+		PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:backgroundElement];
+		elementController.view.frame = self.view.bounds;
+		[elementController loadElementView];
+		self.backgroundViewController = elementController;
+		[elementController release];
+		[self.view addSubview:self.backgroundViewController.scrollView];
+		
+		
+		
 	}
 
 }

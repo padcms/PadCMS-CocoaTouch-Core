@@ -28,6 +28,7 @@
 	if (self = [super initWithNibName:nil bundle:nil])
     {
         _page = [page retain];
+		_scale = [UIScreen mainScreen].scale;
     }
     return self;
 }

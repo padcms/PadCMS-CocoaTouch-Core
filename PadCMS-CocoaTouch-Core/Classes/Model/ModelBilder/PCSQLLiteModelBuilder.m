@@ -110,10 +110,19 @@
           if (element != nil){
             [page.elements addObject:element];
             element.page = page;
-			if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+			if (![element.fieldTypeName isEqualToString:PCPageElementTypeHtml] &&
+				![element.fieldTypeName isEqualToString:PCPageElementTypeHtml5] &&
+				![element.fieldTypeName isEqualToString:PCPageElementType3D] &&
+				![element.fieldTypeName isEqualToString:PCPageElementTypeSound] &&
+				![element.fieldTypeName isEqualToString:PCPageElementTypeVideo])
+			{
+				element.isCropped = YES;
+				element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
+			}
+		/*	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
 			{
 			  element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
-			}
+			}*/
 
           }
         }

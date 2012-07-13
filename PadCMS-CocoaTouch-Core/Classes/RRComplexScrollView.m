@@ -86,29 +86,6 @@
     return self;
 }
 
-
-//-(void)setCurrentElementView:(UIView *)currentElementView
-//{
-//	if (_currentElementView != currentElementView) {
-//       
-//        
-//        if (_currentElementView == nil) {
-//            CGRect currentElementViewFrame = CGRectMake(self.bounds.origin.x + 10, 
-//                                                        self.bounds.origin.y + 10,
-//                                                        self.bounds.size.width - 20,
-//                                                        self.bounds.size.height - 20);
-//            
-//            _currentElementView = [currentElementView retain];
-//			[_currentElementView setFrame:currentElementViewFrame];
-//            [self addSubview:_currentElementView];
-//        }
-//		
-//       
-//        [self setNeedsLayout];
-//    }
-//
-//}
-
 - (void)swipeUpGesture:(UISwipeGestureRecognizer *)recognizer
 {
     [self scrollToBottomElementAnimated:YES];

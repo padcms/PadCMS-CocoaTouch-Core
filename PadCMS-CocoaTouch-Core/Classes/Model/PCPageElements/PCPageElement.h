@@ -69,6 +69,7 @@ PADCMS_EXTERN NSString * const PCGalleryElementDidDownloadNotification;
 @property (nonatomic, assign) id<PCDownloadProgressProtocol> progressDelegate;
 @property (nonatomic, assign) PCPage* page;
 @property (nonatomic, assign) CGSize elementContentSize;
+@property (nonatomic, assign) BOOL isCropped; 
 
 - (id)init;
 /**

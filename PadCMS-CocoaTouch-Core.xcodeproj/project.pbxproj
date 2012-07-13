@@ -1047,8 +1047,8 @@
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
 		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
-		ABC7E1D315A9C2F800B06A38 /* PageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* PageViewController.h */; };
-		ABC7E1D415A9C2F800B06A38 /* PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* PageViewController.m */; };
+		ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
+		ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */; };
 		ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
 		ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */; };
 		ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D815A9C42100B06A38 /* JCTiledView.h */; };
@@ -1071,7 +1071,11 @@
 		ABC7E23715AAA33F00B06A38 /* SliderBasedMiniArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */; };
 		ABC7E23815AAA33F00B06A38 /* SliderBasedMiniArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E23615AAA33D00B06A38 /* SliderBasedMiniArticleViewController.m */; };
 		ABC7E24715AAAA7D00B06A38 /* EasyTableView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E24515AAAA7900B06A38 /* EasyTableView.h */; };
-		ABC7E24815AAAA7D00B06A38 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */; };
+		ABC7E24815AAAA7D00B06A38 /* EasyTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABCBAF3815AE256A0022893B /* InteractivesBulletsViewController.h */; };
+		ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */; };
+		ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABCBAF3C15AF61840022893B /* PageElementViewController.h */; };
+		ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCBAF3D15AF61860022893B /* PageElementViewController.m */; };
 		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
 		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
 		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
@@ -2156,8 +2160,8 @@
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
-		ABC7E1D115A9C2F800B06A38 /* PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageViewController.h; sourceTree = "<group>"; };
-		ABC7E1D215A9C2F800B06A38 /* PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageViewController.m; sourceTree = "<group>"; };
+		ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicArticleViewController.h; sourceTree = "<group>"; };
+		ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicArticleViewController.m; sourceTree = "<group>"; };
 		ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledScrollView.h; sourceTree = "<group>"; };
 		ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTiledScrollView.m; sourceTree = "<group>"; };
 		ABC7E1D815A9C42100B06A38 /* JCTiledView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledView.h; sourceTree = "<group>"; };
@@ -2181,6 +2185,10 @@
 		ABC7E23615AAA33D00B06A38 /* SliderBasedMiniArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SliderBasedMiniArticleViewController.m; sourceTree = "<group>"; };
 		ABC7E24515AAAA7900B06A38 /* EasyTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EasyTableView.h; sourceTree = "<group>"; };
 		ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EasyTableView.m; sourceTree = "<group>"; };
+		ABCBAF3815AE256A0022893B /* InteractivesBulletsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InteractivesBulletsViewController.h; sourceTree = "<group>"; };
+		ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractivesBulletsViewController.m; sourceTree = "<group>"; };
+		ABCBAF3C15AF61840022893B /* PageElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageElementViewController.h; sourceTree = "<group>"; };
+		ABCBAF3D15AF61860022893B /* PageElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageElementViewController.m; sourceTree = "<group>"; };
 		ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
 		ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
 		ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
@@ -3436,8 +3444,8 @@
 		ABC7E1D015A9C1D600B06A38 /* Templates */ = {
 			isa = PBXGroup;
 			children = (
-				ABC7E1D115A9C2F800B06A38 /* PageViewController.h */,
-				ABC7E1D215A9C2F800B06A38 /* PageViewController.m */,
+				ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */,
+				ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */,
 				ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */,
 				ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */,
 				ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */,
@@ -3448,6 +3456,10 @@
 				ABC7E22615AA7F4000B06A38 /* TouchableArticleWithFixedIllustrationViewController.m */,
 				ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */,
 				ABC7E23615AAA33D00B06A38 /* SliderBasedMiniArticleViewController.m */,
+				ABCBAF3815AE256A0022893B /* InteractivesBulletsViewController.h */,
+				ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */,
+				ABCBAF3C15AF61840022893B /* PageElementViewController.h */,
+				ABCBAF3D15AF61860022893B /* PageElementViewController.m */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -3848,7 +3860,7 @@
 				ABF4D2ED1590516400DAAD0F /* PCDownloadOperation.h in Headers */,
 				AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */,
 				AB0A0F3A15A4769900B9758C /* RRComplexScrollView.h in Headers */,
-				ABC7E1D315A9C2F800B06A38 /* PageViewController.h in Headers */,
+				ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */,
 				ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */,
 				ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */,
 				ABC7E1E015A9C42100B06A38 /* JCTiledLayer.h in Headers */,
@@ -3864,6 +3876,8 @@
 				6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */,
 				C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */,
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
+				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
+				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4279,7 +4293,7 @@
 				AB32071015927C5A0076361B /* PCStoreController.m in Sources */,
 				AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */,
 				AB0A0F3B15A4769900B9758C /* RRComplexScrollView.m in Sources */,
-				ABC7E1D415A9C2F800B06A38 /* PageViewController.m in Sources */,
+				ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */,
 				ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */,
 				ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */,
 				ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */,
@@ -4294,6 +4308,8 @@
 				6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */,
 				C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */,
 				C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */,
+				ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */,
+				ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

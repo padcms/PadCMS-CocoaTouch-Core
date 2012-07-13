@@ -54,6 +54,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 @synthesize progressDelegate=_progressDelegate;
 @synthesize page=_page;
 @synthesize elementContentSize=_elementContentSize;
+@synthesize isCropped=_isCropped;
 
 - (void)dealloc
 {
@@ -81,6 +82,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
         dataRects = nil;
         activeZones = [[NSMutableArray alloc] init];
         isComplete = YES;
+		_isCropped = NO;
     }
     return self;
 }

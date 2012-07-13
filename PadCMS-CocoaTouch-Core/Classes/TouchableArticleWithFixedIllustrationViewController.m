@@ -9,19 +9,18 @@
 #import "TouchableArticleWithFixedIllustrationViewController.h"
 #import "PCPageElementBody.h"
 
+
 @interface TouchableArticleWithFixedIllustrationViewController ()
 
 @end
 
 @implementation TouchableArticleWithFixedIllustrationViewController
-@synthesize bodyScrollView=_bodyScrollView;
 @synthesize tapGestureRecognizer=_tapGestureRecognizer;
 
 -(void)dealloc
 {
 	[self.view removeGestureRecognizer:_tapGestureRecognizer];
     [_tapGestureRecognizer release], _tapGestureRecognizer = nil;
-	[_bodyScrollView release], _bodyScrollView = nil;
 	[super dealloc];
 }
 
@@ -29,7 +28,6 @@
 {
 	[self.view removeGestureRecognizer:_tapGestureRecognizer];
 	self.tapGestureRecognizer = nil;
-	self.bodyScrollView = nil;
 }
 
 
@@ -41,23 +39,15 @@
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_page firstElementForType:PCPageElementTypeBody];
     if (bodyElement != nil)
     {
-        NSString *fullResource = [_page.revision.contentDirectory stringByAppendingPathComponent:bodyElement.resource];
-        UIImage* bodyImage = [UIImage imageWithContentsOfFile:fullResource];
-		UIImageView* imageView = [[UIImageView alloc] initWithImage:bodyImage];
-		imageView.frame = CGRectOffset(imageView.frame, 0.0f, (CGFloat)bodyElement.top);
-		self.bodyView = imageView;
-		[imageView release];
-		UIScrollView* bodyScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
-		bodyScrollView.backgroundColor = [UIColor clearColor];
-		bodyScrollView.showsVerticalScrollIndicator = NO;
-		bodyScrollView.contentSize = bodyElement.size;
-		[bodyScrollView addSubview:imageView];
-		self.bodyScrollView = bodyScrollView;
-		[self.view addSubview:_bodyScrollView];
-		[bodyScrollView release];
-
-		if(bodyElement)
-			[_bodyScrollView setHidden:bodyElement.showTopLayer == NO];
+		PageElementViewController* bodyController = [[PageElementViewController alloc] initWithElement:bodyElement];
+		bodyController.view.frame = CGRectOffset(bodyController.view.frame, 0.0f, (CGFloat)bodyElement.top);
+		[bodyController loadElementView];
+		self.bodyViewController = bodyController;
+		[bodyController release];
+		[self.view addSubview:self.bodyViewController.view];
+		
+        if(bodyElement)
+			[_bodyViewController.view setHidden:bodyElement.showTopLayer == NO];
 				 
 	}
 	
@@ -70,9 +60,7 @@
 
 -(void)tapAction:(id)sender
 {
-     [self.bodyScrollView setHidden:!self.bodyScrollView.hidden];}
-
-
-
+     [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+}
 
 @end

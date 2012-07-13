@@ -48,11 +48,12 @@
 #import "PCCoverPageViewControllerViewController.h"
 #import "PCHorizontalScrollingPageViewController.h"
 #import "PC3DViewController.h"
-#import "PageViewController.h"
+#import "BasicArticleViewController.h"
 #import "SimpleAudioEngine.h"
 #import "ScrollingPageViewController.h"
 #import "TouchableArticleWithFixedIllustrationViewController.h"
 #import "SliderBasedMiniArticleViewController.h"
+#import "InteractivesBulletsViewController.h"
 
 @interface  PCPageControllersManager(ForwardDeclarations)
 -(void)initializeBaseControllers;
@@ -93,7 +94,7 @@
 -(void)initializeBaseControllers
 {
    // [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCBasicArticlePageTemplate]];
-	[self registerPageControllerClass:[PageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCBasicArticlePageTemplate]];
+	[self registerPageControllerClass:[BasicArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCBasicArticlePageTemplate]];
    // [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSimplePageTemplate]];
 	;
 	[self registerPageControllerClass:[SimplePageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSimplePageTemplate]];
@@ -120,7 +121,9 @@
 
     [self registerPageControllerClass:[PCSlideshowViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlideshowPageTemplate]];
 
-    [self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCInteractiveBulletsPageTemplate]];
+    //[self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCInteractiveBulletsPageTemplate]];
+	
+	[self registerPageControllerClass:[InteractivesBulletsViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCInteractiveBulletsPageTemplate]];
     //[self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlidersBasedMiniArticlesHorizontalPageTemplate]];
    // [self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlidersBasedMiniArticlesVerticalPageTemplate]];
 	

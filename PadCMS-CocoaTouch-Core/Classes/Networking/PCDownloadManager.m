@@ -570,7 +570,7 @@ NSString* secondaryKey   = @"secondaryKey";
     NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
     NSNumber* elementIdentifier = [NSNumber numberWithInteger:element.identifier];
     ItemType type = isThumbnail? THUMBNAIL : PAGE;
-	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+	if (element.isCropped && !isThumbnail) 
 	{
 		type = TILED;
 	}
@@ -578,12 +578,13 @@ NSString* secondaryKey   = @"secondaryKey";
     
     NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
 	
-    NSLog(@"url - %@", url);
+   
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
+		NSLog(@"%@",[self.revision.contentDirectory stringByAppendingPathComponent:path] );
     [self moveItemWithPath:[self.revision.contentDirectory stringByAppendingPathComponent:path]];
 		
-	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+	if (type == TILED) 
 	{
 		NSString *archivePath = [[page.revision contentDirectory] stringByAppendingPathComponent:path];
 		
@@ -726,6 +727,7 @@ NSString* secondaryKey   = @"secondaryKey";
 {
   if ([[NSFileManager defaultManager] fileExistsAtPath:[self.revision.contentDirectory stringByAppendingPathComponent:locationPath]]) return nil;
   NSURLRequest* request = [[PCDownloadApiClient sharedClient] requestWithMethod:@"GET" path:url parameters:nil];
+	NSLog(@"%@", url);
   AFHTTPRequestOperation* operation = [[[PCDownloadOperation alloc] initWithRequest:request] autorelease];
   //operation.successCallbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
 	operation.successCallbackQueue = _callbackQueue;
