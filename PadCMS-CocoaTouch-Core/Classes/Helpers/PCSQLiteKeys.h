@@ -104,7 +104,7 @@ PADCMS_EXTERN NSString* PCSQLiteElementHeightAttributeName;
 PADCMS_EXTERN NSString* PCSQLiteElementWidthAttributeName;
 PADCMS_EXTERN NSString* PCSQLiteElementActiveZoneAttributeName;
 PADCMS_EXTERN NSString* PCSQLiteElementGalleryIDName;
-PADCMS_EXTERN NSString* PCSQLiteElementOverlayResourceAttributeName;
+PADCMS_EXTERN NSString* PCSQLiteElementZoomAttributeName;
 
 PADCMS_EXTERN NSString* PCSQLiteTemplateTouchType;
 PADCMS_EXTERN NSString* PCSQLiteTemplateRotationType;

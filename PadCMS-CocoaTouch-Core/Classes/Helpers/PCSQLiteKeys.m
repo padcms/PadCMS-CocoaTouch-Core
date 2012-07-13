@@ -103,7 +103,7 @@
  NSString* PCSQLiteElementHeightAttributeName                   = @"height";
  NSString* PCSQLiteElementWidthAttributeName                    = @"width";
  NSString* PCSQLiteElementActiveZoneAttributeName               = @"active_zone";
- NSString* PCSQLiteElementOverlayResourceAttributeName          = @"overlay";
+ NSString* PCSQLiteElementZoomAttributeName                     = @"zoom";
 
  NSString* PCSQLiteTemplateTouchType                            = @"touch";
  NSString* PCSQLiteTemplateRotationType                         = @"rotation";

@@ -38,13 +38,10 @@
 @implementation PCPageElementGallery
 
 @synthesize galleryID = _galleryID;
-@synthesize overlayResource;
-@synthesize overlayProgress;
+@synthesize zoomable;
 
 - (void)dealloc
 {
-    if(overlayResource)[overlayResource release];
-    overlayResource = nil;
     [super dealloc];
 }
 
@@ -54,7 +51,7 @@
     if (self)
     {
         _galleryID = -1;
-        overlayResource = nil;
+        zoomable = NO;
     }
     return self;
 }
@@ -63,7 +60,7 @@
 {
     [super pushElementData:data];
     self.galleryID = [[data objectForKey:PCSQLiteElementGalleryIDName] integerValue];
-    self.overlayResource = [data objectForKey:PCSQLiteElementOverlayResourceAttributeName];
+    self.zoomable = [[data objectForKey:PCSQLiteElementZoomAttributeName] boolValue];
 }
 
 @end

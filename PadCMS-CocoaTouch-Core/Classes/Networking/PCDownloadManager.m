@@ -548,16 +548,6 @@ NSString* secondaryKey   = @"secondaryKey";
    for (PCPageElement* element in page.secondaryElements)
    {
       [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
-
-      if([element isKindOfClass:[PCPageElementGallery class]])
-      {
-          PCPageElementGallery      *galleryElement = (PCPageElementGallery*) element;
-          
-          if(galleryElement.overlayResource)
-          {
-//              [self addOperationForResourcePath:galleryElement.overlayResource element:element inPage:page isPrimary:NO isThumbnail:NO resumeOperation:nil];
-          }
-      }
    }
 }
 
@@ -632,12 +622,7 @@ NSString* secondaryKey   = @"secondaryKey";
       } else
           if([element isKindOfClass:[PCPageElementGallery class]])
           {
-              PCPageElementGallery* galleryElement = (PCPageElementGallery*)element;
-              if ([galleryElement.overlayResource isEqualToString:path]) galleryElement.overlayProgress = progress;
-              else element.downloadProgress = progress;
-
-              if ([galleryElement.overlayResource isEqualToString:path]) NSLog(@"overlay for %d = %.0f", galleryElement.identifier, progress);
-              else NSLog(@"gallery for %d = %.0f", galleryElement.identifier, progress);
+              element.downloadProgress = progress;
           }
           else {
               element.downloadProgress = progress;

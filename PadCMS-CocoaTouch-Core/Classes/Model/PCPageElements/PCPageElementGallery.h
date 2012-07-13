@@ -38,11 +38,10 @@
 @interface PCPageElementGallery : PCPageElement
 {
     NSInteger _galleryID;
-    NSString* overlayResource;
+    BOOL zoomable;
 }
 
-@property (nonatomic, assign) NSInteger galleryID;
-@property (nonatomic,retain) NSString* overlayResource; ///< Relative path to the overlay resource
-@property (nonatomic,assign) float overlayProgress;
+@property (nonatomic,assign) NSInteger galleryID;
+@property (nonatomic,assign) BOOL zoomable; ///< Is gallery element supports zooming
 
 @end
