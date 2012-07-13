@@ -49,6 +49,7 @@ PADCMS_EXTERN NSString* PCPDFActiveZoneActionVideo;
 PADCMS_EXTERN NSString* PCPDFActiveZoneActionButton;
 PADCMS_EXTERN NSString* PCPDFActiveZoneThumbs;
 PADCMS_EXTERN NSString* PCPDFActiveZonePopup;
+PADCMS_EXTERN NSString* PCPDFActiveZone3d;
 PADCMS_EXTERN NSString* PCPDFActiveZoneExtra;
 
 

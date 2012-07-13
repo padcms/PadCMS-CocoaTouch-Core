@@ -43,6 +43,7 @@
 #import "PCScrollView.h"
 #import "PCSliderBasedMiniArticleViewController.h"
 #import "PCStyler.h"
+#import "PCBrowserViewController.h"
 #import <QuartzCore/QuartzCore.h>
 
 @interface  PCPageViewController(ForwardDeclaration)
@@ -52,7 +53,7 @@
 - (void) hideHUD;
 - (void) showGallery:(id)sender;
 - (void) showGalleryWithID:(NSInteger)ID initialPhotoID:(NSInteger)photoID;
-- (void) showVideoWebView;
+- (void) showVideoWebView: (NSString *)videoWebViewURL inRect: (CGRect)videoWebViewRect;
 - (void) hideVideoWebView;
 - (void) hideSubviews;
 
@@ -174,9 +175,17 @@
     
     [self.mainScrollView setContentSize:bodySize];
     
-    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
+    if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && 
+        ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
     {
-        [self showVideoWebView];
+        CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+        PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+        
+        if (videoElement.stream)
+            [self showVideoWebView:videoElement.stream inRect:videoRect];
+        
+        else if (videoElement.resource)
+            [self showVideoWebView:[page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource] inRect:videoRect];
     }
     
     [self createGalleryButton];
@@ -247,25 +256,52 @@
     [super viewWillDisappear:animated];
 }
 
-- (void)showVideoWebView
+- (void)showVideoWebView: (NSString *)videoWebViewURL inRect: (CGRect)videoWebViewRect
 {
-    if (!videoWebView)
+    CGRect videoRect = videoWebViewRect;
+    if (CGRectEqualToRect(videoRect, CGRectZero))
     {
-        videoWebView = [[UIWebView alloc] initWithFrame:[self activeZoneRectForType:PCPDFActiveZoneVideo]];
-        videoWebView.scrollView.scrollEnabled = NO; 
-        videoWebView.scrollView.bounces = NO;
+        videoRect = [[UIScreen mainScreen] bounds];
     }
-    PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
-    [self.view addSubview:videoWebView];
-    [videoWebView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:videoElement.stream] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+    if (!webBrowserViewController)
+    {
+        webBrowserViewController = [[PCBrowserViewController alloc] init];
+    }
+    webBrowserViewController.videoRect = videoRect;
+    [self.mainScrollView addSubview:webBrowserViewController.view];
+    if (self.page.pageTemplate == 
+        [[PCPageTemplatesPool templatesPool] templateForId:PCFixedIllustrationArticleTouchablePageTemplate])
+    {
+        [self changeVideoLayout:bodyViewController.view.hidden];
+    }
+    [webBrowserViewController presentURL:videoWebViewURL];
+}
+
+- (void)changeVideoLayout: (BOOL)isVideoEnabled
+{
+    if (webBrowserViewController)
+    {
+        if (isVideoEnabled)
+        {
+            [self.mainScrollView bringSubviewToFront:webBrowserViewController.view];
+        }
+        else 
+        {
+            [self.mainScrollView insertSubview:webBrowserViewController.view aboveSubview:self.backgroundViewController.view];    
+        }
+    }
 }
 
 - (void)hideVideoWebView
 {
-    if (videoWebView)
+    /*if (videoWebView)
     {
         [videoWebView removeFromSuperview];
         [videoWebView release], videoWebView = nil;
+    }*/
+    if (webBrowserViewController)
+    {
+        [webBrowserViewController.view removeFromSuperview];
     }
 }
 
@@ -374,8 +410,16 @@
     
     if([[resourcePath pathExtension] isEqualToString:@""])
     {
-        [[NSNotificationCenter defaultCenter] postNotificationName:PCVCPushVideoScreenNotification object:resourcePath];
+        //[[NSNotificationCenter defaultCenter] postNotificationName:PCVCPushVideoScreenNotification object:resourcePath];
         
+        CGRect mainScreenRect = [[UIScreen mainScreen] bounds];
+        if (!webBrowserViewController)
+        {
+            webBrowserViewController = [[PCBrowserViewController alloc] init];
+        }
+        webBrowserViewController.videoRect = mainScreenRect;
+        [self.view addSubview:webBrowserViewController.view];
+        [webBrowserViewController presentURL:resourcePath];
     }
     else
     {
@@ -502,7 +546,11 @@
             if (videoWebView && videoWebView.superview)
                 [self hideVideoWebView];
             else
-                [self showVideoWebView];
+            {
+                CGRect videoRect = [[UIScreen mainScreen] bounds];
+                PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+                [self showVideoWebView:videoElement.stream inRect:videoRect];
+            }
             return YES;
         }
         NSArray* videoElements = [page elementsForType:PCPageElementTypeVideo];
@@ -562,6 +610,17 @@
             [self showVideo:activeZone.URL];
             return YES;
         }
+        
+        else if ([activeZone.URL hasPrefix:@"http://youtube.com"] || [activeZone.URL hasPrefix:@"http://www.youtube.com"] ||
+                  [activeZone.URL hasPrefix:@"http://youtu.be"] || [activeZone.URL hasPrefix:@"http://www.youtu.be"] || 
+                  [activeZone.URL hasPrefix:@"http://dailymotion.com"] || [activeZone.URL hasPrefix:@"http://www.dailymotion.com"] ||
+                  [activeZone.URL hasPrefix:@"http://vimeo.com"] || [activeZone.URL hasPrefix:@"http://www.vimeo.com"])
+        {
+            CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+            [self showVideoWebView:activeZone.URL inRect:videoRect];            
+            return YES;
+        }
+        
         else 
         {
             if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:activeZone.URL]])
@@ -628,14 +687,20 @@
 
 - (void) galleryViewControllerWillDismiss
 {
-    if (!self.page.isComplete) 
+    if (!self.page.isComplete || ![self.page isSecondaryElementsComplete]) 
     {
         [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:self.page userInfo:nil];
         [self showHUD];
     }
     if ([self.page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
     {
-        [self showVideoWebView];
+        CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+        PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+        if (videoElement.stream)
+            [self showVideoWebView:videoElement.stream inRect:videoRect];
+        
+        else if (videoElement.resource)
+            [self showVideoWebView:[page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource] inRect:videoRect];
     }
     [self.magazineViewController dismissGalleryViewController];
 }

@@ -1,4 +1,8 @@
 //
+//  PCResourceCache.h
+//  Pad CMS
+//
+//  Created by Maxim Pervushin on 7/11/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -29,31 +33,26 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#import "PCResourceLoadRequest.h"
+/**
+ @brief PCResourceCache is singletone that could be used as cache for any resource used in app. Automatically evicts objects on system memory warning.
+ */
+@interface PCResourceCache : NSObject <NSCacheDelegate>
 
-@interface PCResourceCache : NSObject
-{
-@private // Instance variables
+/**
+ @brief Returns default instance of PCResourceCache class. 
+ */
++ (PCResourceCache *)defaultResourceCache;
 
-	NSCache *resourceCache;
-}
+/**
+ @brief Returns object for given key. Returns nil if no corresponding object found. 
+ */
+- (id)objectForKey:(id)key;
 
-+ (PCResourceCache *)sharedInstance;
-
-- (id)resourceLoadBadQualityRequest:(PCResourceLoadRequest *)request;
-
-- (id)resourceLoadGoodQualityRequest:(PCResourceLoadRequest *)request;
-
-- (id)resourceLoadRequestImmediate:(PCResourceLoadRequest *)request;
-
-- (void)setObject:(UIImage *)image forKey:(NSString *)key;
-
-- (void)removeObjectForKey:(NSString *)key;
-
-- (void)removeNullForKey:(NSString *)key;
-
-- (void)removeAllObjects;
+/**
+ @brief Sets given object for given key. 
+ */
+- (void)setObject:(id)object forKey:(id)key;
 
 @end

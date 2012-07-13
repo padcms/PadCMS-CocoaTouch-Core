@@ -35,7 +35,6 @@
 
 #import <UIKit/UIKit.h>
 #import "PCIssue.h"
-#import "PCResourceView.h"
 
 
 @class PCRevision;

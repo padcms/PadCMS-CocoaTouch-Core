@@ -37,20 +37,21 @@
 #import "Helper.h"
 
 @interface PCHorizontalPageElementViewController ()
+{
+    CGFloat _targetHeight;
+}
 
 @end
 
 @implementation PCHorizontalPageElementViewController
-@synthesize targetHeight;
+@synthesize targetHeight = _targetHeight;
 
-- (void) correctSize
+- (void)correctSize
 {
     CGSize imageSize = [Helper getSizeForImage:self.resource];
     
-    if(!CGSizeEqualToSize(imageSize, CGSizeZero))
-    {
+    if (!CGSizeEqualToSize(imageSize, CGSizeZero)) {
         CGFloat scale = self.targetHeight / imageSize.height;
-        
         CGSize newSize = CGSizeMake(imageSize.width * scale, imageSize.height * scale);
         
         [self.view setFrame:CGRectMake(self.view.frame.origin.x,
@@ -58,9 +59,8 @@
                                        newSize.width,
                                        newSize.height)];
         
-        if(imageView != nil)
-        {
-            [imageView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
+        if (_resourceView != nil) {
+            [_resourceView setFrame:CGRectMake(0, 0, newSize.width, newSize.height)];
         }
     }
 }

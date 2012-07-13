@@ -48,6 +48,7 @@ NSString* PCPDFActiveZoneActionVideo        = @"local://action/video";
 NSString* PCPDFActiveZoneActionButton       = @"local://button";
 NSString* PCPDFActiveZoneThumbs             = @"local://thumbs";
 NSString* PCPDFActiveZonePopup              = @"local://popup";
+NSString* PCPDFActiveZone3d                 = @"local://3d";
 NSString* PCPDFActiveZoneExtra              = @"local://extra";
 
 
