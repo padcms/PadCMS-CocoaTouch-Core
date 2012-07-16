@@ -2,7 +2,7 @@
 //  InteractivesBulletsViewController.h
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/12/12.
+//  Created by Alexey Igoshev on 7/12/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 

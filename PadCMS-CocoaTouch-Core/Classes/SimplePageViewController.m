@@ -2,7 +2,7 @@
 //  SimplePageViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/9/12.
+//  Created by Alexey Igoshev on 7/9/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -41,16 +41,12 @@
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_page firstElementForType:PCPageElementTypeBody];
     if (bodyElement != nil)
     {
-		PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:bodyElement];
-		elementController.view.frame = self.view.bounds;
-		elementController.view.frame = CGRectOffset(elementController.view.frame, 0.0f, (CGFloat)bodyElement.top);
-		[elementController loadElementView];
+		PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:bodyElement andFrame:CGRectOffset(self.view.bounds, 0.0f, (CGFloat)bodyElement.top)];
 		self.bodyViewController = elementController;
 		[elementController release];
-		[self.view addSubview:self.bodyViewController.scrollView];
+		[self.view addSubview:self.bodyViewController.elementView];
 		
 	}
-
 }
 
 -(void)loadBackground
@@ -58,15 +54,11 @@
 	PCPageElement* backgroundElement = [_page firstElementForType:PCPageElementTypeBackground];
     if (backgroundElement != nil)
 	{
-		PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:backgroundElement];
-		elementController.view.frame = self.view.bounds;
-		[elementController loadElementView];
+		PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:backgroundElement andFrame:self.view.bounds];
 		self.backgroundViewController = elementController;
 		[elementController release];
-		[self.view addSubview:self.backgroundViewController.scrollView];
-		
-		
-		
+		[self.view addSubview:self.backgroundViewController.elementView];
+
 	}
 
 }

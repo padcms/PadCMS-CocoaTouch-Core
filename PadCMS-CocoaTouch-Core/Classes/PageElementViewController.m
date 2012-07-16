@@ -2,7 +2,7 @@
 //  PageElementViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/12/12.
+//  Created by Alexey Igoshev on 7/12/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -13,38 +13,48 @@
 @interface PageElementViewController ()
 @property (readonly) float scale;
 @property (nonatomic, readonly) NSString* fullPathToContent;
-
+@property (nonatomic, readonly) CGRect elementFrame;
 @end
 
 @implementation PageElementViewController
-@synthesize scrollView = _scrollView;
+@synthesize elementView = _elementView;
 @synthesize scale=_scale;
 @synthesize element=_element;
-@synthesize tiledView=_tiledView;
+@synthesize elementFrame=_elementFrame;
 
--(id)initWithElement:(PCPageElement *)element
+-(id)initWithElement:(PCPageElement *)element andFrame:(CGRect)elementFrame
 {
-	if (self = [super initWithNibName:nil bundle:nil])
+	if (self = [super init])
     {
         _element = [element retain];
 		_scale = [UIScreen mainScreen].scale;
+		_elementFrame = elementFrame;
+		
     }
     return self;
 }
 
 -(void)dealloc
 {
-	[_tiledView release], _tiledView = nil;
 	[_element release], _element = nil;
-	[_scrollView release], _scrollView = nil;
+	[_elementView release], _elementView = nil;
 	[super dealloc];
 }
 
 
 -(void)releaseViews
 {
-	self.scrollView = nil;
-	self.tiledView = nil;
+	[_elementView release], _elementView = nil;
+}
+
+- (void)setElement:(PCPageElement *)element 
+{
+    if ([_element isEqual:element]) {
+        return;
+    }
+    [_element release];
+    _element = [element retain];
+	[self releaseViews];
 }
 
 -(NSString *)fullPathToContent
@@ -52,31 +62,29 @@
 	return [self.element.page.revision.contentDirectory stringByAppendingPathComponent:self.element.resource];
 }
 
--(void)loadElementView
+-(JCTiledScrollView *)elementView
 {
-	[self.scrollView removeFromSuperview];
-	self.scrollView = nil;
-	if (!self.element.isComplete) return;
-	self.view.backgroundColor = [UIColor clearColor];
-	CGRect scrollView_frame = [UIScreen mainScreen].applicationFrame;
-	NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
-	CGFloat height = [[information objectForKey:@"height"] floatValue];
-	CGSize scrollContentSize = CGSizeMake([UIScreen mainScreen].applicationFrame.size.width, height); 
-	_scrollView = [[JCTiledScrollView alloc] initWithFrame:scrollView_frame contentSize:scrollContentSize];
-	_scrollView.backgroundColor = [UIColor greenColor];
-	
-	_scrollView.dataSource = self;
-	
-	_scrollView.zoomScale = 1.0f;
-	
-	// totals 4 sets of tiles across all devices, retina devices will miss out on the first 1x set
-	_scrollView.levelsOfZoom = 1;
-	_scrollView.levelsOfDetail = 2;
-	_scrollView.scrollView.maximumZoomScale = 1.0;
-	//self.view = _scrollView;
-	//[self.view addSubview:_scrollView];
-	
+	if (!self.element) return nil;
+	if (!_elementView)
+	{
+		if (!self.element.isComplete) return nil;
+		CGRect elementView_frame = _elementFrame;
+		NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
+		CGFloat height = [[information objectForKey:@"height"] floatValue];
+		CGSize scrollContentSize = CGSizeMake([UIScreen mainScreen].applicationFrame.size.width, height); 
+		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
+		_elementView.dataSource = self;
+		
+		_elementView.zoomScale = 1.0f;
+		
+		// totals 4 sets of tiles across all devices, retina devices will miss out on the first 1x set
+		_elementView.levelsOfZoom = 1;
+		_elementView.levelsOfDetail = 2;
+		_elementView.scrollView.maximumZoomScale = 1.0;
+	}
+	return _elementView;
 }
+
 
 #pragma mark - JCTileSource
 

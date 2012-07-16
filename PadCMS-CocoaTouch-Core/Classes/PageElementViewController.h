@@ -2,7 +2,7 @@
 //  PageElementViewController.h
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/12/12.
+//  Created by Alexey Igoshev on 7/12/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -10,10 +10,10 @@
 #import "JCTiledScrollView.h"
 
 @class PCPageElement;
-@interface PageElementViewController : UIViewController<JCTileSource>
-@property (nonatomic, retain) JCTiledScrollView *scrollView;
+@interface PageElementViewController : NSObject<JCTileSource>
+@property (nonatomic, retain) JCTiledScrollView *elementView;
 @property (nonatomic, retain) PCPageElement* element;
-@property (nonatomic, retain) UIView* tiledView;
--(id)initWithElement:(PCPageElement *)element;
--(void)loadElementView;
+
+-(id)initWithElement:(PCPageElement *)element andFrame:(CGRect)elementFrame;
+
 @end

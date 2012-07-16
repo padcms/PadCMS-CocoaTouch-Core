@@ -15,6 +15,9 @@
     PCPageViewController *_nextPageController;
 }
 
+@property (nonatomic, retain) PCPageViewController *currentPageController;
+@property (nonatomic, retain) PCPageViewController *nextPageController;
+
 - (void)initialize;
 - (void)deinitialize;
 
@@ -33,11 +36,14 @@
 
 @implementation RRComplexScrollView
 @synthesize dataSource = _dataSource;
+@synthesize currentPageController=_currentPageController;
+@synthesize nextPageController=_nextPageController;
+
 
 - (void)initialize
 {
-    _currentPageController = nil;
-    _nextPageController = nil;
+    self.currentPageController = nil;
+    self.nextPageController = nil;
     
     UISwipeGestureRecognizer *swipeUpGestureRecognizer = 
     [[UISwipeGestureRecognizer alloc] initWithTarget:self action:@selector(swipeUpGesture:)];
@@ -71,6 +77,8 @@
 - (void)dealloc
 {
     [self deinitialize];
+	[_currentPageController release], _currentPageController = nil;
+	[_nextPageController release], _nextPageController = nil;
 	_dataSource = nil;
     [super dealloc];
 }
@@ -167,7 +175,7 @@
     
     if (initialPageController != nil) {
         
-        _currentPageController = initialPageController;
+        self.currentPageController = initialPageController;
         initialPageController.view.frame = self.bounds;
         [self addSubview:initialPageController.view];
         
@@ -188,7 +196,7 @@
                                           currentPageFrame.size.width, 
                                           currentPageFrame.size.height);
         
-        _nextPageController = topPageController;
+        self.nextPageController = topPageController;
         _nextPageController.view.frame = nextPageFrame;
         [self addSubview:_nextPageController.view];
         
@@ -206,7 +214,7 @@
         } completion:^(BOOL finished) {
             
             [_currentPageController.view removeFromSuperview];
-            _currentPageController = _nextPageController;
+            self.currentPageController = _nextPageController;
 
         }];
         
@@ -227,7 +235,7 @@
                                           currentPageFrame.size.width, 
                                           currentPageFrame.size.height);
         
-        _nextPageController = bottomPageController;
+        self.nextPageController = bottomPageController;
         _nextPageController.view.frame = nextPageFrame;
         [self addSubview:_nextPageController.view];
         
@@ -245,7 +253,7 @@
         } completion:^(BOOL finished) {
             
             [_currentPageController.view removeFromSuperview];
-            _currentPageController = _nextPageController;
+            self.currentPageController = _nextPageController;
             
         }];
         
@@ -266,7 +274,7 @@
                                                  currentPageFrame.size.width, 
                                                  currentPageFrame.size.height);
         
-        _nextPageController = leftPageController;
+        self.nextPageController = leftPageController;
         _nextPageController.view.frame = nextPageFrame;
         [self addSubview:_nextPageController.view];
         
@@ -284,7 +292,7 @@
         } completion:^(BOOL finished) {
             
             [_currentPageController.view removeFromSuperview];
-            _currentPageController = _nextPageController;
+            self.currentPageController = _nextPageController;
             
         }];
         
@@ -305,7 +313,7 @@
                                           currentPageFrame.size.width, 
                                           currentPageFrame.size.height);
         
-        _nextPageController = rightPageController;
+        self.nextPageController = rightPageController;
         _nextPageController.view.frame = nextPageFrame;
         [self addSubview:_nextPageController.view];
         
@@ -323,7 +331,7 @@
         } completion:^(BOOL finished) {
             
             [_currentPageController.view removeFromSuperview];
-            _currentPageController = _nextPageController;
+            self.currentPageController = _nextPageController;
             
         }];
         

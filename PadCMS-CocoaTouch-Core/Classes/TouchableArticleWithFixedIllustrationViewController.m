@@ -2,7 +2,7 @@
 //  TouchableArticleWithFixedIllustrationViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/9/12.
+//  Created by Alexey Igoshev on 7/9/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -39,28 +39,25 @@
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_page firstElementForType:PCPageElementTypeBody];
     if (bodyElement != nil)
     {
-		PageElementViewController* bodyController = [[PageElementViewController alloc] initWithElement:bodyElement];
-		bodyController.view.frame = CGRectOffset(bodyController.view.frame, 0.0f, (CGFloat)bodyElement.top);
-		[bodyController loadElementView];
+		PageElementViewController* bodyController = [[PageElementViewController alloc] initWithElement:bodyElement andFrame: CGRectOffset(self.view.bounds, 0.0f, (CGFloat)bodyElement.top)];
 		self.bodyViewController = bodyController;
 		[bodyController release];
-		[self.view addSubview:self.bodyViewController.view];
+		[self.view addSubview:self.bodyViewController.elementView];
 		
         if(bodyElement)
-			[_bodyViewController.view setHidden:bodyElement.showTopLayer == NO];
+			[_bodyViewController.elementView setHidden:bodyElement.showTopLayer == NO];
 				 
 	}
 	
 	_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 	_tapGestureRecognizer.cancelsTouchesInView = NO;
-	//_tapGestureRecognizer.delegate = self;
-    [self.view  addGestureRecognizer:_tapGestureRecognizer];
+	[self.view  addGestureRecognizer:_tapGestureRecognizer];
 	
 }
 
 -(void)tapAction:(id)sender
 {
-     [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+     [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
 }
 
 @end

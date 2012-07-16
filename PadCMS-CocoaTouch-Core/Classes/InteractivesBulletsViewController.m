@@ -2,7 +2,7 @@
 //  InteractivesBulletsViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/12/12.
+//  Created by Alexey Igoshev on 7/12/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -41,11 +41,10 @@
 	self.miniArticles = [_page elementsForType:PCPageElementTypeMiniArticle];
 	self.selectedMiniArticle = [_miniArticles objectAtIndex:0];
 	
-	PageElementViewController* miniArticleController = [[PageElementViewController alloc] initWithElement:_selectedMiniArticle];
-	[miniArticleController loadElementView];
+	PageElementViewController* miniArticleController = [[PageElementViewController alloc] initWithElement:_selectedMiniArticle andFrame:self.view.bounds];
 	self.bodyViewController = miniArticleController;
 	[miniArticleController release];
-	[self.view addSubview:self.bodyViewController.view];
+	[self.view addSubview:self.bodyViewController.elementView];
 	
 	for (PCPageActiveZone* activeZone in backgroundElement.activeZones) {
 		if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
@@ -83,8 +82,15 @@
 -(void)changeArticle:(UIButton*)sender
 {
 	self.selectedMiniArticle = [self.miniArticles objectAtIndex:sender.tag];
-	self.bodyViewController.element = _selectedMiniArticle;
-	[self.bodyViewController loadElementView];
+		
+	if (self.bodyViewController.element != _selectedMiniArticle)
+	{
+		[self.bodyViewController.elementView removeFromSuperview];
+		self.bodyViewController.element = _selectedMiniArticle;
+		[self.view addSubview:self.bodyViewController.elementView];
+		[self.view sendSubviewToBack:self.bodyViewController.elementView];
+	}
+	
 }
 
 

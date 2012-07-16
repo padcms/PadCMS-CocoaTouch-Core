@@ -2,7 +2,7 @@
 //  SliderBasedMiniArticleViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/9/12.
+//  Created by Alexey Igoshev on 7/9/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -29,11 +29,10 @@
 	
 	self.selectedMiniArticle = [_miniArticles objectAtIndex:0];
 	
-	PageElementViewController* miniArticleController = [[PageElementViewController alloc] initWithElement:_selectedMiniArticle];
-	[miniArticleController loadElementView];
+	PageElementViewController* miniArticleController = [[PageElementViewController alloc] initWithElement:_selectedMiniArticle andFrame:self.view.bounds];
 	self.bodyViewController = miniArticleController;
 	[miniArticleController release];
-	[self.view addSubview:self.bodyViewController.view];
+	[self.view addSubview:self.bodyViewController.elementView];
 	
 	
 	
@@ -104,10 +103,16 @@
 	NSString* selectedThumbailPath = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnailSelected];
 	UIImageView *imageView = (UIImageView *)[selectedView viewWithTag:IMAGE_TAG];
 	imageView.image = [UIImage imageWithContentsOfFile:selectedThumbailPath];
+
+	if (self.bodyViewController.element != miniArticle)
+	{
+		[self.bodyViewController.elementView removeFromSuperview];
+		self.bodyViewController.element = miniArticle;
+		self.selectedMiniArticle = miniArticle;
+		[self.view addSubview:self.bodyViewController.elementView];
+		[self.view sendSubviewToBack:self.bodyViewController.elementView];
+	}
 	
-	self.bodyViewController.element = miniArticle;
-	[self.bodyViewController loadElementView];
-	self.selectedMiniArticle = miniArticle;
 
 }
 

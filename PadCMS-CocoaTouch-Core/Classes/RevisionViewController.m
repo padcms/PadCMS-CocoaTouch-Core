@@ -2,7 +2,7 @@
 //  RevisionViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/4/12.
+//  Created by Alexey Igoshev on 7/4/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -92,7 +92,7 @@
     }
     
     if (nextPage != nil) {
-        PCPageViewController *nextPageController = [[[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage] retain];
+        PCPageViewController *nextPageController = [[[[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage] retain] autorelease];
         
         if (nextPageController.view) { // allways YES. Used to load view
             [nextPageController loadFullView];
