@@ -54,7 +54,16 @@
 #define TocElementsMargin 20
 
 
-@interface PCRevisionViewController(ForwardDeclaration)
+@interface PCRevisionViewController()
+{
+    NSMutableArray *_activeTableOfContentsItems;
+    RRTableOfContentsView *_tableOfContentsView;
+}
+
+- (void)createHUD;
+- (void)destroyHUD;
+- (void)updateTableOfContents;
+
 - (void) updateViewsForCurrentIndex;
 - (void) createHorizontalView;
 - (void) deviceOrientationDidChange;
@@ -167,6 +176,100 @@
         
     }
     return self;
+}
+
+- (void)createHUD
+{
+    _tableOfContentsView = [[RRTableOfContentsView alloc] initWithFrame:self.view.bounds];
+    _tableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _tableOfContentsView.dataSource = self;
+    _tableOfContentsView.delegate = self;
+    [self.view addSubview:_tableOfContentsView];
+}
+
+- (void)destroyHUD
+{
+    if (_tableOfContentsView != nil) {
+        [_tableOfContentsView removeFromSuperview];
+        [_tableOfContentsView release];
+    }
+
+    if (_activeTableOfContentsItems != nil) {
+        [_activeTableOfContentsItems release];
+    }
+}
+
+- (void)updateTableOfContents
+{
+    if (_activeTableOfContentsItems == nil) {
+        _activeTableOfContentsItems = [[NSMutableArray alloc] init];
+    }
+    
+    [_activeTableOfContentsItems removeAllObjects];
+    
+    if (revision != nil && revision.toc != nil) {
+        for (PCTocItem *tocItem in revision.toc) {
+            NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+            UIImage *tocImage = [UIImage imageWithContentsOfFile:imagePath];
+            
+            // Skip TOC elements without image
+            if (tocImage == nil) {
+                continue;
+            }
+            
+            NSInteger pageIndex = -1;
+            NSArray *revisionPages = revision.pages;
+            for (PCPage *page in revisionPages) {
+                if (page.identifier == tocItem.firstPageIdentifier) {
+                    pageIndex = [revisionPages indexOfObject:page];
+                }
+            }
+            
+            // Skip TOC elements without reference
+            if (pageIndex == -1) {
+                continue;
+            }
+            
+            [_activeTableOfContentsItems addObject:tocItem];
+        }
+    }
+    
+    if ([revision.toc count] > 0)
+    {
+        int lastTocStripeIndex = -1;
+        
+        for (int i = [revision.toc count]-1; i >= 0; i--)
+        {
+            PCTocItem *tempTocItem = [revision.toc objectAtIndex:i];
+            if (tempTocItem.thumbStripe)
+            {
+                lastTocStripeIndex = i;
+                break;
+            }
+        }
+        
+        if (lastTocStripeIndex != -1)
+        {
+            PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocStripeIndex];
+            NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+            if (fileExists) 
+            {
+//                tableOfContentButton.hidden = !tableOfContentButton.hidden;
+                [_tableOfContentsView setTableOfContentsButtonsVisible:YES];
+            } 
+            
+            else 
+            {
+                [_tableOfContentsView setTableOfContentsButtonsVisible:NO];
+            }
+            
+            tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
+        }
+    } 
+
+    
+    [_tableOfContentsView reloadData];
 }
 
 - (void)didReceiveMemoryWarning
@@ -449,6 +552,8 @@
     tableOfContentsView.alpha = 0;
     
     [self createTableOfContentsButton];
+    
+    [self updateTableOfContents];
 }
 
 - (void)createTableOfContentsButton
@@ -814,6 +919,8 @@
             [self createHorizontalSummary];
         }
 
+        [self createHUD];
+
         [self initTopMenu];
         [self showPageWithIndex:initialPageIndex];
         [self createHorizontalView];
@@ -890,6 +997,8 @@
 
         currentMagazineOrientation = [[UIDevice currentDevice] orientation];
     }
+
+    [_tableOfContentsView reloadData];
 }
 
 
@@ -900,6 +1009,8 @@
     [self setHelpButton:nil];
     [self setTopSummaryButton:nil];
     [super viewDidUnload];
+    
+    [self destroyHUD];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -1318,7 +1429,9 @@
 
 
 -(void)tapAction:(UIGestureRecognizer*)sender
-{
+{/*
+    NSLog(@"tapAction:");
+    
     if (revision.horizontalOrientation) {
         [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
     } else {
@@ -1382,7 +1495,7 @@
             shareMenu.alpha = 0;
         }
         
-    }];
+    }];*/
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
@@ -1414,15 +1527,7 @@
 {
     NSInteger index = [sender tag];
     
-    NSLog(@"selectTOCItemAction: tag: %d", index);
-    NSLog(@"tableOfContentsView.contentSize %@", NSStringFromCGSize(tableOfContentsView.contentSize));
-    
-    //if (index < 0 || index >= [self.revision.toc count])
-    //    return;
-    //PCTocItem* tocItem = [self.revision.toc objectAtIndex:index];
-    //PCPage* page = [self.revision pageWithId:tocItem.firstPageIdentifier];
     [self hideMenus];
-    //[self showPage:page];
     [self showPageWithIndex:index];
 }
 
@@ -1799,6 +1904,61 @@
 		[self updateViewsForCurrentIndex];
 	}
 		
+}
+
+#pragma mark - RRTableOfContentsViewDataSource
+
+- (NSUInteger)tableOfContentsViewItemsCount:(RRTableOfContentsView *)tableOfContentsView
+{
+    if (_activeTableOfContentsItems != nil) {
+        return _activeTableOfContentsItems.count;
+    }
+    
+    return 0;
+}
+
+- (UIImage *)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView imageForIndex:(NSUInteger)index
+{
+    if (_activeTableOfContentsItems != nil) {
+        PCTocItem *tocItem = [_activeTableOfContentsItems objectAtIndex:index];
+        return [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
+    }
+    
+    return nil;
+}
+
+#pragma mark - RRTableOfContentsViewDelegate
+
+- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView indexDidSelected:(NSUInteger)index
+{
+    if (_activeTableOfContentsItems != nil) {
+        
+        PCTocItem *tocItem = [_activeTableOfContentsItems objectAtIndex:index];
+        
+        NSInteger pageIndex = -1;
+        NSArray *revisionPages = revision.pages;
+        for (PCPage *page in revisionPages) {
+            if (page.identifier == tocItem.firstPageIdentifier) {
+                pageIndex = [revisionPages indexOfObject:page];
+            }
+        }
+
+        [tableOfContentsView hideTableOfContents];
+        
+        [self showPageWithIndex:pageIndex];
+    }
+}
+
+- (void)tableOfContentsViewWillShowTableOfContents:(RRTableOfContentsView *)tableOfContentsView
+{
+    topMenuView.hidden = !topMenuView.hidden;
+    topMenuView.alpha = topMenuView.hidden ? 0 : 1;
+}
+
+- (void)tableOfContentsViewWillHideTableOfContents:(RRTableOfContentsView *)tableOfContentsView
+{
+    topMenuView.hidden = !topMenuView.hidden;
+    topMenuView.alpha = topMenuView.hidden ? 0 : 1;
 }
 
 @end
