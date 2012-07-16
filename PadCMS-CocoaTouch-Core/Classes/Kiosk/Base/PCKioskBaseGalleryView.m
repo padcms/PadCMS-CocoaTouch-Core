@@ -451,6 +451,7 @@
     PCKioskGalleryItem* layer = [self.galleryView.layer.sublayers objectAtIndex:index];
     if(layer)
     {
+        layer.image = nil;      // clear processed image
         [layer setNeedsDisplay];
     }
 }
