@@ -1053,11 +1053,6 @@
 		ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D915A9C42100B06A38 /* JCTiledView.m */; };
 		ABC7E1E015A9C42100B06A38 /* JCTiledLayer.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */; };
 		ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1DB15A9C42100B06A38 /* JCTiledLayer.m */; };
-		ABC7E1F215A9CCA400B06A38 /* JCAnnotation.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */; };
-		ABC7E1F315A9CCA400B06A38 /* JCAnnotationView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */; };
-		ABC7E1F415A9CCA400B06A38 /* JCAnnotationView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */; };
-		ABC7E1F515A9CCA400B06A38 /* JCVisibleAnnotationTuple.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */; };
-		ABC7E1F615A9CCA400B06A38 /* JCVisibleAnnotationTuple.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */; };
 		ABC7E21715AA53FB00B06A38 /* SimplePageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */; };
 		ABC7E21815AA53FB00B06A38 /* SimplePageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */; };
 		ABC7E21B15AA542C00B06A38 /* AbstractBasePageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */; };
@@ -2164,11 +2159,6 @@
 		ABC7E1D915A9C42100B06A38 /* JCTiledView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTiledView.m; sourceTree = "<group>"; };
 		ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledLayer.h; sourceTree = "<group>"; };
 		ABC7E1DB15A9C42100B06A38 /* JCTiledLayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCTiledLayer.m; sourceTree = "<group>"; };
-		ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAnnotation.h; sourceTree = "<group>"; };
-		ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCAnnotationView.h; sourceTree = "<group>"; };
-		ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCAnnotationView.m; sourceTree = "<group>"; };
-		ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCVisibleAnnotationTuple.h; sourceTree = "<group>"; };
-		ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JCVisibleAnnotationTuple.m; sourceTree = "<group>"; };
 		ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SimplePageViewController.h; sourceTree = "<group>"; };
 		ABC7E21615AA53FB00B06A38 /* SimplePageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SimplePageViewController.m; sourceTree = "<group>"; };
 		ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AbstractBasePageViewController.h; sourceTree = "<group>"; };
@@ -3463,11 +3453,6 @@
 			children = (
 				ABC7E24515AAAA7900B06A38 /* EasyTableView.h */,
 				ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */,
-				ABC7E1ED15A9CCA300B06A38 /* JCAnnotation.h */,
-				ABC7E1EE15A9CCA400B06A38 /* JCAnnotationView.h */,
-				ABC7E1EF15A9CCA400B06A38 /* JCAnnotationView.m */,
-				ABC7E1F015A9CCA400B06A38 /* JCVisibleAnnotationTuple.h */,
-				ABC7E1F115A9CCA400B06A38 /* JCVisibleAnnotationTuple.m */,
 				ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */,
 				ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */,
 				ABC7E1D815A9C42100B06A38 /* JCTiledView.h */,
@@ -3857,9 +3842,6 @@
 				ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */,
 				ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */,
 				ABC7E1E015A9C42100B06A38 /* JCTiledLayer.h in Headers */,
-				ABC7E1F215A9CCA400B06A38 /* JCAnnotation.h in Headers */,
-				ABC7E1F315A9CCA400B06A38 /* JCAnnotationView.h in Headers */,
-				ABC7E1F515A9CCA400B06A38 /* JCVisibleAnnotationTuple.h in Headers */,
 				ABC7E21715AA53FB00B06A38 /* SimplePageViewController.h in Headers */,
 				ABC7E21B15AA542C00B06A38 /* AbstractBasePageViewController.h in Headers */,
 				ABC7E21F15AA611C00B06A38 /* ScrollingPageViewController.h in Headers */,
@@ -4289,8 +4271,6 @@
 				ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */,
 				ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */,
 				ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */,
-				ABC7E1F415A9CCA400B06A38 /* JCAnnotationView.m in Sources */,
-				ABC7E1F615A9CCA400B06A38 /* JCVisibleAnnotationTuple.m in Sources */,
 				ABC7E21815AA53FB00B06A38 /* SimplePageViewController.m in Sources */,
 				ABC7E21C15AA542C00B06A38 /* AbstractBasePageViewController.m in Sources */,
 				ABC7E22015AA611C00B06A38 /* ScrollingPageViewController.m in Sources */,

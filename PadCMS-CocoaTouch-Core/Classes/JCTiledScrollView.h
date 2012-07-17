@@ -29,16 +29,13 @@
 
 #import <UIKit/UIKit.h>
 
-@class JCTiledScrollView, JCTiledView, JCAnnotationView;
-@protocol JCAnnotation;
+@class JCTiledScrollView, JCTiledView;
 
 @protocol JCTileSource <NSObject>
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale;
 @end
 
 @protocol JCTiledScrollViewDelegate <NSObject>
-
-- (JCAnnotationView *)tiledScrollView:(JCTiledScrollView *)scrollView viewForAnnotation:(id<JCAnnotation>)annotation;
 
 @optional
 - (void)tiledScrollViewDidZoom:(JCTiledScrollView *)scrollView;
@@ -51,12 +48,6 @@
 @end
 
 @interface JCTiledScrollView : UIView <UIScrollViewDelegate>
-{
-  @private
-  NSMutableSet *_recycledAnnotationViews;
-  NSMutableSet *_annotations;
-  NSMutableSet *_visibleAnnotations;
-}
 
 //Delegates
 @property (nonatomic, assign) id <JCTiledScrollViewDelegate> tiledScrollViewDelegate;
@@ -82,16 +73,5 @@
 - (id)initWithFrame:(CGRect)frame contentSize:(CGSize)contentSize;
 
 - (void)setContentCenter:(CGPoint)center animated:(BOOL)animated;
-
-
-//Annotations
-- (JCAnnotationView *)dequeueReusableAnnotationViewWithReuseIdentifier:(NSString *)reuseIdentifier;
-- (void)refreshAnnotations;
-
-- (void)addAnnotation:(id<JCAnnotation>)annotation;
-- (void)addAnnotations:(NSArray *)annotations;
-- (void)removeAnnotation:(id<JCAnnotation>)annotation;
-- (void)removeAnnotations:(NSArray *)annotations;
-- (void)removeAllAnnotations;
 
 @end
