@@ -119,8 +119,12 @@
 	CGFloat dy = _currentPageViewController.page.topPage ? pageHeight : 0;
 	CGRect nextPageViewFrame = self.currentPageViewController.view.frame;
 	PCPage* nextPage = nil;
-	if (scrollView.contentOffset.x != dx)
+	if ((!_currentPageViewController.page.topPage && !_currentPageViewController.page.bottomPage) || abs(dx-scrollView.contentOffset.x)>abs(dy-scrollView.contentOffset.y))
 	{
+		CGRect scrollBounds = scrollView.bounds;
+		scrollBounds.origin = CGPointMake(scrollView.contentOffset.x, dy);
+		_contentScrollView.bounds = scrollBounds;
+		
 		if (scrollView.contentOffset.x > dx ) {
 			NSLog(@"right");
 			nextPage = _currentPageViewController.page.rightPage;
@@ -132,8 +136,12 @@
 			nextPageViewFrame.origin = CGPointMake(dx - pageWidth, dy);
 		}
 	}
-	else if (scrollView.contentOffset.y != dy)
+	else
 	{
+		CGRect scrollBounds = scrollView.bounds;
+		scrollBounds.origin = CGPointMake(dx, scrollView.contentOffset.y);
+		_contentScrollView.bounds = scrollBounds;
+		
 		if (scrollView.contentOffset.y > dy ) {
 			NSLog(@"bottom");
 			nextPage = _currentPageViewController.page.bottomPage;
@@ -145,7 +153,7 @@
 			nextPageViewFrame.origin = CGPointMake(dx, dy - pageHeight);
 		}
 	}
-		
+	
 	
 	if (!nextPage) return;
 	NSLog(@"NEXT PAGE - %d", nextPage.identifier);
