@@ -516,7 +516,7 @@
 
 - (void) downloadFailedWithRevisionIndex:(NSInteger)index
 {
-    [self downloadFailedWithRevisionIndex:index];
+    [super downloadFailedWithRevisionIndex:index];
     [self.controlElement downloadFailed];
     self.disabled = FALSE;
 }
