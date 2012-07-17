@@ -451,6 +451,7 @@
     PCKioskGalleryItem* layer = [self.galleryView.layer.sublayers objectAtIndex:index];
     if(layer)
     {
+        layer.image = nil;      // clear processed image
         [layer setNeedsDisplay];
     }
 }
@@ -515,7 +516,7 @@
 
 - (void) downloadFailedWithRevisionIndex:(NSInteger)index
 {
-    [self downloadFailedWithRevisionIndex:index];
+    [super downloadFailedWithRevisionIndex:index];
     [self.controlElement downloadFailed];
     self.disabled = FALSE;
 }

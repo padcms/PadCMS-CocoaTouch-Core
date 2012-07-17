@@ -109,9 +109,11 @@
 
     if(img)
     {
-        [self assignCoverImage:img];
-        img = self.image;
-
+        if(img!=self.image)     // process only once
+        {
+            [self assignCoverImage:img];
+            img = self.image;
+        }
         rect.origin.y    = rect.size.height - IMAGE_HEIGHT - 10;
         rect.size.height = IMAGE_HEIGHT;
         
