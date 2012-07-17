@@ -7,13 +7,14 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "RRComplexScrollView.h"
 
 @class PCRevision;
-
-@interface RevisionViewController : UIViewController <RRComplexScrollViewDatasource>
+@class AbstractBasePageViewController;
+@interface RevisionViewController : UIViewController <UIScrollViewDelegate>
 
 @property (readonly, nonatomic) PCRevision *revision;
+@property (retain) AbstractBasePageViewController* currentPageViewController;
+@property (retain) AbstractBasePageViewController* nextPageViewController;
 
 - (id)initWithRevision:(PCRevision *)revision;
 

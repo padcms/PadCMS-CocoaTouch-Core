@@ -41,6 +41,7 @@
 #import "PCFixedIllustrationArticleTouchablePageViewController.h"
 #import "PCLanscapeSladeshowColumnViewController.h"
 #import "PCPageControllersManager.h"
+#import "AbstractBasePageViewController.h"
 
 @implementation PCMagazineViewControllersFactory
 
@@ -72,7 +73,7 @@
     return nil;
 }
 
--(PCPageViewController*)viewControllerForPage:(PCPage *)page
+-(AbstractBasePageViewController*)viewControllerForPage:(PCPage *)page
 {
     Class pageControllerClass = [[PCPageControllersManager sharedManager] controllerClassForPageTemplate:page.pageTemplate];
     

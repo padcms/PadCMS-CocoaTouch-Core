@@ -38,6 +38,7 @@
 #import "PCColumnViewController.h"
 #import "PCPageViewController.h"
 
+@class AbstractBasePageViewController;
 /**
  @class PCMagazineViewControllersFactory
  @brief Magazine View Controllers Factory
@@ -63,6 +64,6 @@
  @brief default factory
  */
 
--(PCPageViewController*)viewControllerForPage:(PCPage *)page;
+-(AbstractBasePageViewController*)viewControllerForPage:(PCPage *)page;
 
 @end

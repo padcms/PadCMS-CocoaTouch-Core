@@ -1041,14 +1041,10 @@
 		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
 		AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A0E7815A4278E00B9758C /* RevisionViewController.h */; };
 		AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A0E7915A4278E00B9758C /* RevisionViewController.m */; };
-		AB0A0F3A15A4769900B9758C /* RRComplexScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A0F3815A4769800B9758C /* RRComplexScrollView.h */; };
-		AB0A0F3B15A4769900B9758C /* RRComplexScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A0F3915A4769900B9758C /* RRComplexScrollView.m */; };
 		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
 		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
-		AB8C522B15B390F500F384CC /* ContentScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = AB8C522915B390F500F384CC /* ContentScrollView.h */; };
-		AB8C522C15B390F500F384CC /* ContentScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8C522A15B390F500F384CC /* ContentScrollView.m */; };
 		ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
 		ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */; };
 		ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
@@ -2157,13 +2153,9 @@
 		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
 		AB0A0E7815A4278E00B9758C /* RevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisionViewController.h; sourceTree = "<group>"; };
 		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisionViewController.m; sourceTree = "<group>"; };
-		AB0A0F3815A4769800B9758C /* RRComplexScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRComplexScrollView.h; sourceTree = "<group>"; };
-		AB0A0F3915A4769900B9758C /* RRComplexScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRComplexScrollView.m; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
-		AB8C522915B390F500F384CC /* ContentScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ContentScrollView.h; sourceTree = "<group>"; };
-		AB8C522A15B390F500F384CC /* ContentScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ContentScrollView.m; sourceTree = "<group>"; };
 		ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicArticleViewController.h; sourceTree = "<group>"; };
 		ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicArticleViewController.m; sourceTree = "<group>"; };
 		ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledScrollView.h; sourceTree = "<group>"; };
@@ -3421,12 +3413,8 @@
 			children = (
 				ABC7E1D515A9C3FF00B06A38 /* externals */,
 				ABC7E1D015A9C1D600B06A38 /* Templates */,
-				AB0A0F3815A4769800B9758C /* RRComplexScrollView.h */,
-				AB0A0F3915A4769900B9758C /* RRComplexScrollView.m */,
 				AB0A0E7815A4278E00B9758C /* RevisionViewController.h */,
 				AB0A0E7915A4278E00B9758C /* RevisionViewController.m */,
-				AB8C522915B390F500F384CC /* ContentScrollView.h */,
-				AB8C522A15B390F500F384CC /* ContentScrollView.m */,
 			);
 			name = newTest;
 			sourceTree = "<group>";
@@ -3865,7 +3853,6 @@
 				ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */,
 				ABF4D2ED1590516400DAAD0F /* PCDownloadOperation.h in Headers */,
 				AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */,
-				AB0A0F3A15A4769900B9758C /* RRComplexScrollView.h in Headers */,
 				ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */,
 				ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */,
 				ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */,
@@ -3884,7 +3871,6 @@
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
 				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
 				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
-				AB8C522B15B390F500F384CC /* ContentScrollView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4299,7 +4285,6 @@
 				ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */,
 				AB32071015927C5A0076361B /* PCStoreController.m in Sources */,
 				AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */,
-				AB0A0F3B15A4769900B9758C /* RRComplexScrollView.m in Sources */,
 				ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */,
 				ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */,
 				ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */,
@@ -4317,7 +4302,6 @@
 				C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */,
 				ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */,
 				ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */,
-				AB8C522C15B390F500F384CC /* ContentScrollView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
