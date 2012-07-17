@@ -16,6 +16,7 @@
 #import "PCDefaultStyleElements.h"
 
 #define TopBarHeight 43
+NSString *EnabledKey = @"Enabled";
 
 @interface RRTableOfContentsView ()
 {
@@ -81,7 +82,7 @@
         BOOL showTopTableOfContents = NO;
         
         if (topTableOfContentsConfig != nil) {
-            showTopTableOfContents = [[topTableOfContentsConfig valueForKey:@"Enabled"] boolValue];
+            showTopTableOfContents = [[topTableOfContentsConfig valueForKey:EnabledKey] boolValue];
         }
         
         if (showTopTableOfContents) {
@@ -124,14 +125,16 @@
         BOOL showBottomTableOfContents = NO;
         
         if (bottomTableOfContentsConfig != nil) {
-            showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:@"Enabled"] boolValue];
+            showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:EnabledKey] boolValue];
         }
         
         if (showBottomTableOfContents) {
             // bottom table of contents
             _bottomTableOfContentsButton = [[UIButton alloc] init];
-            _bottomTableOfContentsButton.frame = CGRectMake(100, frame.size.height - 50, 50, 50);
-            _bottomTableOfContentsButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+//            _bottomTableOfContentsButton.frame = CGRectMake(100, self.bounds.size.height - 50, 50, 50);
+//            _bottomTableOfContentsButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+            
+
             [_bottomTableOfContentsButton addTarget:self
                                              action:@selector(bottomTableOfContentsButtonAction:) 
                                    forControlEvents:UIControlEventTouchUpInside];
@@ -142,11 +145,12 @@
             _bottomTableOfContentsBackgroundView = [[UIView alloc] init];
             _bottomTableOfContentsBackgroundView.backgroundColor = [UIColor blackColor];
             _bottomTableOfContentsBackgroundView.alpha = 0.5f;
-            _bottomTableOfContentsBackgroundView.frame = CGRectMake(0,
-                                                                    frame.size.height,
-                                                                    frame.size.width,
-                                                                    frame.size.height / 3);
-            _bottomTableOfContentsBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+//            _bottomTableOfContentsBackgroundView.frame = CGRectMake(0,
+//                                                                    frame.size.height,
+//                                                                    frame.size.width,
+//                                                                    frame.size.height / 3);
+//            _bottomTableOfContentsBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+//            _bottomTableOfContentsBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth |  UIViewAutoresizingFlexibleBottomMargin;
             [self addSubview:_bottomTableOfContentsBackgroundView];
             
             
@@ -154,16 +158,60 @@
             _bottomTableOfContentsView.backgroundColor = [UIColor clearColor];
             _bottomTableOfContentsView.dataSource = self;
             _bottomTableOfContentsView.delegate = self;
-            _bottomTableOfContentsView.frame = CGRectMake(0,
-                                                          frame.size.height,
-                                                          frame.size.width,
-                                                          frame.size.height / 3);
-            _bottomTableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+//            _bottomTableOfContentsView.frame = CGRectMake(0,
+//                                                          frame.size.height,
+//                                                          frame.size.width,
+//                                                          frame.size.height / 3);
+//            _bottomTableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+//            _bottomTableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+
             [self addSubview:_bottomTableOfContentsView];
         }
     }
     
     return self;
+}
+
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    // bottom table of contents
+    
+    CGSize bottomItemSize = [self bottomItemSize];
+    CGSize bottomButtonSize = _bottomTableOfContentsButton.bounds.size;
+    CGSize viewSize = self.bounds.size;
+
+    CGRect bottomTocButtonRect = CGRectZero;
+    CGRect bottomTocRect = CGRectZero;
+    
+    if (_bottomTableOfContentsVisible) {
+        
+        bottomTocButtonRect = CGRectMake(0, 
+                                         viewSize.height - bottomButtonSize.height - bottomItemSize.height,
+                                         bottomButtonSize.width,
+                                         bottomButtonSize.height);
+        bottomTocRect = CGRectMake(0,
+                                   viewSize.height - bottomItemSize.height,
+                                   viewSize.width, 
+                                   bottomItemSize.height);
+        
+    } else {
+        
+        bottomTocButtonRect = CGRectMake(0, 
+                                         viewSize.height - bottomButtonSize.height,
+                                         bottomButtonSize.width,
+                                         bottomButtonSize.height);
+        bottomTocRect = CGRectMake(0, 
+                                   viewSize.height, 
+                                   viewSize.width,
+                                   bottomItemSize.height);
+        
+    }
+    
+    _bottomTableOfContentsButton.frame = bottomTocButtonRect;
+    _bottomTableOfContentsView.frame = bottomTocRect;
+    _bottomTableOfContentsBackgroundView.frame = bottomTocRect;
 }
 
 - (void)topTableOfContentsButtonAction:(UIButton *)sender
@@ -361,52 +409,6 @@
     return NO;
 }
 
-#pragma mark - RRItemsViewDelegate
-
-- (void)itemsView:(RRItemsView *)itemsView itemSelectedAtIndex:(RRItemsViewIndex *)index
-{
-    if ([self.delegate respondsToSelector:@selector(tableOfContentsView:indexDidSelected:)]) {
-        [self.delegate tableOfContentsView:self indexDidSelected:index.row];
-    }
-}
-
-#pragma mark - RRItemsViewDataSource
-
-- (RRItemsViewItem *)itemsView:(RRItemsView *)itemsView itemViewForIndex:(RRItemsViewIndex *)index
-{
-    RRTableOfContentsItem *item = (RRTableOfContentsItem *)[itemsView dequeueReusableItemView];
-    
-    if (item == nil) {
-        item = [[[RRTableOfContentsItem alloc] init] autorelease];
-    }
-    
-    if ([self.dataSource respondsToSelector:@selector(tableOfContentsView:imageForIndex:)]) {
-        [item setImage:[self.dataSource tableOfContentsView:self imageForIndex:index.row]];
-    }
-    
-    return item;
-}
-
-- (NSUInteger)itemsViewItemsCount:(RRItemsView *)itemsView
-{
-    if ([self.dataSource respondsToSelector:@selector(tableOfContentsViewItemsCount:)]) {
-        return [self.dataSource tableOfContentsViewItemsCount:self];
-    }
-    
-    return 0;
-}
-
-- (CGSize)itemsViewItemSize:(RRItemsView *)itemsView
-{
-    if (itemsView == _topTableOfContentsView) {
-        return CGSizeMake(150, self.bounds.size.height / 2);
-    } else if (itemsView == _bottomTableOfContentsView) {
-        return CGSizeMake(150, self.bounds.size.height / 3);
-    }
-    
-    return CGSizeZero;
-}
-
 - (void)setTableOfContentsButtonsVisible:(BOOL)visible
 {
     [UIView animateWithDuration:0.3f animations:^{
@@ -430,6 +432,101 @@
                                                       MAX(self.frame.size.height, self.frame.size.width) - _bottomTableOfContentsButton.frame.size.height,
                                                       _bottomTableOfContentsButton.frame.size.width,
                                                       _bottomTableOfContentsButton.frame.size.height)];
+}
+
+#pragma mark - RRItemsViewDelegate
+
+- (void)itemsView:(RRItemsView *)itemsView itemSelectedAtIndex:(RRItemsViewIndex *)index
+{
+    if ([self.delegate respondsToSelector:@selector(tableOfContentsView:indexDidSelected:)]) {
+        [self.delegate tableOfContentsView:self indexDidSelected:index.row];
+    }
+}
+
+#pragma mark - RRItemsViewDataSource
+
+- (RRItemsViewItem *)itemsView:(RRItemsView *)itemsView itemViewForIndex:(RRItemsViewIndex *)index
+{
+    RRTableOfContentsItem *item = (RRTableOfContentsItem *)[itemsView dequeueReusableItemView];
+    
+    if (item == nil) {
+        item = [[[RRTableOfContentsItem alloc] init] autorelease];
+    }
+    
+    [item setImage:[self imageForIndex:index.row]];
+    
+    return item;
+}
+
+- (NSUInteger)itemsViewItemsCount:(RRItemsView *)itemsView
+{
+    return [self itemsCount];
+}
+
+- (CGSize)itemsViewItemSize:(RRItemsView *)itemsView
+{
+    if (itemsView == _topTableOfContentsView) {
+        return [self topItemSize];
+    } else if (itemsView == _bottomTableOfContentsView) {
+        return [self bottomItemSize];
+    }
+    
+    return CGSizeZero;
+}
+
+#pragma mark - delegate
+#pragma mark TODO: delegate methods
+
+#pragma mark - data source
+
+- (CGSize)topItemSize
+{
+    if ([self.dataSource respondsToSelector:@selector(tableOfContentsViewTopItemSize:)]) {
+        return [self.dataSource tableOfContentsViewTopItemSize:self];
+    }
+    
+    return CGSizeZero;
+}
+
+- (CGSize)bottomItemSize
+{
+    if ([self.dataSource respondsToSelector:@selector(tableOfContentsViewBottomItemSize:)]) {
+        
+        CGSize size = [self.dataSource tableOfContentsViewBottomItemSize:self];
+        
+//        _bottomTableOfContentsView.frame = CGRectMake(_bottomTableOfContentsView.bounds.origin.x,
+//                                                      0,
+//                                                      _bottomTableOfContentsView.bounds.size.width,
+//                                                      size.height);
+        
+//        _bottomTableOfContentsBackgroundView.frame = _bottomTableOfContentsView.frame;
+        
+//        _bottomTableOfContentsButton.frame = CGRectMake(_bottomTableOfContentsButton.frame.origin.x, 
+//                                                        self.bounds.size.height - _bottomTableOfContentsButton.frame.size.height, 
+//                                                        _bottomTableOfContentsButton.frame.size.width, 
+//                                                        _bottomTableOfContentsButton.frame.size.height);
+        return size;
+    }
+    
+    return CGSizeZero;
+}
+
+- (UIImage *)imageForIndex:(NSUInteger)index
+{
+    if ([self.dataSource respondsToSelector:@selector(tableOfContentsView:imageForIndex:)]) {
+        return [self.dataSource tableOfContentsView:self imageForIndex:index];
+    }
+    
+    return nil;
+}
+
+- (NSUInteger)itemsCount
+{
+    if ([self.dataSource respondsToSelector:@selector(tableOfContentsViewItemsCount:)]) {
+        return [self.dataSource tableOfContentsViewItemsCount:self];
+    }
+    
+    return 0;
 }
 
 @end

@@ -18,7 +18,6 @@
     self = [super initWithFrame:frame];
     if (self) {
         _index = nil;
-//        self.autoresizingMask = UIViewAutoresizingNone;
     }
     return self;
 }

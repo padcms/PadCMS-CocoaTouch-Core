@@ -22,10 +22,11 @@
     self = [super initWithFrame:frame];
     
     if (self != nil) {
+        self.clipsToBounds = YES;
         self.backgroundColor = [UIColor clearColor];
         
         _imageView = [[UIImageView alloc] init];
-        _imageView.contentMode = UIViewContentModeScaleAspectFill;
+        _imageView.backgroundColor = [UIColor clearColor];
         [self addSubview:_imageView];
     }
     
@@ -36,21 +37,7 @@
 {
     _imageView.image = image;
 
-    if (image != nil) {
-        CGFloat imageViewWidth = self.bounds.size.width - 20;
-        CGFloat imageViewHeight = _imageView.image.size.height * (imageViewWidth / _imageView.image.size.width) + 20;
-        
-        CGRect imageViewRect = CGRectMake(10, 10, imageViewWidth, imageViewHeight);
-        _imageView.frame = imageViewRect;
-        
-        if (imageViewRect.size.width < imageViewRect.size.height) {
-            _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        } else {
-            _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        }
-    } else {
-        _imageView.frame = CGRectMake(10, 10, self.bounds.size.width - 20, self.bounds.size.height - 20);
-    }
+    [self setNeedsLayout];
 }
 
 - (void)layoutSubviews
@@ -60,15 +47,9 @@
     if (_imageView.image != nil) {
         CGFloat imageViewWidth = self.bounds.size.width - 20;
         CGFloat imageViewHeight = _imageView.image.size.height * (imageViewWidth / _imageView.image.size.width) + 20;
-        
         CGRect imageViewRect = CGRectMake(10, 10, imageViewWidth, imageViewHeight);
         _imageView.frame = imageViewRect;
         
-        if (imageViewRect.size.width < imageViewRect.size.height) {
-            _imageView.contentMode = UIViewContentModeScaleAspectFit;
-        } else {
-            _imageView.contentMode = UIViewContentModeScaleAspectFill;
-        }
     } else {
         _imageView.frame = CGRectMake(10, 10, self.bounds.size.width - 20, self.bounds.size.height - 20);
     }

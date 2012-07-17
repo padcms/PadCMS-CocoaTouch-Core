@@ -28,6 +28,9 @@
 
 @protocol RRTableOfContentsViewDataSource <NSObject>
 
+- (CGSize)tableOfContentsViewTopItemSize:(RRTableOfContentsView *)tableOfContentsView;
+- (CGSize)tableOfContentsViewBottomItemSize:(RRTableOfContentsView *)tableOfContentsView;
+
 - (UIImage *)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
                    imageForIndex:(NSUInteger)index;
 - (NSUInteger)tableOfContentsViewItemsCount:(RRTableOfContentsView *)tableOfContentsView;

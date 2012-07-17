@@ -10,13 +10,16 @@
 
 @interface RRItemsView ()
 {
+    NSUInteger _itemsCount;
+    CGSize _itemSize;
     RRItemsViewOrientation _orientation;
     NSMutableArray *_reusableViews;
 }
 
 - (void)updateSubviews;
-- (NSUInteger)itemsCount;
-- (CGSize)itemSize;
+- (NSUInteger)dataSourceItemsCount;
+- (CGSize)dataSourceItemSize;
+- (RRItemsViewItem *)dataSourceItemViewForIndex:(RRItemsViewIndex *)index;
 - (RRItemsViewItem *)getSubviewForIndex:(NSUInteger)index;
 - (void)enqueueReusableItemView:(RRItemsViewItem *)itemView;
 - (void)tapGesture:(UITapGestureRecognizer *)recognizer;
@@ -25,8 +28,8 @@
 @end
 
 @implementation RRItemsView
-@synthesize dataSource = _dataSource;
-@synthesize delegate/* = _delegate*/;
+@synthesize dataSource;
+@synthesize delegate;
 
 - (void)dealloc
 {
@@ -39,6 +42,8 @@
     self = [self initWithFrame:CGRectZero];
     
     if (self != nil) {
+        _itemsCount = 0;
+        _itemSize = CGSizeZero;
         _orientation = orientation;
         _reusableViews = [[NSMutableArray alloc] init];
     }
@@ -52,7 +57,6 @@
     if (self) {
         self.showsVerticalScrollIndicator = NO;
         self.showsHorizontalScrollIndicator = NO;
-        self.backgroundColor = [UIColor greenColor];
         UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] 
                                                         initWithTarget:self action:@selector(tapGesture:)];
         [self addGestureRecognizer:tapGestureRecognizer];
@@ -70,46 +74,51 @@
 
 - (void)reloadData
 {
-    NSUInteger itemsCount = [self itemsCount];
-    CGSize itemSize = [self itemSize];
+    NSArray *items = self.subviews;
+    for (RRItemsViewItem *item in items) {
+        [self enqueueReusableItemView:item];
+    }
+
+    _itemsCount = [self dataSourceItemsCount];
+    _itemSize = [self dataSourceItemSize];
     
     CGSize contentSize = CGSizeZero;
     
     if (_orientation == RRItemsViewOrientationHorizontal) {
-        contentSize = CGSizeMake(itemsCount * itemSize.width, itemSize.height);
+        contentSize = CGSizeMake(_itemsCount * _itemSize.width, _itemSize.height);
     } else {
-        contentSize = CGSizeMake(itemSize.width, itemsCount * itemSize.height);
+        contentSize = CGSizeMake(_itemSize.width, _itemsCount * _itemSize.height);
     }
     
     self.contentSize = contentSize;
+    
+    [self updateSubviews];
 }
 
 - (void)updateSubviews
 {
-    // TODO: cache itemsCount and itemSize. Update only on reloadData;
-    NSUInteger itemsCount = [self itemsCount];
-    CGSize itemSize = [self itemSize];
-    
     CGRect visibleRect = CGRectMake(self.contentOffset.x, 
                                     self.contentOffset.y, 
                                     self.bounds.size.width, 
                                     self.bounds.size.height); 
     
-    for (NSUInteger index = 0; index < itemsCount; ++index) {
-        CGFloat x = _orientation == RRItemsViewOrientationHorizontal ? index * itemSize.width : 0;
-        CGFloat y = _orientation == RRItemsViewOrientationVertical ? index * itemSize.height : 0;
-        CGRect currentItemViewFrame = CGRectMake(x, y, itemSize.width, itemSize.height);
+    for (NSUInteger index = 0; index < _itemsCount; ++index) {
+        
+        CGFloat x = _orientation == RRItemsViewOrientationHorizontal ? index * _itemSize.width : 0;
+        CGFloat y = _orientation == RRItemsViewOrientationVertical ? index * _itemSize.height : 0;
+        CGRect currentItemViewFrame = CGRectMake(x, y, _itemSize.width, _itemSize.height);
         
         if (CGRectIntersectsRect(visibleRect, currentItemViewFrame)) {
+            
             RRItemsViewItem *view = [self getSubviewForIndex:index];
             
-            if (view == nil && [_dataSource respondsToSelector:@selector(itemsView:itemViewForIndex:)]) {
-                RRItemsViewIndex *itemIndex =[[RRItemsViewIndex alloc] init];
+            if (view == nil) {
+                RRItemsViewIndex *itemIndex =[[[RRItemsViewIndex alloc] init] autorelease];
                 itemIndex.row = index;
-                view = [_dataSource itemsView:self itemViewForIndex:itemIndex];
-                view.index = itemIndex;
-                [itemIndex release];
+                view = [self dataSourceItemViewForIndex:itemIndex]; 
+
                 if (view != nil) {
+                    view.index = itemIndex;
                     view.frame = currentItemViewFrame;
                     
                     if (![self.subviews containsObject:view]) {
@@ -117,26 +126,31 @@
                     }
                 }
             }
+            
         } else {
+            
             RRItemsViewItem *view = [self getSubviewForIndex:index];
             if (view != nil) {
                 [self enqueueReusableItemView:view];
             }
+            
         }
     }
 }
 
 - (RRItemsViewItem *)getSubviewForIndex:(NSUInteger)index
 {
-    // TODO: cache itemsCount and itemSize. Update only on reloadData;
-    CGSize itemSize = [self itemSize];
-    
-    CGFloat x = _orientation == RRItemsViewOrientationHorizontal ? index * itemSize.width : 0;
-    CGFloat y = _orientation == RRItemsViewOrientationVertical ? index * itemSize.height : 0;
-    CGRect itemViewFrame = CGRectMake(x, y, itemSize.width, itemSize.height);
+    CGFloat x = _orientation == RRItemsViewOrientationHorizontal ? index * _itemSize.width : 0;
+    CGFloat y = _orientation == RRItemsViewOrientationVertical ? index * _itemSize.height : 0;
+    CGRect itemViewFrame = CGRectMake(x, y, _itemSize.width, _itemSize.height);
     
     NSArray *subviews = self.subviews;
     for (RRItemsViewItem *subview in subviews) {
+        
+        if ([_reusableViews containsObject:subviews]) {
+            continue;
+        }
+        
         if (CGRectEqualToRect(subview.frame, itemViewFrame)) {
             return subview;
         }
@@ -148,7 +162,8 @@
 - (void)enqueueReusableItemView:(RRItemsViewItem *)itemView
 {
     itemView.index = nil;
-    [itemView clearContent];
+    itemView.hidden = YES;
+//    [itemView clearContent];
     [_reusableViews addObject:itemView];
 }
 
@@ -159,27 +174,37 @@
     }
     
     RRItemsViewItem *reusableView = [_reusableViews objectAtIndex:0];
+    reusableView.hidden = NO;
     [_reusableViews removeObject:reusableView];
     
     return reusableView;
 }
 
-- (NSUInteger)itemsCount
+- (NSUInteger)dataSourceItemsCount
 {
-    if ([_dataSource respondsToSelector:@selector(itemsViewItemsCount:)]) {
-        return [_dataSource itemsViewItemsCount:self];
+    if ([self.dataSource respondsToSelector:@selector(itemsViewItemsCount:)]) {
+        return [self.dataSource itemsViewItemsCount:self];
     }
     
     return 0;
 }
 
-- (CGSize)itemSize
+- (CGSize)dataSourceItemSize
 {
-    if ([_dataSource respondsToSelector:@selector(itemsViewItemSize:)]) {
-        return [_dataSource itemsViewItemSize:self];
+    if ([self.dataSource respondsToSelector:@selector(itemsViewItemSize:)]) {
+        return [self.dataSource itemsViewItemSize:self];
     }
     
     return CGSizeZero;
+}
+
+- (RRItemsViewItem *)dataSourceItemViewForIndex:(RRItemsViewIndex *)index
+{
+    if ([self.dataSource respondsToSelector:@selector(itemsView:itemViewForIndex:)]) {
+        return [self.dataSource itemsView:self itemViewForIndex:index];
+    }
+    
+    return nil;
 }
 
 - (void)tapGesture:(UITapGestureRecognizer *)recognizer
