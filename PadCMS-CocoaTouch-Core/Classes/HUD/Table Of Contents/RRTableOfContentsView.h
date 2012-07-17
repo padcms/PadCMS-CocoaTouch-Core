@@ -43,5 +43,6 @@
 - (void)reloadData;
 - (void)hideTableOfContents;
 - (void)setTableOfContentsButtonsVisible:(BOOL)visible;
+- (void)stylizeElementsWithOptions:(NSDictionary *)options;
 
 @end

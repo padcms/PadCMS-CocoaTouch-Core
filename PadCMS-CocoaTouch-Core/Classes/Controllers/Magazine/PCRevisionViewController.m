@@ -185,6 +185,14 @@
     _tableOfContentsView.dataSource = self;
     _tableOfContentsView.delegate = self;
     [self.view addSubview:_tableOfContentsView];
+    
+    if (revision.color != nil)
+    {
+        NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
+    
+        [_tableOfContentsView stylizeElementsWithOptions:options];
+    }
+
 }
 
 - (void)destroyHUD
@@ -1429,7 +1437,7 @@
 
 
 -(void)tapAction:(UIGestureRecognizer*)sender
-{/*
+{
     NSLog(@"tapAction:");
     
     if (revision.horizontalOrientation) {
@@ -1495,7 +1503,7 @@
             shareMenu.alpha = 0;
         }
         
-    }];*/
+    }];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {

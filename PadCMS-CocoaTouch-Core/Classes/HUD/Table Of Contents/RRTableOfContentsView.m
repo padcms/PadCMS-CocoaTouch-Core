@@ -11,22 +11,34 @@
 #import "RRItemsViewIndex.h"
 #import "RRItemsViewItem.h"
 #import "RRTableOfContentsItem.h"
+#import "PCStyler.h"
+#import "PCConfig.h"
+#import "PCDefaultStyleElements.h"
+
+#define TopBarHeight 43
 
 @interface RRTableOfContentsView ()
 {
     UIView *_topBarView;
-
+    
     BOOL _topTableOfContentsVisible;
     UIButton *_topTableOfContentsButton;
     RRItemsView *_topTableOfContentsView;
     UIView *_topTableOfContentsBackgroundView;
     
+    BOOL _bottomTableOfContentsVisible;
+    UIButton *_bottomTableOfContentsButton;
+    RRItemsView *_bottomTableOfContentsView;
+    UIView *_bottomTableOfContentsBackgroundView;
+    
     UIView *_tintView;
 }
 
 - (void)topTableOfContentsButtonAction:(UIButton *)sender;
+- (void)bottomTableOfContentsButtonAction:(UIButton *)sender;
 - (void)tintViewTapped:(UIGestureRecognizer *)recognizer;
 - (void)animateTopTableOfContents;
+- (void)animateBottomTableOfContents;
 
 @end
 
@@ -39,66 +51,116 @@
     self = [super initWithFrame:frame];
     
     if (self) {
-
+        
         self.backgroundColor = [UIColor clearColor];
-
+        
         _topTableOfContentsVisible = NO;
-
+        _bottomTableOfContentsVisible = NO;
+        
         _tintView = [[UIView alloc] initWithFrame:frame];
         _tintView.backgroundColor = [UIColor blackColor];
         _tintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
         _tintView.alpha = 0;
         [self addSubview:_tintView];
-
+        
         UITapGestureRecognizer *tintViewTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self 
                                                                                                        action:@selector(tintViewTapped:)];
         tintViewTapGestureRecognizer.numberOfTapsRequired = 1;
         tintViewTapGestureRecognizer.numberOfTouchesRequired = 1;
         [_tintView addGestureRecognizer:tintViewTapGestureRecognizer];
         [tintViewTapGestureRecognizer release];
-
-        _topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -43, self.bounds.size.width, 43)];
+        
+        _topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
         _topBarView.backgroundColor = [UIColor blackColor];
         _topBarView.alpha = 0;
         _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
         [self addSubview:_topBarView];
         
-        // top table of contents
-        _topTableOfContentsButton = [[UIButton alloc] init];
-//        _topTableOfContentsButton.hidden = YES;
-        _topTableOfContentsButton.frame = CGRectMake(frame.size.width - 100, 0, 50, 50);
-        _topTableOfContentsButton.backgroundColor = [UIColor redColor];
-        _topTableOfContentsButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
-        [_topTableOfContentsButton addTarget:self
-                                      action:@selector(topTableOfContentsButtonAction:) 
-                            forControlEvents:UIControlEventTouchUpInside];
-        [self addSubview:_topTableOfContentsButton];
         
+        NSDictionary *topTableOfContentsConfig = [PCConfig topTableOfContentsConfig];
+        BOOL showTopTableOfContents = NO;
         
+        if (topTableOfContentsConfig != nil) {
+            showTopTableOfContents = [[topTableOfContentsConfig valueForKey:@"Enabled"] boolValue];
+        }
         
-        _topTableOfContentsBackgroundView = [[UIView alloc] init];
-        _topTableOfContentsBackgroundView.backgroundColor = [UIColor redColor];
-        _topTableOfContentsBackgroundView.alpha = 0.5f;
-        _topTableOfContentsBackgroundView.frame = CGRectMake(0,
-                                                             -(frame.size.height / 2),
-                                                             frame.size.width,
-                                                             frame.size.height / 2);
-        _topTableOfContentsBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-        [self addSubview:_topTableOfContentsBackgroundView];
-
+        if (showTopTableOfContents) {
+            // top table of contents
+            _topTableOfContentsButton = [[UIButton alloc] init];
+            _topTableOfContentsButton.frame = CGRectMake(frame.size.width - 100, 0, 50, 50);
+            //        _topTableOfContentsButton.backgroundColor = [UIColor redColor];
+            _topTableOfContentsButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
+            [_topTableOfContentsButton addTarget:self
+                                          action:@selector(topTableOfContentsButtonAction:) 
+                                forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_topTableOfContentsButton];
+            
+            
+            
+            _topTableOfContentsBackgroundView = [[UIView alloc] init];
+            _topTableOfContentsBackgroundView.backgroundColor = [UIColor redColor];
+            _topTableOfContentsBackgroundView.alpha = 0.5f;
+            _topTableOfContentsBackgroundView.frame = CGRectMake(0,
+                                                                 -(frame.size.height / 2),
+                                                                 frame.size.width,
+                                                                 frame.size.height / 2);
+            _topTableOfContentsBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+            [self addSubview:_topTableOfContentsBackgroundView];
+            
+            
+            _topTableOfContentsView = [[RRItemsView alloc] initWithOrientation:RRItemsViewOrientationHorizontal];
+            _topTableOfContentsView.backgroundColor = [UIColor clearColor];
+            _topTableOfContentsView.dataSource = self;
+            _topTableOfContentsView.delegate = self;
+            _topTableOfContentsView.frame = CGRectMake(0,
+                                                       -(frame.size.height / 2),
+                                                       frame.size.width,
+                                                       frame.size.height / 2);
+            _topTableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+            [self addSubview:_topTableOfContentsView];
+        }
         
-        _topTableOfContentsView = [[RRItemsView alloc] initWithOrientation:RRItemsViewOrientationHorizontal];
-        _topTableOfContentsView.backgroundColor = [UIColor clearColor];
-//        _topTableOfContentsView.alpha = 0.5f;
-        _topTableOfContentsView.dataSource = self;
-        _topTableOfContentsView.delegate = self;
-        _topTableOfContentsView.frame = CGRectMake(0,
-                                                   -(frame.size.height / 2),
-                                                   frame.size.width,
-                                                   frame.size.height / 2);
-        _topTableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-        [self addSubview:_topTableOfContentsView];
+        NSDictionary *bottomTableOfContentsConfig = [PCConfig bottomTableOfContentsConfig];
+        BOOL showBottomTableOfContents = NO;
         
+        if (bottomTableOfContentsConfig != nil) {
+            showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:@"Enabled"] boolValue];
+        }
+        
+        if (showBottomTableOfContents) {
+            // bottom table of contents
+            _bottomTableOfContentsButton = [[UIButton alloc] init];
+            _bottomTableOfContentsButton.frame = CGRectMake(100, frame.size.height - 50, 50, 50);
+            _bottomTableOfContentsButton.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+            [_bottomTableOfContentsButton addTarget:self
+                                             action:@selector(bottomTableOfContentsButtonAction:) 
+                                   forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_bottomTableOfContentsButton];
+            
+            
+            
+            _bottomTableOfContentsBackgroundView = [[UIView alloc] init];
+            _bottomTableOfContentsBackgroundView.backgroundColor = [UIColor blackColor];
+            _bottomTableOfContentsBackgroundView.alpha = 0.5f;
+            _bottomTableOfContentsBackgroundView.frame = CGRectMake(0,
+                                                                    frame.size.height,
+                                                                    frame.size.width,
+                                                                    frame.size.height / 3);
+            _bottomTableOfContentsBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+            [self addSubview:_bottomTableOfContentsBackgroundView];
+            
+            
+            _bottomTableOfContentsView = [[RRItemsView alloc] initWithOrientation:RRItemsViewOrientationHorizontal];
+            _bottomTableOfContentsView.backgroundColor = [UIColor clearColor];
+            _bottomTableOfContentsView.dataSource = self;
+            _bottomTableOfContentsView.delegate = self;
+            _bottomTableOfContentsView.frame = CGRectMake(0,
+                                                          frame.size.height,
+                                                          frame.size.width,
+                                                          frame.size.height / 3);
+            _bottomTableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+            [self addSubview:_bottomTableOfContentsView];
+        }
     }
     
     return self;
@@ -109,31 +171,39 @@
     [self animateTopTableOfContents];
 }
 
+- (void)bottomTableOfContentsButtonAction:(UIButton *)sender
+{
+    [self animateBottomTableOfContents];
+}
+
 - (void)tintViewTapped:(UIGestureRecognizer *)recognizer
 {
     if (_topTableOfContentsVisible) {
         [self animateTopTableOfContents];
-        return;
+    }
+    
+    if (_bottomTableOfContentsVisible) {
+        [self animateBottomTableOfContents];
     }
 }
 
 - (void)animateTopTableOfContents
 {
     CGPoint visibleTopBarViewCenter = CGPointMake(_topBarView.center.x,
-                                                  _topBarView.center.y + 43);
+                                                  _topBarView.center.y + TopBarHeight);
     CGPoint hiddenTopBarViewCenter = CGPointMake(_topBarView.center.x,
-                                                 _topBarView.center.y - 43);
-
+                                                 _topBarView.center.y - TopBarHeight);
+    
     
     CGPoint visibleTopTableOfContentsViewCenter = CGPointMake(_topTableOfContentsView.center.x,
-                                                              _topTableOfContentsView.center.y + (self.bounds.size.height / 2) + 43);
+                                                              _topTableOfContentsView.center.y + (self.bounds.size.height / 2) + TopBarHeight);
     CGPoint hiddenTopTableOfContentsViewCenter = CGPointMake(_topTableOfContentsView.center.x,
-                                                             _topTableOfContentsView.center.y - (self.bounds.size.height / 2) - 43);
+                                                             _topTableOfContentsView.center.y - (self.bounds.size.height / 2) - TopBarHeight);
     
     CGPoint visibleTopTableOfContentsButtonCenter = CGPointMake(_topTableOfContentsButton.center.x,
-                                                                _topTableOfContentsButton.center.y + (self.bounds.size.height / 2) + 43);
+                                                                _topTableOfContentsButton.center.y + (self.bounds.size.height / 2) + TopBarHeight);
     CGPoint hiddenTopTableOfContentsButtonCenter = CGPointMake(_topTableOfContentsButton.center.x,
-                                                               _topTableOfContentsButton.center.y - (self.bounds.size.height / 2) - 43);
+                                                               _topTableOfContentsButton.center.y - (self.bounds.size.height / 2) - TopBarHeight);
     
     void (^animationBlock)() = nil;
     void (^animationCompletionBlock)(BOOL finish) = nil;
@@ -187,15 +257,95 @@
                      completion:animationCompletionBlock];
 }
 
+- (void)animateBottomTableOfContents
+{
+    CGPoint visibleTopBarViewCenter = CGPointMake(_topBarView.center.x,
+                                                  _topBarView.center.y + TopBarHeight);
+    CGPoint hiddenTopBarViewCenter = CGPointMake(_topBarView.center.x,
+                                                 _topBarView.center.y - TopBarHeight);
+    
+    
+    CGPoint visibleBottomTableOfContentsViewCenter = CGPointMake(_bottomTableOfContentsView.center.x,
+                                                                 _bottomTableOfContentsView.center.y - (_bottomTableOfContentsView.bounds.size.height));
+    CGPoint hiddenBottomTableOfContentsViewCenter = CGPointMake(_bottomTableOfContentsView.center.x,
+                                                                _bottomTableOfContentsView.center.y + (_bottomTableOfContentsView.bounds.size.height));
+    
+    CGPoint visibleBottomTableOfContentsButtonCenter = CGPointMake(_bottomTableOfContentsButton.center.x,
+                                                                   _bottomTableOfContentsButton.center.y - (_bottomTableOfContentsView.bounds.size.height));
+    CGPoint hiddenBottomTableOfContentsButtonCenter = CGPointMake(_bottomTableOfContentsButton.center.x,
+                                                                  _bottomTableOfContentsButton.center.y + (_bottomTableOfContentsView.bounds.size.height));
+    
+    void (^animationBlock)() = nil;
+    void (^animationCompletionBlock)(BOOL finish) = nil;
+    
+    if (_bottomTableOfContentsVisible) {
+        
+        _tintView.alpha = 0.3f;
+        
+        if ([self.delegate respondsToSelector:@selector(tableOfContentsViewWillHideTableOfContents:)]) {
+            [self.delegate tableOfContentsViewWillHideTableOfContents:self];
+        }
+        
+        animationBlock = ^() {
+            _topBarView.center = hiddenTopBarViewCenter;
+            _bottomTableOfContentsView.center = hiddenBottomTableOfContentsViewCenter;
+            _bottomTableOfContentsBackgroundView.center = hiddenBottomTableOfContentsViewCenter;
+            _bottomTableOfContentsButton.center = hiddenBottomTableOfContentsButtonCenter;
+            _tintView.alpha = 0;
+        };
+        
+        animationCompletionBlock = ^(BOOL finished) {
+            _bottomTableOfContentsVisible = NO;
+        };
+        
+        
+    } else {
+        
+        _tintView.alpha = 0;
+        
+        if ([self.delegate respondsToSelector:@selector(tableOfContentsViewWillShowTableOfContents:)]) {
+            [self.delegate tableOfContentsViewWillShowTableOfContents:self];
+        }
+        
+        animationBlock = ^() {
+            _topBarView.center = visibleTopBarViewCenter;
+            _bottomTableOfContentsView.center = visibleBottomTableOfContentsViewCenter;
+            _bottomTableOfContentsBackgroundView.center = visibleBottomTableOfContentsViewCenter;
+            _bottomTableOfContentsButton.center = visibleBottomTableOfContentsButtonCenter;
+            _tintView.alpha = 0.3f;
+        };
+        
+        animationCompletionBlock = ^(BOOL finished) {
+            _bottomTableOfContentsVisible = YES;
+        };
+    }
+    
+    [UIView animateWithDuration:0.3f 
+                          delay:0 
+                        options:UIViewAnimationCurveEaseInOut 
+                     animations:animationBlock 
+                     completion:animationCompletionBlock];
+}
+
 - (void)reloadData
 {
-    [_topTableOfContentsView reloadData];
+    if (_topTableOfContentsView != nil) {
+        [_topTableOfContentsView reloadData];
+    }
+    
+    if (_bottomTableOfContentsView != nil) {
+        [_bottomTableOfContentsView reloadData];
+    }
 }
 
 - (void)hideTableOfContents
 {
     if (_topTableOfContentsVisible) {
         [self animateTopTableOfContents];
+    }
+    
+    if (_bottomTableOfContentsVisible) {
+        [self animateBottomTableOfContents];
     }
 }
 
@@ -229,7 +379,7 @@
     if (item == nil) {
         item = [[[RRTableOfContentsItem alloc] init] autorelease];
     }
-
+    
     if ([self.dataSource respondsToSelector:@selector(tableOfContentsView:imageForIndex:)]) {
         [item setImage:[self.dataSource tableOfContentsView:self imageForIndex:index.row]];
     }
@@ -248,7 +398,13 @@
 
 - (CGSize)itemsViewItemSize:(RRItemsView *)itemsView
 {
-    return CGSizeMake(150, self.bounds.size.height / 2);
+    if (itemsView == _topTableOfContentsView) {
+        return CGSizeMake(150, self.bounds.size.height / 2);
+    } else if (itemsView == _bottomTableOfContentsView) {
+        return CGSizeMake(150, self.bounds.size.height / 3);
+    }
+    
+    return CGSizeZero;
 }
 
 - (void)setTableOfContentsButtonsVisible:(BOOL)visible
@@ -256,6 +412,24 @@
     [UIView animateWithDuration:0.3f animations:^{
         _topTableOfContentsButton.hidden = !visible; 
     }];
+}
+
+- (void)stylizeElementsWithOptions:(NSDictionary *)options
+{
+    [[PCStyler defaultStyler] stylizeElement:_topTableOfContentsButton withStyleName:PCTopTocButtonKey withOptions:options];
+    
+    [_topTableOfContentsButton setFrame:CGRectMake(self.frame.size.width - _topTableOfContentsButton.frame.size.width - 20, 
+                                                   0,
+                                                   _topTableOfContentsButton.frame.size.width,
+                                                   _topTableOfContentsButton.frame.size.height)];
+    
+    
+    [[PCStyler defaultStyler] stylizeElement:_bottomTableOfContentsButton withStyleName:PCTocButtonKey withOptions:options];
+    
+    [_bottomTableOfContentsButton setFrame:CGRectMake(0, 
+                                                      MAX(self.frame.size.height, self.frame.size.width) - _bottomTableOfContentsButton.frame.size.height,
+                                                      _bottomTableOfContentsButton.frame.size.width,
+                                                      _bottomTableOfContentsButton.frame.size.height)];
 }
 
 @end
