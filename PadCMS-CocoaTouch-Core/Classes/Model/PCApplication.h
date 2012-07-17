@@ -86,4 +86,9 @@
  */
 - (PCIssue *)issueForRevisionWithId:(NSInteger)identifier;
 
+/**
+ @brief Return YES if at least one issue has a product identifier
+ */
+- (BOOL) hasIssuesProductID;
+
 @end

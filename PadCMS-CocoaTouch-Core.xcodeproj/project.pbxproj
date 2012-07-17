@@ -1054,6 +1054,9 @@
 		60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFA158F45EE00E3E98A /* topNav_b.png */; };
 		60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFB158F45EE00E3E98A /* topNav_m.png */; };
 		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
+		840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
+		840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */; };
+		840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
 		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
 		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
 		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
@@ -1086,6 +1089,7 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
 				60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */,
@@ -2155,6 +2159,8 @@
 		60A5DCFA158F45EE00E3E98A /* topNav_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_b.png; sourceTree = "<group>"; };
 		60A5DCFB158F45EE00E3E98A /* topNav_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_m.png; sourceTree = "<group>"; };
 		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
+		840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuView.h; sourceTree = "<group>"; };
+		840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSubscriptionsMenuView.m; sourceTree = "<group>"; };
 		ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
 		ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
 		ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
@@ -3247,6 +3253,8 @@
 				607F43EC1588E19D0097D960 /* PCCustomPageControll.m */,
 				607F43ED1588E19D0097D960 /* PCFlashButton.h */,
 				607F43EE1588E19D0097D960 /* PCFlashButton.m */,
+				840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */,
+				840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -3839,6 +3847,7 @@
 				6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */,
 				C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */,
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
+				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4286,6 +4295,7 @@
 				6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */,
 				C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */,
 				C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */,
+				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4538,6 +4548,7 @@
 				C50E499615AEA20E00222413 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
