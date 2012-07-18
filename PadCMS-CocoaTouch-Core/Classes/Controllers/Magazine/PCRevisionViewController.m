@@ -1489,9 +1489,9 @@
 
 -(IBAction)subscriptionsAction:(id)sender
 {
+    CGRect popupRect = CGRectMake(subscriptionButton.frame.origin.x-100, subscriptionButton.frame.size.height, subscriptionButton.frame.size.width, 500);
     if (!subscriptionsMenu)
     {
-        CGRect popupRect = CGRectMake(subscriptionButton.frame.origin.x-100, subscriptionButton.frame.size.height, subscriptionButton.frame.size.width, 500);
         NSLog(@"subscriptionButton.frame - %@", NSStringFromCGRect(subscriptionButton.frame));
         NSLog(@"popupRect - %@", NSStringFromCGRect(popupRect));
         subscriptionsMenu = [[PCSubscriptionsMenuView alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
@@ -1499,6 +1499,7 @@
         [self.view addSubview:subscriptionsMenu];
         subscriptionsMenu.hidden = YES;
     }
+    [subscriptionsMenu updateFrame:popupRect];
     subscriptionsMenu.hidden = !subscriptionsMenu.hidden;
     subscriptionsMenu.alpha = subscriptionsMenu.hidden?0.0:1.0;
 }

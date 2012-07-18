@@ -52,6 +52,11 @@
     [self addSubview:renewButton];
 }
 
+- (void)updateFrame:(CGRect)frame
+{
+    self.frame = CGRectMake(frame.origin.x, frame.origin.y, self.frame.size.width, self.frame.size.height);
+}
+
 - (void)subscribe
 {
     self.hidden = YES;

@@ -23,5 +23,6 @@
 @property (nonatomic, assign) BOOL needRestoreIssues;
 
 - (id)initWithFrame:(CGRect)frame andSubscriptionFlag:(BOOL) isIssuesToRestore;
+- (void) updateFrame:(CGRect)frame;
 
 @end
