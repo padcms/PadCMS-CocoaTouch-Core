@@ -19,9 +19,11 @@
 - (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
            indexDidSelected:(NSUInteger)index;
 @optional
-- (void)tableOfContentsViewWillShowTableOfContents:(RRTableOfContentsView *)tableOfContentsView;
+- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
+    willShowTableOfContents:(RRItemsView *)itemsView;
 @optional
-- (void)tableOfContentsViewWillHideTableOfContents:(RRTableOfContentsView *)tableOfContentsView;
+- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
+    willHideTableOfContents:(RRItemsView *)itemsView;
 
 @end
 
@@ -42,6 +44,11 @@
 
 @property (assign, nonatomic) id<RRTableOfContentsViewDataSource> dataSource;
 @property (assign, nonatomic) id<RRTableOfContentsViewDelegate> delegate;
+
+@property (readonly) UIButton *topTableOfContentsButton;
+@property (readonly) RRItemsView *topTableOfContentsView;
+@property (readonly) UIButton *bottomTableOfContentsButton;
+@property (readonly) RRItemsView *bottomTableOfContentsView;
 
 - (void)reloadData;
 - (void)hideTableOfContents;

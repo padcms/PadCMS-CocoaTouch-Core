@@ -162,7 +162,7 @@
 - (void)enqueueReusableItemView:(RRItemsViewItem *)itemView
 {
     itemView.index = nil;
-    itemView.hidden = YES;
+//    itemView.hidden = YES;
 //    [itemView clearContent];
     [_reusableViews addObject:itemView];
 }
@@ -218,7 +218,7 @@
             
             [UIView animateWithDuration:0.3f 
                              animations:^{
-                                 subview.backgroundColor = [UIColor blueColor];
+                                 subview.backgroundColor = [UIColor whiteColor];
                              } completion:^(BOOL finished) {
                                  [UIView animateWithDuration:0.3f 
                                                   animations:^{

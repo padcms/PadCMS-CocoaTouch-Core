@@ -57,7 +57,7 @@
 @interface PCRevisionViewController()
 {
     NSMutableArray *_activeTableOfContentsItems;
-    RRTableOfContentsView *_tableOfContentsView;
+    RRTableOfContentsView *_hudView;
 }
 
 - (void)createHUD;
@@ -180,26 +180,28 @@
 
 - (void)createHUD
 {
-    _tableOfContentsView = [[RRTableOfContentsView alloc] initWithFrame:self.view.bounds];
-    _tableOfContentsView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _tableOfContentsView.dataSource = self;
-    _tableOfContentsView.delegate = self;
-    [self.view addSubview:_tableOfContentsView];
+    _hudView = [[RRTableOfContentsView alloc] initWithFrame:self.view.bounds];
+    _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _hudView.dataSource = self;
+    _hudView.delegate = self;
+    [self.view addSubview:_hudView];
     
     if (revision.color != nil)
     {
         NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
     
-        [_tableOfContentsView stylizeElementsWithOptions:options];
+        [_hudView stylizeElementsWithOptions:options];
     }
 
+    _hudView.bottomTableOfContentsButton.hidden = YES;
+    _hudView.bottomTableOfContentsButton.alpha = 0;
 }
 
 - (void)destroyHUD
 {
-    if (_tableOfContentsView != nil) {
-        [_tableOfContentsView removeFromSuperview];
-        [_tableOfContentsView release];
+    if (_hudView != nil) {
+        [_hudView removeFromSuperview];
+        [_hudView release];
     }
 
     if (_activeTableOfContentsItems != nil) {
@@ -263,9 +265,9 @@
         }
     }
     
-    [_tableOfContentsView reloadData];
+    [_hudView reloadData];
     
-    [self.view bringSubviewToFront:_tableOfContentsView];
+    [self.view bringSubviewToFront:_hudView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -994,7 +996,7 @@
     }
 
     [self createHUD];
-    [_tableOfContentsView reloadData];
+    [_hudView reloadData];
 }
 
 
@@ -1149,23 +1151,33 @@
 
 - (void) horizontalTapAction:(id) sender
 {
-    /*
-    NSLog(@"tapAction sender=%@",NSStringFromCGPoint([sender locationInView:[sender view]]));
+    if (_hudView.bottomTableOfContentsView == nil) {
+        return;
+    }
+
     [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
 
-    if (![horizontalSummaryView.subviews count] > 0)
-    {
-        [self createHorizontalSummary];
+    if (horizontalTopMenuView.hidden) {
+        horizontalTopMenuView.hidden = NO;
+        horizontalTopMenuView.alpha = 0.75f;
+        [self.view bringSubviewToFront:horizontalTopMenuView];
+    } else {
+        horizontalTopMenuView.hidden = YES;
+        horizontalTopMenuView.alpha = 0;
     }
     
-    horizontalSummaryView.hidden = !horizontalSummaryView.hidden;
-    horizontalSummaryView.alpha = horizontalSummaryView.hidden?0.0:1.0;
-    [self.view bringSubviewToFront:horizontalSummaryView];
-    
-    horizontalTopMenuView.hidden = !horizontalTopMenuView.hidden;
-    horizontalTopMenuView.alpha = horizontalTopMenuView.hidden?0.0:1.0;
-    [self.view bringSubviewToFront:horizontalTopMenuView];
-     */
+    if (_hudView.bottomTableOfContentsButton.hidden) {
+        if (revision != nil && revision.horisontalTocItems != nil && revision.horisontalTocItems > 0) {
+            _hudView.bottomTableOfContentsButton.hidden = NO;
+            _hudView.bottomTableOfContentsButton.alpha = 1;
+        } else {
+            _hudView.bottomTableOfContentsButton.hidden = YES;
+            _hudView.bottomTableOfContentsButton.alpha = 0;
+        }
+    } else {
+        _hudView.bottomTableOfContentsButton.hidden = YES;
+        [self hideMenus];
+    }
 }
 
 -(PCPageViewController*)showPage:(PCPage*)page
@@ -1428,9 +1440,11 @@
 }
 
 
--(void)tapAction:(UIGestureRecognizer*)sender
+- (void)tapAction:(UIGestureRecognizer *)sender
 {
-/*    NSLog(@"tapAction:");
+    if (_hudView.bottomTableOfContentsView == nil) {
+        return;
+    }
     
     if (revision.horizontalOrientation) {
         [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
@@ -1459,22 +1473,24 @@
                 PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocStripeIndex];
                 NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
                 BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
-                if (fileExists) 
-                {
-                    tableOfContentButton.hidden = !tableOfContentButton.hidden;
-                } 
-            
-                else 
-                {
-                    tableOfContentButton.hidden = YES;
+
+                if (fileExists) {
+//                    tableOfContentButton.hidden = !tableOfContentButton.hidden;
+                    _hudView.bottomTableOfContentsButton.hidden = !_hudView.bottomTableOfContentsButton.hidden;
+                } else {
+//                    tableOfContentButton.hidden = YES;
+                    _hudView.bottomTableOfContentsButton.hidden = YES;
                 }
-                tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
+//                tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
+                _hudView.bottomTableOfContentsButton.alpha = _hudView.bottomTableOfContentsButton.hidden ? 0 : 1;
              }
         } 
         
         else {
-            tableOfContentButton.hidden = YES;
-            tableOfContentButton.alpha = 0;
+//            tableOfContentButton.hidden = YES;
+//            tableOfContentButton.alpha = 0;
+            _hudView.bottomTableOfContentsButton.hidden = YES;
+            _hudView.bottomTableOfContentsButton.alpha = 0;
         }
         
         if (!tableOfContentsView.hidden) {
@@ -1484,6 +1500,7 @@
         
         topMenuView.hidden = !topMenuView.hidden;
         topMenuView.alpha = topMenuView.hidden ? 0 : 1;
+        [self.view bringSubviewToFront:topMenuView];
         
         if (!topSummaryView.hidden) {
             topSummaryView.hidden = YES;
@@ -1495,7 +1512,7 @@
             shareMenu.alpha = 0;
         }
         
-    }];*/
+    }];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
@@ -1655,6 +1672,8 @@
     [shareMenu setHidden:YES];
     [tableOfContentsView setHidden:YES];
     [tableOfContentButton setHidden:YES];
+    [_hudView hideTableOfContents];
+    _hudView.bottomTableOfContentsButton.hidden = YES;
     [topSummaryView setHidden:YES];
     [topMenuView setHidden:YES];
     [horizontalSummaryView setHidden:YES];
@@ -1985,28 +2004,42 @@
     }
 }
 
-- (void)tableOfContentsViewWillShowTableOfContents:(RRTableOfContentsView *)tableOfContentsView
+- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView
+    willShowTableOfContents:(RRItemsView *)itemsView
 {
-    topMenuView.hidden = NO;
-    topMenuView.alpha = 0.5f;
-    [topMenuView.superview bringSubviewToFront:topMenuView];
-    
-    horizontalTopMenuView.hidden = NO;
-    horizontalTopMenuView.alpha = 0.5f;
-    [horizontalTopMenuView.superview bringSubviewToFront:horizontalTopMenuView];
+    if (itemsView == _hudView.topTableOfContentsView) {
+        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            topMenuView.hidden = NO;
+            topMenuView.alpha = 0.75f;
+            [topMenuView.superview bringSubviewToFront:topMenuView];
+        } else {
+            [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+            horizontalTopMenuView.hidden = NO;
+            horizontalTopMenuView.alpha = 0.75;
+            [self.view bringSubviewToFront:horizontalTopMenuView];
+        }
+        
+    }
 }
 
-- (void)tableOfContentsViewWillHideTableOfContents:(RRTableOfContentsView *)tableOfContentsView
+- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
+    willHideTableOfContents:(RRItemsView *)itemsView
 {
-    if (shareMenu != nil) {
-        shareMenu.hidden = YES;
-    } 
-    
-    topMenuView.hidden = YES;
-    topMenuView.alpha = 0;
-
-    horizontalTopMenuView.hidden = YES;
-    horizontalTopMenuView.alpha = 0;
+    if (itemsView == _hudView.topTableOfContentsView) {
+        if (shareMenu != nil) {
+            shareMenu.hidden = YES;
+        } 
+        
+        if (topSummaryView != nil) {
+            topSummaryView.hidden = YES;
+        }   
+        
+        topMenuView.hidden = YES;
+        topMenuView.alpha = 0;
+        
+        horizontalTopMenuView.hidden = YES;
+        horizontalTopMenuView.alpha = 0;
+    }
 }
 
 @end

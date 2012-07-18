@@ -46,6 +46,10 @@ NSString *EnabledKey = @"Enabled";
 @implementation RRTableOfContentsView
 @synthesize dataSource;
 @synthesize delegate;
+@synthesize topTableOfContentsButton = _topTableOfContentsButton;
+@synthesize topTableOfContentsView = _topTableOfContentsView;
+@synthesize bottomTableOfContentsButton = _bottomTableOfContentsButton;
+@synthesize bottomTableOfContentsView = _bottomTableOfContentsView;
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -72,9 +76,7 @@ NSString *EnabledKey = @"Enabled";
         [tintViewTapGestureRecognizer release];
         
         _topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
-        _topBarView.backgroundColor = [UIColor blackColor];
-        _topBarView.alpha = 0;
-        _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth;
+        _topBarView.hidden = YES;
         [self addSubview:_topBarView];
         
         
@@ -176,6 +178,12 @@ NSString *EnabledKey = @"Enabled";
 {
     [super layoutSubviews];
     
+    // top bar view
+    _topBarView.frame = CGRectMake(0, 0, self.bounds.size.width, TopBarHeight);
+    
+    // tint view
+    _tintView.frame = CGRectMake(0, TopBarHeight, self.bounds.size.width, self.bounds.size.height - TopBarHeight);
+    
     // bottom table of contents
     
     CGSize bottomItemSize = [self bottomItemSize];
@@ -260,12 +268,12 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0.3f;
         
-        if ([self.delegate respondsToSelector:@selector(tableOfContentsViewWillHideTableOfContents:)]) {
-            [self.delegate tableOfContentsViewWillHideTableOfContents:self];
+        if ([self.delegate respondsToSelector:@selector(tableOfContentsView:willHideTableOfContents:)]) {
+            [self.delegate tableOfContentsView:self willHideTableOfContents:_topTableOfContentsView];
         }
         
         animationBlock = ^() {
-            _topBarView.center = hiddenTopBarViewCenter;
+//            _topBarView.center = hiddenTopBarViewCenter;
             _topTableOfContentsView.center = hiddenTopTableOfContentsViewCenter;
             _topTableOfContentsBackgroundView.center = hiddenTopTableOfContentsViewCenter;
             _topTableOfContentsButton.center = hiddenTopTableOfContentsButtonCenter;
@@ -281,12 +289,12 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0;
         
-        if ([self.delegate respondsToSelector:@selector(tableOfContentsViewWillShowTableOfContents:)]) {
-            [self.delegate tableOfContentsViewWillShowTableOfContents:self];
+        if ([self.delegate respondsToSelector:@selector(tableOfContentsView:willShowTableOfContents:)]) {
+            [self.delegate tableOfContentsView:self willShowTableOfContents:_topTableOfContentsView];
         }
         
         animationBlock = ^() {
-            _topBarView.center = visibleTopBarViewCenter;
+//            _topBarView.center = visibleTopBarViewCenter;
             _topTableOfContentsView.center = visibleTopTableOfContentsViewCenter;
             _topTableOfContentsBackgroundView.center = visibleTopTableOfContentsViewCenter;
             _topTableOfContentsButton.center = visibleTopTableOfContentsButtonCenter;
@@ -330,12 +338,12 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0.3f;
         
-        if ([self.delegate respondsToSelector:@selector(tableOfContentsViewWillHideTableOfContents:)]) {
-            [self.delegate tableOfContentsViewWillHideTableOfContents:self];
+        if ([self.delegate respondsToSelector:@selector(tableOfContentsView:willHideTableOfContents:)]) {
+            [self.delegate tableOfContentsView:self willHideTableOfContents:_bottomTableOfContentsView];
         }
         
         animationBlock = ^() {
-            _topBarView.center = hiddenTopBarViewCenter;
+//            _topBarView.center = hiddenTopBarViewCenter;
             _bottomTableOfContentsView.center = hiddenBottomTableOfContentsViewCenter;
             _bottomTableOfContentsBackgroundView.center = hiddenBottomTableOfContentsViewCenter;
             _bottomTableOfContentsButton.center = hiddenBottomTableOfContentsButtonCenter;
@@ -351,12 +359,12 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0;
         
-        if ([self.delegate respondsToSelector:@selector(tableOfContentsViewWillShowTableOfContents:)]) {
-            [self.delegate tableOfContentsViewWillShowTableOfContents:self];
+        if ([self.delegate respondsToSelector:@selector(tableOfContentsView:willShowTableOfContents:)]) {
+            [self.delegate tableOfContentsView:self willShowTableOfContents:_bottomTableOfContentsView];
         }
         
         animationBlock = ^() {
-            _topBarView.center = visibleTopBarViewCenter;
+//            _topBarView.center = visibleTopBarViewCenter;
             _bottomTableOfContentsView.center = visibleBottomTableOfContentsViewCenter;
             _bottomTableOfContentsBackgroundView.center = visibleBottomTableOfContentsViewCenter;
             _bottomTableOfContentsButton.center = visibleBottomTableOfContentsButtonCenter;
@@ -405,7 +413,7 @@ NSString *EnabledKey = @"Enabled";
             return YES;
         }
     }
-    
+
     return NO;
 }
 
@@ -492,20 +500,7 @@ NSString *EnabledKey = @"Enabled";
 {
     if ([self.dataSource respondsToSelector:@selector(tableOfContentsViewBottomItemSize:)]) {
         
-        CGSize size = [self.dataSource tableOfContentsViewBottomItemSize:self];
-        
-//        _bottomTableOfContentsView.frame = CGRectMake(_bottomTableOfContentsView.bounds.origin.x,
-//                                                      0,
-//                                                      _bottomTableOfContentsView.bounds.size.width,
-//                                                      size.height);
-        
-//        _bottomTableOfContentsBackgroundView.frame = _bottomTableOfContentsView.frame;
-        
-//        _bottomTableOfContentsButton.frame = CGRectMake(_bottomTableOfContentsButton.frame.origin.x, 
-//                                                        self.bounds.size.height - _bottomTableOfContentsButton.frame.size.height, 
-//                                                        _bottomTableOfContentsButton.frame.size.width, 
-//                                                        _bottomTableOfContentsButton.frame.size.height);
-        return size;
+        return [self.dataSource tableOfContentsViewBottomItemSize:self];
     }
     
     return CGSizeZero;
