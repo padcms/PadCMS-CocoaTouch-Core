@@ -65,6 +65,8 @@
 - (void)createHUD;
 - (void)destroyHUD;
 - (void)updateHUD;
+- (void)showTopBar;
+- (void)hideTopBar;
 
 - (void) updateViewsForCurrentIndex;
 - (void) createHorizontalView;
@@ -274,6 +276,35 @@
     [_hudView reloadData];
     
     [self.view bringSubviewToFront:_hudView];
+}
+
+- (void)showTopBar
+{
+    [self.view bringSubviewToFront:_hudView];
+
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        topMenuView.hidden = NO;
+        topMenuView.alpha = 0.75f;
+        [self.view bringSubviewToFront:topMenuView];
+    } else {
+        [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+        horizontalTopMenuView.hidden = NO;
+        horizontalTopMenuView.alpha = 0.75f;
+        [self.view bringSubviewToFront:horizontalTopMenuView];
+    }
+}
+
+- (void)hideTopBar
+{
+    topMenuView.hidden = YES;
+    topMenuView.alpha = 0;
+    [self.view sendSubviewToBack:topMenuView];
+    
+    horizontalTopMenuView.hidden = YES;
+    horizontalTopMenuView.alpha = 0;
+    [self.view sendSubviewToBack:horizontalTopMenuView];
+    
+    [self.view sendSubviewToBack:_hudView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -1177,12 +1208,14 @@
     [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
 
     if (horizontalTopMenuView.hidden) {
-        horizontalTopMenuView.hidden = NO;
-        horizontalTopMenuView.alpha = 0.75f;
-        [self.view bringSubviewToFront:horizontalTopMenuView];
+//        horizontalTopMenuView.hidden = NO;
+//        horizontalTopMenuView.alpha = 0.75f;
+//        [self.view bringSubviewToFront:horizontalTopMenuView];
+        [self showTopBar];
     } else {
-        horizontalTopMenuView.hidden = YES;
-        horizontalTopMenuView.alpha = 0;
+//        horizontalTopMenuView.hidden = YES;
+//        horizontalTopMenuView.alpha = 0;
+        [self hideTopBar];
     }
     
     if (_hudView.bottomTableOfContentsButton.hidden) {
@@ -1461,6 +1494,8 @@
 
 - (void)tapAction:(UIGestureRecognizer *)sender
 {
+    NSLog(@"self.view.subviews = %@", self.view.subviews);
+    
     if (_hudView.bottomTableOfContentsView == nil) {
         return;
     }
@@ -1517,9 +1552,15 @@
             tableOfContentsView.alpha = 0;
         }
         
-        topMenuView.hidden = !topMenuView.hidden;
-        topMenuView.alpha = topMenuView.hidden ? 0 : 1;
-        [self.view bringSubviewToFront:topMenuView];
+//        topMenuView.hidden = !topMenuView.hidden;
+//        topMenuView.alpha = topMenuView.hidden ? 0 : 1;
+//        [self.view bringSubviewToFront:topMenuView];
+
+        if (topMenuView.hidden) {
+            [self showTopBar];
+        } else {
+            [self hideTopBar];
+        }
         
         if (!topSummaryView.hidden) {
             topSummaryView.hidden = YES;
@@ -2036,11 +2077,13 @@
             
             [self showPageWithIndex:pageIndex];
         } else {
+            NSLog(@"index = %u", index);
+            
             if (index >= [self.revision.horizontalPages count]) {
                 return;
             }
             
-            [horizontalScrollView scrollRectToVisible:CGRectMake(1024*index, 0, 1024, 768) animated:YES];
+            [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
         }
     }
 }
@@ -2049,17 +2092,18 @@
     willShowTableOfContents:(RRItemsView *)itemsView
 {
     if (itemsView == _hudView.topTableOfContentsView) {
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            topMenuView.hidden = NO;
-            topMenuView.alpha = 0.75f;
-            [topMenuView.superview bringSubviewToFront:topMenuView];
-        } else {
-            [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
-            horizontalTopMenuView.hidden = NO;
-            horizontalTopMenuView.alpha = 0.75;
-            [self.view bringSubviewToFront:horizontalTopMenuView];
-        }
-        
+//        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+//            topMenuView.hidden = NO;
+//            topMenuView.alpha = 0.75f;
+//            [topMenuView.superview bringSubviewToFront:topMenuView];
+//        } else {
+//            [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+//            horizontalTopMenuView.hidden = NO;
+//            horizontalTopMenuView.alpha = 0.75;
+//            [self.view bringSubviewToFront:horizontalTopMenuView];
+//        }
+  
+        [self showTopBar];
     }
 }
 
@@ -2081,11 +2125,13 @@
             topSummaryView.hidden = YES;
         }   
         
-        topMenuView.hidden = YES;
-        topMenuView.alpha = 0;
+//        topMenuView.hidden = YES;
+//        topMenuView.alpha = 0;
+//        
+//        horizontalTopMenuView.hidden = YES;
+//        horizontalTopMenuView.alpha = 0;
         
-        horizontalTopMenuView.hidden = YES;
-        horizontalTopMenuView.alpha = 0;
+        [self hideTopBar];
     }
 }
 
