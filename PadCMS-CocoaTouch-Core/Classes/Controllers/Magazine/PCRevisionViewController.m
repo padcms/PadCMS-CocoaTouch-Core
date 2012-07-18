@@ -2067,6 +2067,12 @@
     willHideTableOfContents:(RRItemsView *)itemsView
 {
     if (itemsView == _hudView.topTableOfContentsView) {
+        
+        if (!subscriptionsMenu.hidden) {
+            subscriptionsMenu.hidden = YES;
+            subscriptionsMenu.alpha = 0;
+        }
+
         if (shareMenu != nil) {
             shareMenu.hidden = YES;
         } 
