@@ -252,8 +252,10 @@
 }
 
 -(void)handleSingleTap:(UITapGestureRecognizer*)sender
-{
+{    
     if(self.disabled) return;
+    [super tapInKiosk];
+
     
 	CGPoint location = [sender locationInView:self.galleryView];
 	PCKioskGalleryItem* touchedLayer = (PCKioskGalleryItem*)[self.galleryView.layer hitTest:location];

@@ -251,6 +251,11 @@
 
 #pragma mark - PCKioskSubviewDelegateProtocol
 
+- (void) tapInKiosk
+{
+    [self.delegate tapInKiosk];
+}
+
 - (void) downloadButtonTappedWithRevisionIndex:(NSInteger) index
 {
     [self.delegate downloadRevisionWithIndex:index];
