@@ -117,4 +117,9 @@ typedef enum _KiosqueType {
  */
 + (NSURL *)serverURL;
 
+/**
+ @brief InAppPurchases shared secret key
+ */
++ (NSString *)sharedSecretKey;
+
 @end

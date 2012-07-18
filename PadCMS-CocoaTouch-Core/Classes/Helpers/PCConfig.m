@@ -41,6 +41,7 @@ NSString const *PCConfigApplicationIdentifierKey = @"PCConfigApplicationIdentifi
 NSString const *PCConfigClientIdentifierKey = @"PCConfigClientIdentifier";
 NSString const *PCConfigDisableSearchingKey = @"PCDisableSearching";
 NSString const *PCConfigFacebookId	= @"PCConfigFacebookId";
+NSString const *PCConfigSharedSecretKey = @"PCConfigSharedSecretKey";
 NSString const *PCConfigGANAccountId = @"PCConfigGANAccountId";
 NSString const *PCConfigKiosqueType	= @"PCConfigKiosqueType";
 NSString const *PCConfigServerURLKey = @"PCConfigServerURL";
@@ -231,6 +232,18 @@ NSString const *PCStyleSheetKey = @"PCStyleSheet";
     }
     
     return facebookApplicationId;
+}
+
++ (NSString *)sharedSecretKey
+{
+    static NSString *sharedSecretKey = nil;
+    
+    if (sharedSecretKey == nil) {
+        sharedSecretKey = [[[PCConfig padCMSConfig] 
+                                  objectForKey:PCConfigSharedSecretKey] retain]; 
+    }
+    
+    return sharedSecretKey;
 }
 
 + (NSString *)googleAnalyticsAccountId
