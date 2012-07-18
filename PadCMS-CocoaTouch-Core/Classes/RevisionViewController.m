@@ -69,7 +69,9 @@
 
 -(void)configureContentScrollForPage:(PCPage*)page
 {
-	//configue contentsize
+	//Contentsize configuration
+	//After every page changing we need to recalculate content size of the revision scroll view depending on links of current page. Content size must allow scrolling to neighbour pages, and at the same time block scroll in direction where page links are empty (nil).
+	
 	if (!page) return;
 	CGFloat pageWidth = self.view.bounds.size.width;
 	CGFloat pageHeight = self.view.bounds.size.height;
@@ -79,11 +81,13 @@
 	int heightMultiplier = 1;
 	if (page.topPage) heightMultiplier++;
 	if (page.bottomPage) heightMultiplier++;
+	//To prevent calling delegate methods after changing content size delegate set to nil
 	_contentScrollView.delegate = nil;
 	_contentScrollView.contentSize = CGSizeMake(pageWidth*widthMultiplier, pageHeight*heightMultiplier);
 	_contentScrollView.delegate = self;
 	
 	//configure offset
+	//We need to determin the position of current page after changing content size
 	CGFloat dx = page.leftPage?pageWidth:0;
 	CGFloat dy = page.topPage?pageHeight:0;
 	//_contentScrollView.contentOffset = CGPointMake(dx, dy);
@@ -119,12 +123,15 @@
 	CGFloat dy = _currentPageViewController.page.topPage ? pageHeight : 0;
 	CGRect nextPageViewFrame = self.currentPageViewController.view.frame;
 	PCPage* nextPage = nil;
+	//This if determin the direction of scroll (horizontal or vertical)
 	if ((!_currentPageViewController.page.topPage && !_currentPageViewController.page.bottomPage) || abs(dx-scrollView.contentOffset.x)>abs(dy-scrollView.contentOffset.y))
 	{
+		//This code prevent any diagonal scrolling
 		CGRect scrollBounds = scrollView.bounds;
 		scrollBounds.origin = CGPointMake(scrollView.contentOffset.x, dy);
 		_contentScrollView.bounds = scrollBounds;
 		
+		//here we determin the direction of horizontal scroll (right or left)
 		if (scrollView.contentOffset.x > dx ) {
 			NSLog(@"right");
 			nextPage = _currentPageViewController.page.rightPage;
@@ -138,10 +145,12 @@
 	}
 	else
 	{
+		//This code prevent any diagonal scrolling
 		CGRect scrollBounds = scrollView.bounds;
 		scrollBounds.origin = CGPointMake(dx, scrollView.contentOffset.y);
 		_contentScrollView.bounds = scrollBounds;
 		
+		//Here we determin the direction of vertical scrll (top or bottom)
 		if (scrollView.contentOffset.y > dy ) {
 			NSLog(@"bottom");
 			nextPage = _currentPageViewController.page.bottomPage;
@@ -168,16 +177,13 @@
 	}
 }
 
--(void)scrollViewDidEndDragging:(UIScrollView *)scrollView willDecelerate:(BOOL)decelerate
-{
-	
-}
-
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+	
 	BOOL isVerticalOffset = scrollView.contentOffset.x == CGRectGetMinX(_nextPageViewController.view.frame);
 	BOOL isHorizontalOffset = scrollView.contentOffset.y == CGRectGetMinY(_nextPageViewController.view.frame);
 	
+	//If page changing has occurred we need to reconfigure scroll view with new page
 	if (isVerticalOffset && isHorizontalOffset)
 	{
 		[self configureContentScrollForPage:_nextPageViewController.page];
