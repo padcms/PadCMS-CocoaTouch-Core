@@ -170,29 +170,7 @@
 			return [number1 compare:number2];
 		}];
 		
-		BOOL isFree = YES;
-		
-		
-		for (NSString* subscriptionID in [PCConfig subscriptions]) {
-			isFree = NO;
-			[[InAppPurchases sharedInstance] requestProductDataWithProductId:subscriptionID];
-		}
-		
-		if (isFree)
-		{
-			for (PCIssue* issue in self.issues) {
-				if (![issue.productIdentifier isEqualToString:@""])
-				{
-					isFree = NO;
-					break;
-				}
-			}
-		}
-		if (!isFree)
-		{
-			[[InAppPurchases sharedInstance] repurchase];
-		}
-		
+				
     }
     
     return self;
@@ -214,6 +192,18 @@
     }
     
     return nil;
+}
+
+- (BOOL)hasIssuesProductID
+{
+    for (PCIssue* issue in self.issues) 
+    {
+        if (![issue.productIdentifier isEqualToString:@""])
+        {
+            return YES;
+        }
+    }
+    return NO;
 }
 
 - (NSString *)description

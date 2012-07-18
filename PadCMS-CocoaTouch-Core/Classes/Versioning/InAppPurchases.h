@@ -35,6 +35,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
+#import "PCSubscriptionsMenuView.h"
 
 #define kInAppPurchaseManagerProductsFetchedNotification @"kInAppPurchaseManagerProductsFetchedNotification"
 #define kInAppPurchaseManagerTransactionFinished @"kInAppPurchaseManagerTransactionFinished"
@@ -42,7 +43,7 @@
 
 
 
-@interface InAppPurchases : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface InAppPurchases : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver, PCSubscriptionsMenuViewDelegate>
 {
 	NSMutableSet *dataQueue;
 }
@@ -59,7 +60,7 @@
 - (BOOL)queueIsEmpty;
 - (void)purchaseForProductId:(NSString *)productId;
 
--(void)subscribe;
+- (void)subscribe;
 - (void)repurchase;
 
 @end
