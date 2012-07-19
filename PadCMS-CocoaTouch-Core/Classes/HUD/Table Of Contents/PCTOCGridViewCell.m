@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "PCTOCItemView.h"
+#import "PCTOCGridViewCell.h"
 
-@interface PCTOCItemView ()
+@interface PCTOCGridViewCell ()
 {
     UIImageView *_imageView;
 }
 
 @end
 
-@implementation PCTOCItemView
+@implementation PCTOCGridViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {

@@ -8,11 +8,11 @@
 
 #import <UIKit/UIKit.h>
 
-@class RRItemsViewIndex;
+@class PCGridViewIndex;
 
-@interface RRItemsViewItem : UIView
+@interface PCGridViewCell : UIView
 
-@property (retain, nonatomic) RRItemsViewIndex *index;
+@property (retain, nonatomic) PCGridViewIndex *index;
 
 - (void)clearContent;
 

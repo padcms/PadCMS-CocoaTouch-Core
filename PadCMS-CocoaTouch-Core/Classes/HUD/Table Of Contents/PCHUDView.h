@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RRItemsView.h"
+#import "PCGridView.h"
 
 @class PCHUDView;
 
@@ -17,31 +17,31 @@
 @optional
 - (void)hudView:(PCHUDView *)hudView didSelectIndex:(NSUInteger)index;
 @optional
-- (void)hudView:(PCHUDView *)hudView willShowTOC:(RRItemsView *)tocView;
+- (void)hudView:(PCHUDView *)hudView willShowTOC:(PCGridView *)tocView;
 @optional
-- (void)hudView:(PCHUDView *)hudView willHideTOC:(RRItemsView *)tocView;
+- (void)hudView:(PCHUDView *)hudView willHideTOC:(PCGridView *)tocView;
 
 @end
 
 
 @protocol PCHUDViewDataSource <NSObject>
 
-- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(RRItemsView *)tocView;
+- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(PCGridView *)tocView;
 - (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index;
 - (NSUInteger)hudViewTOCItemsCount:(PCHUDView *)hudView;
 
 @end 
 
 
-@interface PCHUDView : UIView <RRItemsViewDelegate, RRItemsViewDataSource>
+@interface PCHUDView : UIView <PCGridViewDelegate, PCGridViewDataSource>
 
 @property (assign, nonatomic) id<PCHUDViewDelegate> delegate;
 @property (assign, nonatomic) id<PCHUDViewDataSource> dataSource;
 
 @property (readonly) UIButton *topTOCButton;
-@property (readonly) RRItemsView *topTOCView;
+@property (readonly) PCGridView *topTOCView;
 @property (readonly) UIButton *bottomTOCButton;
-@property (readonly) RRItemsView *bottomTOCView;
+@property (readonly) PCGridView *bottomTOCView;
 
 - (void)reloadData;
 - (void)hideTOCs;

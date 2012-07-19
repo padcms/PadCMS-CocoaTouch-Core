@@ -2,34 +2,38 @@
 //  RRTableOfContentsView.m
 //  Created by Maxim Pervushin on 7/13/12.
 
-#import "RRItemsView.h"
+#import "PCGridView.h"
 
-#import "RRItemsViewIndex.h"
-#import "RRItemsViewItem.h"
+#import "PCGridViewIndex.h"
+#import "PCGridViewCell.h"
 
 
-@interface RRItemsView ()
+@interface PCGridView ()
 {
     NSUInteger _itemsCount;
     CGSize _itemSize;
-    RRItemsViewOrientation _orientation;
+    PCGridViewOrientation _orientation;
     NSMutableArray *_reusableViews;
 }
 
 - (void)updateSubviews;
-- (NSUInteger)dataSourceItemsCount;
-- (CGSize)dataSourceItemSize;
-- (RRItemsViewItem *)dataSourceItemViewForIndex:(RRItemsViewIndex *)index;
-- (RRItemsViewItem *)getSubviewForIndex:(NSUInteger)index;
-- (void)enqueueReusableItemView:(RRItemsViewItem *)itemView;
+- (PCGridViewCell *)getSubviewForIndex:(NSUInteger)index;
+- (void)enqueueReusableItemView:(PCGridViewCell *)itemView;
 - (void)tapGesture:(UITapGestureRecognizer *)recognizer;
-- (RRItemsViewIndex *)indexForPoint:(CGPoint)point;
+- (PCGridViewIndex *)indexForPoint:(CGPoint)point;
+
+// delegate
+- (void)didSelectCellAtIndex:(PCGridViewIndex *)index;
+// data source
+- (NSUInteger)numberOfRows;
+- (CGSize)cellSize;
+- (PCGridViewCell *)cellForIndex:(PCGridViewIndex *)index;
 
 @end
 
-@implementation RRItemsView
-@synthesize dataSource;
+@implementation PCGridView
 @synthesize delegate;
+@synthesize dataSource;
 
 - (void)dealloc
 {
@@ -37,7 +41,7 @@
     [super dealloc];
 }
 
-- (id)initWithOrientation:(RRItemsViewOrientation)orientation
+- (id)initWithOrientation:(PCGridViewOrientation)orientation
 {
     self = [self initWithFrame:CGRectZero];
     
@@ -75,16 +79,16 @@
 - (void)reloadData
 {
     NSArray *items = self.subviews;
-    for (RRItemsViewItem *item in items) {
+    for (PCGridViewCell *item in items) {
         [self enqueueReusableItemView:item];
     }
-
-    _itemsCount = [self dataSourceItemsCount];
-    _itemSize = [self dataSourceItemSize];
+    
+    _itemsCount = [self numberOfRows];
+    _itemSize = [self cellSize];
     
     CGSize contentSize = CGSizeZero;
     
-    if (_orientation == RRItemsViewOrientationHorizontal) {
+    if (_orientation == PCGridViewOrientationHorizontal) {
         contentSize = CGSizeMake(_itemsCount * _itemSize.width, _itemSize.height);
     } else {
         contentSize = CGSizeMake(_itemSize.width, _itemsCount * _itemSize.height);
@@ -104,48 +108,49 @@
     
     for (NSUInteger index = 0; index < _itemsCount; ++index) {
         
-        CGFloat x = _orientation == RRItemsViewOrientationHorizontal ? index * _itemSize.width : 0;
-        CGFloat y = _orientation == RRItemsViewOrientationVertical ? index * _itemSize.height : 0;
+        CGFloat x = _orientation == PCGridViewOrientationHorizontal ? index * _itemSize.width : 0;
+        CGFloat y = _orientation == PCGridViewOrientationVertical ? index * _itemSize.height : 0;
         CGRect currentItemViewFrame = CGRectMake(x, y, _itemSize.width, _itemSize.height);
         
         if (CGRectIntersectsRect(visibleRect, currentItemViewFrame)) {
             
-            RRItemsViewItem *view = [self getSubviewForIndex:index];
+            PCGridViewCell *itemView = [self getSubviewForIndex:index];
             
-            if (view == nil) {
-                RRItemsViewIndex *itemIndex =[[[RRItemsViewIndex alloc] init] autorelease];
+            if (itemView == nil) {
+                PCGridViewIndex *itemIndex =[[[PCGridViewIndex alloc] init] autorelease];
                 itemIndex.row = index;
-                view = [self dataSourceItemViewForIndex:itemIndex]; 
-
-                if (view != nil) {
-                    view.index = itemIndex;
-                    view.frame = currentItemViewFrame;
-                    
-                    if (![self.subviews containsObject:view]) {
-                        [self addSubview:view];
-                    }
+                itemView = [self cellForIndex:itemIndex]; 
+                itemView.index = itemIndex;
+            }
+            
+            if (itemView != nil) {
+                itemView.frame = currentItemViewFrame;
+                itemView.hidden = NO;
+                
+                if (![self.subviews containsObject:itemView]) {
+                    [self addSubview:itemView];
                 }
             }
             
         } else {
             
-            RRItemsViewItem *view = [self getSubviewForIndex:index];
-            if (view != nil) {
-                [self enqueueReusableItemView:view];
+            PCGridViewCell *itemView = [self getSubviewForIndex:index];
+            if (itemView != nil) {
+                [self enqueueReusableItemView:itemView];
             }
             
         }
     }
 }
 
-- (RRItemsViewItem *)getSubviewForIndex:(NSUInteger)index
+- (PCGridViewCell *)getSubviewForIndex:(NSUInteger)index
 {
-    CGFloat x = _orientation == RRItemsViewOrientationHorizontal ? index * _itemSize.width : 0;
-    CGFloat y = _orientation == RRItemsViewOrientationVertical ? index * _itemSize.height : 0;
+    CGFloat x = _orientation == PCGridViewOrientationHorizontal ? index * _itemSize.width : 0;
+    CGFloat y = _orientation == PCGridViewOrientationVertical ? index * _itemSize.height : 0;
     CGRect itemViewFrame = CGRectMake(x, y, _itemSize.width, _itemSize.height);
     
     NSArray *subviews = self.subviews;
-    for (RRItemsViewItem *subview in subviews) {
+    for (PCGridViewCell *subview in subviews) {
         
         if ([_reusableViews containsObject:subviews]) {
             continue;
@@ -159,52 +164,23 @@
     return nil;
 }
 
-- (void)enqueueReusableItemView:(RRItemsViewItem *)itemView
+- (void)enqueueReusableItemView:(PCGridViewCell *)itemView
 {
     itemView.index = nil;
-//    itemView.hidden = YES;
-//    [itemView clearContent];
+    itemView.hidden = YES;
     [_reusableViews addObject:itemView];
 }
 
-- (RRItemsViewItem *)dequeueReusableItemView
+- (PCGridViewCell *)dequeueReusableItemView
 {
     if (_reusableViews.count == 0) {
         return nil;
     }
     
-    RRItemsViewItem *reusableView = [_reusableViews objectAtIndex:0];
-    reusableView.hidden = NO;
+    PCGridViewCell *reusableView = [_reusableViews objectAtIndex:0];
     [_reusableViews removeObject:reusableView];
     
     return reusableView;
-}
-
-- (NSUInteger)dataSourceItemsCount
-{
-    if ([self.dataSource respondsToSelector:@selector(itemsViewItemsCount:)]) {
-        return [self.dataSource itemsViewItemsCount:self];
-    }
-    
-    return 0;
-}
-
-- (CGSize)dataSourceItemSize
-{
-    if ([self.dataSource respondsToSelector:@selector(itemsViewItemSize:)]) {
-        return [self.dataSource itemsViewItemSize:self];
-    }
-    
-    return CGSizeZero;
-}
-
-- (RRItemsViewItem *)dataSourceItemViewForIndex:(RRItemsViewIndex *)index
-{
-    if ([self.dataSource respondsToSelector:@selector(itemsView:itemViewForIndex:)]) {
-        return [self.dataSource itemsView:self itemViewForIndex:index];
-    }
-    
-    return nil;
 }
 
 - (void)tapGesture:(UITapGestureRecognizer *)recognizer
@@ -226,11 +202,10 @@
                                                   }];
                              }];
             
-            RRItemsViewIndex *index = [self indexForPoint:location];
+            PCGridViewIndex *index = [self indexForPoint:location];
             
-            if (index != nil &&
-                [self.delegate respondsToSelector:@selector(itemsView:itemSelectedAtIndex:)]) {
-                [self.delegate itemsView:self itemSelectedAtIndex:index];
+            if (index != nil) {
+                [self didSelectCellAtIndex:index];
             }
             
             break;
@@ -238,10 +213,10 @@
     }
 }
 
-- (RRItemsViewIndex *)indexForPoint:(CGPoint)point
+- (PCGridViewIndex *)indexForPoint:(CGPoint)point
 {
     NSArray *subviews = self.subviews;
-    for (RRItemsViewItem *subview in subviews) {
+    for (PCGridViewCell *subview in subviews) {
         if (CGRectContainsPoint(subview.frame, point)) {
             if (subview.index != nil) {
                 return subview.index;
@@ -249,6 +224,44 @@
             
             return nil;
         }
+    }
+    
+    return nil;
+}
+
+#pragma mark - delegate
+
+- (void)didSelectCellAtIndex:(PCGridViewIndex *)index
+{
+    if ([self.delegate respondsToSelector:@selector(gridView:didSelectCellAtIndex:)]) {
+        [self.delegate gridView:self didSelectCellAtIndex:index];
+    }
+}
+
+#pragma mark - data source
+
+- (NSUInteger)numberOfRows
+{
+    if ([self.dataSource respondsToSelector:@selector(gridViewNumberOfRows:)]) {
+        return [self.dataSource gridViewNumberOfRows:self];
+    }
+    
+    return 0;
+}
+
+- (CGSize)cellSize
+{
+    if ([self.dataSource respondsToSelector:@selector(gridViewCellSize:)]) {
+        return [self.dataSource gridViewCellSize:self];
+    }
+    
+    return CGSizeZero;
+}
+
+- (PCGridViewCell *)cellForIndex:(PCGridViewIndex *)index
+{
+    if ([self.dataSource respondsToSelector:@selector(gridView:cellForIndex:)]) {
+        return [self.dataSource gridView:self cellForIndex:index];
     }
     
     return nil;

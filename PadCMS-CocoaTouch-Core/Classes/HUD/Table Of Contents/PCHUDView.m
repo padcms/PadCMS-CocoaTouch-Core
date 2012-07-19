@@ -11,9 +11,9 @@
 #import "PCConfig.h"
 #import "PCDefaultStyleElements.h"
 #import "PCStyler.h"
-#import "PCTOCItemView.h"
-#import "RRItemsViewIndex.h"
-#import "RRItemsViewItem.h"
+#import "PCTOCGridViewCell.h"
+#import "PCGridViewIndex.h"
+#import "PCGridViewCell.h"
 
 #define TopBarHeight 43
 NSString *EnabledKey = @"Enabled";
@@ -24,12 +24,12 @@ NSString *EnabledKey = @"Enabled";
     
     BOOL _topTOCVisible;
     UIButton *_topTOCButton;
-    RRItemsView *_topTOCView;
+    PCGridView *_topTOCView;
     UIView *_topTOCBackgroundView;
     
     BOOL _bottomTOCVisible;
     UIButton *_bottomTOCButton;
-    RRItemsView *_bottomTOCView;
+    PCGridView *_bottomTOCView;
     UIView *_bottomTOCBackgroundView;
     
     UIView *_tintView;
@@ -110,7 +110,7 @@ NSString *EnabledKey = @"Enabled";
             [self addSubview:_topTOCBackgroundView];
             
             
-            _topTOCView = [[RRItemsView alloc] initWithOrientation:RRItemsViewOrientationHorizontal];
+            _topTOCView = [[PCGridView alloc] initWithOrientation:PCGridViewOrientationHorizontal];
             _topTOCView.backgroundColor = [UIColor clearColor];
             _topTOCView.dataSource = self;
             _topTOCView.delegate = self;
@@ -145,7 +145,7 @@ NSString *EnabledKey = @"Enabled";
             [self addSubview:_bottomTOCBackgroundView];
             
             
-            _bottomTOCView = [[RRItemsView alloc] initWithOrientation:RRItemsViewOrientationHorizontal];
+            _bottomTOCView = [[PCGridView alloc] initWithOrientation:PCGridViewOrientationHorizontal];
             _bottomTOCView.backgroundColor = [UIColor clearColor];
             _bottomTOCView.dataSource = self;
             _bottomTOCView.delegate = self;
@@ -395,19 +395,19 @@ NSString *EnabledKey = @"Enabled";
 
 #pragma mark - RRItemsViewDelegate
 
-- (void)itemsView:(RRItemsView *)itemsView itemSelectedAtIndex:(RRItemsViewIndex *)index
+- (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index
 {
     [self didSelectIndex:index.row];
 }
 
 #pragma mark - RRItemsViewDataSource
 
-- (RRItemsViewItem *)itemsView:(RRItemsView *)itemsView itemViewForIndex:(RRItemsViewIndex *)index
+- (PCGridViewCell *)gridView:(PCGridView *)gridView cellForIndex:(PCGridViewIndex *)index
 {
-    PCTOCItemView *item = (PCTOCItemView *)[itemsView dequeueReusableItemView];
+    PCTOCGridViewCell *item = (PCTOCGridViewCell *)[gridView dequeueReusableItemView];
     
     if (item == nil) {
-        item = [[[PCTOCItemView alloc] init] autorelease];
+        item = [[[PCTOCGridViewCell alloc] init] autorelease];
     }
     
     [item setImage:[self imageForIndex:index.row]];
@@ -415,16 +415,16 @@ NSString *EnabledKey = @"Enabled";
     return item;
 }
 
-- (NSUInteger)itemsViewItemsCount:(RRItemsView *)itemsView
+- (NSUInteger)gridViewNumberOfRows:(PCGridView *)gridView
 {
     return [self itemsCount];
 }
 
-- (CGSize)itemsViewItemSize:(RRItemsView *)itemsView
+- (CGSize)gridViewCellSize:(PCGridView *)gridView
 {
-    if (itemsView == _topTOCView) {
+    if (gridView == _topTOCView) {
         return [self topItemSize];
-    } else if (itemsView == _bottomTOCView) {
+    } else if (gridView == _bottomTOCView) {
         return [self bottomItemSize];
     }
     
@@ -440,14 +440,14 @@ NSString *EnabledKey = @"Enabled";
     }
 }
 
-- (void)willShowTOC:(RRItemsView *)tocView
+- (void)willShowTOC:(PCGridView *)tocView
 {
     if ([self.delegate respondsToSelector:@selector(hudView:willShowTOC:)]) {
         [self.delegate hudView:self willShowTOC:tocView];
     }
 }
 
-- (void)willHideTOC:(RRItemsView *)tocView
+- (void)willHideTOC:(PCGridView *)tocView
 {
     if ([self.delegate respondsToSelector:@selector(hudView:willHideTOC:)]) {
         [self.delegate hudView:self willHideTOC:tocView];

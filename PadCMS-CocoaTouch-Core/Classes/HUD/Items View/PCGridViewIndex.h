@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@interface RRItemsViewIndex : NSObject
+@interface PCGridViewIndex : NSObject
 
 @property (assign, nonatomic) NSUInteger row;
 //@property (assign, nonatomic) NSUInteger column;

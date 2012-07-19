@@ -1994,7 +1994,7 @@
 
 #pragma mark - RRTableOfContentsViewDataSource
 
-- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(RRItemsView *)tocView
+- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(PCGridView *)tocView
 {
     if (tocView == hudView.topTOCView) {
         return CGSizeMake(150,  512/*self.view.bounds.size.height / 2*/);
@@ -2059,14 +2059,14 @@
     }
 }
 
-- (void)hudView:(PCHUDView *)hudView willShowTOC:(RRItemsView *)tocView
+- (void)hudView:(PCHUDView *)hudView willShowTOC:(PCGridView *)tocView
 {
     if (tocView == _hudView.topTOCView) {
         [self showTopBar];
     }
 }
 
-- (void)hudView:(PCHUDView *)hudView willHideTOC:(RRItemsView *)tocView
+- (void)hudView:(PCHUDView *)hudView willHideTOC:(PCGridView *)tocView
 {
     if (tocView == _hudView.topTOCView) {
         

@@ -6,11 +6,11 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "RRItemsViewItem.h"
+#import "PCGridViewCell.h"
 
-#import "RRItemsViewIndex.h"
+#import "PCGridViewIndex.h"
 
-@implementation RRItemsViewItem
+@implementation PCGridViewCell
 @synthesize index = _index;
 
 - (id)initWithFrame:(CGRect)frame
