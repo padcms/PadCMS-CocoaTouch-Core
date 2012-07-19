@@ -47,7 +47,7 @@
 #import "PCTwitterNewController.h"
 #import "PCVideoController.h"
 #import <UIKit/UIKit.h>
-#import "RRTableOfContentsView.h"
+#import "PCHUDView.h"
 
 /**
  @class PCMagazineViewController
@@ -63,7 +63,7 @@
 @class PCScrollView;
 @class PCSubscriptionsMenuView;
 
-@interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate, RRTableOfContentsViewDataSource, RRTableOfContentsViewDelegate>
+@interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate, PCHUDViewDataSource, PCHUDViewDelegate>
 
 {
     IBOutlet PCScrollView* mainScrollView;

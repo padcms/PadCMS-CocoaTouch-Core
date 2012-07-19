@@ -6,16 +6,16 @@
 //  Copyright (c) 2012 __MyCompanyName__. All rights reserved.
 //
 
-#import "RRTableOfContentsItem.h"
+#import "PCTOCItemView.h"
 
-@interface RRTableOfContentsItem ()
+@interface PCTOCItemView ()
 {
     UIImageView *_imageView;
 }
 
 @end
 
-@implementation RRTableOfContentsItem
+@implementation PCTOCItemView
 
 - (id)initWithFrame:(CGRect)frame
 {
@@ -49,7 +49,6 @@
         CGFloat imageViewHeight = _imageView.image.size.height * (imageViewWidth / _imageView.image.size.width) + 20;
         CGRect imageViewRect = CGRectMake(10, 10, imageViewWidth, imageViewHeight);
         _imageView.frame = imageViewRect;
-        
     } else {
         _imageView.frame = CGRectMake(10, 10, self.bounds.size.width - 20, self.bounds.size.height - 20);
     }

@@ -1084,15 +1084,15 @@
 		C58C169815B3FE6C00665295 /* RRItemsViewIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169215B3FE6C00665295 /* RRItemsViewIndex.m */; };
 		C58C169915B3FE6C00665295 /* RRItemsViewItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169315B3FE6C00665295 /* RRItemsViewItem.h */; };
 		C58C169A15B3FE6C00665295 /* RRItemsViewItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169415B3FE6C00665295 /* RRItemsViewItem.m */; };
-		C58C169F15B3FE7400665295 /* RRTableOfContentsItem.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* RRTableOfContentsItem.h */; };
-		C58C16A015B3FE7400665295 /* RRTableOfContentsItem.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169C15B3FE7400665295 /* RRTableOfContentsItem.m */; };
-		C58C16A115B3FE7400665295 /* RRTableOfContentsView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* RRTableOfContentsView.h */; };
-		C58C16A215B3FE7400665295 /* RRTableOfContentsView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169E15B3FE7400665295 /* RRTableOfContentsView.m */; };
+		C58C169F15B3FE7400665295 /* PCTOCItemView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCItemView.h */; };
+		C58C16A015B3FE7400665295 /* PCTOCItemView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169C15B3FE7400665295 /* PCTOCItemView.m */; };
+		C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHUDView.h */; };
+		C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169E15B3FE7400665295 /* PCHUDView.m */; };
 		C58C16A315B3FFD600665295 /* RRItemsView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C168F15B3FE6C00665295 /* RRItemsView.h */; };
 		C58C16A415B3FFD600665295 /* RRItemsViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169115B3FE6C00665295 /* RRItemsViewIndex.h */; };
 		C58C16A515B3FFD600665295 /* RRItemsViewItem.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169315B3FE6C00665295 /* RRItemsViewItem.h */; };
-		C58C16A615B3FFD600665295 /* RRTableOfContentsItem.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* RRTableOfContentsItem.h */; };
-		C58C16A715B3FFD600665295 /* RRTableOfContentsView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* RRTableOfContentsView.h */; };
+		C58C16A615B3FFD600665295 /* PCTOCItemView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCItemView.h */; };
+		C58C16A715B3FFD600665295 /* PCHUDView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHUDView.h */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
 		C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */; };
 /* End PBXBuildFile section */
@@ -1107,8 +1107,8 @@
 				C58C16A315B3FFD600665295 /* RRItemsView.h in CopyFiles */,
 				C58C16A415B3FFD600665295 /* RRItemsViewIndex.h in CopyFiles */,
 				C58C16A515B3FFD600665295 /* RRItemsViewItem.h in CopyFiles */,
-				C58C16A615B3FFD600665295 /* RRTableOfContentsItem.h in CopyFiles */,
-				C58C16A715B3FFD600665295 /* RRTableOfContentsView.h in CopyFiles */,
+				C58C16A615B3FFD600665295 /* PCTOCItemView.h in CopyFiles */,
+				C58C16A715B3FFD600665295 /* PCHUDView.h in CopyFiles */,
 				840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
@@ -2204,10 +2204,10 @@
 		C58C169215B3FE6C00665295 /* RRItemsViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRItemsViewIndex.m; sourceTree = "<group>"; };
 		C58C169315B3FE6C00665295 /* RRItemsViewItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRItemsViewItem.h; sourceTree = "<group>"; };
 		C58C169415B3FE6C00665295 /* RRItemsViewItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRItemsViewItem.m; sourceTree = "<group>"; };
-		C58C169B15B3FE7400665295 /* RRTableOfContentsItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRTableOfContentsItem.h; sourceTree = "<group>"; };
-		C58C169C15B3FE7400665295 /* RRTableOfContentsItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRTableOfContentsItem.m; sourceTree = "<group>"; };
-		C58C169D15B3FE7400665295 /* RRTableOfContentsView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RRTableOfContentsView.h; sourceTree = "<group>"; };
-		C58C169E15B3FE7400665295 /* RRTableOfContentsView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RRTableOfContentsView.m; sourceTree = "<group>"; };
+		C58C169B15B3FE7400665295 /* PCTOCItemView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTOCItemView.h; sourceTree = "<group>"; };
+		C58C169C15B3FE7400665295 /* PCTOCItemView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTOCItemView.m; sourceTree = "<group>"; };
+		C58C169D15B3FE7400665295 /* PCHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHUDView.h; sourceTree = "<group>"; };
+		C58C169E15B3FE7400665295 /* PCHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHUDView.m; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
 		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -3514,7 +3514,7 @@
 			isa = PBXGroup;
 			children = (
 				C58C167915B3FE3B00665295 /* Items View */,
-				C58C168015B3FE3B00665295 /* Table Of Contents */,
+				C58C168015B3FE3B00665295 /* HUD */,
 			);
 			path = HUD;
 			sourceTree = "<group>";
@@ -3532,14 +3532,15 @@
 			path = "Items View";
 			sourceTree = "<group>";
 		};
-		C58C168015B3FE3B00665295 /* Table Of Contents */ = {
+		C58C168015B3FE3B00665295 /* HUD */ = {
 			isa = PBXGroup;
 			children = (
-				C58C169B15B3FE7400665295 /* RRTableOfContentsItem.h */,
-				C58C169C15B3FE7400665295 /* RRTableOfContentsItem.m */,
-				C58C169D15B3FE7400665295 /* RRTableOfContentsView.h */,
-				C58C169E15B3FE7400665295 /* RRTableOfContentsView.m */,
+				C58C169B15B3FE7400665295 /* PCTOCItemView.h */,
+				C58C169C15B3FE7400665295 /* PCTOCItemView.m */,
+				C58C169D15B3FE7400665295 /* PCHUDView.h */,
+				C58C169E15B3FE7400665295 /* PCHUDView.m */,
 			);
+			name = HUD;
 			path = "Table Of Contents";
 			sourceTree = "<group>";
 		};
@@ -3914,8 +3915,8 @@
 				C58C169515B3FE6C00665295 /* RRItemsView.h in Headers */,
 				C58C169715B3FE6C00665295 /* RRItemsViewIndex.h in Headers */,
 				C58C169915B3FE6C00665295 /* RRItemsViewItem.h in Headers */,
-				C58C169F15B3FE7400665295 /* RRTableOfContentsItem.h in Headers */,
-				C58C16A115B3FE7400665295 /* RRTableOfContentsView.h in Headers */,
+				C58C169F15B3FE7400665295 /* PCTOCItemView.h in Headers */,
+				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
 				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4367,8 +4368,8 @@
 				C58C169615B3FE6C00665295 /* RRItemsView.m in Sources */,
 				C58C169815B3FE6C00665295 /* RRItemsViewIndex.m in Sources */,
 				C58C169A15B3FE6C00665295 /* RRItemsViewItem.m in Sources */,
-				C58C16A015B3FE7400665295 /* RRTableOfContentsItem.m in Sources */,
-				C58C16A215B3FE7400665295 /* RRTableOfContentsView.m in Sources */,
+				C58C16A015B3FE7400665295 /* PCTOCItemView.m in Sources */,
+				C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */,
 				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

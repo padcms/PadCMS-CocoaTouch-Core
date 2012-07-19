@@ -8,7 +8,7 @@
 
 #import "RRItemsViewItem.h"
 
-@interface RRTableOfContentsItem : RRItemsViewItem
+@interface PCTOCItemView : RRItemsViewItem
 
 - (void)setImage:(UIImage *)image;
 

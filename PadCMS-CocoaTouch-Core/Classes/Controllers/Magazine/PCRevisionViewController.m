@@ -59,7 +59,7 @@
 @interface PCRevisionViewController()
 {
     NSMutableArray *_activeTableOfContentsItems;
-    RRTableOfContentsView *_hudView;
+    PCHUDView *_hudView;
 }
 
 - (void)createHUD;
@@ -188,7 +188,7 @@
 
 - (void)createHUD
 {
-    _hudView = [[RRTableOfContentsView alloc] initWithFrame:self.view.bounds];
+    _hudView = [[PCHUDView alloc] initWithFrame:self.view.bounds];
     _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _hudView.dataSource = self;
     _hudView.delegate = self;
@@ -201,8 +201,8 @@
         [_hudView stylizeElementsWithOptions:options];
     }
 
-    _hudView.bottomTableOfContentsButton.hidden = YES;
-    _hudView.bottomTableOfContentsButton.alpha = 0;
+    _hudView.bottomTOCButton.hidden = YES;
+    _hudView.bottomTOCButton.alpha = 0;
 }
 
 - (void)destroyHUD
@@ -1201,7 +1201,7 @@
 
 - (void) horizontalTapAction:(id) sender
 {
-    if (_hudView.bottomTableOfContentsView == nil) {
+    if (_hudView.bottomTOCView == nil) {
         return;
     }
 
@@ -1218,16 +1218,16 @@
         [self hideTopBar];
     }
     
-    if (_hudView.bottomTableOfContentsButton.hidden) {
+    if (_hudView.bottomTOCButton.hidden) {
         if (revision != nil && revision.horisontalTocItems != nil && revision.horisontalTocItems > 0) {
-            _hudView.bottomTableOfContentsButton.hidden = NO;
-            _hudView.bottomTableOfContentsButton.alpha = 1;
+            _hudView.bottomTOCButton.hidden = NO;
+            _hudView.bottomTOCButton.alpha = 1;
         } else {
-            _hudView.bottomTableOfContentsButton.hidden = YES;
-            _hudView.bottomTableOfContentsButton.alpha = 0;
+            _hudView.bottomTOCButton.hidden = YES;
+            _hudView.bottomTOCButton.alpha = 0;
         }
     } else {
-        _hudView.bottomTableOfContentsButton.hidden = YES;
+        _hudView.bottomTOCButton.hidden = YES;
         [self hideMenus];
     }
 }
@@ -1494,9 +1494,7 @@
 
 - (void)tapAction:(UIGestureRecognizer *)sender
 {
-    NSLog(@"self.view.subviews = %@", self.view.subviews);
-    
-    if (_hudView.bottomTableOfContentsView == nil) {
+    if (_hudView.bottomTOCView == nil) {
         return;
     }
     
@@ -1530,21 +1528,21 @@
 
                 if (fileExists) {
 //                    tableOfContentButton.hidden = !tableOfContentButton.hidden;
-                    _hudView.bottomTableOfContentsButton.hidden = !_hudView.bottomTableOfContentsButton.hidden;
+                    _hudView.bottomTOCButton.hidden = !_hudView.bottomTOCButton.hidden;
                 } else {
 //                    tableOfContentButton.hidden = YES;
-                    _hudView.bottomTableOfContentsButton.hidden = YES;
+                    _hudView.bottomTOCButton.hidden = YES;
                 }
 //                tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
-                _hudView.bottomTableOfContentsButton.alpha = _hudView.bottomTableOfContentsButton.hidden ? 0 : 1;
+                _hudView.bottomTOCButton.alpha = _hudView.bottomTOCButton.hidden ? 0 : 1;
              }
         } 
         
         else {
 //            tableOfContentButton.hidden = YES;
 //            tableOfContentButton.alpha = 0;
-            _hudView.bottomTableOfContentsButton.hidden = YES;
-            _hudView.bottomTableOfContentsButton.alpha = 0;
+            _hudView.bottomTOCButton.hidden = YES;
+            _hudView.bottomTOCButton.alpha = 0;
         }
         
         if (!tableOfContentsView.hidden) {
@@ -1655,8 +1653,6 @@
     if (!subscriptionsMenu)
     {
         CGRect popupRect = CGRectMake(subscriptionButton.frame.origin.x-100, subscriptionButton.frame.size.height, subscriptionButton.frame.size.width, 500);
-        NSLog(@"subscriptionButton.frame - %@", NSStringFromCGRect(subscriptionButton.frame));
-        NSLog(@"popupRect - %@", NSStringFromCGRect(popupRect));
         subscriptionsMenu = [[PCSubscriptionsMenuView alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
         subscriptionsMenu.delegate = [InAppPurchases sharedInstance];
         [self.view addSubview:subscriptionsMenu];
@@ -1753,8 +1749,8 @@
     [shareMenu setHidden:YES];
     [tableOfContentsView setHidden:YES];
     [tableOfContentButton setHidden:YES];
-    [_hudView hideTableOfContents];
-    _hudView.bottomTableOfContentsButton.hidden = YES;
+    [_hudView hideTOCs];
+    _hudView.bottomTOCButton.hidden = YES;
     [topSummaryView setHidden:YES];
     [topMenuView setHidden:YES];
     [horizontalSummaryView setHidden:YES];
@@ -2009,47 +2005,35 @@
 
 #pragma mark - RRTableOfContentsViewDataSource
 
-- (CGSize)tableOfContentsViewTopItemSize:(RRTableOfContentsView *)tableOfContentsView
+- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(RRItemsView *)tocView
 {
-//    if (UIInterfaceOrientationIsPortrait(currentMagazineOrientation)) {
-//        return CGSizeMake(150,  512/*self.view.bounds.size.height / 2*/);
-//    } else {
-//        return CGSizeMake(150,  384/*self.view.bounds.size.height / 2*/);
-//    }
-//    
-//    return CGSizeZero;
-
+    if (tocView == hudView.topTOCView) {
         return CGSizeMake(150,  512/*self.view.bounds.size.height / 2*/);
-}
-
-- (CGSize)tableOfContentsViewBottomItemSize:(RRTableOfContentsView *)tableOfContentsView
-{
-    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-        return CGSizeMake(150, 340 /*viewSize.height / 3*/);
-    } else {
-        return CGSizeMake(250, 192 /*viewSize.height / 4*/);
+    } else if (tocView == hudView.bottomTOCView) {
+        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            return CGSizeMake(150, 340 /*viewSize.height / 3*/);
+        } else {
+            return CGSizeMake(250, 192 /*viewSize.height / 4*/);
+        }
     }
     
     return CGSizeZero;
 }
 
-- (NSUInteger)tableOfContentsViewItemsCount:(RRTableOfContentsView *)tableOfContentsView
+- (NSUInteger)hudViewTOCItemsCount:(PCHUDView *)hudView
 {
     if (_activeTableOfContentsItems != nil) {
-        
         return _activeTableOfContentsItems.count;
     }
     
     return 0;
 }
 
-- (UIImage *)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
-                   imageForIndex:(NSUInteger)index
+- (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index
 {
     if (_activeTableOfContentsItems != nil) {
         PCTocItem *tocItem = [_activeTableOfContentsItems objectAtIndex:index];
         UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
-        
         return image;
     }
     
@@ -2058,7 +2042,7 @@
 
 #pragma mark - RRTableOfContentsViewDelegate
 
-- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView indexDidSelected:(NSUInteger)index
+- (void)hudView:(PCHUDView *)hudView didSelectIndex:(NSUInteger)index
 {
     if (_activeTableOfContentsItems != nil) {
 
@@ -2073,12 +2057,10 @@
                 }
             }
             
-            [tableOfContentsView hideTableOfContents];
+            [hudView hideTOCs];
             
             [self showPageWithIndex:pageIndex];
         } else {
-            NSLog(@"index = %u", index);
-            
             if (index >= [self.revision.horizontalPages count]) {
                 return;
             }
@@ -2088,29 +2070,16 @@
     }
 }
 
-- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView
-    willShowTableOfContents:(RRItemsView *)itemsView
+- (void)hudView:(PCHUDView *)hudView willShowTOC:(RRItemsView *)tocView
 {
-    if (itemsView == _hudView.topTableOfContentsView) {
-//        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-//            topMenuView.hidden = NO;
-//            topMenuView.alpha = 0.75f;
-//            [topMenuView.superview bringSubviewToFront:topMenuView];
-//        } else {
-//            [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
-//            horizontalTopMenuView.hidden = NO;
-//            horizontalTopMenuView.alpha = 0.75;
-//            [self.view bringSubviewToFront:horizontalTopMenuView];
-//        }
-  
+    if (tocView == _hudView.topTOCView) {
         [self showTopBar];
     }
 }
 
-- (void)tableOfContentsView:(RRTableOfContentsView *)tableOfContentsView 
-    willHideTableOfContents:(RRItemsView *)itemsView
+- (void)hudView:(PCHUDView *)hudView willHideTOC:(RRItemsView *)tocView
 {
-    if (itemsView == _hudView.topTableOfContentsView) {
+    if (tocView == _hudView.topTOCView) {
         
         if (!subscriptionsMenu.hidden) {
             subscriptionsMenu.hidden = YES;
@@ -2124,12 +2093,6 @@
         if (topSummaryView != nil) {
             topSummaryView.hidden = YES;
         }   
-        
-//        topMenuView.hidden = YES;
-//        topMenuView.alpha = 0;
-//        
-//        horizontalTopMenuView.hidden = YES;
-//        horizontalTopMenuView.alpha = 0;
         
         [self hideTopBar];
     }
