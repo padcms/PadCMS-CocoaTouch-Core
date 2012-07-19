@@ -52,6 +52,8 @@
 
 @synthesize webView = _webView;
 @synthesize HUD = _HUD;
+@synthesize videoRect = _videoRect;
+@synthesize videoURL = _videoURL;
 
 - (id) init
 {
@@ -60,6 +62,8 @@
     {
         _webView = nil;
         _HUD = nil;
+        _videoURL = nil;
+        _videoRect = CGRectZero;
     }
     return self;
 }
@@ -68,6 +72,8 @@
 {
     [_webView release], _webView = nil;
     [_HUD release], _HUD = nil;
+    [_videoURL release], _videoURL = nil;
+    _videoRect = CGRectZero;
     
     [super dealloc];
 }
@@ -95,7 +101,7 @@
 
 - (void) createWebView
 {
-    UIWebView *tempWebView = [[UIWebView alloc] initWithFrame:self.view.frame];
+    UIWebView *tempWebView = [[UIWebView alloc] initWithFrame:self.videoRect];
     self.webView = tempWebView;
     [tempWebView release];
     self.webView.delegate = self;
@@ -106,7 +112,7 @@
 
 - (void) createReturnButton
 {
-    if (CGSizeEqualToSize(self.view.frame.size, [[UIScreen mainScreen] bounds].size))
+    if (CGSizeEqualToSize(self.videoRect.size, [[UIScreen mainScreen] bounds].size))
     {
         UIButton* backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton addTarget:self action:@selector(backButtonTap) forControlEvents:UIControlEventTouchUpInside];
@@ -133,7 +139,8 @@
 
 - (void) presentURL:(NSString*) url
 {
-    [self.webView loadRequest:[NSURLRequest requestWithURL:[NSURL URLWithString:url] cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
+    self.videoURL = [NSURL URLWithString:url];
+    [self.webView loadRequest:[NSURLRequest requestWithURL:self.videoURL cachePolicy:NSURLRequestReloadIgnoringCacheData timeoutInterval:240.0]];
     [self showHUD];
 }
 
@@ -160,6 +167,13 @@
 	}
 }
 
+- (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
+{
+    if ([[request.URL absoluteURL] isEqual:[self.videoURL absoluteURL]])
+        return YES;
+    return NO;
+}
+
 - (void)webViewDidFinishLoad:(UIWebView *)webView;
 {
     [self hideHUD];
@@ -168,7 +182,6 @@
 - (void)webView:(UIWebView *)webView didFailLoadWithError:(NSError *)error
 {
     [self hideHUD];
-    [self backButtonTap];
 }
 
 @end

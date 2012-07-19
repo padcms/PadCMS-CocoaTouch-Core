@@ -50,6 +50,8 @@
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
 #import "PCStoreController.h"
+#import "PCSubscriptionsMenuView.h"
+#import "InAppPurchases.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -84,6 +86,7 @@
 @synthesize topSummaryButton;
 @synthesize horizontalSummaryView;
 @synthesize horizontalHelpButton;
+@synthesize subscriptionButton;
 
 -(void)dealloc
 {
@@ -132,6 +135,8 @@
     [helpButton release];
     [topSummaryButton release];
     [horizontalSummaryView release], horizontalSummaryView = nil;
+    [subscriptionButton release];
+    [subscriptionsMenu release], subscriptionsMenu = nil;
     [super dealloc];
 }
 
@@ -143,6 +148,12 @@
     {
         columnsViewControllers = [[NSMutableArray alloc] init];
         initialPageIndex = 0;
+        horizontalScrollView = nil;
+        topSummaryView = nil;
+        topSummaryScrollView = nil;
+        horizontalSummaryView = nil;
+        helpController = nil;
+        subscriptionsMenu = nil;
         horizontalPagesViewControllers = [[NSMutableArray alloc] init];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -764,6 +775,17 @@
     helpButton.hidden = hide;
 }
 
+- (void) adjustSubscriptionButton
+{
+    BOOL hide = NO;
+    
+    if (![PCConfig subscriptions])
+    {
+        hide = YES;
+    }
+    subscriptionButton.hidden = hide;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
@@ -802,6 +824,7 @@
         [self showPageWithIndex:initialPageIndex];
         [self createHorizontalView];
         [self adjustHelpButton];
+        [self adjustSubscriptionButton];
         
         if([PCConfig isSearchDisabled])
         {
@@ -883,6 +906,7 @@
     [self setHorizontalHelpButton:nil];
     [self setHelpButton:nil];
     [self setTopSummaryButton:nil];
+    [self setSubscriptionButton:nil];
     [super viewDidUnload];
 }
 
@@ -1366,6 +1390,11 @@
             shareMenu.alpha = 0;
         }
         
+        if (!subscriptionsMenu.hidden) {
+            subscriptionsMenu.hidden = YES;
+            subscriptionsMenu.alpha = 0;
+        }
+        
     }];
 }
 
@@ -1445,6 +1474,23 @@
     }
 
     [self.view addSubview:helpController.view];
+}
+
+-(IBAction)subscriptionsAction:(id)sender
+{
+    CGRect popupRect = CGRectMake(subscriptionButton.frame.origin.x-100, subscriptionButton.frame.size.height, subscriptionButton.frame.size.width, 500);
+    if (!subscriptionsMenu)
+    {
+        NSLog(@"subscriptionButton.frame - %@", NSStringFromCGRect(subscriptionButton.frame));
+        NSLog(@"popupRect - %@", NSStringFromCGRect(popupRect));
+        subscriptionsMenu = [[PCSubscriptionsMenuView alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+        subscriptionsMenu.delegate = [InAppPurchases sharedInstance];
+        [self.view addSubview:subscriptionsMenu];
+        subscriptionsMenu.hidden = YES;
+    }
+    [subscriptionsMenu updateFrame:popupRect];
+    subscriptionsMenu.hidden = !subscriptionsMenu.hidden;
+    subscriptionsMenu.alpha = subscriptionsMenu.hidden?0.0:1.0;
 }
 
 -(IBAction)shareAction:(id)sender
@@ -1538,6 +1584,7 @@
     [topMenuView setHidden:YES];
     [horizontalSummaryView setHidden:YES];
     [horizontalTopMenuView setHidden:YES];
+    [subscriptionsMenu setHidden:YES];
 }
 
 - (void)emailShow

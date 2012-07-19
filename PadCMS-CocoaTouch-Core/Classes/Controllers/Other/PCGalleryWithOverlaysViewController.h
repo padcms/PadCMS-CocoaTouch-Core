@@ -60,8 +60,12 @@
 @property (nonatomic, assign) NSInteger galleryID;
 @property (nonatomic, assign) BOOL horizontalOrientation;
 @property (nonatomic, retain) NSMutableArray *galleryElements;
-@property (nonatomic, retain) NSMutableArray* imageViews;
-@property (nonatomic, retain) NSMutableArray* overlayImageViews;
+@property (nonatomic, retain) NSMutableArray *galleryImageViews;
+@property (nonatomic, retain) NSMutableArray *zoomableViews;    // view for zumming, or NSNull if gallery element can't support zooming
+@property (nonatomic, retain) NSMutableArray *galleryPopupImageViews; // each galleryImageViews element has appropriate element, or NSNull if no popups for this gallery element
+@property (nonatomic, retain) NSMutableArray *popupsIndexes; // NSNumber indexes popups, taked from active zone
+@property (nonatomic, retain) NSMutableArray *popupsGalleryElementLinks; // NSNumber indexes of gallery elements, that owns popup
+@property (nonatomic, retain) NSMutableArray *popupsZones;
 @property (nonatomic, assign) NSInteger currentPage;
 
 - (id) initWithPage: (PCPage *)initialPage;

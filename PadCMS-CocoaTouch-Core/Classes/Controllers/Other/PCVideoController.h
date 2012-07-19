@@ -41,6 +41,7 @@
 #define PCVCPushVideoScreenNotification @"PCPushVideoScreen"
 
 @class PCVideoController;
+@class MBProgressHUD;
 
 @protocol PCVideoControllerDelegate <NSObject>
 
@@ -54,11 +55,13 @@
     MPMoviePlayerController *_moviePlayer;
     NSURL *_url;
     BOOL _isVideoPlaying;
+    MBProgressHUD *_HUD;
 }
 
 @property (nonatomic, retain) MPMoviePlayerController *moviePlayer;
 @property (nonatomic, retain) NSURL *url;
 @property (nonatomic, assign) BOOL isVideoPlaying;
+@property (nonatomic, retain) MBProgressHUD *HUD;
 @property (nonatomic, assign, readwrite) id <PCVideoControllerDelegate> delegate;
 
 - (id) init;

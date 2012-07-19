@@ -39,10 +39,14 @@
 {
     UIWebView *_webView;
     MBProgressHUD *_HUD;
+    CGRect _videoRect;
+    NSURL *_videoURL;
 }
 
 @property (nonatomic, retain) UIWebView *webView;
 @property (nonatomic, retain) MBProgressHUD *HUD;
+@property (nonatomic) CGRect videoRect;
+@property (nonatomic, retain) NSURL *videoURL;
 
 - (id) init;
 - (void) presentURL: (NSString *) url;

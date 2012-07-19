@@ -61,6 +61,22 @@
     self.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     self.autoresizesSubviews = YES;
     self.clipsToBounds = YES;
+    
+    UITapGestureRecognizer *tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self
+                                                                                action:@selector(tapAction:)];
+    tapGestureRecognizer.cancelsTouchesInView = NO;
+	[self addGestureRecognizer:tapGestureRecognizer];
+	[tapGestureRecognizer release];
+}
+
+-(void) tapAction:(UITapGestureRecognizer*)sender
+{
+    [self.delegate tapInKiosk];
+}
+
+- (void) tapInKiosk
+{
+    [self.delegate tapInKiosk];
 }
 
 - (void) selectRevisionWithIndex:(NSInteger)index

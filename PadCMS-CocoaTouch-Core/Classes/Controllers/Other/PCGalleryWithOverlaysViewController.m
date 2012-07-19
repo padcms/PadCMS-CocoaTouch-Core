@@ -53,6 +53,7 @@
 - (void)removeImageViews;
 - (void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
 - (void)popupAction:(UIButton*)sender;
+- (void)galleryElementTapped:(UIGestureRecognizer *)gestureRecognizer;
 @end
 
 @implementation PCGalleryWithOverlaysViewController
@@ -61,9 +62,13 @@
 @synthesize galleryID = _galleryID;
 @synthesize horizontalOrientation = _horizontalOrientation;
 @synthesize galleryElements = _galleryElements;
-@synthesize imageViews = _imageViews;
-@synthesize overlayImageViews;
+@synthesize galleryImageViews = _galleryImageViews;
 @synthesize currentPage;
+@synthesize zoomableViews = _zoomableViews;
+@synthesize galleryPopupImageViews = _galleryPopupImageViews;
+@synthesize popupsIndexes = _popupsIndexes;
+@synthesize popupsGalleryElementLinks = _popupsGalleryElementLinks;
+@synthesize popupsZones = _popupsZones;
 
 - (id) initWithPage: (PCPage *)initialPage
 {
@@ -88,7 +93,7 @@
     {
         [_galleryElements release], _galleryElements = nil;
     }
-    [_imageViews release], _imageViews = nil;
+    [_galleryImageViews release], _galleryImageViews = nil;
     [_mainScrollView release], _mainScrollView = nil;
     [_page release]; _page = nil;
     
@@ -105,7 +110,7 @@
 - (void)viewDidUnload
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self];
-    self.imageViews = nil;
+    self.galleryImageViews = nil;
     [super viewDidUnload];
 }
 
@@ -113,6 +118,14 @@
 {
     [self removeImageViews];
     _currentIndex = NSIntegerMax;
+    
+    [_popupsIndexes release];
+    _popupsIndexes = nil;
+    [_popupsGalleryElementLinks release];
+    _popupsGalleryElementLinks = nil;
+    [_popupsZones release];
+    _popupsZones = nil;
+    
     self.galleryID = -1;
     [super viewDidDisappear:animated];
 }
@@ -120,6 +133,8 @@
 -(void)viewWillAppear:(BOOL)animated
 {
 	[super viewWillAppear:animated];
+    
+    self.view.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
 	
     if(_horizontalOrientation)
     {
@@ -193,106 +208,212 @@
 	if ([[NSFileManager defaultManager] fileExistsAtPath:fullResourcePath] && !(ABS(currentIndex - index) > 1))
 	{
 		UIImage *image = [UIImage imageWithContentsOfFile:fullResourcePath];
-		[[self.imageViews objectAtIndex:index] setImage:image];
+		[[self.galleryImageViews objectAtIndex:index] setImage:image];
 	}
 }
 
 - (void)createImageViews
 {	
-    NSMutableArray* tempArray = [[NSMutableArray alloc] init];
-    self.imageViews = tempArray;
-    [tempArray release];
+    self.galleryImageViews = [[[NSMutableArray alloc] init] autorelease];
+    self.zoomableViews = [[[NSMutableArray alloc] init] autorelease];
+    self.galleryPopupImageViews = [[[NSMutableArray alloc] init] autorelease];
+    self.popupsIndexes = [[[NSMutableArray alloc] init] autorelease];
+    self.popupsGalleryElementLinks = [[[NSMutableArray alloc] init] autorelease];
+    self.popupsZones = [[[NSMutableArray alloc] init] autorelease];
+    
+    CGRect              elementRect, rotatedRect;
+    CGFloat             tmp;
+    
+    if(_horizontalOrientation)
+    {
+        elementRect = CGRectMake(0, 0, 768, 1024);
+    } else {
+        elementRect = CGRectMake(0, 0, 1024, 768);
+    }
+
+    self.view.frame = elementRect;
+    rotatedRect = elementRect;
+    tmp = rotatedRect.size.width;
+    rotatedRect.size.width = rotatedRect.size.height;
+    rotatedRect.size.height = tmp;
     
     for (int i=0; i<[self.galleryElements count]; i++)
     {
-		UIImageView* imageView;
+        PCPageElementGallery    *pageElement = [self.galleryElements objectAtIndex:i];
         
-        if(_horizontalOrientation)
-        {
-            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*1024, 768, 1024)];
-        } else {
-            imageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, i*768, 1024, 768)];
+        
+        UIView          *galleryElementView = [[UIView alloc] initWithFrame:CGRectMake(0, elementRect.size.height * i, elementRect.size.width, elementRect.size.height)];
+        UIImageView     *galleryElementImageView = [[UIImageView alloc] initWithFrame:elementRect];
+
+        if(pageElement.zoomable)   // zoom support [UIView]-[UIScrollView]-[UIView](zoomable)-[UIView](rotated)-[UIImageView](gallery element)
+        {                          //                  '----[UIImageView](popup)(rotated) ...
+            UIScrollView    *innerScrollView = [[UIScrollView alloc] initWithFrame:elementRect];
+            [galleryElementView addSubview:innerScrollView];
+            [innerScrollView release];
+            
+            UIView          *zoomView = [[UIView alloc] initWithFrame:elementRect];
+            [innerScrollView addSubview:zoomView];
+            [zoomView release];
+            
+            UIView          *rotateView = [[UIView alloc] initWithFrame:elementRect];
+            [zoomView addSubview:rotateView];
+            [rotateView release];
+            
+            [rotateView addSubview:galleryElementImageView];
+            [galleryElementImageView release];
+            
+            rotateView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            rotateView.frame = elementRect;
+            galleryElementImageView.frame = rotatedRect;
+            
+            innerScrollView.tag = 1000 + i;
+            [self.zoomableViews addObject:zoomView];
+            
+            innerScrollView.delegate = self;
+            innerScrollView.bouncesZoom = NO;
+            innerScrollView.maximumZoomScale = 4.0;
+            innerScrollView.zoomScale = 1;
+        } else {                   // no zoom      [UIView]-[UIImageView](gallery element)(rotated)
+                                   //                  '----[UIImageView](popup)(rotated) ...
+            [galleryElementView addSubview:galleryElementImageView];
+            [galleryElementImageView release];
+            galleryElementImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            galleryElementImageView.frame = elementRect;
+            [self.zoomableViews addObject:[NSNull null]];
         }
-		
-		imageView.userInteractionEnabled = YES;
-        CGRect      frame = imageView.frame;
-        imageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
-        imageView.frame = frame;
         
-        PCPageElement* element = [self.galleryElements objectAtIndex:i];
-		NSArray* popups = [[element.dataRects allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[c] %@",PCPDFActiveZonePopup]];
-		for (NSString* type in popups) {
-			NSLog(@"POPUP - %@", type);
-			CGRect rect = [element rectForElementType:type];
-			if (!CGRectEqualToRect(rect, CGRectZero))
-			{
-				CGSize pageSize = imageView.bounds.size;
-				float scale = pageSize.width/element.size.width;
-				rect.size.width *= scale;
-				rect.size.height *= scale;
-				rect.origin.x *= scale;
-				rect.origin.y *= scale;
-				rect.origin.y = element.size.height*scale - rect.origin.y - rect.size.height;
-				UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
-				[popup setFrame:rect];
-				popup.tag = 100 + [[type lastPathComponent] intValue];
-				[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
-				//popup.backgroundColor = [UIColor redColor];
-				[imageView addSubview:popup];			
-			}
-		}
-		
-		[self.imageViews addObject:imageView];
-		[self.mainScrollView addSubview:imageView];
-		[imageView release];
+        // Popups
+        NSArray* popups = [[pageElement.dataRects allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[c] %@",PCPDFActiveZonePopup]];
+        if([popups count]>0)
+        {
+            UIImageView     *popupImageView = [[UIImageView alloc] initWithFrame:elementRect];
+            popupImageView.hidden = YES;
+            [galleryElementView addSubview:popupImageView];
+            [self.galleryPopupImageViews addObject:popupImageView];
+            [popupImageView release];
+            popupImageView.transform = CGAffineTransformMakeRotation(-M_PI_2);
+            popupImageView.frame = elementRect;
+
+            for (NSString* type in popups)
+            {
+                NSInteger       popupIndex = [[type lastPathComponent] intValue] - 1;
+                
+//                NSLog(@"Gallery item %d - POPUP - %@", i, type);
+
+                CGRect      rect = [pageElement rectForElementType:type];
+                
+                if (!CGRectEqualToRect(rect, CGRectZero))
+                {
+                    CGSize pageSize = rotatedRect.size;
+                    float scale = pageSize.width/pageElement.size.width;
+                    rect.size.width *= scale;
+                    rect.size.height *= scale;
+                    rect.origin.x *= scale;
+                    rect.origin.y *= scale;
+                    CGFloat     newX = pageElement.size.height*scale - rect.origin.y - rect.size.height;
+                    CGFloat     newY = pageElement.size.width*scale - rect.origin.x - rect.size.width;
+                    rect.origin.x = newX;
+                    rect.origin.y = newY;
+                    
+                    tmp = rect.size.width;
+                    rect.size.width = rect.size.height;
+                    rect.size.height = tmp;
+                } else {
+                    rect = elementRect;
+                }
+                [self.popupsZones addObject:[NSValue valueWithCGRect:rect]];
+                [self.popupsGalleryElementLinks addObject:[NSNumber numberWithInteger:i]];
+                [self.popupsIndexes addObject:[NSNumber numberWithInteger:popupIndex]];
+            }
+        } else {
+            [self.galleryPopupImageViews addObject:[NSNull null]];
+        }
+        
+        [self.galleryImageViews addObject:galleryElementImageView];
+        [self.mainScrollView addSubview:galleryElementView];
+        [galleryElementView release];
+        
+        galleryElementView.tag = 1000 + i;
+        UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(galleryElementTapped:)];
+        tapGestureRecognizer.cancelsTouchesInView = NO;
+        [galleryElementView  addGestureRecognizer:tapGestureRecognizer];
+        [tapGestureRecognizer release];
     }
-	
+
 	[self showPhotoAtIndex:self.currentPage];
 }
 
--(void)popupAction:(UIButton*)sender
-{
-	
-	for (UIView* v in sender.superview.subviews) {
-		if ([v isKindOfClass:[UIImageView class]])
-		{
-			[v removeFromSuperview];
-			if (v.tag == sender.tag) return;
-		}
-	}
-	int index = sender.tag - 100 - 1;
-	NSArray* popupsElements = [self.page elementsForType:PCPageElementTypePopup];
-	PCPageElement*popupElement = [popupsElements objectAtIndex:index];
-	if (!popupElement.isComplete)
-		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:popupElement];
-	NSString *fullResourcePath = [self.page.revision.contentDirectory stringByAppendingPathComponent:popupElement.resource];
-	UIImageView* popupView = [[UIImageView alloc] initWithFrame:sender.superview.bounds];
-	popupView.tag = sender.tag;
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		if (popupElement.isComplete && [[NSFileManager defaultManager] fileExistsAtPath:fullResourcePath])
-		{
-			UIImage *image = [UIImage imageWithContentsOfFile:fullResourcePath];
-			dispatch_async(dispatch_get_main_queue(), ^{
-				[popupView setImage:image];
-			});
-			
-		}
-	});
-	
-	popupView.userInteractionEnabled = YES;
-	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-	tapGestureRecognizer.cancelsTouchesInView = NO;
-	//tapGestureRecognizer.delegate = self;
-    [popupView  addGestureRecognizer:tapGestureRecognizer];
-	[tapGestureRecognizer release];
-	[sender.superview addSubview:popupView];
-	[sender.superview sendSubviewToBack:popupView];
-	[popupView release];
+- (UIView *)viewForZoomingInScrollView:(UIScrollView *)aScrollView {
+    NSInteger       index = aScrollView.tag - 1000;
+    
+    if(index>=0 && index<[self.galleryElements count])
+    {
+        if ([self.zoomableViews objectAtIndex:index]!=[NSNull null])
+        {
+            return [self.zoomableViews objectAtIndex:index];
+        }
+    }
+    return nil;
 }
 
--(void)tapAction:(UIGestureRecognizer *)gestureRecognizer
+- (void)galleryElementTapped:(UIGestureRecognizer *)gestureRecognizer
 {
-	[gestureRecognizer.view removeFromSuperview];
+    NSInteger       galleryElementIndex = gestureRecognizer.view.tag - 1000;
+    
+    if(galleryElementIndex>=0 && galleryElementIndex<[self.galleryElements count])
+    {
+        
+        // check if this gallery element has any popups
+        if([self.galleryPopupImageViews objectAtIndex:galleryElementIndex]!=[NSNull null])
+        {
+            UIImageView     *popupImageView = [self.galleryPopupImageViews objectAtIndex:galleryElementIndex];
+            
+            if(popupImageView.image)            // tapped when any of popup's is showed, hide this popup and clear
+            {
+                popupImageView.image = nil;
+                popupImageView.hidden = YES;
+            } else {                            // no popups is showed
+                // check if tap falls in any of zone
+                CGPoint         tapLocation = [gestureRecognizer locationInView:self.view];
+
+                for (int i=0; i<[self.popupsGalleryElementLinks count]; i++)
+                {
+                    NSNumber        *popupGalleryIndex = [self.popupsGalleryElementLinks objectAtIndex:i];
+                    
+                    if([popupGalleryIndex integerValue]==galleryElementIndex) // popup associated with current page
+                    {
+                        NSValue         *zone = [self.popupsZones objectAtIndex:i];
+                        CGRect           popupZone = [zone CGRectValue];
+                        
+//                        NSLog(@"TAP %.0f, %0.f, zone rect = %.0f, %0.f, %.0fx%0.f, result=%d", tapLocation.x, tapLocation.y, popupZone.origin.x, popupZone.origin.y, popupZone.size.width, popupZone.size.height, CGRectContainsPoint(popupZone, tapLocation));
+
+                        if(CGRectContainsPoint(popupZone, tapLocation)) // popup finded, show them
+                        {
+                            NSNumber        *popupIndex = [self.popupsIndexes objectAtIndex:i];
+                            
+                            NSArray* popupsElements = [self.page elementsForType:PCPageElementTypePopup];
+                            PCPageElement*popupElement = [popupsElements objectAtIndex:[popupIndex integerValue]];
+                            if (!popupElement.isComplete)
+                                [[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:popupElement];
+                            NSString *fullResourcePath = [self.page.revision.contentDirectory stringByAppendingPathComponent:popupElement.resource];
+                            dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+                                if (popupElement.isComplete && [[NSFileManager defaultManager] fileExistsAtPath:fullResourcePath])
+                                {
+                                    UIImage *image = [UIImage imageWithContentsOfFile:fullResourcePath];
+                                    dispatch_async(dispatch_get_main_queue(), ^{
+                                        [popupImageView setImage:image];
+                                        popupImageView.hidden = NO;
+                                    });
+                                    
+                                }
+                            });
+                            break;
+                        }
+                    }
+                }
+            }
+        }
+    }
 }
 
 -(void)showPhotoAtIndex:(NSInteger)currentIndex
@@ -331,7 +452,7 @@
 
 -(void)showImageAtIndex:(NSUInteger)index
 {
-	if ([[self.imageViews objectAtIndex:index] image]) return;
+	if ([[self.galleryImageViews objectAtIndex:index] image]) return;
 	PCPageElement* galleryElement = ((PCPageElement*)[self.galleryElements objectAtIndex:index]);
 	NSString *fullResourcePath = [self.page.revision.contentDirectory stringByAppendingPathComponent:galleryElement.resource];
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
@@ -339,7 +460,7 @@
 		{
 			UIImage *image = [UIImage imageWithContentsOfFile:fullResourcePath];
 			dispatch_async(dispatch_get_main_queue(), ^{
-				[[self.imageViews objectAtIndex:index] setImage:image];
+				[[self.galleryImageViews objectAtIndex:index] setImage:image];
                 NSLog(@"GO element with id=%d res=%@", galleryElement.identifier, galleryElement.resource);
 			});
 			
@@ -349,24 +470,28 @@
 
 - (void)removeImageViews
 {
-    for (int i=0; i<[self.imageViews count]; i++)
+    for (int i=0; i<[self.galleryImageViews count]; i++)
     {
-        [[self.imageViews objectAtIndex:i] removeFromSuperview];
+        [[self.galleryImageViews objectAtIndex:i] removeFromSuperview];
         [self hideHUDAtIndex:i];
     }
-    self.imageViews = nil;
+    self.galleryImageViews = nil;
 }
 
 -(void)hideImageAtIndex:(NSUInteger)index
 {
-	[[self.imageViews objectAtIndex:index] setImage:nil];
+	[[self.galleryImageViews objectAtIndex:index] setImage:nil];
+    
+    // clear popups
+    UIImageView     *popupImageView = [self.galleryPopupImageViews objectAtIndex:index];
+    popupImageView.image = nil;
 }
 
 -(void)showHUDAtIndex:(NSUInteger)index
 {
 	PCPageElement* element = (PCPageElement*)[self.galleryElements objectAtIndex:index];
 	if (element.isComplete) return;
-	UIImageView* currentImageView = ((UIImageView*)[self.imageViews objectAtIndex:index]);
+	UIImageView* currentImageView = ((UIImageView*)[self.galleryImageViews objectAtIndex:index]);
 	UIView* prevHUD = [currentImageView viewWithTag:kHUDTag];
 	if (prevHUD != nil)
 	{
@@ -383,7 +508,7 @@
 
 -(void)hideHUDAtIndex:(NSUInteger)index
 {
-	UIImageView* currentImageView = ((UIImageView*)[self.imageViews objectAtIndex:index]);
+	UIImageView* currentImageView = ((UIImageView*)[self.galleryImageViews objectAtIndex:index]);
 	MBProgressHUD* HUD = (MBProgressHUD*)[currentImageView viewWithTag:kHUDTag];
 	if (HUD)
 	{
@@ -403,12 +528,14 @@
 
 - (void) scrollViewWillBeginDecelerating:(UIScrollView *)scrollView
 {
+    if(scrollView!=self.mainScrollView)return;
 	scrollView.userInteractionEnabled = NO;
     [self afterScroll]; 
 }
 
 - (void) scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
+    if(scrollView!=self.mainScrollView)return;
 	scrollView.userInteractionEnabled = YES;
 	NSInteger currentIndex = lrint(self.mainScrollView.contentOffset.y/self.mainScrollView.frame.size.height);
 	[self showPhotoAtIndex:currentIndex];

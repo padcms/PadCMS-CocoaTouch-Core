@@ -152,6 +152,7 @@
 
 -(void)deviceOrientationDidChange
 {
+    [self tapInKiosk];
     if(self.kioskSubviews)
     {
         for (PCKioskSubview *current in self.kioskSubviews)
@@ -250,6 +251,11 @@
 }
 
 #pragma mark - PCKioskSubviewDelegateProtocol
+
+- (void) tapInKiosk
+{
+    [self.delegate tapInKiosk];
+}
 
 - (void) downloadButtonTappedWithRevisionIndex:(NSInteger) index
 {

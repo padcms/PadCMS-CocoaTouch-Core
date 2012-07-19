@@ -61,6 +61,7 @@
 //@class PCMainViewController;
 @class PCStoreController;
 @class PCScrollView;
+@class PCSubscriptionsMenuView;
 
 @interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate>
 
@@ -83,6 +84,7 @@
     PCSearchViewController* searchController;
     PCGalleryViewController* galleryViewController;
     UIView* shareMenu;
+    PCSubscriptionsMenuView *subscriptionsMenu;
     
     PCScrollView* horizontalScrollView;
     NSMutableArray* horizontalPagesViewControllers;
@@ -101,6 +103,7 @@
 @property (retain, nonatomic) IBOutlet UIButton *horizontalHelpButton;
 @property (nonatomic, retain) IBOutlet UIButton *topSummaryButton;
 @property (nonatomic, retain) PCScrollView* horizontalSummaryView;
+@property (nonatomic, retain) IBOutlet UIButton *subscriptionButton;
 
 /**
  @brief Show concrete page
@@ -174,5 +177,6 @@
 - (IBAction)showTopSummary:(id)sender;
 - (void) updateViewsForCurrentIndex;
 - (void)clearMemory;
+- (IBAction)subscriptionsAction:(id)sender;
 
 @end

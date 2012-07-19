@@ -44,11 +44,13 @@ static NSInteger instanceCount = 0;
 - (void)initialize;
 - (void)deinitialize;
 - (void)loadResource;
+- (void)showImage:(UIImage *)image;
 
 @end
 
 @implementation PCResourceView
 @synthesize resourceName = _resourceName;
+@synthesize resourceViewDidLoadBlock = _resourceViewDidLoadBlock;
 
 - (void)initialize
 {
@@ -60,6 +62,7 @@ static NSInteger instanceCount = 0;
 {
     --instanceCount;
     [_resourceName release];
+    _resourceViewDidLoadBlock = nil;
 }
 
 - (id)initWithFrame:(CGRect)frame
@@ -99,7 +102,7 @@ static NSInteger instanceCount = 0;
         id resource = [[PCResourceCache defaultResourceCache] objectForKey:_resourceName];
         
         if (resource != nil && [resource isKindOfClass:UIImage.class]) {
-            self.image = (UIImage *)resource;
+            [self showImage:(UIImage *)resource];
         } else {
             [self performSelectorInBackground:@selector(loadResource) withObject:nil];
         }
@@ -112,7 +115,17 @@ static NSInteger instanceCount = 0;
     
     if (resource != nil && [resource isKindOfClass:UIImage.class]) {
         [[PCResourceCache defaultResourceCache] setObject:resource forKey:_resourceName];
-        [self performSelectorOnMainThread:@selector(setImage:) withObject:resource waitUntilDone:YES];
+        [self performSelectorOnMainThread:@selector(showImage:) withObject:resource waitUntilDone:YES];
+    } else {
+        [self performSelectorOnMainThread:@selector(showImage:) withObject:nil waitUntilDone:YES];
+    }
+}
+
+- (void)showImage:(UIImage *)image
+{
+    self.image = image;
+    if (_resourceViewDidLoadBlock != nil) {
+        _resourceViewDidLoadBlock();
     }
 }
 

@@ -35,6 +35,8 @@
 
 #import <UIKit/UIKit.h>
 
+typedef void(^PCResourceViewDidLoadBlock)();
+
 /**
  @brief PCResourceView loads resources to memory in separate thread and automatically uses PCResourceCache instance to store loaded resources. 
  */
@@ -44,5 +46,7 @@
  @brief Image resource file absolute path
  */
 @property (copy, nonatomic) NSString *resourceName;
+
+@property (assign) PCResourceViewDidLoadBlock resourceViewDidLoadBlock; 
 
 @end
