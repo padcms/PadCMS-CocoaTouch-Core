@@ -302,8 +302,6 @@
     horizontalTopMenuView.hidden = YES;
     horizontalTopMenuView.alpha = 0;
     [self.view sendSubviewToBack:horizontalTopMenuView];
-    
-    [self.view sendSubviewToBack:_hudView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -1526,20 +1524,15 @@
                 BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
 
                 if (fileExists) {
-//                    tableOfContentButton.hidden = !tableOfContentButton.hidden;
                     _hudView.bottomTOCButton.hidden = !_hudView.bottomTOCButton.hidden;
                 } else {
-//                    tableOfContentButton.hidden = YES;
                     _hudView.bottomTOCButton.hidden = YES;
                 }
-//                tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
                 _hudView.bottomTOCButton.alpha = _hudView.bottomTOCButton.hidden ? 0 : 1;
              }
         } 
         
         else {
-//            tableOfContentButton.hidden = YES;
-//            tableOfContentButton.alpha = 0;
             _hudView.bottomTOCButton.hidden = YES;
             _hudView.bottomTOCButton.alpha = 0;
         }
@@ -1549,14 +1542,11 @@
             tableOfContentsView.alpha = 0;
         }
         
-//        topMenuView.hidden = !topMenuView.hidden;
-//        topMenuView.alpha = topMenuView.hidden ? 0 : 1;
-//        [self.view bringSubviewToFront:topMenuView];
-
         if (topMenuView.hidden) {
             [self showTopBar];
         } else {
             [self hideTopBar];
+            [self.view sendSubviewToBack:_hudView];
         }
         
         if (!topSummaryView.hidden) {
