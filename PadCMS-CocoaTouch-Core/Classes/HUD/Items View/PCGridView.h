@@ -1,10 +1,43 @@
+//
+//  PCGridView.h
+//  Pad CMS
+//
 //  Created by Maxim Pervushin on 7/13/12.
+//  Copyright (c) PadCMS (http://www.padcms.net)
+//
+//
+//  This software is governed by the CeCILL-C  license under French law and
+//  abiding by the rules of distribution of free software.  You can  use,
+//  modify and/ or redistribute the software under the terms of the CeCILL-C
+//  license as circulated by CEA, CNRS and INRIA at the following URL
+//  "http://www.cecill.info".
+//  
+//  As a counterpart to the access to the source code and  rights to copy,
+//  modify and redistribute granted by the license, users are provided only
+//  with a limited warranty  and the software's author,  the holder of the
+//  economic rights,  and the successive licensors  have only  limited
+//  liability.
+//  
+//  In this respect, the user's attention is drawn to the risks associated
+//  with loading,  using,  modifying and/or developing or reproducing the
+//  software by the user in light of its specific status of free software,
+//  that may mean  that it is complicated to manipulate,  and  that  also
+//  therefore means  that it is reserved for developers  and  experienced
+//  professionals having in-depth computer knowledge. Users are therefore
+//  encouraged to load and test the software's suitability as regards their
+//  requirements in conditions enabling the security of their systems and/or
+//  data to be ensured and,  more generally, to use and operate it in the
+//  same conditions as regards security.
+//  
+//  The fact that you are presently reading this means that you have had
+//  knowledge of the CeCILL-C license and that you accept its terms.
+//
 
 #import <UIKit/UIKit.h>
 
 @class PCGridView;
-@class PCGridViewIndex;
 @class PCGridViewCell;
+@class PCGridViewIndex;
 
 typedef enum _PCGridViewOrientation {
     PCGridViewOrientationHorizontal = 0,
@@ -27,14 +60,36 @@ typedef enum _PCGridViewOrientation {
 
 @end
 
-
+/*
+ @brief An instance of PCGridView is a way to display a list of information 
+ */
 @interface PCGridView : UIScrollView
 
+/**
+ @brief The object that acts as the actions delegate of the receiving grid view.
+ */ 
 @property (assign, nonatomic) id<PCGridViewDelegate> delegate;
+
+/**
+ @brief The object that acts as the data source delegate of the receiving grid view.
+ */ 
 @property (assign, nonatomic) id<PCGridViewDataSource> dataSource;
 
+/**
+ @brief Designated initializer. Initializes PCGGridView instance with given orientation.
+ @param orientation - orientation to initialize PCGGridView instance with.
+ */ 
 - (id)initWithOrientation:(PCGridViewOrientation)orientation;
+
+/**
+ @brief Reloads data of the receiver.
+ */ 
 - (void)reloadData;
+
+/**
+ @brief Returns a reusable grid view cell object.
+ @result PCGridViewCell object or nil if there are no reusable cells.
+ */ 
 - (PCGridViewCell *)dequeueReusableItemView;
 
 @end
