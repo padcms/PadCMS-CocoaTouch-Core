@@ -58,13 +58,13 @@
 
 @interface PCRevisionViewController()
 {
-    NSMutableArray *_activeTableOfContentsItems;
+    NSMutableArray *_activeTOCItems;
     PCHUDView *_hudView;
 }
 
-- (void)createHUD;
-- (void)destroyHUD;
-- (void)updateHUD;
+- (void)createHUDView;
+- (void)destroyHUDView;
+- (void)updateHUDView;
 - (void)showTopBar;
 - (void)hideTopBar;
 
@@ -186,7 +186,7 @@
     return self;
 }
 
-- (void)createHUD
+- (void)createHUDView
 {
     _hudView = [[PCHUDView alloc] initWithFrame:self.view.bounds];
     _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
@@ -197,7 +197,6 @@
     if (revision.color != nil)
     {
         NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
-    
         [_hudView stylizeElementsWithOptions:options];
     }
 
@@ -205,29 +204,29 @@
     _hudView.bottomTOCButton.alpha = 0;
 }
 
-- (void)destroyHUD
+- (void)destroyHUDView
 {
     if (_hudView != nil) {
         [_hudView removeFromSuperview];
         [_hudView release];
     }
 
-    if (_activeTableOfContentsItems != nil) {
-        [_activeTableOfContentsItems release];
+    if (_activeTOCItems != nil) {
+        [_activeTOCItems release];
     }
 }
 
-- (void)updateHUD
+- (void)updateHUDView
 {
     if (revision == nil) {
         return;
     }
 
-    if (_activeTableOfContentsItems == nil) {
-        _activeTableOfContentsItems = [[NSMutableArray alloc] init];
+    if (_activeTOCItems == nil) {
+        _activeTOCItems = [[NSMutableArray alloc] init];
     }
     
-    [_activeTableOfContentsItems removeAllObjects];
+    [_activeTOCItems removeAllObjects];
     
     if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
 
@@ -254,7 +253,7 @@
                     continue;
                 }
                 
-                [_activeTableOfContentsItems addObject:tocItem];
+                [_activeTOCItems addObject:tocItem];
             }
         }
     } else {
@@ -267,7 +266,7 @@
 
                 PCTocItem *tocItem = [[PCTocItem alloc] init];
                 tocItem.thumbStripe = halfImagePath;
-                [_activeTableOfContentsItems addObject:tocItem];
+                [_activeTOCItems addObject:tocItem];
                 [tocItem release];
             }
         }
@@ -588,7 +587,7 @@
     
     [self createTableOfContentsButton];
     
-    [self updateHUD];
+    [self updateHUDView];
 }
 
 - (void)createTableOfContentsButton
@@ -1044,7 +1043,7 @@
         currentMagazineOrientation = [[UIDevice currentDevice] orientation];
     }
 
-    [self createHUD];
+    [self createHUDView];
     [_hudView reloadData];
 }
 
@@ -1058,7 +1057,7 @@
     [self setSubscriptionButton:nil];
     [super viewDidUnload];
     
-    [self destroyHUD];
+    [self destroyHUDView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -1162,7 +1161,7 @@
         }
     }
     
-    [self updateHUD];
+    [self updateHUDView];
 }
 
 - (PCPage *) pageAtHorizontalIndex:(NSInteger)currentHorisontalPageIndex
@@ -2022,8 +2021,8 @@
 
 - (NSUInteger)hudViewTOCItemsCount:(PCHUDView *)hudView
 {
-    if (_activeTableOfContentsItems != nil) {
-        return _activeTableOfContentsItems.count;
+    if (_activeTOCItems != nil) {
+        return _activeTOCItems.count;
     }
     
     return 0;
@@ -2031,8 +2030,8 @@
 
 - (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index
 {
-    if (_activeTableOfContentsItems != nil) {
-        PCTocItem *tocItem = [_activeTableOfContentsItems objectAtIndex:index];
+    if (_activeTOCItems != nil) {
+        PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
         UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
         return image;
     }
@@ -2044,10 +2043,10 @@
 
 - (void)hudView:(PCHUDView *)hudView didSelectIndex:(NSUInteger)index
 {
-    if (_activeTableOfContentsItems != nil) {
+    if (_activeTOCItems != nil) {
 
         if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            PCTocItem *tocItem = [_activeTableOfContentsItems objectAtIndex:index];
+            PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
             
             NSInteger pageIndex = -1;
             NSArray *revisionPages = revision.pages;

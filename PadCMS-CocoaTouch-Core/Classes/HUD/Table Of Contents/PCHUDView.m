@@ -11,9 +11,9 @@
 #import "PCConfig.h"
 #import "PCDefaultStyleElements.h"
 #import "PCStyler.h"
+#import "PCTOCItemView.h"
 #import "RRItemsViewIndex.h"
 #import "RRItemsViewItem.h"
-#import "PCTOCItemView.h"
 
 #define TopBarHeight 43
 NSString *EnabledKey = @"Enabled";
@@ -244,10 +244,8 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0.3f;
         
-        if ([self.delegate respondsToSelector:@selector(hudView:willHideTOC:)]) {
-            [self.delegate hudView:self willHideTOC:_topTOCView];
-        }
-        
+        [self willHideTOC:_topTOCView];
+
         animationBlock = ^() {
             _topTOCView.center = hiddenTopTableOfContentsViewCenter;
             _topTOCBackgroundView.center = hiddenTopTableOfContentsViewCenter;
@@ -264,10 +262,8 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0;
         
-        if ([self.delegate respondsToSelector:@selector(hudView:willShowTOC:)]) {
-            [self.delegate hudView:self willShowTOC:_topTOCView];
-        }
-        
+        [self willShowTOC:_topTOCView];
+
         animationBlock = ^() {
             _topTOCView.center = visibleTopTableOfContentsViewCenter;
             _topTOCBackgroundView.center = visibleTopTableOfContentsViewCenter;
@@ -306,10 +302,8 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0.3f;
         
-        if ([self.delegate respondsToSelector:@selector(hudView:willHideTOC:)]) {
-            [self.delegate hudView:self willHideTOC:_bottomTOCView];
-        }
-        
+        [self willHideTOC:_bottomTOCView];
+
         animationBlock = ^() {
             _bottomTOCView.center = hiddenBottomTableOfContentsViewCenter;
             _bottomTOCBackgroundView.center = hiddenBottomTableOfContentsViewCenter;
@@ -326,9 +320,7 @@ NSString *EnabledKey = @"Enabled";
         
         _tintView.alpha = 0;
         
-        if ([self.delegate respondsToSelector:@selector(hudView:willShowTOC:)]) {
-            [self.delegate hudView:self willShowTOC:_bottomTOCView];
-        }
+        [self willShowTOC:_bottomTOCView];
         
         animationBlock = ^() {
             _bottomTOCView.center = visibleBottomTableOfContentsViewCenter;
@@ -405,9 +397,7 @@ NSString *EnabledKey = @"Enabled";
 
 - (void)itemsView:(RRItemsView *)itemsView itemSelectedAtIndex:(RRItemsViewIndex *)index
 {
-    if ([self.delegate respondsToSelector:@selector(hudView:didSelectIndex:)]) {
-        [self.delegate hudView:self didSelectIndex:index.row];
-    }
+    [self didSelectIndex:index.row];
 }
 
 #pragma mark - RRItemsViewDataSource
@@ -442,7 +432,27 @@ NSString *EnabledKey = @"Enabled";
 }
 
 #pragma mark - delegate
-#pragma mark TODO: delegate methods
+
+- (void)didSelectIndex:(NSUInteger)index
+{
+    if ([self.delegate respondsToSelector:@selector(hudView:didSelectIndex:)]) {
+        [self.delegate hudView:self didSelectIndex:index];
+    }
+}
+
+- (void)willShowTOC:(RRItemsView *)tocView
+{
+    if ([self.delegate respondsToSelector:@selector(hudView:willShowTOC:)]) {
+        [self.delegate hudView:self willShowTOC:tocView];
+    }
+}
+
+- (void)willHideTOC:(RRItemsView *)tocView
+{
+    if ([self.delegate respondsToSelector:@selector(hudView:willHideTOC:)]) {
+        [self.delegate hudView:self willHideTOC:tocView];
+    }
+}
 
 #pragma mark - data source
 
