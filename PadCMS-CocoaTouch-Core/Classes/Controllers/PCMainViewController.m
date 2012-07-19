@@ -722,9 +722,10 @@
         
         if (_revisionViewController == nil)
         {
+            NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
             _revisionViewController = [[PCRevisionViewController alloc] 
                                        initWithNibName:@"PCRevisionViewController"
-                                       bundle:nil];
+                                       bundle:bundle];
         
             [_revisionViewController setRevision:currentRevision];
             _revisionViewController.mainViewController = self;
@@ -953,9 +954,10 @@
         
         if (_revisionViewController == nil)
         {
+            NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
             _revisionViewController = [[PCRevisionViewController alloc] 
                                        initWithNibName:@"PCRevisionViewController"
-                                       bundle:nil];
+                                       bundle:bundle];
          
             [_revisionViewController setRevision:currentRevision];
             _revisionViewController.mainViewController = self;

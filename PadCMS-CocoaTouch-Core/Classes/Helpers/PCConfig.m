@@ -37,6 +37,9 @@
 
 #import "PCMacros.h"
 
+NSString const *PCTableOfContentsKey = @"PCTableOfContents";
+NSString const *PCTableOfContentsTopKey = @"PCTableOfContentsTop";
+NSString const *PCTableOfContentsBottomKey = @"PCTableOfContentsBottom";
 NSString const *PCConfigApplicationIdentifierKey = @"PCConfigApplicationIdentifier";
 NSString const *PCConfigClientIdentifierKey = @"PCConfigClientIdentifier";
 NSString const *PCConfigDisableSearchingKey = @"PCDisableSearching";
@@ -80,6 +83,28 @@ NSString const *PCStyleSheetKey = @"PCStyleSheet";
 }
 
 #pragma mark - public class methods
+
++ (NSDictionary *)topTableOfContentsConfig
+{
+    static NSDictionary *topTableOfContentsConfig = nil;
+    
+    if (topTableOfContentsConfig == nil) {
+        topTableOfContentsConfig = [[[[self padCMSConfig] objectForKey:PCTableOfContentsKey] objectForKey:PCTableOfContentsTopKey] retain];
+    }
+    
+    return topTableOfContentsConfig;
+}
+
++ (NSDictionary *)bottomTableOfContentsConfig
+{
+    static NSDictionary *bottomTableOfContentsConfig = nil;
+    
+    if (bottomTableOfContentsConfig == nil) {
+        bottomTableOfContentsConfig = [[[[self padCMSConfig] objectForKey:PCTableOfContentsKey] objectForKey:PCTableOfContentsBottomKey] retain];
+    }
+    
+    return bottomTableOfContentsConfig;
+}
 
 + (BOOL)isScrollViewScrollButtonsDisabled
 {
