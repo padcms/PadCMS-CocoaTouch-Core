@@ -136,4 +136,9 @@
  */ 
 - (void) deviceOrientationDidChange;
 
+/**
+ @brief Detects taps in subviews
+ */ 
+- (void) tapInKiosk;
+
 @end

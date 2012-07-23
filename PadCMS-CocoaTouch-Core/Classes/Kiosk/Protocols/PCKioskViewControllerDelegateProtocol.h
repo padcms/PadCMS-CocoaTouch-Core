@@ -43,5 +43,6 @@
 - (void) deleteRevisionDataWithIndex:(NSInteger) index;
 - (void) updateRevisionWithIndex:(NSInteger) index;
 - (void) purchaseRevisionWithIndex:(NSInteger) index;
+- (void) tapInKiosk;
 
 @end

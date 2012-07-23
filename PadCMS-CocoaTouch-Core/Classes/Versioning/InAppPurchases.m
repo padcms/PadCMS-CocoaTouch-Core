@@ -239,32 +239,27 @@ static InAppPurchases *singleton = nil;
 
 -(void)subscribe
 {
-  
-  
 #ifdef DEBUGX
 	NSLog(@"%s", __FUNCTION__);
 #endif
-  
-  if(_isSubscribed==YES)
-  {
-    /*     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous êtes déjà inscrit" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-     [alert show];
-     [alert release];*/
+
+    if(_isSubscribed)
+    {
+        /*     UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous êtes déjà inscrit" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+         [alert show];
+         [alert release];*/
     
-    return;
-  }
-  _isSubscribed=YES;
-  //product request
-  NSLog(@"subscribing");
+        return;
+    }
+    _isSubscribed=YES;
+    //product request
+    NSLog(@"subscribing");
 	
 		
 	if([self canMakePurchases])
 	{
-	{
-			
-			//[self purchaseForProductId:@"com.mobile.rue89.oneyear"];
-		[self purchaseForProductId:[[PCConfig subscriptions] lastObject]];
-		}
+        //[self purchaseForProductId:@"com.mobile.rue89.oneyear"];
+        [self purchaseForProductId:[[PCConfig subscriptions] lastObject]];
 	}
 	else
 	{
@@ -282,7 +277,35 @@ static InAppPurchases *singleton = nil;
 		[alert show];
 		[alert release];
 	}
-  
+}
+
+#pragma mark PCSubscriptionMenuViewDelegate methods
+
+- (void) newSubscription
+{
+    NSLog(@"newSubscription");
+    [self subscribe];
+}
+
+- (void) renewSubscription:(BOOL) needRenewIssues
+{
+    NSLog(@"renewSubscription");
+    
+    BOOL isFree = YES;
+    
+    for (NSString* subscriptionID in [PCConfig subscriptions]) 
+    {
+        isFree = NO;
+        [[InAppPurchases sharedInstance] requestProductDataWithProductId:subscriptionID];
+    }
+    
+    if (needRenewIssues)
+        isFree = NO;
+    
+    if (!isFree)
+    {
+        [[InAppPurchases sharedInstance] repurchase];
+    }
 }
 
 @end

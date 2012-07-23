@@ -1,8 +1,8 @@
 //
-//  PCDefaultStyleElements.m
+//  PCGridViewIndex.h
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 24.02.12.
+//  Created by Maxim Pervushin on 7/16/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,15 +33,17 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCDefaultStyleElements.h"
+#import <Foundation/Foundation.h>
 
-NSString *PCEmbeddedPhotosButtonKey           = @"PCEmbeddedPhotosButton";
-NSString *PCTopTocButtonKey                   = @"PCTopTocButton";
-NSString *PCTocButtonKey                      = @"PCTocButton";
-NSString *PCScrollControlKey                  = @"PCScrollControl";
-NSString *PCGalleryEnterButtonKey             = @"PCGalleryEnterButton";
-NSString *PCGallaryReturnButtonKey            = @"PCGallaryReturnButton";
-NSString *PCGalleryPageControlItemKey         = @"PCGalleryPageControlItem";
-NSString *PCSliderPageControlItemKey          = @"PCSliderPageControlItem";
-NSString *PCFlashButtonKey                    = @"PCFlashButton";
+/**
+ @brief PCGridViewIndex object represents a place in the PCGridView instance.
+ */ 
+@interface PCGridViewIndex : NSObject
 
+/**
+ @brief An index number identifying a row in a grid view.
+ */ 
+@property (assign, nonatomic) NSUInteger row;
+//@property (assign, nonatomic) NSUInteger column;
+
+@end

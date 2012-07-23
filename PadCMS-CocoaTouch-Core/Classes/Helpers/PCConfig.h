@@ -47,6 +47,9 @@ typedef enum _KiosqueType {
  */
 @interface PCConfig : NSObject
 
++ (NSDictionary *)topTableOfContentsConfig;
++ (NSDictionary *)bottomTableOfContentsConfig;
+
 /**
  @brief returns YES if the app should hide scroll buttons in all PCScrollView instances  
  */
@@ -121,5 +124,10 @@ typedef enum _KiosqueType {
  @brief returns application default language or nil if it is absent in plist
  */
 + (NSString *)ApplicationDefaultLanguage;
+
+/**
+ @brief InAppPurchases shared secret key
+ */
++ (NSString *)sharedSecretKey;
 
 @end

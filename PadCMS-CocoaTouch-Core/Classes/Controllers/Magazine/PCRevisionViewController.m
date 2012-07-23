@@ -50,12 +50,25 @@
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
 #import "PCLocalizationManager.h"
+#import "PCSubscriptionsMenuView.h"
+#import "InAppPurchases.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
 
 
-@interface PCRevisionViewController(ForwardDeclaration)
+@interface PCRevisionViewController()
+{
+    NSMutableArray *_activeTOCItems;
+    PCHUDView *_hudView;
+}
+
+- (void)createHUDView;
+- (void)destroyHUDView;
+- (void)updateHUDView;
+- (void)showTopBar;
+- (void)hideTopBar;
+
 - (void) updateViewsForCurrentIndex;
 - (void) createHorizontalView;
 - (void) deviceOrientationDidChange;
@@ -84,6 +97,7 @@
 @synthesize topSummaryButton;
 @synthesize horizontalSummaryView;
 @synthesize horizontalHelpButton;
+@synthesize subscriptionButton;
 
 -(void)dealloc
 {
@@ -132,6 +146,8 @@
     [helpButton release];
     [topSummaryButton release];
     [horizontalSummaryView release], horizontalSummaryView = nil;
+    [subscriptionButton release];
+    [subscriptionsMenu release], subscriptionsMenu = nil;
     [super dealloc];
 }
 
@@ -160,6 +176,7 @@
         topSummaryScrollView = nil;
         horizontalSummaryView = nil;
         helpController = nil;
+        subscriptionsMenu = nil;
         horizontalPagesViewControllers = [[NSMutableArray alloc] init];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -168,6 +185,124 @@
         
     }
     return self;
+}
+
+- (void)createHUDView
+{
+    _hudView = [[PCHUDView alloc] initWithFrame:self.view.bounds];
+    _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _hudView.dataSource = self;
+    _hudView.delegate = self;
+    [self.view addSubview:_hudView];
+    
+    if (revision.color != nil)
+    {
+        NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
+        [_hudView stylizeElementsWithOptions:options];
+    }
+
+    _hudView.bottomTOCButton.hidden = YES;
+    _hudView.bottomTOCButton.alpha = 0;
+}
+
+- (void)destroyHUDView
+{
+    if (_hudView != nil) {
+        [_hudView removeFromSuperview];
+        [_hudView release];
+    }
+
+    if (_activeTOCItems != nil) {
+        [_activeTOCItems release];
+    }
+}
+
+- (void)updateHUDView
+{
+    if (revision == nil) {
+        return;
+    }
+
+    if (_activeTOCItems == nil) {
+        _activeTOCItems = [[NSMutableArray alloc] init];
+    }
+    
+    [_activeTOCItems removeAllObjects];
+    
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+
+        if (revision.toc != nil) {
+            for (PCTocItem *tocItem in revision.toc) {
+                NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+                UIImage *tocImage = [UIImage imageWithContentsOfFile:imagePath];
+                
+                // Skip TOC elements without image
+                if (tocImage == nil) {
+                    continue;
+                }
+                
+                NSInteger pageIndex = -1;
+                NSArray *revisionPages = revision.pages;
+                for (PCPage *page in revisionPages) {
+                    if (page.identifier == tocItem.firstPageIdentifier) {
+                        pageIndex = [revisionPages indexOfObject:page];
+                    }
+                }
+                
+                // Skip TOC elements without reference
+                if (pageIndex == -1) {
+                    continue;
+                }
+                
+                [_activeTOCItems addObject:tocItem];
+            }
+        }
+    } else {
+        
+        if (revision.horisontalTocItems != nil) {
+            NSArray *allKeys = revision.horisontalTocItems.allKeys;
+            NSArray *sortedKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+            for (NSString *key in sortedKeys) {
+                NSString *halfImagePath = [@"horisontal_toc_items" stringByAppendingPathComponent:[self.revision.horizontalPages objectForKey:key]];
+
+                PCTocItem *tocItem = [[PCTocItem alloc] init];
+                tocItem.thumbStripe = halfImagePath;
+                [_activeTOCItems addObject:tocItem];
+                [tocItem release];
+            }
+        }
+    }
+    
+    [_hudView reloadData];
+    
+    [self.view bringSubviewToFront:_hudView];
+}
+
+- (void)showTopBar
+{
+    [self.view bringSubviewToFront:_hudView];
+
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        topMenuView.hidden = NO;
+        topMenuView.alpha = 0.75f;
+        [self.view bringSubviewToFront:topMenuView];
+    } else {
+        [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+        horizontalTopMenuView.hidden = NO;
+        horizontalTopMenuView.alpha = 0.75f;
+        [self.view bringSubviewToFront:horizontalTopMenuView];
+    }
+}
+
+- (void)hideTopBar
+{
+    topMenuView.hidden = YES;
+    topMenuView.alpha = 0;
+    [self.view sendSubviewToBack:topMenuView];
+    
+    horizontalTopMenuView.hidden = YES;
+    horizontalTopMenuView.alpha = 0;
+    [self.view sendSubviewToBack:horizontalTopMenuView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -450,6 +585,8 @@
     tableOfContentsView.alpha = 0;
     
     [self createTableOfContentsButton];
+    
+    [self updateHUDView];
 }
 
 - (void)createTableOfContentsButton
@@ -781,10 +918,23 @@
     helpButton.hidden = hide;
 }
 
+- (void) adjustSubscriptionButton
+{
+    BOOL hide = NO;
+    
+    if (![PCConfig subscriptions])
+    {
+        hide = YES;
+    }
+    subscriptionButton.hidden = hide;
+}
+
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
+    UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+
     mainScrollView.delegate = self;
 	mainScrollView.pagingEnabled = YES;
 	mainScrollView.alwaysBounceHorizontal = NO;
@@ -819,6 +969,7 @@
         [self showPageWithIndex:initialPageIndex];
         [self createHorizontalView];
         [self adjustHelpButton];
+        [self adjustSubscriptionButton];
         
         if([PCConfig isSearchDisabled])
         {
@@ -849,7 +1000,6 @@
                                                    object:nil];
     }
     
-    UIInterfaceOrientation currentOrientation = [[UIApplication sharedApplication] statusBarOrientation];
 /*    
     // if we enter in view controller in portrait with revision with horizontal orientation
     if(revision.horizontalOrientation && UIDeviceOrientationIsPortrait(currentOrientation))
@@ -891,6 +1041,9 @@
 
         currentMagazineOrientation = [[UIDevice currentDevice] orientation];
     }
+
+    [self createHUDView];
+    [_hudView reloadData];
 }
 
 
@@ -900,7 +1053,10 @@
     [self setHorizontalHelpButton:nil];
     [self setHelpButton:nil];
     [self setTopSummaryButton:nil];
+    [self setSubscriptionButton:nil];
     [super viewDidUnload];
+    
+    [self destroyHUDView];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -1003,6 +1159,8 @@
 			[self.currentColumnViewController.currentPageViewController showHUD];
         }
     }
+    
+    [self updateHUDView];
 }
 
 - (PCPage *) pageAtHorizontalIndex:(NSInteger)currentHorisontalPageIndex
@@ -1041,21 +1199,35 @@
 
 - (void) horizontalTapAction:(id) sender
 {
-    NSLog(@"tapAction sender=%@",NSStringFromCGPoint([sender locationInView:[sender view]]));
+    if (_hudView.bottomTOCView == nil) {
+        return;
+    }
+
     [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
 
-    if (![horizontalSummaryView.subviews count] > 0)
-    {
-        [self createHorizontalSummary];
+    if (horizontalTopMenuView.hidden) {
+//        horizontalTopMenuView.hidden = NO;
+//        horizontalTopMenuView.alpha = 0.75f;
+//        [self.view bringSubviewToFront:horizontalTopMenuView];
+        [self showTopBar];
+    } else {
+//        horizontalTopMenuView.hidden = YES;
+//        horizontalTopMenuView.alpha = 0;
+        [self hideTopBar];
     }
     
-    horizontalSummaryView.hidden = !horizontalSummaryView.hidden;
-    horizontalSummaryView.alpha = horizontalSummaryView.hidden?0.0:1.0;
-    [self.view bringSubviewToFront:horizontalSummaryView];
-    
-    horizontalTopMenuView.hidden = !horizontalTopMenuView.hidden;
-    horizontalTopMenuView.alpha = horizontalTopMenuView.hidden?0.0:1.0;
-    [self.view bringSubviewToFront:horizontalTopMenuView];
+    if (_hudView.bottomTOCButton.hidden) {
+        if (revision != nil && revision.horisontalTocItems != nil && revision.horisontalTocItems > 0) {
+            _hudView.bottomTOCButton.hidden = NO;
+            _hudView.bottomTOCButton.alpha = 1;
+        } else {
+            _hudView.bottomTOCButton.hidden = YES;
+            _hudView.bottomTOCButton.alpha = 0;
+        }
+    } else {
+        _hudView.bottomTOCButton.hidden = YES;
+        [self hideMenus];
+    }
 }
 
 -(PCPageViewController*)showPage:(PCPage*)page
@@ -1318,8 +1490,12 @@
 }
 
 
--(void)tapAction:(UIGestureRecognizer*)sender
+- (void)tapAction:(UIGestureRecognizer *)sender
 {
+    if (_hudView.bottomTOCView == nil) {
+        return;
+    }
+    
     if (revision.horizontalOrientation) {
         [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
     } else {
@@ -1347,22 +1523,19 @@
                 PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocStripeIndex];
                 NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
                 BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
-                if (fileExists) 
-                {
-                    tableOfContentButton.hidden = !tableOfContentButton.hidden;
-                } 
-            
-                else 
-                {
-                    tableOfContentButton.hidden = YES;
+
+                if (fileExists) {
+                    _hudView.bottomTOCButton.hidden = !_hudView.bottomTOCButton.hidden;
+                } else {
+                    _hudView.bottomTOCButton.hidden = YES;
                 }
-                tableOfContentButton.alpha = tableOfContentButton.hidden ? 0 : 1;
+                _hudView.bottomTOCButton.alpha = _hudView.bottomTOCButton.hidden ? 0 : 1;
              }
         } 
         
         else {
-            tableOfContentButton.hidden = YES;
-            tableOfContentButton.alpha = 0;
+            _hudView.bottomTOCButton.hidden = YES;
+            _hudView.bottomTOCButton.alpha = 0;
         }
         
         if (!tableOfContentsView.hidden) {
@@ -1370,8 +1543,12 @@
             tableOfContentsView.alpha = 0;
         }
         
-        topMenuView.hidden = !topMenuView.hidden;
-        topMenuView.alpha = topMenuView.hidden ? 0 : 1;
+        if (topMenuView.hidden) {
+            [self showTopBar];
+        } else {
+            [self hideTopBar];
+            [self.view sendSubviewToBack:_hudView];
+        }
         
         if (!topSummaryView.hidden) {
             topSummaryView.hidden = YES;
@@ -1381,6 +1558,11 @@
         if (!shareMenu.hidden) {
             shareMenu.hidden = YES;
             shareMenu.alpha = 0;
+        }
+        
+        if (!subscriptionsMenu.hidden) {
+            subscriptionsMenu.hidden = YES;
+            subscriptionsMenu.alpha = 0;
         }
         
     }];
@@ -1415,15 +1597,7 @@
 {
     NSInteger index = [sender tag];
     
-    NSLog(@"selectTOCItemAction: tag: %d", index);
-    NSLog(@"tableOfContentsView.contentSize %@", NSStringFromCGSize(tableOfContentsView.contentSize));
-    
-    //if (index < 0 || index >= [self.revision.toc count])
-    //    return;
-    //PCTocItem* tocItem = [self.revision.toc objectAtIndex:index];
-    //PCPage* page = [self.revision pageWithId:tocItem.firstPageIdentifier];
     [self hideMenus];
-    //[self showPage:page];
     [self showPageWithIndex:index];
 }
 
@@ -1462,6 +1636,21 @@
     }
 
     [self.view addSubview:helpController.view];
+}
+
+-(IBAction)subscriptionsAction:(id)sender
+{
+    CGRect popupRect = CGRectMake(subscriptionButton.frame.origin.x-100, subscriptionButton.frame.size.height, subscriptionButton.frame.size.width, 500);
+    if (!subscriptionsMenu)
+    {
+        subscriptionsMenu = [[PCSubscriptionsMenuView alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+        subscriptionsMenu.delegate = [InAppPurchases sharedInstance];
+        [self.view addSubview:subscriptionsMenu];
+        subscriptionsMenu.hidden = YES;
+    }
+    [subscriptionsMenu updateFrame:popupRect];
+    subscriptionsMenu.hidden = !subscriptionsMenu.hidden;
+    subscriptionsMenu.alpha = subscriptionsMenu.hidden?0.0:1.0;
 }
 
 -(IBAction)shareAction:(id)sender
@@ -1553,10 +1742,13 @@
     [shareMenu setHidden:YES];
     [tableOfContentsView setHidden:YES];
     [tableOfContentButton setHidden:YES];
+    [_hudView hideTOCs];
+    _hudView.bottomTOCButton.hidden = YES;
     [topSummaryView setHidden:YES];
     [topMenuView setHidden:YES];
     [horizontalSummaryView setHidden:YES];
     [horizontalTopMenuView setHidden:YES];
+    [subscriptionsMenu setHidden:YES];
 }
 
 - (void)emailShow
@@ -1802,6 +1994,101 @@
 		[self updateViewsForCurrentIndex];
 	}
 		
+}
+
+#pragma mark - RRTableOfContentsViewDataSource
+
+- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(PCGridView *)tocView
+{
+    if (tocView == hudView.topTOCView) {
+        return CGSizeMake(150,  512/*self.view.bounds.size.height / 2*/);
+    } else if (tocView == hudView.bottomTOCView) {
+        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            return CGSizeMake(150, 340 /*viewSize.height / 3*/);
+        } else {
+            return CGSizeMake(250, 192 /*viewSize.height / 4*/);
+        }
+    }
+    
+    return CGSizeZero;
+}
+
+- (NSUInteger)hudViewTOCItemsCount:(PCHUDView *)hudView
+{
+    if (_activeTOCItems != nil) {
+        return _activeTOCItems.count;
+    }
+    
+    return 0;
+}
+
+- (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index
+{
+    if (_activeTOCItems != nil) {
+        PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
+        UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
+        return image;
+    }
+    
+    return nil;
+}
+
+#pragma mark - RRTableOfContentsViewDelegate
+
+- (void)hudView:(PCHUDView *)hudView didSelectIndex:(NSUInteger)index
+{
+    if (_activeTOCItems != nil) {
+
+        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
+            
+            NSInteger pageIndex = -1;
+            NSArray *revisionPages = revision.pages;
+            for (PCPage *page in revisionPages) {
+                if (page.identifier == tocItem.firstPageIdentifier) {
+                    pageIndex = [revisionPages indexOfObject:page];
+                }
+            }
+            
+            [hudView hideTOCs];
+            
+            [self showPageWithIndex:pageIndex];
+        } else {
+            if (index >= [self.revision.horizontalPages count]) {
+                return;
+            }
+            
+            [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
+        }
+    }
+}
+
+- (void)hudView:(PCHUDView *)hudView willShowTOC:(PCGridView *)tocView
+{
+    if (tocView == _hudView.topTOCView) {
+        [self showTopBar];
+    }
+}
+
+- (void)hudView:(PCHUDView *)hudView willHideTOC:(PCGridView *)tocView
+{
+    if (tocView == _hudView.topTOCView) {
+        
+        if (!subscriptionsMenu.hidden) {
+            subscriptionsMenu.hidden = YES;
+            subscriptionsMenu.alpha = 0;
+        }
+
+        if (shareMenu != nil) {
+            shareMenu.hidden = YES;
+        } 
+        
+        if (topSummaryView != nil) {
+            topSummaryView.hidden = YES;
+        }   
+        
+        [self hideTopBar];
+    }
 }
 
 @end
