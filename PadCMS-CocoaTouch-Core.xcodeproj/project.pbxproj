@@ -681,7 +681,6 @@
 		607F44B71588E4880097D960 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F44B61588E4880097D960 /* libxml2.2.dylib */; };
 		607F44C21589E0AB0097D960 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F44C11589E0AB0097D960 /* SystemConfiguration.framework */; };
 		607F44DD1589E82B0097D960 /* PCPadCMSAppDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44DB1589E82B0097D960 /* PCPadCMSAppDelegate.h */; };
-		607F44DE1589E82B0097D960 /* PCPadCMSAppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44DC1589E82B0097D960 /* PCPadCMSAppDelegate.m */; };
 		607F44E11589E8E00097D960 /* NKitWorks.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F44DF1589E8E00097D960 /* NKitWorks.h */; };
 		607F44E21589E8E00097D960 /* NKitWorks.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F44E01589E8E00097D960 /* NKitWorks.m */; };
 		607F44E41589EA010097D960 /* PCPage.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F3E811588CE5F0097D960 /* PCPage.h */; };
@@ -4369,7 +4368,6 @@
 				607F44911588E3130097D960 /* SBJsonBase.m in Sources */,
 				607F44931588E3130097D960 /* SBJsonParser.m in Sources */,
 				607F44951588E3130097D960 /* SBJsonWriter.m in Sources */,
-				607F44DE1589E82B0097D960 /* PCPadCMSAppDelegate.m in Sources */,
 				607F44E21589E8E00097D960 /* NKitWorks.m in Sources */,
 				ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */,
 				ABF4D2EC1590516400DAAD0F /* PCDownloadManager.m in Sources */,
