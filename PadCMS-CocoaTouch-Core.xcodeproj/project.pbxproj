@@ -1039,12 +1039,17 @@
 		60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFA158F45EE00E3E98A /* topNav_b.png */; };
 		60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFB158F45EE00E3E98A /* topNav_m.png */; };
 		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
+		840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
+		840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */; };
+		840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
 		AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A0E7815A4278E00B9758C /* RevisionViewController.h */; };
 		AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A0E7915A4278E00B9758C /* RevisionViewController.m */; };
 		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
 		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
+		AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB61EE2D15B858710031496A /* GalleryViewController.h */; };
+		AB61EE3015B858710031496A /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB61EE2E15B858710031496A /* GalleryViewController.m */; };
 		ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
 		ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */; };
 		ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
@@ -1069,9 +1074,6 @@
 		ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */; };
 		ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABCBAF3C15AF61840022893B /* PageElementViewController.h */; };
 		ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCBAF3D15AF61860022893B /* PageElementViewController.m */; };
-		840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
-		840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */ = {isa = PBXBuildFile; fileRef = 840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */; };
-		840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
 		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
 		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
 		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
@@ -1497,7 +1499,7 @@
 		607F3E791588CE5F0097D960 /* PCData.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCData.h; sourceTree = "<group>"; };
 		607F3E7A1588CE5F0097D960 /* PCDataHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDataHelper.h; sourceTree = "<group>"; };
 		607F3E7B1588CE5F0097D960 /* PCDataHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDataHelper.m; sourceTree = "<group>"; };
-		607F3E7C1588CE5F0097D960 /* PCDownloadProgressProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadProgressProtocol.h; sourceTree = "<group>"; };
+		607F3E7C1588CE5F0097D960 /* PCDownloadProgressProtocol.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCDownloadProgressProtocol.h; path = ../Model/PCDownloadProgressProtocol.h; sourceTree = "<group>"; };
 		607F3E7D1588CE5F0097D960 /* PCHorizontalPage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHorizontalPage.h; sourceTree = "<group>"; };
 		607F3E7E1588CE5F0097D960 /* PCHorizontalPage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHorizontalPage.m; sourceTree = "<group>"; };
 		607F3E7F1588CE5F0097D960 /* PCIssue.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCIssue.h; sourceTree = "<group>"; };
@@ -2161,11 +2163,15 @@
 		60A5DCFA158F45EE00E3E98A /* topNav_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_b.png; sourceTree = "<group>"; };
 		60A5DCFB158F45EE00E3E98A /* topNav_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_m.png; sourceTree = "<group>"; };
 		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
+		840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuView.h; sourceTree = "<group>"; };
+		840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSubscriptionsMenuView.m; sourceTree = "<group>"; };
 		AB0A0E7815A4278E00B9758C /* RevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisionViewController.h; sourceTree = "<group>"; };
 		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisionViewController.m; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
+		AB61EE2D15B858710031496A /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
+		AB61EE2E15B858710031496A /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicArticleViewController.h; sourceTree = "<group>"; };
 		ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicArticleViewController.m; sourceTree = "<group>"; };
 		ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledScrollView.h; sourceTree = "<group>"; };
@@ -2190,8 +2196,6 @@
 		ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InteractivesBulletsViewController.m; sourceTree = "<group>"; };
 		ABCBAF3C15AF61840022893B /* PageElementViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PageElementViewController.h; sourceTree = "<group>"; };
 		ABCBAF3D15AF61860022893B /* PageElementViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PageElementViewController.m; sourceTree = "<group>"; };
-		840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuView.h; sourceTree = "<group>"; };
-		840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSubscriptionsMenuView.m; sourceTree = "<group>"; };
 		ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadApiClient.h; sourceTree = "<group>"; };
 		ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCDownloadApiClient.m; sourceTree = "<group>"; };
 		ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCDownloadManager.h; sourceTree = "<group>"; };
@@ -2367,7 +2371,6 @@
 				607F3E791588CE5F0097D960 /* PCData.h */,
 				607F3E7A1588CE5F0097D960 /* PCDataHelper.h */,
 				607F3E7B1588CE5F0097D960 /* PCDataHelper.m */,
-				607F3E7C1588CE5F0097D960 /* PCDownloadProgressProtocol.h */,
 				607F3E7D1588CE5F0097D960 /* PCHorizontalPage.h */,
 				607F3E7E1588CE5F0097D960 /* PCHorizontalPage.m */,
 				607F3E831588CE5F0097D960 /* PCPageActiveZone.h */,
@@ -3449,6 +3452,8 @@
 				ABC7E1D015A9C1D600B06A38 /* Templates */,
 				AB0A0E7815A4278E00B9758C /* RevisionViewController.h */,
 				AB0A0E7915A4278E00B9758C /* RevisionViewController.m */,
+				AB61EE2D15B858710031496A /* GalleryViewController.h */,
+				AB61EE2E15B858710031496A /* GalleryViewController.m */,
 			);
 			name = newTest;
 			sourceTree = "<group>";
@@ -3510,6 +3515,7 @@
 		ABF4D2E21590516400DAAD0F /* Networking */ = {
 			isa = PBXGroup;
 			children = (
+				607F3E7C1588CE5F0097D960 /* PCDownloadProgressProtocol.h */,
 				ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */,
 				ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */,
 				ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */,
@@ -3928,6 +3934,7 @@
 				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
 				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
 				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
+				AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4385,6 +4392,7 @@
 				ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */,
 				ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */,
 				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
+				AB61EE3015B858710031496A /* GalleryViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

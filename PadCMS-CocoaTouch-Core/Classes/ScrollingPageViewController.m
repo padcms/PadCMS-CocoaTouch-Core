@@ -24,6 +24,7 @@
 
 -(void)releaseViews
 {
+	[super releaseViews];
 	self.scrollingPanController = nil;
 }
 
@@ -69,6 +70,7 @@
         _paneScrollView.contentSize = CGSizeMake(_paneScrollView.frame.size.width, _paneScrollView.contentSize.height);
     }*/
     
+	
        
 }
 

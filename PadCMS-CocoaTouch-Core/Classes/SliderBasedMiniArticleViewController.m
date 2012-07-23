@@ -127,6 +127,7 @@
 
 -(void)releaseViews
 {
+	[super releaseViews];
 	self.miniArticles = nil;
 	self.thumbsScrollView = nil;
 	self.selectedMiniArticle = nil;

@@ -7,10 +7,11 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "AbstractBasePageViewController.h"
 
 @class PCRevision;
-@class AbstractBasePageViewController;
-@interface RevisionViewController : UIViewController <UIScrollViewDelegate>
+
+@interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate>
 
 @property (readonly, nonatomic) PCRevision *revision;
 @property (retain) AbstractBasePageViewController* currentPageViewController;

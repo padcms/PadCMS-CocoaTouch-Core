@@ -8,6 +8,7 @@
 
 #import "AbstractBasePageViewController.h"
 #import "PCPageActiveZone.h"
+#import "PCPageElementBody.h"
 
 
 @interface AbstractBasePageViewController ()
@@ -16,11 +17,14 @@
 
 @implementation AbstractBasePageViewController
 @synthesize page = _page;
-
+@synthesize delegate=_delegate;
+@synthesize actionButtons=_actionButtons;
 
 -(void)dealloc
 {
+	_delegate = nil;
 	[_page release], _page = nil;
+	[_actionButtons release], _actionButtons = nil;
 	[super dealloc];
 }
 -(id)initWithPage:(PCPage *)page
@@ -29,6 +33,7 @@
     {
         _page = [page retain];
 		_scale = [UIScreen mainScreen].scale;
+		_actionButtons = [[NSMutableArray alloc] init];
     }
     return self;
 }
@@ -52,7 +57,7 @@
 
 -(void)releaseViews
 {
-	
+	self.actionButtons = nil;
 }
 
 - (CGRect)activeZoneRectForType:(NSString*)zoneType
@@ -103,6 +108,57 @@
         }
     }
     return [activeZones autorelease];
+}
+
+-(void)createActionButtons
+{
+	for (UIView* view in _actionButtons) {
+		[view removeFromSuperview];
+	}
+	[self createGalleryButton];
+}
+
+-(void)createGalleryButton
+{
+	if ([[self.page elementsForType:PCPageElementTypeGallery]count]==0) return;
+	NSMutableArray* galleryActiveZones = [[NSMutableArray alloc] init];
+	
+	PCPageElement* backgroundElement = [_page firstElementForType:PCPageElementTypeBackground];
+	
+	for (PCPageActiveZone* activeZone in backgroundElement.activeZones) {
+		if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionPhotos])
+		{
+			[galleryActiveZones addObject:activeZone];	
+		}
+	}
+	
+	if (![galleryActiveZones lastObject])
+	{
+		PCPageElementBody* bodyElement = (PCPageElementBody*)[_page firstElementForType:PCPageElementTypeBody];
+		
+		// Base controller must ignore gallery in page with template that show gallery when device orientation changed
+		if (bodyElement && bodyElement.showGalleryOnRotate) return;
+		
+		for (PCPageActiveZone* activeZone in bodyElement.activeZones) {
+			if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionPhotos])
+			{
+				[galleryActiveZones addObject:activeZone];	
+			}
+		}
+		
+	}
+	
+	NSAssert([galleryActiveZones lastObject],@"No active zones for gallery");
+	
+	CGRect frame = [self activeZoneRectForType:[(PCPageActiveZone*)[galleryActiveZones lastObject] URL]];
+	
+	UIButton* galleryButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	galleryButton.frame = frame;
+	galleryButton.backgroundColor = [UIColor redColor];
+	[galleryButton addTarget:self.delegate action:@selector(showGallery) forControlEvents:UIControlEventTouchUpInside];
+	[self.actionButtons addObject:galleryButton];
+	[self.view addSubview:galleryButton];
+	
 }
 
 

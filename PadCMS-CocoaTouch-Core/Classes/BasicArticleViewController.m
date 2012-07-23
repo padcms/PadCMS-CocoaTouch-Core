@@ -23,6 +23,7 @@
 
 -(void)releaseViews
 {
+	[super releaseViews];
 	self.scrollView = nil;
 }
 
@@ -48,6 +49,7 @@
 	self.scrollView.scrollView.maximumZoomScale = 1.0;
 	
 	[self.view addSubview:self.scrollView];
+	[self createActionButtons];
 
 }
 

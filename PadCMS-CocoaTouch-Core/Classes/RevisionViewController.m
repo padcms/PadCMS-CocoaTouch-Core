@@ -11,6 +11,7 @@
 #import "PCPageViewController.h"
 #import "PCPage.h"
 #import "AbstractBasePageViewController.h"
+#import "GalleryViewController.h"
 
 @interface RevisionViewController ()
 @property (nonatomic, retain) UIScrollView* contentScrollView;
@@ -28,6 +29,10 @@
     
     if (self) {
         _revision = [revision retain];
+		[[NSNotificationCenter defaultCenter] addObserver:self
+												 selector:@selector(deviceOrientationDidChange)
+													 name:@"UIDeviceOrientationDidChangeNotification"
+												   object:nil];
     }
     
     return self;
@@ -51,6 +56,7 @@
 
 -(void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 	[_contentScrollView release], _contentScrollView = nil;
 	[super dealloc];
 }
@@ -104,6 +110,7 @@
 		self.currentPageViewController.view.frame = frame;
 		if (!self.currentPageViewController.view.superview)
 		{
+			_currentPageViewController.delegate = self;
 			[_currentPageViewController loadFullView];
 			[_contentScrollView addSubview:self.currentPageViewController.view];
 		}
@@ -133,12 +140,12 @@
 		
 		//here we determin the direction of horizontal scroll (right or left)
 		if (scrollView.contentOffset.x > dx ) {
-			NSLog(@"right");
+	//		NSLog(@"right");
 			nextPage = _currentPageViewController.page.rightPage;
 			nextPageViewFrame.origin = CGPointMake(dx + pageWidth, dy);
 		}
 		else {
-			NSLog(@"left");
+	//		NSLog(@"left");
 			nextPage = _currentPageViewController.page.leftPage;
 			nextPageViewFrame.origin = CGPointMake(dx - pageWidth, dy);
 		}
@@ -152,12 +159,12 @@
 		
 		//Here we determin the direction of vertical scrll (top or bottom)
 		if (scrollView.contentOffset.y > dy ) {
-			NSLog(@"bottom");
+	//		NSLog(@"bottom");
 			nextPage = _currentPageViewController.page.bottomPage;
 			nextPageViewFrame.origin = CGPointMake(dx, dy + pageHeight);
 		}
 		else {
-			NSLog(@"top");
+	//		NSLog(@"top");
 			nextPage = _currentPageViewController.page.topPage;
 			nextPageViewFrame.origin = CGPointMake(dx, dy - pageHeight);
 		}
@@ -165,13 +172,14 @@
 	
 	
 	if (!nextPage) return;
-	NSLog(@"NEXT PAGE - %d", nextPage.identifier);
+//	NSLog(@"NEXT PAGE - %d", nextPage.identifier);
 	if (_nextPageViewController.page != nextPage)
 	{
 		
 		[_nextPageViewController.view removeFromSuperview], self.nextPageViewController = nil;
 		self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage];
 		self.nextPageViewController.view.frame = nextPageViewFrame;
+		_nextPageViewController.delegate = self;
 		[_nextPageViewController loadFullView];
 		[_contentScrollView addSubview:self.nextPageViewController.view];
 	}
@@ -191,5 +199,31 @@
 	
 	
 }
+
+-(void)showGallery
+{
+	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
+	{
+		[self.navigationController pushViewController:[[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease]  animated:NO];
+	}
+	 
+}
+-(void) deviceOrientationDidChange
+{
+	if (_contentScrollView.dragging || _contentScrollView.decelerating) return;
+	PCPageElementBody* bodyElement = (PCPageElementBody*)[_currentPageViewController.page firstElementForType:PCPageElementTypeBody];
+	
+	if (bodyElement && bodyElement.showGalleryOnRotate)
+	{
+		if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation))
+		{
+			[self showGallery];
+		}
+		else {
+			[self.navigationController popToViewController:self animated:NO];
+		}
+	}
+}
+
 
 @end

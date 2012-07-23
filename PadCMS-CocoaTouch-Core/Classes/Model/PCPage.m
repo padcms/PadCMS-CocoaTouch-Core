@@ -108,10 +108,8 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
     if (elements == nil || [elements count] == 0)
         return nil;
 	NSArray* result = [elements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"fieldTypeName == %@",elementType]];
-	if ([elementType isEqualToString:PCPageElementTypeMiniArticle])
-	{
-		result = [result sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"weight" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES],nil]];
-	}
+	result = [result sortedArrayUsingDescriptors:[NSArray arrayWithObjects:[NSSortDescriptor sortDescriptorWithKey:@"weight" ascending:YES],[NSSortDescriptor sortDescriptorWithKey:@"identifier" ascending:YES],nil]];
+	
     return result;
 }
 

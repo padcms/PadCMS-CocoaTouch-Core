@@ -29,6 +29,7 @@
 
 -(void)releaseViews
 {
+	[super releaseViews];
 	self.backgroundViewController = nil;
 	self.bodyViewController = nil;
 }
@@ -47,6 +48,7 @@
 		[self.view addSubview:self.bodyViewController.elementView];
 		
 	}
+	[self createActionButtons];
 }
 
 -(void)loadBackground

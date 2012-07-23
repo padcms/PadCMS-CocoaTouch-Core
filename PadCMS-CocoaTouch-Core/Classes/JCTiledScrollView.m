@@ -102,7 +102,7 @@
 
     _singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapReceived:)];
     _singleTapGestureRecognizer.numberOfTapsRequired = 1;
-    [_tiledView addGestureRecognizer:_singleTapGestureRecognizer];
+ //   [_tiledView addGestureRecognizer:_singleTapGestureRecognizer];
 
     _doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(doubleTapReceived:)];
     _doubleTapGestureRecognizer.numberOfTapsRequired = 2;
@@ -122,6 +122,7 @@
 
 - (void)dealloc
 {	
+	_tiledView.delegate = nil;
   [_scrollView release];
   [_tiledView release];
   [_canvasView release];

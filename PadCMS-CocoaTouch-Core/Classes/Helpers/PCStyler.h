@@ -35,6 +35,7 @@
 
 #import <Foundation/Foundation.h>
 #import "PCMacros.h"
+#import "PCDefaultStyleElements.h"
 
 PADCMS_EXTERN NSString * PCButtonImagesKey;
 PADCMS_EXTERN NSString * PCButtonImageNormalKey;

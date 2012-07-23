@@ -26,6 +26,7 @@
 
 -(void)releaseViews
 {
+	[super releaseViews];
 	[self.view removeGestureRecognizer:_tapGestureRecognizer];
 	self.tapGestureRecognizer = nil;
 }

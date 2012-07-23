@@ -27,6 +27,7 @@
 
 -(void)releaseViews
 {
+	[super releaseViews];
 	self.miniArticles = nil;
 }
 

@@ -36,6 +36,8 @@
 
 -(void)dealloc
 {
+	[_elementView removeFromSuperview];
+	NSLog(@"element dealloc");
 	[_element release], _element = nil;
 	[_elementView release], _elementView = nil;
 	[super dealloc];
