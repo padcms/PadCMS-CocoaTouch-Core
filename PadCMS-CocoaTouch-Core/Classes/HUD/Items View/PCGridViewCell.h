@@ -1,8 +1,8 @@
 //
-//  PCDefaultStyleElements.m
+//  PCGridViewCell.h
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 24.02.12.
+//  Created by Maxim Pervushin on 7/16/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,15 +33,18 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCDefaultStyleElements.h"
+#import <UIKit/UIKit.h>
 
-NSString *PCEmbeddedPhotosButtonKey           = @"PCEmbeddedPhotosButton";
-NSString *PCTopTocButtonKey                   = @"PCTopTocButton";
-NSString *PCTocButtonKey                      = @"PCTocButton";
-NSString *PCScrollControlKey                  = @"PCScrollControl";
-NSString *PCGalleryEnterButtonKey             = @"PCGalleryEnterButton";
-NSString *PCGallaryReturnButtonKey            = @"PCGallaryReturnButton";
-NSString *PCGalleryPageControlItemKey         = @"PCGalleryPageControlItem";
-NSString *PCSliderPageControlItemKey          = @"PCSliderPageControlItem";
-NSString *PCFlashButtonKey                    = @"PCFlashButton";
+@class PCGridViewIndex;
 
+/**
+ @brief PCGridViewCell defines attributes and behavior of the PCGridView objects cells.
+ */ 
+@interface PCGridViewCell : UIView
+
+/**
+ @brief index of the current PCGridViewCell instance.
+ */ 
+@property (retain, nonatomic) PCGridViewIndex *index;
+
+@end

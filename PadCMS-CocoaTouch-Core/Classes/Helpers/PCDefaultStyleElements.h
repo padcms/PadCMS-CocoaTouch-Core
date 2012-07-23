@@ -35,13 +35,14 @@
 
 #import <Foundation/Foundation.h>
 
-PADCMS_EXTERN NSString * PCEmbeddedPhotosButtonKey;
-PADCMS_EXTERN NSString * PCTocButtonKey;
-PADCMS_EXTERN NSString * PCScrollControlKey;
-PADCMS_EXTERN NSString * PCGalleryEnterButtonKey;
-PADCMS_EXTERN NSString * PCGallaryReturnButtonKey;
-PADCMS_EXTERN NSString * PCGalleryPageControlItemKey;
-PADCMS_EXTERN NSString * PCSliderPageControlItemKey;
-PADCMS_EXTERN NSString * PCFlashButtonKey;
+PADCMS_EXTERN NSString *PCEmbeddedPhotosButtonKey;
+PADCMS_EXTERN NSString *PCTopTocButtonKey;
+PADCMS_EXTERN NSString *PCTocButtonKey;
+PADCMS_EXTERN NSString *PCScrollControlKey;
+PADCMS_EXTERN NSString *PCGalleryEnterButtonKey;
+PADCMS_EXTERN NSString *PCGallaryReturnButtonKey;
+PADCMS_EXTERN NSString *PCGalleryPageControlItemKey;
+PADCMS_EXTERN NSString *PCSliderPageControlItemKey;
+PADCMS_EXTERN NSString *PCFlashButtonKey;
 
 

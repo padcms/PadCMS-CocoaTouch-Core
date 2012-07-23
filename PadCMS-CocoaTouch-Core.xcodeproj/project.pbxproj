@@ -1094,6 +1094,21 @@
 		C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */; };
 		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
 		C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
+		C58C169515B3FE6C00665295 /* PCGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C168F15B3FE6C00665295 /* PCGridView.h */; };
+		C58C169615B3FE6C00665295 /* PCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169015B3FE6C00665295 /* PCGridView.m */; };
+		C58C169715B3FE6C00665295 /* PCGridViewIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169115B3FE6C00665295 /* PCGridViewIndex.h */; };
+		C58C169815B3FE6C00665295 /* PCGridViewIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169215B3FE6C00665295 /* PCGridViewIndex.m */; };
+		C58C169915B3FE6C00665295 /* PCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169315B3FE6C00665295 /* PCGridViewCell.h */; };
+		C58C169A15B3FE6C00665295 /* PCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169415B3FE6C00665295 /* PCGridViewCell.m */; };
+		C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */; };
+		C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */; };
+		C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHUDView.h */; };
+		C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169E15B3FE7400665295 /* PCHUDView.m */; };
+		C58C16A315B3FFD600665295 /* PCGridView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C168F15B3FE6C00665295 /* PCGridView.h */; };
+		C58C16A415B3FFD600665295 /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169115B3FE6C00665295 /* PCGridViewIndex.h */; };
+		C58C16A515B3FFD600665295 /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169315B3FE6C00665295 /* PCGridViewCell.h */; };
+		C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */; };
+		C58C16A715B3FFD600665295 /* PCHUDView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHUDView.h */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
 		C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */; };
 /* End PBXBuildFile section */
@@ -1107,6 +1122,11 @@
 			files = (
 				AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */,
 				AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */,
+				C58C16A315B3FFD600665295 /* PCGridView.h in CopyFiles */,
+				C58C16A415B3FFD600665295 /* PCGridViewIndex.h in CopyFiles */,
+				C58C16A515B3FFD600665295 /* PCGridViewCell.h in CopyFiles */,
+				C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */,
+				C58C16A715B3FFD600665295 /* PCHUDView.h in CopyFiles */,
 				840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
@@ -2212,6 +2232,16 @@
 		C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCacheTest.m; sourceTree = "<group>"; };
 		C51D595515AD5CAB001EEE0A /* PCResourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceView.h; sourceTree = "<group>"; };
 		C51D595615AD5CAB001EEE0A /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
+		C58C168F15B3FE6C00665295 /* PCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridView.h; sourceTree = "<group>"; };
+		C58C169015B3FE6C00665295 /* PCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridView.m; sourceTree = "<group>"; };
+		C58C169115B3FE6C00665295 /* PCGridViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewIndex.h; sourceTree = "<group>"; };
+		C58C169215B3FE6C00665295 /* PCGridViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewIndex.m; sourceTree = "<group>"; };
+		C58C169315B3FE6C00665295 /* PCGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewCell.h; sourceTree = "<group>"; };
+		C58C169415B3FE6C00665295 /* PCGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewCell.m; sourceTree = "<group>"; };
+		C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTOCGridViewCell.h; sourceTree = "<group>"; };
+		C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTOCGridViewCell.m; sourceTree = "<group>"; };
+		C58C169D15B3FE7400665295 /* PCHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHUDView.h; sourceTree = "<group>"; };
+		C58C169E15B3FE7400665295 /* PCHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHUDView.m; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
 		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2258,6 +2288,7 @@
 			isa = PBXGroup;
 			children = (
 				AB0A0E7215A40F4E00B9758C /* newTest */,
+				C51BA59515B3FAF300F8117A /* HUD */,
 				ABF4D2E21590516400DAAD0F /* Networking */,
 				607F43E81588E19A0097D960 /* View */,
 				607F3F991588D3DE0097D960 /* Controllers */,
@@ -3555,6 +3586,41 @@
 			name = Resources;
 			sourceTree = "<group>";
 		};
+		C51BA59515B3FAF300F8117A /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				C58C167915B3FE3B00665295 /* Grid View */,
+				C58C168015B3FE3B00665295 /* HUD */,
+			);
+			path = HUD;
+			sourceTree = "<group>";
+		};
+		C58C167915B3FE3B00665295 /* Grid View */ = {
+			isa = PBXGroup;
+			children = (
+				C58C168F15B3FE6C00665295 /* PCGridView.h */,
+				C58C169015B3FE6C00665295 /* PCGridView.m */,
+				C58C169115B3FE6C00665295 /* PCGridViewIndex.h */,
+				C58C169215B3FE6C00665295 /* PCGridViewIndex.m */,
+				C58C169315B3FE6C00665295 /* PCGridViewCell.h */,
+				C58C169415B3FE6C00665295 /* PCGridViewCell.m */,
+			);
+			name = "Grid View";
+			path = "Items View";
+			sourceTree = "<group>";
+		};
+		C58C168015B3FE3B00665295 /* HUD */ = {
+			isa = PBXGroup;
+			children = (
+				C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */,
+				C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */,
+				C58C169D15B3FE7400665295 /* PCHUDView.h */,
+				C58C169E15B3FE7400665295 /* PCHUDView.m */,
+			);
+			name = HUD;
+			path = "Table Of Contents";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3932,6 +3998,11 @@
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
 				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
 				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
+				C58C169515B3FE6C00665295 /* PCGridView.h in Headers */,
+				C58C169715B3FE6C00665295 /* PCGridViewIndex.h in Headers */,
+				C58C169915B3FE6C00665295 /* PCGridViewCell.h in Headers */,
+				C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */,
+				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
 				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
 				AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */,
 			);
@@ -4389,6 +4460,11 @@
 				C5F7B30E15AD8ED6005D0D99 /* PCResourceCache.m in Sources */,
 				ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */,
 				ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */,
+				C58C169615B3FE6C00665295 /* PCGridView.m in Sources */,
+				C58C169815B3FE6C00665295 /* PCGridViewIndex.m in Sources */,
+				C58C169A15B3FE6C00665295 /* PCGridViewCell.m in Sources */,
+				C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */,
+				C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */,
 				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
 				AB61EE3015B858710031496A /* GalleryViewController.m in Sources */,
 			);
