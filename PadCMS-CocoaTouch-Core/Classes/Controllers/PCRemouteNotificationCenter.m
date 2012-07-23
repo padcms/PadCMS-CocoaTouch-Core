@@ -36,6 +36,7 @@
 #import "PCRemouteNotificationCenter.h"
 #import "JSON.h"
 #import "PCConfig.h"
+#import "PCLocalizationManager.h"
 
 NSString* PCRemouteNotificationCenterUUIDKey = @"RemouteNotificationCenterUUID";
 
@@ -193,7 +194,8 @@ NSString* PCRemouteNotificationCenterUUIDKey = @"RemouteNotificationCenterUUID";
             UIAlertView* alertView  = [[UIAlertView alloc] initWithTitle:title 
                                                                  message:nil 
                                                                 delegate:self 
-                                                       cancelButtonTitle:@"OK" 
+                                                       cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                                value:@"OK"]
                                                        otherButtonTitles:nil];
             [alertView show];
             [alertView release];

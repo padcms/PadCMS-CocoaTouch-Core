@@ -35,6 +35,7 @@
 
 #import "PCKioskBaseControlElement.h"
 #import "PCKioskShelfSettings.h"
+#import "PCLocalizationManager.h"
 
 @interface PCKioskBaseControlElement ()
 - (void)assignCoverImage:(UIImage*) coverImage;
@@ -128,7 +129,9 @@
 {
     downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[downloadButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_download.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[downloadButton setTitle:@"Download" forState:UIControlStateNormal];
+	[downloadButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_DOWNLOAD"
+                                                                    value:@"Download"]
+                    forState:UIControlStateNormal];
 	[downloadButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
 	[downloadButton titleLabel].backgroundColor = [UIColor clearColor];
 	[downloadButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -140,7 +143,9 @@
 	
 	readButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[readButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_read.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[readButton setTitle:@"Read" forState:UIControlStateNormal];
+	[readButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_READ"
+                                                                value:@"Read"]
+                forState:UIControlStateNormal];
 	[readButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
 	[readButton titleLabel].backgroundColor = [UIColor clearColor];
 	[readButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -152,7 +157,9 @@
 	
 	cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[cancelButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_cancel.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+	[cancelButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_CANCEL"
+                                                                  value:@"Cancel"]
+                  forState:UIControlStateNormal];
 	[cancelButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:14];
 	[cancelButton titleLabel].backgroundColor = [UIColor clearColor];
 	[cancelButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -164,7 +171,9 @@
 	
 	deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[deleteButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_delete.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+	[deleteButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_DELETE"
+                                                                  value:@"Delete"]
+                  forState:UIControlStateNormal];
 	[deleteButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
 	[deleteButton titleLabel].backgroundColor = [UIColor clearColor];
 	[deleteButton titleLabel].textAlignment = UITextAlignmentCenter;

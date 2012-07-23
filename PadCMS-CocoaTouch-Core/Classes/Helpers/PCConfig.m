@@ -51,6 +51,7 @@ NSString const *PCScrollViewScrollButtonsDisabledKey = @"PCScrollViewScrollButto
 NSString const *PCScrollingPageVerticalScrollButtonsDisabledKey = @"PCScrollingPageVerticalScrollButtonsDisabled";
 NSString const *PCScrollingPageHorizontalScrollButtonsDisabledKey = @"PCScrollingPageHorizontalScrollButtonsDisabled";
 NSString const *PCStyleSheetKey = @"PCStyleSheet"; 
+NSString const *PCConfigApplicationDefaultLanguageKey = @"PCConfigApplicationDefaultLanguage"; 
 
 
 @interface PCConfig ()
@@ -267,5 +268,19 @@ NSString const *PCStyleSheetKey = @"PCStyleSheet";
     
     return serverURL;
 }
+
++ (NSString *)ApplicationDefaultLanguage
+{
+    static NSString *applicationDefaultLanguage = nil;
+    
+    if (applicationDefaultLanguage == nil)
+    {
+        applicationDefaultLanguage = [[[PCConfig padCMSConfig] 
+                                  objectForKey:PCConfigApplicationDefaultLanguageKey] retain]; 
+    }
+    
+    return applicationDefaultLanguage;
+}
+
 
 @end

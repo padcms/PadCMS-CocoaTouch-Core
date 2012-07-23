@@ -35,6 +35,7 @@
 
 #import "PCEmailController.h"
 #import "PCApplication.h"
+#import "PCLocalizationManager.h"
 
 @implementation PCEmailController
 
@@ -74,10 +75,13 @@
 	if (![MFMailComposeViewController canSendMail])
 	{
 		UIAlertView *errorAllert = [[UIAlertView alloc] 
-									initWithTitle:NSLocalizedString(@"Envoi d'erreur email!", nil) 
-									message:NSLocalizedString(@"Client de messagerie n'est pas configurée.", nil) 
+									initWithTitle:[PCLocalizationManager localizedStringForKey:@"TITLE_ERROR_SENDING_EMAIL"
+                                                                                         value:@"Error sending email!"] 
+									message:[PCLocalizationManager localizedStringForKey:@"MSG_EMAIL_CLIENT_IS_NOT_CONFIGURED"
+                                                                                   value:@"Email client is not configured."]
 									delegate:nil
-									cancelButtonTitle:@"OK" 
+									cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                             value:@"OK"]
 									otherButtonTitles:nil];
         
         [errorAllert show];

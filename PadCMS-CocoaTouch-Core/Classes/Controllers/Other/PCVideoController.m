@@ -39,6 +39,7 @@
 #import "PCBrowserViewController.h"
 #import "PCDownloadApiClient.h"
 #import "MBProgressHUD.h"
+#import "PCLocalizationManager.h"
 
 @interface PCVideoController () 
 
@@ -102,7 +103,13 @@
 	AFNetworkReachabilityStatus remoteHostStatus = [PCDownloadApiClient sharedClient].networkReachabilityStatus;    
 	if(remoteHostStatus == AFNetworkReachabilityStatusNotReachable) 
 	{
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous devez être connecté à Internet pour partager ce contenu." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
+                                                                                                       value:@"You must be connected to the Internet."]
+                                                        message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                       value:@"OK"]
+                                              otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 		return NO;
@@ -216,7 +223,7 @@
     if (!self.HUD)
     {
         self.HUD = [[MBProgressHUD alloc] initWithView:self.moviePlayer.view];
-        self.HUD.labelText = @"Loading"; 
+        self.HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING" value:@"Loading"]; 
     }
     
     [self.moviePlayer.view addSubview:self.HUD];

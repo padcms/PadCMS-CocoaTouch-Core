@@ -49,6 +49,7 @@
 #import "PCSearchProvider.h"
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
+#import "PCLocalizationManager.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -1474,7 +1475,8 @@
         [shareMenu addSubview:bg];
         
         UILabel* caption = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, shareMenu.frame.size.width, 20)];
-        caption.text = @"PARTAGE";
+        caption.text = [PCLocalizationManager localizedStringForKey:@"SHARING_MENU_CAPTION"
+                                                              value:@"SHARING"];
         caption.font = [UIFont fontWithName:@"Helvetica" size:17];
         caption.textColor = [UIColor whiteColor];
         caption.textAlignment = UITextAlignmentCenter;
@@ -1526,7 +1528,8 @@
         emailTitle.textColor = [UIColor whiteColor];
         emailTitle.backgroundColor = [UIColor blackColor];
         emailTitle.center = CGPointMake(95 + 11, btnTwitter.center.y + 45);
-        emailTitle.text = @"Envoyer un Mail";
+        emailTitle.text = [PCLocalizationManager localizedStringForKey:@"SHARING_MENU_TITLE_EMAIL"
+                                                                 value:@"Send Email"];
         [shareMenu addSubview:emailTitle];
         [emailTitle release];
         

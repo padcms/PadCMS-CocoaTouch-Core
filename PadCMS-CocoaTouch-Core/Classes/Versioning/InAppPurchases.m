@@ -35,6 +35,7 @@
 
 #import "InAppPurchases.h"
 #import "PCConfig.h"
+#import "PCLocalizationManager.h"
 
 static InAppPurchases *singleton = nil;
 
@@ -267,7 +268,17 @@ static InAppPurchases *singleton = nil;
 	}
 	else
 	{
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous ne pouvez procéder à l'achat" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString        *title = [PCLocalizationManager localizedStringForKey:@"ALERT_TITLE_CANT_MAKE_PURCHASE"
+                                                                        value:@"You can't make the purchase"];
+        
+        NSString        *buttonTitle = [PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                              value:@"OK"];
+        
+		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:nil
+                                                       delegate:nil
+                                              cancelButtonTitle:buttonTitle
+                                              otherButtonTitles:nil];
 		[alert show];
 		[alert release];
 	}
