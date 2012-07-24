@@ -12,12 +12,14 @@
 
 @protocol PCActionDelegate;
 @class PCBrowserViewController;
+@class MBProgressHUD;
 @interface AbstractBasePageViewController : UIViewController<UIGestureRecognizerDelegate>
 {
 	PCPage* _page;
 	float _scale;
 	UITapGestureRecognizer* tapGestureRecognizer;
 	PCBrowserViewController *webBrowserViewController;
+	MBProgressHUD* HUD;
 }
 @property (nonatomic, readonly) PCPage* page;
 @property (nonatomic, assign) UIViewController<PCActionDelegate> *delegate;

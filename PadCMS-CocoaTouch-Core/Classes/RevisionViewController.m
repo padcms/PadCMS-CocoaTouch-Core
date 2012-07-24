@@ -22,6 +22,7 @@
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
 @synthesize nextPageViewController=_nextPageViewController;
+@synthesize topSummaryView;
 
 - (id)initWithRevision:(PCRevision *)revision
 {
@@ -52,11 +53,14 @@
     _contentScrollView.delegate = self;
 	_contentScrollView.bounces = NO;
     [self.view addSubview:_contentScrollView];
+	[self initTopMenu];
 }
 
 -(void)dealloc
 {
+	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
 	[super dealloc];
 }
@@ -194,6 +198,7 @@
 	//If page changing has occurred we need to reconfigure scroll view with new page
 	if (isVerticalOffset && isHorizontalOffset)
 	{
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_nextPageViewController.page userInfo:nil];
 		[self configureContentScrollForPage:_nextPageViewController.page];
 	}
 	
@@ -230,5 +235,130 @@
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];
 	[self configureContentScrollForPage:_nextPageViewController.page];
 }
+
+- (void)showTopBar
+{
+    
+	
+    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        topMenuView.hidden = NO;
+        topMenuView.alpha = 0.75f;
+        [self.view bringSubviewToFront:topMenuView];
+    } 
+}
+
+- (void)hideTopBar
+{
+    topMenuView.hidden = YES;
+    topMenuView.alpha = 0;
+    [self.view sendSubviewToBack:topMenuView];
+    
+   }
+
+
+- (void)initTopMenu
+{
+    topMenuView.hidden = YES;
+    topMenuView.alpha = 0;
+    [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 43)];
+	
+    int lastTocSummaryIndex = -1;
+    if ([_revision.toc count] > 0)
+    {
+        for (int i = [_revision.toc count]-1; i >= 0; i--)
+		{
+			PCTocItem *tempTocItem = [_revision.toc objectAtIndex:i];
+			if (tempTocItem.thumbSummary)
+			{
+				lastTocSummaryIndex = i;
+				break;
+			}
+		}
+        if (lastTocSummaryIndex != -1)
+        {
+            PCTocItem* tocItem = [_revision.toc objectAtIndex:lastTocSummaryIndex];
+            NSString* imagePath = [_revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
+            BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+		}
+    }
+    
+    [self.view addSubview:topMenuView];
+    
+  }
+
+- (void) adjustHelpButton
+{
+    BOOL        hide = NO;
+    
+    if (_revision.helpPages)
+    {
+		if([[_revision.helpPages objectForKey:@"horizontal"] isEqualToString:@""] && [[_revision.helpPages objectForKey:@"vertical"] isEqualToString:@""])
+		{
+			hide = YES;
+		}
+    }
+}
+
+- (void)tapAction:(UIGestureRecognizer *)sender
+{
+       
+    if (_revision.horizontalOrientation) {
+        [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+    } else {
+        [topMenuView setFrame:CGRectMake(0, 0, 768, 43)];
+    }
+	
+    [UIView animateWithDuration:0.3f animations:^{
+		
+        if ([_revision.toc count] > 0)
+        {
+            int lastTocStripeIndex = -1;
+			
+            for (int i = [_revision.toc count]-1; i >= 0; i--)
+            {
+                PCTocItem *tempTocItem = [_revision.toc objectAtIndex:i];
+                if (tempTocItem.thumbStripe)
+                {
+                    lastTocStripeIndex = i;
+                    break;
+                }
+            }
+			
+            if (lastTocStripeIndex != -1)
+            {
+                PCTocItem* tocItem = [_revision.toc objectAtIndex:lastTocStripeIndex];
+                NSString *imagePath = [_revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+                BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+				
+                if (fileExists) {
+                   
+                } else {
+                    
+                }
+               
+			}
+        } 
+        
+        else {
+            
+        }
+        
+                
+        if (topMenuView.hidden) {
+            [self showTopBar];
+        } else {
+            [self hideTopBar];
+           
+        }
+        
+        if (!topSummaryView.hidden) {
+            topSummaryView.hidden = YES;
+            topSummaryView.alpha = 0;
+        }
+        
+               
+    }];
+}
+
 
 @end

@@ -12,6 +12,7 @@
 #import "PCPageElementVideo.h"
 #import "PCBrowserViewController.h"
 #import "PCVideoController.h"
+#import "MBProgressHUD.h"
 
 @interface AbstractBasePageViewController ()
 
@@ -24,6 +25,8 @@
 
 -(void)dealloc
 {
+	[self hideHUD];
+	[self.page removeObserver:self forKeyPath:@"isComplete"];
 	_delegate = nil;
 	[_page release], _page = nil;
 	[_actionButtons release], _actionButtons = nil;
@@ -36,6 +39,7 @@
         _page = [page retain];
 		_scale = [UIScreen mainScreen].scale;
 		_actionButtons = [[NSMutableArray alloc] init];
+		[self.page addObserver:self forKeyPath:@"isComplete" options:NSKeyValueObservingOptionNew context:NULL];
     }
     return self;
 }
@@ -58,7 +62,7 @@
 
 -(void)loadFullView
 {
-	
+	if (!_page.isComplete) [self showHUD];
 }
 
 -(void)releaseViews
@@ -176,7 +180,7 @@
             break;
     if (actions.count == 0)
     {
-     //   [self.magazineViewController tapAction:gestureRecognizer];
+        [self.delegate tapAction:gestureRecognizer];
     }
 }
 
@@ -195,7 +199,8 @@
     NSArray* actions = [self activeZonesAtPoint:point];
     if (actions&&[actions count]>0)
         return YES;
-    
+    [self.delegate tapAction:gestureRecognizer];
+
     return NO;
 }
 
@@ -317,6 +322,58 @@
         if (videoURL)
             [[NSNotificationCenter defaultCenter] postNotificationName:PCVCFullScreenMovieNotification object:videoURL];
     }
+}
+
+
+-(void)showHUD
+{
+	
+	if (self.page.isComplete) return;
+    if (HUD)
+    {
+        return;
+        _page.progressDelegate = nil;
+        [HUD removeFromSuperview];
+        [HUD release];
+        HUD = nil;
+    }
+    self.page.isUpdateProgress = YES;
+    HUD = [[MBProgressHUD alloc] initWithView:self.view];
+    [self.view addSubview:HUD];
+    HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    _page.progressDelegate = HUD;
+    [HUD show:YES];
+	
+}
+
+-(void)hideHUD
+{
+	if (HUD)
+	{
+		[HUD hide:YES];
+		self.page.isUpdateProgress = NO;
+		_page.progressDelegate = nil;
+		[HUD removeFromSuperview];
+		[HUD release];
+		HUD = nil;
+	}
+}
+
+-(void) observeValueForKeyPath: (NSString *)keyPath ofObject: (id) object
+                        change: (NSDictionary *) change context: (void *) context
+{
+	if([change objectForKey:NSKeyValueChangeNewKey] != [NSNull null]) 
+	{
+		BOOL newValue = [[change objectForKey: NSKeyValueChangeNewKey] boolValue];
+		if (newValue)
+		{
+			[self hideHUD];
+			[self loadFullView];
+		}
+		
+	}
+	
+	
 }
 
 
