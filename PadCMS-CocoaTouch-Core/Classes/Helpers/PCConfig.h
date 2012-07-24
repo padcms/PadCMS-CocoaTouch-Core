@@ -121,6 +121,11 @@ typedef enum _KiosqueType {
 + (NSURL *)serverURL;
 
 /**
+ @brief returns application default language or nil if it is absent in plist
+ */
++ (NSString *)ApplicationDefaultLanguage;
+
+/**
  @brief InAppPurchases shared secret key
  */
 + (NSString *)sharedSecretKey;

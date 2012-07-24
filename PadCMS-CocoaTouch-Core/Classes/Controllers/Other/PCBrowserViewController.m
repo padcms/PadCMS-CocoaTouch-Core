@@ -38,6 +38,7 @@
 #import "PCStyler.h"
 #import "PCDefaultStyleElements.h"
 #import "MBProgressHUD.h"
+#import "PCLocalizationManager.h"
 
 @interface PCBrowserViewController()
 
@@ -149,7 +150,8 @@
     if (!self.HUD)
     {
         self.HUD = [[MBProgressHUD alloc] initWithView:self.webView];
-        self.HUD.labelText = @"Loading"; 
+        self.HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING"
+                                                                    value:@"Loading"];
     }
     
     [self.webView addSubview:self.HUD];

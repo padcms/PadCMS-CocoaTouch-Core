@@ -41,6 +41,7 @@
 #import "PCPageActiveZone.h"
 #import "UIColor+HexString.h"
 #import "PCRevision.h"
+#import "PCLocalizationManager.h"
 
 @interface PCSQLLiteModelBuilder(ForwardDeclaration)
 
@@ -327,9 +328,17 @@
 			[message appendString:[NSString stringWithFormat:@"%d ",p.identifier]];
 		}*/
 	//	[message appendString:[NSString stringWithFormat:@"in %@", revision.issue.title]];
-		NSString* message = @"Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
+		NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_PAGE_WITH_NOT_IMPLEMENTED_TEMPLATE_IN_REVISION"
+                                                                   value:@"Your application can't display all the pages of this magazine because it has not been updated. Please update it"];
+
 		dispatch_async(dispatch_get_main_queue(), ^{
-			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"TITLE_WARNING"
+                                                                                                           value:@"Warning!"]
+                                                            message:message
+                                                           delegate:nil
+                                                  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                           value:@"OK"]
+                                                  otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		});

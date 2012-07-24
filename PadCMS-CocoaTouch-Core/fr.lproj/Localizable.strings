@@ -1,0 +1,61 @@
+// 
+//  Localizable.strings
+//  PadCMS-CocoaTouch-Core
+//
+//  Created by Oleg Zhitnik on 18.07.12.
+//  Copyright (c) PadCMS (http://www.padcms.net)
+//
+//
+//  This software is governed by the CeCILL-C  license under French law and
+//  abiding by the rules of distribution of free software.  You can  use,
+//  modify and/ or redistribute the software under the terms of the CeCILL-C
+//  license as circulated by CEA, CNRS and INRIA at the following URL
+//  "http://www.cecill.info".
+//  
+//  As a counterpart to the access to the source code and  rights to copy,
+//  modify and redistribute granted by the license, users are provided only
+//  with a limited warranty  and the software's author,  the holder of the
+//  economic rights,  and the successive licensors  have only  limited
+//  liability.
+//  
+//  In this respect, the user's attention is drawn to the risks associated
+//  with loading,  using,  modifying and/or developing or reproducing the
+//  software by the user in light of its specific status of free software,
+//  that may mean  that it is complicated to manipulate,  and  that  also
+//  therefore means  that it is reserved for developers  and  experienced
+//  professionals having in-depth computer knowledge. Users are therefore
+//  encouraged to load and test the software's suitability as regards their
+//  requirements in conditions enabling the security of their systems and/or
+//  data to be ensured and,  more generally, to use and operate it in the
+//  same conditions as regards security.
+//  
+//  The fact that you are presently reading this means that you have had
+//  knowledge of the CeCILL-C license and that you accept its terms.
+//
+"TEST"="Test de localisation";
+"MSG_NO_NETWORK_CONNECTION"="Vous devez être connecté à Internet.";
+"TITLE_WARNING"="Attention!";
+"BUTTON_TITLE_OK"="OK";
+"MSG_PAGE_WITH_NOT_IMPLEMENTED_TEMPLATE_IN_REVISION"="Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
+"TITLE_ERROR_SENDING_EMAIL"="Envoi d'erreur email!";
+"MSG_EMAIL_CLIENT_IS_NOT_CONFIGURED"="Client de messagerie n'est pas configurée.";
+"SHARING_MENU_CAPTION"="PARTAGE";
+"SHARING_MENU_TITLE_EMAIL"="Envoyer un Mail";
+"LABEL_LOADING"="Chargement";
+"KIOSK_BUTTON_TITLE_DOWNLOAD"="Lire";
+"KIOSK_BUTTON_TITLE_READ"="Lire";
+"KIOSK_BUTTON_TITLE_CANCEL"="Annuler";
+"KIOSK_BUTTON_TITLE_DELETE"="Supprimer";
+"KIOSK_BUTTON_TITLE_PAY"="Acheter";
+"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="S'abonner";
+"KIOSK_NAVIGATION_BAR_TITLE"="Kiosque";
+"ALERT_TITLE_CANT_LOAD_MAGAZINES_LIST"="La liste des numéros disponibles n'a pu être téléchargée";
+"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_MESSAGE"="Etes-vous certain de vouloir supprimer ce numéro?";
+"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_BUTTON_TITLE_YES"="Oui";
+"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_BUTTON_TITLE_CANCEL"="Annuler";
+"ALERT_TITLE_CANT_MAKE_PURCHASE"="Vous ne pouvez procéder à l'achat";
+"ALERT_MAGAZINE_DOWNLOADING_FAILED_TITLE"="Une erreur s'est produite lors du téléchargement du numéro!";
+"ALERT_MAGAZINE_DOWNLOADING_FAILED_MESSAGE"="Réessayez plus tard";
+
+// need to confirm translate
+
