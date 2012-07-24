@@ -48,6 +48,7 @@
 @synthesize productIdentifier = _productIdentifier;
 @synthesize notifications = _notifications;
 @synthesize issues = _issues;
+@synthesize previewColumnsNumber = _previewColumnsNumber;
 
 - (void)dealloc
 {
@@ -136,6 +137,13 @@
                                                       nil] ;
             
             [_notifications setObject:facebookNotificationType forKey:PCFacebookNotificationType];
+        }
+
+        id previewObject = [parameters objectForKey:PCJSONApplicationPreviewKey];
+        if (previewObject != nil) {
+            _previewColumnsNumber = [previewObject integerValue];
+        } else {
+            _previewColumnsNumber = 0;
         }
         
         // Set up issues

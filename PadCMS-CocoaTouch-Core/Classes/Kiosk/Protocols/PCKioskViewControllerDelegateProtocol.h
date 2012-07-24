@@ -38,6 +38,7 @@
 @protocol PCKioskViewControllerDelegateProtocol <NSObject>
 
 - (void) downloadRevisionWithIndex:(NSInteger) index;
+- (void) previewRevisionWithIndex:(NSInteger) index;
 - (void) cancelDownloadingRevisionWithIndex:(NSInteger) index;
 - (void) readRevisionWithIndex:(NSInteger) index;
 - (void) deleteRevisionDataWithIndex:(NSInteger) index;

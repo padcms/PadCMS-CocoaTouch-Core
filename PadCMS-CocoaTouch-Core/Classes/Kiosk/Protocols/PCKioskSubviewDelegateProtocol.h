@@ -38,6 +38,7 @@
 @protocol PCKioskSubviewDelegateProtocol <NSObject>
 
 - (void) downloadButtonTappedWithRevisionIndex:(NSInteger) index;
+- (void) previewButtonTappedWithRevisionIndex:(NSInteger) index;
 - (void) readButtonTappedWithRevisionIndex:(NSInteger) index;
 - (void) cancelButtonTappedWithRevisionIndex:(NSInteger) index;
 - (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index;

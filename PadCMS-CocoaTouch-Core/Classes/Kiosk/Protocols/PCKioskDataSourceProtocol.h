@@ -43,6 +43,7 @@
 -(NSString*) issueTitleWithIndex:(NSInteger) index;
 -(NSString*) revisionTitleWithIndex:(NSInteger) index;
 -(NSString*) revisionStateWithIndex:(NSInteger) index;
+-(BOOL) previewAvailableForRevisionWithIndex:(NSInteger) index;
 -(BOOL) isRevisionDownloadedWithIndex:(NSInteger) index;
 -(UIImage*) revisionCoverImageWithIndex:(NSInteger) index andDelegate:(id<PCKioskCoverImageProcessingProtocol>) delegate;
 -(BOOL) isRevisionPaidWithIndex:(NSInteger)index;

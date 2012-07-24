@@ -132,6 +132,13 @@
 - (void) updateRevisionWithIndex:(NSInteger)index;
 
 /**
+ @brief 
+ 
+ @param Revision index
+ */
+- (void) previewRevisionWithIndex:(NSInteger)index;
+
+/**
  @brief Notify subviews that revision downloading starting
  
  @param Revision index

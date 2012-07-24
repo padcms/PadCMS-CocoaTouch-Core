@@ -97,6 +97,7 @@
 @synthesize horizontalSummaryView;
 @synthesize horizontalHelpButton;
 @synthesize subscriptionButton;
+@synthesize previewMode = _previewMode;
 
 -(void)dealloc
 {
@@ -176,6 +177,7 @@
         horizontalSummaryView = nil;
         helpController = nil;
         subscriptionsMenu = nil;
+        _previewMode = NO;
         horizontalPagesViewControllers = [[NSMutableArray alloc] init];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -315,11 +317,17 @@
 
 - (void)createMagazineView
 {
-    NSUInteger revisionColumnsCount = revision.columns.count;
+    NSUInteger activeColumnsCount = 0;
+    if (_previewMode && revision.issue.application.previewColumnsNumber != 0) {
+        activeColumnsCount = MIN(revision.issue.application.previewColumnsNumber, revision.columns.count);
+    } else {
+        activeColumnsCount = revision.columns.count;
+    }
     
-    mainScrollView.contentSize = CGSizeMake(mainScrollView.frame.size.width * revisionColumnsCount, mainScrollView.frame.size.height);
+    mainScrollView.contentSize = CGSizeMake(mainScrollView.frame.size.width * activeColumnsCount, mainScrollView.frame.size.height);
     
-    for (unsigned i = 0; i < revisionColumnsCount; i++)
+    
+    for (NSUInteger i = 0; i < activeColumnsCount; i++)
     {
         PCColumn* column  = [revision.columns objectAtIndex:i];
         PCColumnViewController* columnViewController = [[PCMagazineViewControllersFactory factory] viewControllerForColumn:column];
@@ -349,7 +357,6 @@
 //            self.horizontalPagesViewController.view.backgroundColor = [UIColor whiteColor];
             horizontalScrollView.backgroundColor = [UIColor whiteColor];
             horizontalScrollView = [[PCScrollView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-            horizontalScrollView.contentSize = CGSizeMake(1024 * [revision.horizontalPages count], 768);
             horizontalScrollView.delegate = self;
             horizontalScrollView.showsHorizontalScrollIndicator = NO;
             horizontalScrollView.showsVerticalScrollIndicator = NO;
@@ -364,7 +371,16 @@
             NSArray     *keys = [revision.horizontalPages allKeys];
             NSArray     *sortedKeys = [keys sortedArrayUsingSelector: @selector(compare:)];
 
-            for (int i = 0; i<[sortedKeys count]; i++)
+            NSUInteger activePageCount = 0;
+            if (_previewMode && revision.issue.application.previewColumnsNumber != 0) {
+                activePageCount = MIN(sortedKeys.count, revision.issue.application.previewColumnsNumber);
+            } else {
+                activePageCount = sortedKeys.count;
+            }
+            
+            horizontalScrollView.contentSize = CGSizeMake(1024 * activePageCount, 768);
+            
+            for (int i = 0; i < activePageCount; i++)
             {
                 NSNumber* key = [sortedKeys objectAtIndex:i];
                 NSString* resource  = [revision.horizontalPages objectForKey:key];
@@ -2021,7 +2037,7 @@
 
 - (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index
 {
-    if (_activeTOCItems != nil) {
+    if (_activeTOCItems != nil && _activeTOCItems.count > index) {
         PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
         UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
         return image;
