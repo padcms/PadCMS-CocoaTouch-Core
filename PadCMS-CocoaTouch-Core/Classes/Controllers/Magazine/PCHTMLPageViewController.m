@@ -147,7 +147,7 @@
         return;
     }
     
-    if (_webViewController)
+    if (_webViewController && !_webViewController.presentingViewController)
     {
         [self.magazineViewController.mainViewController presentViewController:_webViewController animated:YES completion:nil];
     }
@@ -189,9 +189,12 @@
 
 -(void)deviceOrientationDidChange
 {
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) 
+    {
         [self showBrowser];
-    } else {
+    } 
+    else if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
         [self hideBrowser];
     }
 }
