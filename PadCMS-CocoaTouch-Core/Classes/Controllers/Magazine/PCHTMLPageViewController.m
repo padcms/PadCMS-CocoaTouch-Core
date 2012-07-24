@@ -147,8 +147,11 @@
         return;
     }
     
-    [self.magazineViewController.mainViewController presentViewController:_webViewController animated:YES completion:nil];
-
+    if (_webViewController)
+    {
+        [self.magazineViewController.mainViewController presentViewController:_webViewController animated:YES completion:nil];
+    }
+    
     _webViewVisible = YES;
 }
 
