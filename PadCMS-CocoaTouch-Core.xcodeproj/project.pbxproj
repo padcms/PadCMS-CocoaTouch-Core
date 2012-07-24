@@ -1043,6 +1043,10 @@
 		840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 840A2B6715B56BDF00B0B641 /* PCSubscriptionsMenuView.h */; };
 		AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A0E7815A4278E00B9758C /* RevisionViewController.h */; };
 		AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A0E7915A4278E00B9758C /* RevisionViewController.m */; };
+		AB22134815BE2F77001F355A /* SlideshowViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22134615BE2F75001F355A /* SlideshowViewController.h */; };
+		AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22134715BE2F76001F355A /* SlideshowViewController.m */; };
+		AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
+		AB22136215BE4947001F355A /* HTMLPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22136015BE4945001F355A /* HTMLPageViewController.m */; };
 		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
@@ -2186,6 +2190,10 @@
 		840A2B6815B56BDF00B0B641 /* PCSubscriptionsMenuView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSubscriptionsMenuView.m; sourceTree = "<group>"; };
 		AB0A0E7815A4278E00B9758C /* RevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisionViewController.h; sourceTree = "<group>"; };
 		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisionViewController.m; sourceTree = "<group>"; };
+		AB22134615BE2F75001F355A /* SlideshowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideshowViewController.h; sourceTree = "<group>"; };
+		AB22134715BE2F76001F355A /* SlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideshowViewController.m; sourceTree = "<group>"; };
+		AB22135F15BE4945001F355A /* HTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPageViewController.h; sourceTree = "<group>"; };
+		AB22136015BE4945001F355A /* HTMLPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLPageViewController.m; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
@@ -2287,6 +2295,7 @@
 		607F3E191588C3580097D960 /* Classes */ = {
 			isa = PBXGroup;
 			children = (
+				AB22134415BE0BAD001F355A /* old */,
 				AB0A0E7215A40F4E00B9758C /* newTest */,
 				C51BA59515B3FAF300F8117A /* HUD */,
 				ABF4D2E21590516400DAAD0F /* Networking */,
@@ -3488,6 +3497,13 @@
 			name = newTest;
 			sourceTree = "<group>";
 		};
+		AB22134415BE0BAD001F355A /* old */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = old;
+			sourceTree = "<group>";
+		};
 		ABC7E1CF15A9B2B800B06A38 /* Search */ = {
 			isa = PBXGroup;
 			children = (
@@ -3523,6 +3539,10 @@
 				ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */,
 				ABCBAF3C15AF61840022893B /* PageElementViewController.h */,
 				ABCBAF3D15AF61860022893B /* PageElementViewController.m */,
+				AB22134615BE2F75001F355A /* SlideshowViewController.h */,
+				AB22134715BE2F76001F355A /* SlideshowViewController.m */,
+				AB22135F15BE4945001F355A /* HTMLPageViewController.h */,
+				AB22136015BE4945001F355A /* HTMLPageViewController.m */,
 			);
 			name = Templates;
 			sourceTree = "<group>";
@@ -4005,6 +4025,8 @@
 				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
 				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
 				AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */,
+				AB22134815BE2F77001F355A /* SlideshowViewController.h in Headers */,
+				AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4467,6 +4489,8 @@
 				C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */,
 				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
 				AB61EE3015B858710031496A /* GalleryViewController.m in Sources */,
+				AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */,
+				AB22136215BE4947001F355A /* HTMLPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

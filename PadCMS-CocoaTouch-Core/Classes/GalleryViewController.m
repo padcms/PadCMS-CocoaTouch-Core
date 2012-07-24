@@ -2,7 +2,7 @@
 //  GalleryViewControllerViewController.m
 //  PadCMS-CocoaTouch-Core
 //
-//  Created by Alexey Petrosyan on 7/19/12.
+//  Created by Alexey Igoshev on 7/19/12.
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
@@ -21,14 +21,14 @@
 	BOOL _isHorizontal;
 }
 
-
+@property (nonatomic, retain) PageElementViewController* popupController;
 @end
 
 @implementation GalleryViewController
 @synthesize galleryElements=_galleryElements;
 @synthesize page=_page;
 @synthesize galleryScrollView=_galleryScrollView;
-
+@synthesize popupController=_popupController;
 
 -(id)initWithPage:(PCPage *)page
 {
@@ -52,6 +52,7 @@
 
 -(void)dealloc
 {
+	[_popupController release], _popupController = nil;
 	[_visibleElementControllers release], _visibleElementControllers = nil;
 	[_page release], _page = nil;
 	[_galleryElements release], _galleryElements = nil;
@@ -70,8 +71,8 @@
 	_galleryScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _galleryScrollView.pagingEnabled = YES;
     _galleryScrollView.backgroundColor = [UIColor whiteColor];
-    _galleryScrollView.showsVerticalScrollIndicator = YES;
-    _galleryScrollView.showsHorizontalScrollIndicator = YES;
+    _galleryScrollView.showsVerticalScrollIndicator = NO;
+    _galleryScrollView.showsHorizontalScrollIndicator = NO;
 	_galleryScrollView.directionalLockEnabled = YES;
 	_galleryScrollView.delegate = self;
 	_galleryScrollView.bounces = NO;
@@ -99,6 +100,7 @@
 - (void)viewDidUnload
 {
 	self.galleryScrollView = nil;
+	self.popupController = nil;
     [super viewDidUnload];
     // Release any retained subviews of the main view.
 }
@@ -152,7 +154,29 @@
 				elementController.elementView.scrollView.contentSize = CGSizeMake(1024, 0);
 				//	elementController.elementView.tiledView.frame = self.view.bounds;
 				//	elementController.elementView.backgroundColor = [UIColor greenColor];
-				NSLog(@"FRAME - main %@, scrol - %@, tile - %@", NSStringFromCGSize(elementController.elementView.scrollView.contentSize), NSStringFromCGRect(elementController.elementView.scrollView.frame),NSStringFromCGRect([elementController.elementView.tiledView frame]));
+				//NSLog(@"FRAME - main %@, scrol - %@, tile - %@", NSStringFromCGSize(elementController.elementView.scrollView.contentSize), NSStringFromCGRect(elementController.elementView.scrollView.frame),NSStringFromCGRect([elementController.elementView.tiledView frame]));
+			}
+			
+			NSArray* popups = [[galleryElement.dataRects allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[c] %@",PCPDFActiveZonePopup]];
+			for (NSString* type in popups) {
+				NSLog(@"POPUP - %@", type);
+				CGRect rect = [galleryElement rectForElementType:type];
+				if (!CGRectEqualToRect(rect, CGRectZero))
+				{
+					CGSize pageSize = elementController.elementView.bounds.size;
+					float scale = pageSize.width/galleryElement.size.width;
+					rect.size.width *= scale;
+					rect.size.height *= scale;
+					rect.origin.x *= scale;
+					rect.origin.y *= scale;
+					rect.origin.y = galleryElement.size.height*scale - rect.origin.y - rect.size.height;
+					UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
+					[popup setFrame:rect];
+					popup.tag = 100 + [[type lastPathComponent] intValue];
+					[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
+					
+					[elementController.elementView addSubview:popup];			
+				}
 			}
 			
 			[_galleryScrollView addSubview:elementController.elementView];
@@ -173,6 +197,51 @@
     }
     return foundImage;
 }
+
+-(void)popupAction:(UIButton*)sender
+{
+	self.popupController = nil;
+	for (UIView* v in sender.superview.subviews) {
+		if ([v isKindOfClass:[JCTiledScrollView class]])
+		{
+			[v removeFromSuperview];
+			if (v.tag == sender.tag) return;
+		}
+	}
+	NSLog(@"POPUP tag - %d", sender.tag);
+	int index = sender.tag - 100 - 1;
+	NSArray* popupsElements = [self.page elementsForType:PCPageElementTypePopup];
+	PCPageElement* popupElement = [popupsElements objectAtIndex:index];
+	
+	if (!popupElement.isComplete)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:popupElement];
+	
+		
+	PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:popupElement andFrame:self.view.bounds];
+	self.popupController = elementController;
+	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+	tapGestureRecognizer.cancelsTouchesInView = NO;
+	//tapGestureRecognizer.delegate = self;
+    [elementController.elementView  addGestureRecognizer:tapGestureRecognizer];
+	[tapGestureRecognizer release];
+	[sender.superview addSubview:elementController.elementView ];
+//	[sender.superview sendSubviewToBack:elementController.elementView ];
+	for (UIView* v in sender.superview.subviews) {
+		if ([v isKindOfClass:[UIButton class]])
+		{
+			[sender.superview bringSubviewToFront:v];
+		}
+	}
+	[elementController release];
+	
+}
+
+-(void)tapAction:(UIGestureRecognizer *)gestureRecognizer
+{
+	[gestureRecognizer.view removeFromSuperview];
+	self.popupController = nil;
+}
+
 
 - (void)btnReturnTap:(id)sender
 {

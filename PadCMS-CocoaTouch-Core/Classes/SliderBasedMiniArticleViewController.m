@@ -35,35 +35,38 @@
 	[self.view addSubview:self.bodyViewController.elementView];
 	
 	
-	
-	UIImage* image = [UIImage imageWithContentsOfFile:[_page.revision.contentDirectory stringByAppendingPathComponent:((PCPageElementMiniArticle*)[_miniArticles lastObject]).thumbnail]];
-	CGSize thumbSize = image.size;
-	EasyTableView *thumbsView;
-	if (self.page.pageTemplate.identifier == PCSlidersBasedMiniArticlesHorizontalPageTemplate)
+	if ([self.miniArticles count] > 1)
 	{
-		frameRect	= CGRectMake(0, self.view.bounds.size.height - thumbSize.height, self.view.bounds.size.width, thumbSize.height);
-		thumbsView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:[_miniArticles count] ofWidth:thumbSize.width];
-	}
-	else if (self.page.pageTemplate.identifier == PCSlidersBasedMiniArticlesVerticalPageTemplate)
-	{
-		frameRect	= CGRectMake(0, self.view.bounds.size.width - thumbSize.width, self.view.bounds.size.height, thumbSize.width);
-		thumbsView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:[_miniArticles count] ofHeight:thumbSize.height];
-	}
-	
-	
+		UIImage* image = [UIImage imageWithContentsOfFile:[_page.revision.contentDirectory stringByAppendingPathComponent:((PCPageElementMiniArticle*)[_miniArticles lastObject]).thumbnail]];
+		CGSize thumbSize = image.size;
+		EasyTableView *thumbsView;
+		if (self.page.pageTemplate.identifier == PCSlidersBasedMiniArticlesHorizontalPageTemplate)
+		{
+			frameRect	= CGRectMake(0, self.view.bounds.size.height - thumbSize.height, self.view.bounds.size.width, thumbSize.height);
+			thumbsView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfColumns:[_miniArticles count] ofWidth:thumbSize.width];
+		}
+		else if (self.page.pageTemplate.identifier == PCSlidersBasedMiniArticlesVerticalPageTemplate)
+		{
+			frameRect	= CGRectMake(0, self.view.bounds.size.width - thumbSize.width, self.view.bounds.size.height, thumbSize.width);
+			thumbsView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:[_miniArticles count] ofHeight:thumbSize.height];
+		}
 		
-	thumbsView.delegate						= self;
-	thumbsView.tableView.backgroundColor	= [UIColor clearColor];
-	thumbsView.tableView.allowsSelection	= YES;
-	thumbsView.tableView.separatorColor		= [UIColor darkGrayColor];
-	thumbsView.cellBackgroundColor			= [UIColor darkGrayColor];
-	thumbsView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
-	self.thumbsScrollView = thumbsView;
-	[thumbsView release];
-	[self.view addSubview:_thumbsScrollView];
-	[self.thumbsScrollView reloadData];
-	[self.thumbsScrollView selectCellAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
 		
+		
+		thumbsView.delegate						= self;
+		thumbsView.tableView.backgroundColor	= [UIColor clearColor];
+		thumbsView.tableView.allowsSelection	= YES;
+		thumbsView.tableView.separatorColor		= [UIColor darkGrayColor];
+		thumbsView.cellBackgroundColor			= [UIColor darkGrayColor];
+		thumbsView.autoresizingMask				= UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
+		self.thumbsScrollView = thumbsView;
+		[thumbsView release];
+		[self.view addSubview:_thumbsScrollView];
+		[self.thumbsScrollView reloadData];
+		[self.thumbsScrollView selectCellAtIndexPath:[NSIndexPath indexPathForRow:0 inSection:0] animated:NO];
+
+	}
+			
 	
 }
 

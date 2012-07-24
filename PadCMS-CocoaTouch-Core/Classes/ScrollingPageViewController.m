@@ -62,7 +62,9 @@
 		
     }
     
-       
+	for (UIView* button in self.actionButtons) {
+		[self.view bringSubviewToFront:button];
+	}
     
     
 /*    if (_paneScrollView.contentSize.width > _paneScrollView.frame.size.width)

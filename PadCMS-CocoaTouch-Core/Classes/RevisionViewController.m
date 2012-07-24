@@ -44,8 +44,8 @@
 	_contentScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _contentScrollView.pagingEnabled = YES;
     _contentScrollView.backgroundColor = [UIColor whiteColor];
-    _contentScrollView.showsVerticalScrollIndicator = YES;
-    _contentScrollView.showsHorizontalScrollIndicator = YES;
+    _contentScrollView.showsVerticalScrollIndicator = NO;
+    _contentScrollView.showsHorizontalScrollIndicator = NO;
 	_contentScrollView.directionalLockEnabled = YES;
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:[self.revision coverPage]];
 	[self configureContentScrollForPage:_nextPageViewController.page];
@@ -225,5 +225,10 @@
 	}
 }
 
+-(void)gotoPage:(PCPage *)page
+{
+	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];
+	[self configureContentScrollForPage:_nextPageViewController.page];
+}
 
 @end

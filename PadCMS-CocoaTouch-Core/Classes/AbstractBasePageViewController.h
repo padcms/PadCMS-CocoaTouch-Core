@@ -11,13 +11,16 @@
 #import "PageElementViewController.h"
 
 @protocol PCActionDelegate;
-@interface AbstractBasePageViewController : UIViewController
+@class PCBrowserViewController;
+@interface AbstractBasePageViewController : UIViewController<UIGestureRecognizerDelegate>
 {
 	PCPage* _page;
 	float _scale;
+	UITapGestureRecognizer* tapGestureRecognizer;
+	PCBrowserViewController *webBrowserViewController;
 }
 @property (nonatomic, readonly) PCPage* page;
-@property (nonatomic, assign) id<PCActionDelegate>delegate;
+@property (nonatomic, assign) UIViewController<PCActionDelegate> *delegate;
 @property (nonatomic, retain) NSMutableArray* actionButtons;
 
 - (id)initWithPage:(PCPage *)page;
@@ -31,5 +34,6 @@
 @protocol PCActionDelegate 
 	
 -(void)showGallery;
+-(void)gotoPage:(PCPage*)page;
 
 @end

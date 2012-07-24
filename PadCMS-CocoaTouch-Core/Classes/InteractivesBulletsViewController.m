@@ -83,13 +83,19 @@
 -(void)changeArticle:(UIButton*)sender
 {
 	self.selectedMiniArticle = [self.miniArticles objectAtIndex:sender.tag];
-		
 	if (self.bodyViewController.element != _selectedMiniArticle)
 	{
+		
 		[self.bodyViewController.elementView removeFromSuperview];
 		self.bodyViewController.element = _selectedMiniArticle;
 		[self.view addSubview:self.bodyViewController.elementView];
-		[self.view sendSubviewToBack:self.bodyViewController.elementView];
+		for (UIView* view in self.view.subviews) {
+			if ([view isKindOfClass:[UIButton class]])
+			{
+				[self.view bringSubviewToFront:view];
+			}
+		}
+		//[self.view sendSubviewToBack:self.bodyViewController.elementView];
 	}
 	
 }

@@ -73,7 +73,8 @@
 		CGRect elementView_frame = _elementFrame;
 		NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
 		CGFloat height = [[information objectForKey:@"height"] floatValue];
-		CGSize scrollContentSize = CGSizeMake([UIScreen mainScreen].applicationFrame.size.width, height); 
+		CGFloat width = [[information objectForKey:@"width"] floatValue];
+		CGSize scrollContentSize = CGSizeMake(width, height); 
 		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
 		_elementView.dataSource = self;
 		

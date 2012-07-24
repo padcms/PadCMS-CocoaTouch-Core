@@ -54,6 +54,8 @@
 #import "TouchableArticleWithFixedIllustrationViewController.h"
 #import "SliderBasedMiniArticleViewController.h"
 #import "InteractivesBulletsViewController.h"
+#import "SlideshowViewController.h"
+#import "HTMLPageViewController.h"
 
 @interface  PCPageControllersManager(ForwardDeclarations)
 -(void)initializeBaseControllers;
@@ -102,11 +104,15 @@
    // [self registerPageControllerClass:[PCCoverPageViewControllerViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCCoverPageTemplate]];
 	[self registerPageControllerClass:[SimplePageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCCoverPageTemplate]];
 	
-    [self registerPageControllerClass:[PCHTMLPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHTMLPageTemplate]];
+    [self registerPageControllerClass:[HTMLPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHTMLPageTemplate]];
 	
     [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCDragAndDropPageTemplate]];
+	
     [self registerPageControllerClass:[PCInteractiveBulletWithFlash class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCFlashBulletInteractivePageTemplate]];
-    [self registerPageControllerClass:[PCGallaryWithFlashBulletsViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCGalleryFlashBulletInteractivePageTemplate]];
+ //   [self registerPageControllerClass:[PCGallaryWithFlashBulletsViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCGalleryFlashBulletInteractivePageTemplate]];
+	
+	[self registerPageControllerClass:[ScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCGalleryFlashBulletInteractivePageTemplate]];
+	
     [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHtml5PageTemplate]];
     [self registerPageControllerClass:[PCPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlideshowLandscapePageTemplate]];
     
@@ -119,7 +125,7 @@
   //  [self registerPageControllerClass:[PCScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCScrollingPageTemplate]];
 	[self registerPageControllerClass:[ScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCScrollingPageTemplate]];
 
-    [self registerPageControllerClass:[PCSlideshowViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlideshowPageTemplate]];
+    [self registerPageControllerClass:[SlideshowViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlideshowPageTemplate]];
 
     //[self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCInteractiveBulletsPageTemplate]];
 	
@@ -132,7 +138,9 @@
     [self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlidersBasedMiniArticlesTopPageTemplate]];
     [self registerPageControllerClass:[PCSliderBasedMiniArticleViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCSlidersBasedMiniArticlesTopPageTemplate]];
 
-    [self registerPageControllerClass:[PCHorizontalScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHorizontalScrollingPageTemplate]];
+   // [self registerPageControllerClass:[PCHorizontalScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHorizontalScrollingPageTemplate]];
+	
+	[self registerPageControllerClass:[ScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHorizontalScrollingPageTemplate]];
     [self registerPageControllerClass:[PC3DViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PC3DPageTemplate]];
 }
 

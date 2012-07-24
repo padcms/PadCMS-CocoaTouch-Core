@@ -574,7 +574,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		NSLog(@"%@",[self.revision.contentDirectory stringByAppendingPathComponent:path] );
     [self moveItemWithPath:[self.revision.contentDirectory stringByAppendingPathComponent:path]];
 		
-	if (type == TILED) 
+	if (type == TILED || type == HORIZONTAL_SCROLLING_PANE) 
 	{
 		NSString *archivePath = [[page.revision contentDirectory] stringByAppendingPathComponent:path];
 		
@@ -1133,17 +1133,22 @@ NSString* secondaryKey   = @"secondaryKey";
 {
 	NSArray* fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
 	NSMutableArray* rowNumbers = [NSMutableArray array];
+	NSMutableArray* columnNumbers = [NSMutableArray array];
 	for (NSString* filename in fileNames) {
 		NSArray* stringComponents = [filename componentsSeparatedByString:@"_"];
 		if ([stringComponents count] != 3) continue;// 3 components : name, row, column
 		NSNumber* number = [NSNumber numberWithInt:[[stringComponents objectAtIndex:1] intValue]];
+		NSNumber* number2 = [NSNumber numberWithInt:[[stringComponents objectAtIndex:2] intValue]];
 		[rowNumbers addObject:number];
+		[columnNumbers addObject:number2];
 		
 	}
 	[rowNumbers sortUsingSelector:@selector(compare:)];
+	[columnNumbers sortUsingSelector:@selector(compare:)];
 	NSString* lastRowNumber = [NSString stringWithFormat:@"%@",[rowNumbers lastObject]];
-	NSString* lastRowPNGname;
-	for (NSString* filename in fileNames) {
+	NSString* lastColumnNumber = [NSString stringWithFormat:@"%@",[columnNumbers lastObject]];
+	NSString* lastRowPNGname = [NSString stringWithFormat:@"resource_%@_%@.png",lastRowNumber,lastColumnNumber];
+/*	for (NSString* filename in fileNames) {
 		NSArray* stringComponents = [filename componentsSeparatedByString:@"_"];
 		if ([stringComponents containsObject:lastRowNumber]) 
 		{
@@ -1151,12 +1156,13 @@ NSString* secondaryKey   = @"secondaryKey";
 			break;
 		}
 		
-	}
+	}*/
 	NSLog(@"ROW number - %@", lastRowPNGname);
 	
 	UIImage* image = [UIImage imageWithContentsOfFile:[directoryPath stringByAppendingPathComponent:lastRowPNGname]];
 	float height = (256 * ([lastRowNumber intValue] - 1) + image.size.height)/[UIScreen mainScreen].scale;
-	NSDictionary* information = [NSDictionary dictionaryWithObject:[NSNumber numberWithFloat:height] forKey:@"height"];
+	float width = (256 * ([lastColumnNumber intValue] - 1) + image.size.width)/[UIScreen mainScreen].scale;
+	NSDictionary* information = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:height],@"height", [NSNumber numberWithFloat:width],@"width",nil];
 	 [information writeToFile:[directoryPath stringByAppendingPathComponent:@"information.plist"] atomically:YES];
 	
 

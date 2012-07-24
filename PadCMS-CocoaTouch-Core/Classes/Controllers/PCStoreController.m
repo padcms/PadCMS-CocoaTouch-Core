@@ -50,6 +50,9 @@
 #import "PCRevisionViewController.h"
 #import "InAppPurchases.h"
 #import "RevisionViewController.h"
+#import "PCRemouteNotificationCenter.h"
+#import "PCGoogleAnalytics.h"
+
 
 NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
@@ -78,8 +81,17 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   {
     _rootViewController = [viewController retain];
     [_rootViewController setStoreController:self];
+    [PCGoogleAnalytics start];
+    [PCGoogleAnalytics trackAction:@"Application launch" category:@"General"];
+    
+    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+    [[UIApplication sharedApplication]
+     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
+    [InAppPurchases sharedInstance];
+    [PCDownloadManager sharedManager];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendReceipt:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
     [self launch];
+    
     [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
   }
   return nil;
