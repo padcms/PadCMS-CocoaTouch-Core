@@ -35,6 +35,7 @@
 
 #import "PCRevisionViewController.h"
 
+#import "InAppPurchases.h"
 #import "NSString+XMLEntities.h"
 #import "PCConfig.h"
 #import "PCDefaultStyleElements.h"
@@ -42,16 +43,16 @@
 #import "PCGoogleAnalytics.h"
 #import "PCHelpViewController.h"
 #import "PCHorizontalPageController.h"
+#import "PCLocalizationManager.h"
 #import "PCMacros.h"
 #import "PCMagazineViewControllersFactory.h"
+#import "PCResourceCache.h"
 #import "PCRevision.h"
 #import "PCScrollView.h"
 #import "PCSearchProvider.h"
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
-#import "PCLocalizationManager.h"
 #import "PCSubscriptionsMenuView.h"
-#import "InAppPurchases.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -2042,8 +2043,17 @@
 {
     if (_activeTOCItems != nil && _activeTOCItems.count > index) {
         PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
-        UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
-        return image;
+        
+        PCResourceCache * cache = [PCResourceCache defaultResourceCache];
+        NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+        UIImage *cachedImage = (UIImage *)[cache objectForKey:imagePath];
+        if (cachedImage != nil) {
+            return cachedImage;
+        } else {
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            [cache setObject:image forKey:imagePath];
+            return image;
+        }
     }
     
     return nil;
