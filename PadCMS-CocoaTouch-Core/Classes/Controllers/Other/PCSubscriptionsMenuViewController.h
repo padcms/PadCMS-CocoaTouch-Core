@@ -1,10 +1,9 @@
 //
-//  InAppPurchases.h
-//  the_reader
+//  PCSubscriptionsMenuViewController.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by User on 18.03.11.
-//  Copyright (c) PadCMS (http://www.padcms.net)
-//
+//  Created by Igor Getmanenko on 17.07.12.
+//  Copyright (c) 2012 Adyax. All rights reserved.
 //
 //  This software is governed by the CeCILL-C  license under French law and
 //  abiding by the rules of distribution of free software.  You can  use,
@@ -33,33 +32,23 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <Foundation/Foundation.h>
-#import <StoreKit/StoreKit.h>
+#import <UIKit/UIKit.h>
 
-#define kInAppPurchaseManagerProductsFetchedNotification @"kInAppPurchaseManagerProductsFetchedNotification"
-#define kInAppPurchaseManagerTransactionFinished @"kInAppPurchaseManagerTransactionFinished"
-#define kInAppPurchaseManagerTransactionSucceededNotification @"kInAppPurchaseManagerTransactionSucceededNotification"
+@protocol PCSubscriptionsMenuViewControllerDelegate <NSObject>
 
+@required
 
+- (void)subscribeButtonWillTapped;
 
-@interface InAppPurchases : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
-{
-	NSMutableSet *dataQueue;
-}
+@end
 
-@property (retain) NSMutableSet *dataQueue;
-@property BOOL isSubscribed;
+@interface PCSubscriptionsMenuViewController : UIViewController
 
-+ (InAppPurchases *)sharedInstance;
+@property (nonatomic, assign) BOOL needRestoreIssues;
+@property (nonatomic, assign) CGRect menuFrame;
+@property (nonatomic, assign, readwrite) id <PCSubscriptionsMenuViewControllerDelegate> delegate;
 
-- (void)requestProductDataWithProductId:(NSString *)productId;
-- (void)requestProductDataWithProductIds:(NSSet *)productIds;
-
-- (BOOL)canMakePurchases;
-- (BOOL)queueIsEmpty;
-- (void)purchaseForProductId:(NSString *)productId;
-
-- (void)subscribe;
-- (void)repurchase;
+- (id) initWithFrame:(CGRect)frame andSubscriptionFlag:(BOOL) isIssuesToRestore;
+- (void) updateFrame:(CGRect)frame;
 
 @end

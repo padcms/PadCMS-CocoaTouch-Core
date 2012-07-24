@@ -62,7 +62,7 @@
 //@class PCMainViewController;
 @class PCStoreController;
 @class PCScrollView;
-@class PCSubscriptionsMenuView;
+@class PCSubscriptionsMenuViewController;
 
 @interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate, PCHUDViewDataSource, PCHUDViewDelegate>
 
@@ -85,7 +85,7 @@
     PCSearchViewController* searchController;
     PCGalleryViewController* galleryViewController;
     UIView* shareMenu;
-    PCSubscriptionsMenuView *subscriptionsMenu;
+    PCSubscriptionsMenuViewController *subscriptionsMenu;
     
     PCScrollView* horizontalScrollView;
     NSMutableArray* horizontalPagesViewControllers;

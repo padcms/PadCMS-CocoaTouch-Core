@@ -50,8 +50,7 @@
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
 #import "PCStoreController.h"
-#import "PCSubscriptionsMenuView.h"
-#import "InAppPurchases.h"
+#import "PCSubscriptionsMenuViewController.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -1548,9 +1547,9 @@
             shareMenu.alpha = 0;
         }
         
-        if (!subscriptionsMenu.hidden) {
-            subscriptionsMenu.hidden = YES;
-            subscriptionsMenu.alpha = 0;
+        if (!subscriptionsMenu.view.hidden) {
+            subscriptionsMenu.view.hidden = YES;
+            subscriptionsMenu.view.alpha = 0;
         }
         
     }];
@@ -1631,14 +1630,14 @@
     CGRect popupRect = CGRectMake(subscriptionButton.frame.origin.x-100, subscriptionButton.frame.size.height, subscriptionButton.frame.size.width, 500);
     if (!subscriptionsMenu)
     {
-        subscriptionsMenu = [[PCSubscriptionsMenuView alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
-        subscriptionsMenu.delegate = [InAppPurchases sharedInstance];
+        subscriptionsMenu = [[PCSubscriptionsMenuViewController alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+        //subscriptionsMenu.delegate = [InAppPurchases sharedInstance];
         [self.view addSubview:subscriptionsMenu];
-        subscriptionsMenu.hidden = YES;
+        subscriptionsMenu.view.hidden = YES;
     }
     [subscriptionsMenu updateFrame:popupRect];
-    subscriptionsMenu.hidden = !subscriptionsMenu.hidden;
-    subscriptionsMenu.alpha = subscriptionsMenu.hidden?0.0:1.0;
+    subscriptionsMenu.view.hidden = !subscriptionsMenu.view.hidden;
+    subscriptionsMenu.view.alpha = subscriptionsMenu.view.hidden?0.0:1.0;
 }
 
 -(IBAction)shareAction:(id)sender
@@ -1734,7 +1733,7 @@
     [topMenuView setHidden:YES];
     [horizontalSummaryView setHidden:YES];
     [horizontalTopMenuView setHidden:YES];
-    [subscriptionsMenu setHidden:YES];
+    [subscriptionsMenu.view setHidden:YES];
 }
 
 - (void)emailShow
@@ -2060,9 +2059,9 @@
 {
     if (tocView == _hudView.topTOCView) {
         
-        if (!subscriptionsMenu.hidden) {
-            subscriptionsMenu.hidden = YES;
-            subscriptionsMenu.alpha = 0;
+        if (!subscriptionsMenu.view.hidden) {
+            subscriptionsMenu.view.hidden = YES;
+            subscriptionsMenu.view.alpha = 0;
         }
 
         if (shareMenu != nil) {
