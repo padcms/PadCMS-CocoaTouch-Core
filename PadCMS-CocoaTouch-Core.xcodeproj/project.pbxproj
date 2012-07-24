@@ -1047,6 +1047,7 @@
 		AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22134715BE2F76001F355A /* SlideshowViewController.m */; };
 		AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
 		AB22136215BE4947001F355A /* HTMLPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22136015BE4945001F355A /* HTMLPageViewController.m */; };
+		AB22139715BE8C1B001F355A /* topMenu.xib in Resources */ = {isa = PBXBuildFile; fileRef = AB22139515BE8AE4001F355A /* topMenu.xib */; };
 		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
@@ -2194,6 +2195,7 @@
 		AB22134715BE2F76001F355A /* SlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideshowViewController.m; sourceTree = "<group>"; };
 		AB22135F15BE4945001F355A /* HTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPageViewController.h; sourceTree = "<group>"; };
 		AB22136015BE4945001F355A /* HTMLPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLPageViewController.m; sourceTree = "<group>"; };
+		AB22139515BE8AE4001F355A /* topMenu.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = topMenu.xib; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
@@ -3493,6 +3495,7 @@
 				AB0A0E7915A4278E00B9758C /* RevisionViewController.m */,
 				AB61EE2D15B858710031496A /* GalleryViewController.h */,
 				AB61EE2E15B858710031496A /* GalleryViewController.m */,
+				AB22139515BE8AE4001F355A /* topMenu.xib */,
 			);
 			name = newTest;
 			sourceTree = "<group>";
@@ -4131,6 +4134,7 @@
 				60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */,
 				60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */,
 				60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */,
+				AB22139715BE8C1B001F355A /* topMenu.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

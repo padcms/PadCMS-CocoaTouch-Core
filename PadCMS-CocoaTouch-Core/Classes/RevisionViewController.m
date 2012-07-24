@@ -22,12 +22,12 @@
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
 @synthesize nextPageViewController=_nextPageViewController;
-@synthesize topSummaryView;
+@synthesize topMenuView;
 
 - (id)initWithRevision:(PCRevision *)revision
 {
-	self = [super init];
-    
+	//self = [super init];
+    self = [super init];
     if (self) {
         _revision = [revision retain];
 		[[NSNotificationCenter defaultCenter] addObserver:self
@@ -60,7 +60,7 @@
 {
 	
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
-	[topSummaryView release];
+	[topMenuView release];
 	[_contentScrollView release], _contentScrollView = nil;
 	[super dealloc];
 }
@@ -258,7 +258,8 @@
 
 - (void)initTopMenu
 {
-    topMenuView.hidden = YES;
+	[[NSBundle bundleWithIdentifier:@"PadCMS-CocoaTouch-Core-Resources"] loadNibNamed:@"topMenu" owner:self options:nil];
+    self.topMenuView.hidden = YES;
     topMenuView.alpha = 0;
     [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 43)];
 	
@@ -351,10 +352,7 @@
            
         }
         
-        if (!topSummaryView.hidden) {
-            topSummaryView.hidden = YES;
-            topSummaryView.alpha = 0;
-        }
+        
         
                
     }];
