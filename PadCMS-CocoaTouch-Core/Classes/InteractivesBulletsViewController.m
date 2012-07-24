@@ -34,6 +34,7 @@
 
 -(void)loadFullView
 {
+	if (!_page.isComplete) [self showHUD];
 	if (!_page.isComplete) return;
 	[self loadBackground];
 	

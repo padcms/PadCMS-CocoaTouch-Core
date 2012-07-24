@@ -30,6 +30,7 @@
 
 -(void)loadFullView
 {
+	[super loadFullView];
 	if (!_page.isComplete) return;
 	CGRect scrollView_frame = self.view.bounds;
 	PCPageElement* body = [[_page elementsForType:PCPageElementTypeBody] lastObject];
