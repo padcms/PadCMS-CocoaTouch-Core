@@ -1504,8 +1504,6 @@
 
 - (void)tapAction:(UIGestureRecognizer *)sender
 {
-    NSLog(@"tapAction:");
-    
     if (_hudView.bottomTOCView == nil) {
         return;
     }
@@ -1529,7 +1527,7 @@
             }
             
             if (_hudView.bottomTOCButton.hidden) {
-                if (revision != nil && revision.horisontalTocItems != nil && revision.horisontalTocItems > 0) {
+                if (revision != nil && revision.horisontalTocItems != nil && revision.horisontalTocItems.count > 0) {
                     _hudView.bottomTOCButton.hidden = NO;
                     _hudView.bottomTOCButton.alpha = 1;
                 } else {
