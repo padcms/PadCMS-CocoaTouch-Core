@@ -37,5 +37,6 @@
 
 @interface PCLocalizationManager : NSObject
 
-+(NSString*) localizedStringForKey:(NSString *)key value:(NSString *)comment;
++ (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;
+
 @end

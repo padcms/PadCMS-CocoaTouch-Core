@@ -36,68 +36,72 @@
 #import "PCLocalizationManager.h"
 #import "PCConfig.h"
 
-@interface PCLocalizationManager ()
-+ (PCLocalizationManager *) instance;
--(NSString*) localizedStringForKey:(NSString *)key value:(NSString *)comment;
--(void) additionalInitialization;
--(NSString*) systemLanguage;
--(NSString*) applicationDefaultLanguage;
--(NSURL*) coreResourcesBundleURL;
--(NSBundle*) coreResourcesBundle;
--(NSBundle*) bundleForLanguage:(NSString*) language;
+static PCLocalizationManager *sharedLocalizationManager = nil;
+
+@interface PCLocalizationManager()
+
+- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment;
+- (void) additionalInitialization;
+- (NSString *)systemLanguage;
+- (NSString *)applicationDefaultLanguage;
+- (NSURL *) coreResourcesBundleURL;
+- (NSBundle *)coreResourcesBundle;
+- (NSBundle *)bundleForLanguage:(NSString *)language;
+
 @end
 
 @implementation PCLocalizationManager
 
-static PCLocalizationManager *_instance = nil;
 static NSBundle *translatingBundle = nil;       // bundle for translating
 static NSBundle *fallbackBundle = nil;          // bundle for translate if previous bundle returns nil for localize
 
-+ (PCLocalizationManager *) instance
++ (PCLocalizationManager *)sharedManager
 {
-	@synchronized([PCLocalizationManager class])
-	{
-		if (!_instance){
-			[[self alloc] init];
-		}
-		return _instance;
-	}
-	return nil;
+    if (sharedLocalizationManager == nil) {
+        sharedLocalizationManager = [[super allocWithZone:NULL] init];
+    }
+    return sharedLocalizationManager;
 }
 
-+(id)alloc
++ (id)allocWithZone:(NSZone *)zone
 {
-	@synchronized([PCLocalizationManager class])
-	{
-		NSAssert(_instance == nil, @"Attempted to allocate a second instance of a PCLocalizationManager singleton.");
-		_instance = [super alloc];
-		return _instance;
-	}
-	// to avoid compiler warning
-	return nil;
+    return [[self sharedManager] retain];
 }
 
-- (id)init
+- (id)copyWithZone:(NSZone *)zone
 {
-    self = [super init];
-    if (self) 
-    {
-        translatingBundle = nil;
-        fallbackBundle = nil;
-        [self additionalInitialization];
-	}
     return self;
 }
 
-+(NSString*) localizedStringForKey:(NSString *)key value:(NSString *)comment
+- (id)retain
 {
-    return [[PCLocalizationManager instance] localizedStringForKey:key value:comment];
+    return self;
+}
+
+- (NSUInteger)retainCount
+{
+    return NSUIntegerMax;  //denotes an object that cannot be released
+}
+
+- (void)release
+{
+    //do nothing
+}
+
+- (id)autorelease
+{
+    return self;
+}
+
++ (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment
+{
+    return [[PCLocalizationManager sharedManager] localizedStringForKey:key value:comment];
 }
 
 
 #pragma mark Private
 
--(NSString*) localizedStringForKey:(NSString *)key value:(NSString *)comment
+- (NSString *)localizedStringForKey:(NSString *)key value:(NSString *)comment
 {
     NSString        *result = nil;
     
@@ -131,7 +135,7 @@ static NSBundle *fallbackBundle = nil;          // bundle for translate if previ
     return result;
 }
 
--(void) additionalInitialization
+- (void)additionalInitialization
 {
     
     NSString        *language = [self applicationDefaultLanguage];
@@ -168,7 +172,7 @@ static NSBundle *fallbackBundle = nil;          // bundle for translate if previ
     if(fallbackLanguageBundle) fallbackBundle = [fallbackLanguageBundle retain];
 }
 
--(NSString*) systemLanguage
+- (NSString *)systemLanguage
 {
     NSArray     *languages = [[NSUserDefaults standardUserDefaults] objectForKey:@"AppleLanguages"];
     
@@ -183,18 +187,18 @@ static NSBundle *fallbackBundle = nil;          // bundle for translate if previ
     return nil;
 }
 
--(NSString*) applicationDefaultLanguage
+- (NSString *)applicationDefaultLanguage
 {
     return [PCConfig ApplicationDefaultLanguage];
 }
 
--(NSURL*) coreResourcesBundleURL
+- (NSURL *)coreResourcesBundleURL
 {
     return [[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources"
                                    withExtension:@"bundle"];
 }
 
--(NSBundle*) coreResourcesBundle
+- (NSBundle *)coreResourcesBundle
 {
     NSURL    *url = [self coreResourcesBundleURL];
     
@@ -208,7 +212,7 @@ static NSBundle *fallbackBundle = nil;          // bundle for translate if previ
     return nil;
 }
 
--(NSBundle*) bundleForLanguage:(NSString*) language
+- (NSBundle *)bundleForLanguage:(NSString*)language
 {
     NSBundle *coreBundle = [self coreResourcesBundle];
     

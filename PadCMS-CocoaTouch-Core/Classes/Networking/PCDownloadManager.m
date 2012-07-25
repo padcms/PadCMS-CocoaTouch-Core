@@ -110,8 +110,6 @@ NSString* secondaryKey   = @"secondaryKey";
       
       NSURL *serverURL = [PCConfig serverURL];
       
-      NSLog(@"serverURL = %@", serverURL);
-      
       if (serverURL != nil) {
           _httpClient = [[AFHTTPClient alloc] initWithBaseURL:serverURL];
           _httpClient.operationQueue.maxConcurrentOperationCount = 1;
@@ -131,8 +129,6 @@ NSString* secondaryKey   = @"secondaryKey";
     @synchronized (self) {
         [_revision release];
         _revision = [revision retain];
-        
-        NSLog(@"revision.backEndURL = %@", revision.backEndURL);
         
         if (_httpClient != nil) {
             [_httpClient removeObserver:self forKeyPath:@"networkReachabilityStatus"];
