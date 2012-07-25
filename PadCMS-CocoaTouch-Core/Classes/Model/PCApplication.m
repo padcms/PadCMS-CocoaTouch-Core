@@ -41,6 +41,7 @@
 
 @implementation PCApplication
 
+@synthesize backEndURL = _backEndURL;
 @synthesize contentDirectory = _contentDirectory;
 @synthesize identifier = _identifier;
 @synthesize title = _title;
@@ -52,6 +53,7 @@
 
 - (void)dealloc
 {
+    self.backEndURL = nil;
     self.title = nil;
     self.applicationDescription = nil;
     self.productIdentifier = nil;
@@ -80,28 +82,39 @@
     return self;
 }
 
-- (id)initWithParameters:(NSDictionary *)parameters rootDirectory:(NSString *)rootDirectory
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory 
+              backEndURL:(NSURL *)backEndURL
 {
-    if (parameters == nil) return nil;
+    if (parameters == nil) {
+        return nil;
+    }
     
     self = [super init];
     
-    if (self)
+    if (self != nil)
     {
         // Set up application parameters
         
         NSString *identifierString = [parameters objectForKey:PCJSONApplicationIDKey]; 
         
+        if (backEndURL != nil) {
+            _backEndURL = [backEndURL retain];
+        } else {
+            _backEndURL = [PCConfig serverURL];
+        }
+
         _contentDirectory = [[rootDirectory stringByAppendingPathComponent:
                               [NSString stringWithFormat:@"application-%@", identifierString]] copy];
         
         [PCPathHelper createDirectoryIfNotExists:_contentDirectory];
         
         _identifier = [identifierString integerValue];
+
         _title = [[parameters objectForKey:PCJSONApplicationTitleKey] copy];
         _applicationDescription = [[parameters objectForKey:PCJSONApplicationDescriptionKey] copy];
         _productIdentifier = [[parameters objectForKey:PCJSONApplicationProductIDKey] copy];
-        
+
         // Set up notifications
         
         _notifications = [[NSMutableDictionary alloc] init];
@@ -159,7 +172,8 @@
             {
                 NSDictionary *issueParameters = [issuesList objectForKey:key];
                 PCIssue *issue = [[PCIssue alloc] initWithParameters:issueParameters 
-                                                       rootDirectory:_contentDirectory];
+                                                       rootDirectory:_contentDirectory
+                                                          backEndURL:_backEndURL];
                 if (issue != nil)
                 {
                     [_issues addObject:issue];
@@ -178,10 +192,17 @@
 			return [number1 compare:number2];
 		}];
 		
-				
     }
     
     return self;
+}
+
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory
+{
+    return [self initWithParameters:parameters 
+                      rootDirectory:rootDirectory 
+                         backEndURL:nil];
 }
 
 - (NSDictionary *)notificationForType:(NSString *)notificationType
