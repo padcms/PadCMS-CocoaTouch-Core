@@ -364,11 +364,11 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 
 #pragma mark - PCKioskViewControllerDelegateProtocol
+
 - (void) tapInKiosk
 {
-  
+    [self.rootViewController tapInKiosk];
 }
-
 
 - (void) readRevisionWithIndex:(NSInteger)index
 {
