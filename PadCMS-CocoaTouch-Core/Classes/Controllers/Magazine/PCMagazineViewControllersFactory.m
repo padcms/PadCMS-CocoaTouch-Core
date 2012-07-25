@@ -55,7 +55,7 @@
     return factory;
 }
 
--(PCColumnViewController*)viewControllerForColumn:(PCColumn*)column
+/*-(PCColumnViewController*)viewControllerForColumn:(PCColumn*)column
 {
     if ([column.pages count] < 1)
         return nil;
@@ -72,7 +72,7 @@
     }   
     return nil;
 }
-
+*/
 -(AbstractBasePageViewController*)viewControllerForPage:(PCPage *)page
 {
     Class pageControllerClass = [[PCPageControllersManager sharedManager] controllerClassForPageTemplate:page.pageTemplate];

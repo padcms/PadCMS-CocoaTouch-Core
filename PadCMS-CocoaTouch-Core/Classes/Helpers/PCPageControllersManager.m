@@ -56,6 +56,7 @@
 #import "InteractivesBulletsViewController.h"
 #import "SlideshowViewController.h"
 #import "HTMLPageViewController.h"
+#import "Page3DViewController.h"
 
 @interface  PCPageControllersManager(ForwardDeclarations)
 -(void)initializeBaseControllers;
@@ -141,7 +142,7 @@
    // [self registerPageControllerClass:[PCHorizontalScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHorizontalScrollingPageTemplate]];
 	
 	[self registerPageControllerClass:[ScrollingPageViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PCHorizontalScrollingPageTemplate]];
-    [self registerPageControllerClass:[PC3DViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PC3DPageTemplate]];
+    [self registerPageControllerClass:[Page3DViewController class] forTemplate:[[PCPageTemplatesPool templatesPool] templateForId:PC3DPageTemplate]];
 }
 
 -(Class)controllerClassForPageTemplate:(PCPageTemplate*)aTemplate

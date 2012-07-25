@@ -180,7 +180,7 @@
             break;
     if (actions.count == 0)
     {
-        [self.delegate tapAction:gestureRecognizer];
+  //      [self.delegate tapAction:gestureRecognizer];
     }
 }
 
@@ -199,7 +199,7 @@
     NSArray* actions = [self activeZonesAtPoint:point];
     if (actions&&[actions count]>0)
         return YES;
-    [self.delegate tapAction:gestureRecognizer];
+ //   [self.delegate tapAction:gestureRecognizer];
 
     return NO;
 }

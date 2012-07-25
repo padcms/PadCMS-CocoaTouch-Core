@@ -41,6 +41,10 @@
 
 - (void)viewDidLoad
 {
+	UIViewController *viewController = [[UIViewController alloc] init];
+	[self presentModalViewController:viewController animated:NO];
+	[self dismissModalViewControllerAnimated:NO];
+	[viewController release];
     [super viewDidLoad];
 	_contentScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
     _contentScrollView.pagingEnabled = YES;
@@ -73,7 +77,16 @@
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-	return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+	if (self.revision.horizontalOrientation)
+	{
+		return UIInterfaceOrientationIsLandscape(interfaceOrientation);
+
+	}
+	else
+	{
+		return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+
+	}
 }
 
 

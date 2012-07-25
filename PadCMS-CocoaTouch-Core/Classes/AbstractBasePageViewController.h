@@ -31,6 +31,8 @@
 -(NSArray*)activeZonesAtPoint:(CGPoint)point;
 -(void)releaseViews;
 -(void)createActionButtons;
+-(void)showHUD;
+-(void)hideHUD;
 @end
 
 @protocol PCActionDelegate 
