@@ -94,6 +94,10 @@ static PCResourceCache *defaultResourceCache = nil;
 
 - (void)setObject:(id)object forKey:(id)key
 {
+    if (object == nil || key == nil) {
+        return;
+    }
+    
     [_cache setObject:object forKey:key];
 }
 
