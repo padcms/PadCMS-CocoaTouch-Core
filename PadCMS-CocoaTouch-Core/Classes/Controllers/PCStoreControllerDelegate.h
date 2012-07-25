@@ -30,6 +30,8 @@
 
 - (void) reloadSubviews;
 
+- (void) tapInKiosk;
+
 
 @optional
 
