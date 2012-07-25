@@ -13,12 +13,12 @@
 
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate>
 {
-	
+	IBOutlet UIView* topMenuView;
 }
 @property (readonly, nonatomic) PCRevision *revision;
 @property (retain) AbstractBasePageViewController* currentPageViewController;
 @property (retain) AbstractBasePageViewController* nextPageViewController;
-@property (nonatomic, retain) IBOutlet UIView* topMenuView;
+@property (nonatomic, retain) IBOutlet UIView* topSummaryView;
 - (id)initWithRevision:(PCRevision *)revision;
 
 @end
