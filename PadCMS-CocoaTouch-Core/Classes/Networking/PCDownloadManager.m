@@ -1148,22 +1148,12 @@ NSString* secondaryKey   = @"secondaryKey";
 	NSString* lastRowNumber = [NSString stringWithFormat:@"%@",[rowNumbers lastObject]];
 	NSString* lastColumnNumber = [NSString stringWithFormat:@"%@",[columnNumbers lastObject]];
 	NSString* lastRowPNGname = [NSString stringWithFormat:@"resource_%@_%@.png",lastRowNumber,lastColumnNumber];
-/*	for (NSString* filename in fileNames) {
-		NSArray* stringComponents = [filename componentsSeparatedByString:@"_"];
-		if ([stringComponents containsObject:lastRowNumber]) 
-		{
-			lastRowPNGname = filename;
-			break;
-		}
-		
-	}*/
-	NSLog(@"ROW number - %@", lastRowPNGname);
-	
+
 	UIImage* image = [UIImage imageWithContentsOfFile:[directoryPath stringByAppendingPathComponent:lastRowPNGname]];
-	float height = (256 * ([lastRowNumber intValue] - 1) + image.size.height)/[UIScreen mainScreen].scale;
-	float width = (256 * ([lastColumnNumber intValue] - 1) + image.size.width)/[UIScreen mainScreen].scale;
+	float height = 256 * ([lastRowNumber intValue] - 1) + image.size.height/[UIScreen mainScreen].scale;
+	float width = 256 * ([lastColumnNumber intValue] - 1) + image.size.width/[UIScreen mainScreen].scale;
 	NSDictionary* information = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:height],@"height", [NSNumber numberWithFloat:width],@"width",nil];
-	 [information writeToFile:[directoryPath stringByAppendingPathComponent:@"information.plist"] atomically:YES];
+	[information writeToFile:[directoryPath stringByAppendingPathComponent:@"information.plist"] atomically:YES];
 	
 
 }

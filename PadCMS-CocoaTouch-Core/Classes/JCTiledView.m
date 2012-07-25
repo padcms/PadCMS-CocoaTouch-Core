@@ -70,7 +70,8 @@ static const CGFloat kDefaultTileSize = 256.0f;
 
 - (CGSize)tileSize
 {
-  return CGSizeMake(kDefaultTileSize, kDefaultTileSize);
+  CGFloat screenScale = [UIScreen mainScreen].scale;
+  return CGSizeMake(kDefaultTileSize * screenScale, kDefaultTileSize * screenScale);
 }
 
 - (size_t)numberOfZoomLevels
