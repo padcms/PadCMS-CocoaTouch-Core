@@ -7,8 +7,9 @@
 //
 
 #import "PageElementViewController.h"
-#import "PCPageElement.h"
 #import "PCPage.h"
+#import "PCPageElement.h"
+#import "PCScrollView.h"
 
 @interface PageElementViewController ()
 @property (readonly) float scale;

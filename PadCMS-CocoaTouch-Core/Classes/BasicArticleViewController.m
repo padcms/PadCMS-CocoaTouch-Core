@@ -8,6 +8,7 @@
 
 #import "BasicArticleViewController.h"
 #import "PCPageElement.h"
+#import "PCScrollView.h"
 
 @implementation BasicArticleViewController
 

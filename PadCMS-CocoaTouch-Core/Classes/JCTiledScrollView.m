@@ -29,6 +29,7 @@
 
 #import "JCTiledScrollView.h"
 #import "JCTiledView.h"
+#import "PCScrollView.h"
 
 #define kStandardUIScrollViewAnimationTime 0.10
 
@@ -73,7 +74,7 @@
   {
     self.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
 
-    _scrollView = [[UIScrollView alloc] initWithFrame:self.bounds];
+    _scrollView = [[PCScrollView alloc] initWithFrame:self.bounds];
     _scrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
     _scrollView.delegate = self;
     _scrollView.backgroundColor = [UIColor clearColor];

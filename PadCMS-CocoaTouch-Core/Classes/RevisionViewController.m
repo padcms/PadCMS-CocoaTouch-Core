@@ -10,11 +10,12 @@
 #import "PCMagazineViewControllersFactory.h"
 #import "PCPageViewController.h"
 #import "PCPage.h"
+#import "PCScrollView.h"
 #import "AbstractBasePageViewController.h"
 #import "GalleryViewController.h"
 
 @interface RevisionViewController ()
-@property (nonatomic, retain) UIScrollView* contentScrollView;
+@property (nonatomic, retain) PCScrollView* contentScrollView;
 @end
 
 @implementation RevisionViewController
@@ -46,7 +47,7 @@
 	[self dismissModalViewControllerAnimated:NO];
 	[viewController release];
     [super viewDidLoad];
-	_contentScrollView = [[UIScrollView alloc] initWithFrame:self.view.bounds];
+	_contentScrollView = [[PCScrollView alloc] initWithFrame:self.view.bounds];
     _contentScrollView.pagingEnabled = YES;
     _contentScrollView.backgroundColor = [UIColor whiteColor];
     _contentScrollView.showsVerticalScrollIndicator = NO;
