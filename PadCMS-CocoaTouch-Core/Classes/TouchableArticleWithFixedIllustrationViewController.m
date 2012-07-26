@@ -9,6 +9,7 @@
 #import "TouchableArticleWithFixedIllustrationViewController.h"
 #import "PCPageElementBody.h"
 #import "PCPageActiveZone.h"
+#import "PCScrollView.h"
 
 @interface TouchableArticleWithFixedIllustrationViewController ()
 
