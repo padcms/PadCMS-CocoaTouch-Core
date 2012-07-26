@@ -123,16 +123,17 @@ NSString *EnabledKey = @"Enabled";
                                           action:@selector(topTOCButtonAction:) 
                                 forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:_topTOCButton];
-            
+            _topTOCButton.backgroundColor = [UIColor colorWithRed:0.35f green:0.35f blue:0.35f alpha:1.00f];
             
             
             _topTOCBackgroundView = [[UIView alloc] init];
-            _topTOCBackgroundView.backgroundColor = [UIColor redColor];
+//            _topTOCBackgroundView.backgroundColor = [UIColor redColor];
             _topTOCBackgroundView.alpha = 0.5f;
+            _topTOCBackgroundView.backgroundColor = [UIColor colorWithRed:0.35f green:0.35f blue:0.35f alpha:1.00f];
             _topTOCBackgroundView.frame = CGRectMake(0,
-                                                                 -(frame.size.height / 2),
-                                                                 frame.size.width,
-                                                                 frame.size.height / 2);
+                                                     -(frame.size.height / 2),
+                                                     frame.size.width,
+                                                     frame.size.height / 2);
             _topTOCBackgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
             [self addSubview:_topTOCBackgroundView];
             
@@ -142,9 +143,9 @@ NSString *EnabledKey = @"Enabled";
             _topTOCView.dataSource = self;
             _topTOCView.delegate = self;
             _topTOCView.frame = CGRectMake(0,
-                                                       -(frame.size.height / 2),
-                                                       frame.size.width,
-                                                       frame.size.height / 2);
+                                           -(frame.size.height / 2),
+                                           frame.size.width,
+                                           frame.size.height / 2);
             _topTOCView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
             [self addSubview:_topTOCView];
         }
