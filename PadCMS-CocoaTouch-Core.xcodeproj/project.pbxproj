@@ -7,8 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		600ACDA415B6E9C900F0233C /* PCLocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */; };
+		600ACDA515B6E9C900F0233C /* PCLocalizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 600ACDA315B6E9C900F0233C /* PCLocalizationManager.m */; };
+		600ACDA915B6F0A500F0233C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 600ACDAB15B6F0A500F0233C /* Localizable.strings */; };
 		6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */; };
 		6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */; };
+		6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */; };
 		607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */; };
 		607F3E341588C3580097D960 /* PCKioskAbstractControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */; };
 		607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */; };
@@ -1100,21 +1104,25 @@
 		C50E49A115AEAA4800222413 /* test-resource.png in Resources */ = {isa = PBXBuildFile; fileRef = C50E49A015AEAA4800222413 /* test-resource.png */; };
 		C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */; };
 		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
-		C58C169515B3FE6C00665295 /* PCGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C168F15B3FE6C00665295 /* PCGridView.h */; };
 		C58C169615B3FE6C00665295 /* PCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169015B3FE6C00665295 /* PCGridView.m */; };
-		C58C169715B3FE6C00665295 /* PCGridViewIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169115B3FE6C00665295 /* PCGridViewIndex.h */; };
 		C58C169815B3FE6C00665295 /* PCGridViewIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169215B3FE6C00665295 /* PCGridViewIndex.m */; };
-		C58C169915B3FE6C00665295 /* PCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169315B3FE6C00665295 /* PCGridViewCell.h */; };
 		C58C169A15B3FE6C00665295 /* PCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169415B3FE6C00665295 /* PCGridViewCell.m */; };
+		C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
+		C524004F15BE7BD10064612D /* PCGridView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083815BE74EF009E6F0B /* PCGridView.h */; };
+		C524005015BE7BD10064612D /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083A15BE74EF009E6F0B /* PCGridViewCell.h */; };
+		C524005115BE7BD10064612D /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */; };
 		C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */; };
 		C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */; };
 		C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHUDView.h */; };
 		C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169E15B3FE7400665295 /* PCHUDView.m */; };
-		C58C16A315B3FFD600665295 /* PCGridView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C168F15B3FE6C00665295 /* PCGridView.h */; };
-		C58C16A415B3FFD600665295 /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169115B3FE6C00665295 /* PCGridViewIndex.h */; };
-		C58C16A515B3FFD600665295 /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169315B3FE6C00665295 /* PCGridViewCell.h */; };
 		C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */; };
 		C58C16A715B3FFD600665295 /* PCHUDView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHUDView.h */; };
+		C5E3083E15BE74EF009E6F0B /* PCGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E3083815BE74EF009E6F0B /* PCGridView.h */; };
+		C5E3083F15BE74EF009E6F0B /* PCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E3083915BE74EF009E6F0B /* PCGridView.m */; };
+		C5E3084015BE74EF009E6F0B /* PCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E3083A15BE74EF009E6F0B /* PCGridViewCell.h */; };
+		C5E3084115BE74EF009E6F0B /* PCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E3083B15BE74EF009E6F0B /* PCGridViewCell.m */; };
+		C5E3084215BE74EF009E6F0B /* PCGridViewIndex.h in Headers */ = {isa = PBXBuildFile; fileRef = C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */; };
+		C5E3084315BE74EF009E6F0B /* PCGridViewIndex.m in Sources */ = {isa = PBXBuildFile; fileRef = C5E3083D15BE74EF009E6F0B /* PCGridViewIndex.m */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
 /* End PBXBuildFile section */
 
@@ -1128,9 +1136,10 @@
 				84D5E39615BE811A00BEF5D6 /* PCSubscriptionsMenuViewController.h in CopyFiles */,
 				AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */,
 				AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */,
-				C58C16A315B3FFD600665295 /* PCGridView.h in CopyFiles */,
-				C58C16A415B3FFD600665295 /* PCGridViewIndex.h in CopyFiles */,
-				C58C16A515B3FFD600665295 /* PCGridViewCell.h in CopyFiles */,
+				C524004F15BE7BD10064612D /* PCGridView.h in CopyFiles */,
+				C524005015BE7BD10064612D /* PCGridViewCell.h in CopyFiles */,
+				C524005115BE7BD10064612D /* PCGridViewIndex.h in CopyFiles */,
+				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
 				C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */,
 				C58C16A715B3FFD600665295 /* PCHUDView.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
@@ -1486,8 +1495,14 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCLocalizationManager.h; sourceTree = "<group>"; };
+		600ACDA315B6E9C900F0233C /* PCLocalizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCLocalizationManager.m; sourceTree = "<group>"; };
+		600ACDAA15B6F0A500F0233C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
+		600ACDAC15B6F0AE00F0233C /* fr */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = fr; path = fr.lproj/Localizable.strings; sourceTree = "<group>"; };
 		6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGalleryWithOverlaysViewController.h; sourceTree = "<group>"; };
 		6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGalleryWithOverlaysViewController.m; sourceTree = "<group>"; };
+		603755B715BEDDB9007A3ECC /* ru */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = ru; path = ru.lproj/Localizable.strings; sourceTree = "<group>"; };
+		603755B815BEDDC6007A3ECC /* uk */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = uk; path = uk.lproj/Localizable.strings; sourceTree = "<group>"; };
 		607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractControlElement.h; sourceTree = "<group>"; };
 		607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskAbstractControlElement.m; sourceTree = "<group>"; };
 		607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCKioskAbstractSubviewsFactory.h; sourceTree = "<group>"; };
@@ -2243,16 +2258,16 @@
 		C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCacheTest.m; sourceTree = "<group>"; };
 		C51D595515AD5CAB001EEE0A /* PCResourceView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceView.h; sourceTree = "<group>"; };
 		C51D595615AD5CAB001EEE0A /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
-		C58C168F15B3FE6C00665295 /* PCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridView.h; sourceTree = "<group>"; };
-		C58C169015B3FE6C00665295 /* PCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridView.m; sourceTree = "<group>"; };
-		C58C169115B3FE6C00665295 /* PCGridViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewIndex.h; sourceTree = "<group>"; };
-		C58C169215B3FE6C00665295 /* PCGridViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewIndex.m; sourceTree = "<group>"; };
-		C58C169315B3FE6C00665295 /* PCGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewCell.h; sourceTree = "<group>"; };
-		C58C169415B3FE6C00665295 /* PCGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewCell.m; sourceTree = "<group>"; };
 		C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTOCGridViewCell.h; sourceTree = "<group>"; };
 		C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTOCGridViewCell.m; sourceTree = "<group>"; };
 		C58C169D15B3FE7400665295 /* PCHUDView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHUDView.h; sourceTree = "<group>"; };
 		C58C169E15B3FE7400665295 /* PCHUDView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHUDView.m; sourceTree = "<group>"; };
+		C5E3083815BE74EF009E6F0B /* PCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridView.h; sourceTree = "<group>"; };
+		C5E3083915BE74EF009E6F0B /* PCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridView.m; sourceTree = "<group>"; };
+		C5E3083A15BE74EF009E6F0B /* PCGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewCell.h; sourceTree = "<group>"; };
+		C5E3083B15BE74EF009E6F0B /* PCGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewCell.m; sourceTree = "<group>"; };
+		C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewIndex.h; sourceTree = "<group>"; };
+		C5E3083D15BE74EF009E6F0B /* PCGridViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewIndex.m; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
 		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2493,6 +2508,8 @@
 				607F3F0B1588CF820097D960 /* PCSQLiteKeys.m */,
 				607F3F0C1588CF820097D960 /* PCStyler.h */,
 				607F3F0D1588CF820097D960 /* PCStyler.m */,
+				600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */,
+				600ACDA315B6E9C900F0233C /* PCLocalizationManager.m */,
 			);
 			path = Helpers;
 			sourceTree = "<group>";
@@ -3399,6 +3416,7 @@
 			isa = PBXGroup;
 			children = (
 				60891D9B1587971300894531 /* PadCMS-CocoaTouch-Core-Prefix.pch */,
+				600ACDAB15B6F0A500F0233C /* Localizable.strings */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -3615,23 +3633,22 @@
 		C51BA59515B3FAF300F8117A /* HUD */ = {
 			isa = PBXGroup;
 			children = (
-				C58C167915B3FE3B00665295 /* Grid View */,
+				C58C167915B3FE3B00665295 /* Items View */,
 				C58C168015B3FE3B00665295 /* HUD */,
 			);
 			path = HUD;
 			sourceTree = "<group>";
 		};
-		C58C167915B3FE3B00665295 /* Grid View */ = {
+		C58C167915B3FE3B00665295 /* Items View */ = {
 			isa = PBXGroup;
 			children = (
-				C58C168F15B3FE6C00665295 /* PCGridView.h */,
-				C58C169015B3FE6C00665295 /* PCGridView.m */,
-				C58C169115B3FE6C00665295 /* PCGridViewIndex.h */,
-				C58C169215B3FE6C00665295 /* PCGridViewIndex.m */,
-				C58C169315B3FE6C00665295 /* PCGridViewCell.h */,
-				C58C169415B3FE6C00665295 /* PCGridViewCell.m */,
+				C5E3083815BE74EF009E6F0B /* PCGridView.h */,
+				C5E3083915BE74EF009E6F0B /* PCGridView.m */,
+				C5E3083A15BE74EF009E6F0B /* PCGridViewCell.h */,
+				C5E3083B15BE74EF009E6F0B /* PCGridViewCell.m */,
+				C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */,
+				C5E3083D15BE74EF009E6F0B /* PCGridViewIndex.m */,
 			);
-			name = "Grid View";
 			path = "Items View";
 			sourceTree = "<group>";
 		};
@@ -4024,16 +4041,19 @@
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
 				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
 				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
-				C58C169515B3FE6C00665295 /* PCGridView.h in Headers */,
-				C58C169715B3FE6C00665295 /* PCGridViewIndex.h in Headers */,
-				C58C169915B3FE6C00665295 /* PCGridViewCell.h in Headers */,
-				C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */,
 				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
 				AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */,
 				AB22134815BE2F77001F355A /* SlideshowViewController.h in Headers */,
 				AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */,
 				84D5E39315BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.h in Headers */,
 				AB8137A315C07C48002FC0E4 /* Page3DViewController.h in Headers */,
+				600ACDA415B6E9C900F0233C /* PCLocalizationManager.h in Headers */,
+				C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */,
+				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
+				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
+				C5E3083E15BE74EF009E6F0B /* PCGridView.h in Headers */,
+				C5E3084015BE74EF009E6F0B /* PCGridViewCell.h in Headers */,
+				C5E3084215BE74EF009E6F0B /* PCGridViewIndex.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4107,6 +4127,9 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				fr,
+				uk,
+				ru,
 			);
 			mainGroup = 60891D891587971300894531;
 			productRefGroup = 60891D951587971300894531 /* Products */;
@@ -4138,6 +4161,7 @@
 				60A5DCFD158F45EE00E3E98A /* topNav_b.png in Resources */,
 				60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */,
 				60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */,
+				600ACDA915B6F0A500F0233C /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4484,11 +4508,6 @@
 				6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */,
 				ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */,
 				ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */,
-				C58C169615B3FE6C00665295 /* PCGridView.m in Sources */,
-				C58C169815B3FE6C00665295 /* PCGridViewIndex.m in Sources */,
-				C58C169A15B3FE6C00665295 /* PCGridViewCell.m in Sources */,
-				C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */,
-				C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */,
 				AB61EE3015B858710031496A /* GalleryViewController.m in Sources */,
 				AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */,
 				AB22136215BE4947001F355A /* HTMLPageViewController.m in Sources */,
@@ -4498,6 +4517,14 @@
 				AB8137A715C08764002FC0E4 /* PCPageElementViewController.m in Sources */,
 				AB8137A815C08766002FC0E4 /* PCResourceView.m in Sources */,
 				AB8137A915C08767002FC0E4 /* PCResourceCache.m in Sources */,
+
+				600ACDA515B6E9C900F0233C /* PCLocalizationManager.m in Sources */,
+				C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */,
+				C58C16A215B3FE7400665295 /* PCHUDView.m in Sources */,
+				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
+				C5E3083F15BE74EF009E6F0B /* PCGridView.m in Sources */,
+				C5E3084115BE74EF009E6F0B /* PCGridViewCell.m in Sources */,
+				C5E3084315BE74EF009E6F0B /* PCGridViewIndex.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4523,6 +4550,17 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
+		600ACDAB15B6F0A500F0233C /* Localizable.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				600ACDAA15B6F0A500F0233C /* en */,
+				600ACDAC15B6F0AE00F0233C /* fr */,
+				603755B715BEDDB9007A3ECC /* ru */,
+				603755B815BEDDC6007A3ECC /* uk */,
+			);
+			name = Localizable.strings;
+			sourceTree = "<group>";
+		};
 		60A5DCD2158B793F00E3E98A /* InfoPlist.strings */ = {
 			isa = PBXVariantGroup;
 			children = (

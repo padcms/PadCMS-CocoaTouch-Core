@@ -105,6 +105,7 @@
 @property (nonatomic, retain) IBOutlet UIButton *topSummaryButton;
 @property (nonatomic, retain) PCScrollView* horizontalSummaryView;
 @property (nonatomic, retain) IBOutlet UIButton *subscriptionButton;
+@property (assign) BOOL previewMode;
 
 /**
  @brief Show concrete page

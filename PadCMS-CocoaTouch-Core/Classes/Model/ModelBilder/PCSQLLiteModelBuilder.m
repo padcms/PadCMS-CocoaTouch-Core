@@ -41,6 +41,7 @@
 #import "PCPageActiveZone.h"
 #import "UIColor+HexString.h"
 #import "PCRevision.h"
+#import "PCLocalizationManager.h"
 
 @interface PCSQLLiteModelBuilder(ForwardDeclaration)
 
@@ -97,7 +98,7 @@
 		
 		if (page.pageTemplate == nil)
 		{
-						
+			
 			[wrongPages addObject:page];
 			continue;
 		}
@@ -107,24 +108,24 @@
         while ([elements next])
         {
             PCPageElement* element = [self buildPageElement:elements withDataBase:base];
-          if (element != nil){
-            [page.elements addObject:element];
-            element.page = page;
-			if (![element.fieldTypeName isEqualToString:PCPageElementTypeHtml] &&
-				![element.fieldTypeName isEqualToString:PCPageElementTypeHtml5] &&
-				![element.fieldTypeName isEqualToString:PCPageElementType3D] &&
-				![element.fieldTypeName isEqualToString:PCPageElementTypeSound] &&
-				![element.fieldTypeName isEqualToString:PCPageElementTypeVideo])
-			{
-				element.isCropped = YES;
-				element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
+			if (element != nil){
+				[page.elements addObject:element];
+				element.page = page;
+				if (![element.fieldTypeName isEqualToString:PCPageElementTypeHtml] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeHtml5] &&
+					![element.fieldTypeName isEqualToString:PCPageElementType3D] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeSound] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeVideo])
+				{
+					element.isCropped = YES;
+					element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
+				}
+				/*	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
+				 {
+				 element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
+				 }*/
+				
 			}
-		/*	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
-			{
-			  element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
-			}*/
-
-          }
         }
         [revision.pages addObject:page];
         page.revision = revision;
@@ -147,30 +148,30 @@
 				}
 			}
 		}];
-
+		
 	}
 	
 	
 	//Creating backward links
 	
 	for (PCPage* page in revision.pages) {
-
+		
         NSNumber *pageIdentifier = [NSNumber numberWithInt:page.identifier];
-
+		
         // horizontal connections
         NSNumber *leftConnector = [NSNumber numberWithInt:PCTemplateLeftConnector];
         NSNumber *rightConnector = [NSNumber numberWithInt:PCTemplateRightConnector];
-
+		
         PCPage *leftPage = [revision pageForLink:[page.links objectForKey:leftConnector]];
         if (leftPage != nil) {
             [leftPage.links setObject:pageIdentifier forKey:rightConnector];
         }
-
+		
         PCPage *rightPage = [revision pageForLink:[page.links objectForKey:rightConnector]];
         if (rightPage != nil) {
             [rightPage.links setObject:pageIdentifier forKey:leftConnector];
         }
-
+		
         // vertical connections
         NSNumber *topConnector = [NSNumber numberWithInt:PCTemplateTopConnector];
         NSNumber *bottomConnector = [NSNumber numberWithInt:PCTemplateBottomConnector];
@@ -179,7 +180,7 @@
         if (topPage != nil) {
             [topPage.links setObject:pageIdentifier forKey:bottomConnector];
         }
-
+		
         PCPage *bottomPage = [revision pageForLink:[page.links objectForKey:bottomConnector]];
         if (bottomPage != nil) {
             [bottomPage.links setObject:pageIdentifier forKey:topConnector];
@@ -197,7 +198,7 @@
 		
 		PCPage* horizontalPage = [[PCPage alloc] init];
         horizontalPage.identifier = horisontalPageId;
-       
+		
         horizontalPage.pageTemplate = [[PCPageTemplatesPool templatesPool] templateForId:PCSimplePageTemplate];
         
         horizontalPage.title = [pages stringForColumn:PCSQLiteHorizontalTitleColumnName];
@@ -231,7 +232,7 @@
 		[horPage release];
 #endif
 		
-       
+		
         NSString *horisontalTocItemPath = [resources stringByReplacingOccurrencesOfString:@"1024-768" withString:@"204-153"];
         [revision.horisontalTocItems setObject:horisontalTocItemPath forKey:[NSNumber numberWithInt:horisontalPageId]];
         [horizontalPage release];
@@ -265,9 +266,17 @@
 	
 	if ([wrongPages lastObject])
 	{
-		NSString* message = @"Votre application ne peut afficher toute les pages de ce magazine car elle n'a pas été mise à jour. Validez pour lancer la mise à jour";
+		NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_PAGE_WITH_NOT_IMPLEMENTED_TEMPLATE_IN_REVISION"
+                                                                   value:@"Your application can't display all the pages of this magazine because it has not been updated. Please update it"];
+		
 		dispatch_async(dispatch_get_main_queue(), ^{
-			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"TITLE_WARNING"
+                                                                                                           value:@"Warning!"]
+                                                            message:message
+                                                           delegate:nil
+                                                  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                           value:@"OK"]
+                                                  otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		});
@@ -279,7 +288,7 @@
 {
     NSString* fieldTypeName = [elementData stringForColumn:PCSQLiteElementTypeNameColumnName];
     NSInteger elementID = [elementData intForColumn:PCSQLiteIDColumnName];
-
+	
     PCPageElement* pageElement = nil;
     NSMutableDictionary* elementDatas = [[NSMutableDictionary alloc] init];
     NSString* elementDataQuery = [NSString stringWithFormat:@"select * from %@ where %@=?",PCSQLiteElementDataTableName,PCSQLiteElementIDColumnName];
@@ -288,12 +297,12 @@
     NSMutableArray* elementActiveZones = [[NSMutableArray alloc] init];
     
     FMResultSet* data = [dataBase executeQuery:elementDataQuery,[NSNumber numberWithInt:elementID]];
-
+	
     while ([data next]) 
     {
         NSString* value = [data stringForColumn:PCSQLiteValueColumnName];
         NSString* type = [data stringForColumn:PCSQLiteTypeColumnName];
-
+		
         [elementDatas setObject:value forKey:type];
         int position_id = [data intForColumn:PCSQLitePositionIDColumnName];
         
@@ -346,7 +355,7 @@
         }
     }
     
-
+	
     Class pageElementClass = [[PCPageElementManager sharedManager] elementClassForElementType:fieldTypeName];
     pageElement = [[pageElementClass alloc] init];
     

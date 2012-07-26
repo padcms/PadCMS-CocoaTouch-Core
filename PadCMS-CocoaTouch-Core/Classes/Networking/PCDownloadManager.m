@@ -55,6 +55,7 @@
 //#import "UIImage+Saving.h"
 #import "ZipArchive.h"
 #import "PCPageElementGallery.h"
+#import "PCLocalizationManager.h"
 
 
 @interface PCDownloadManager(ForwardDeclaration)
@@ -126,9 +127,21 @@ NSString* secondaryKey   = @"secondaryKey";
 		AFNetworkReachabilityStatus oldStatus = [[change objectForKey: NSKeyValueChangeOldKey] intValue];
 		if (newStatus == AFNetworkReachabilityStatusNotReachable)
 		{
-			NSString* message = @"Vous devez être connecté à Internet.";
+			NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
+                                                                       value:@"You must be connected to the Internet."];
+
+            NSString    *title = [PCLocalizationManager localizedStringForKey:@"TITLE_WARNING"
+                                                                        value:@"Warning!"];
+
+            NSString    *buttonTitle = [PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                        value:@"OK"];
+            
 			dispatch_async(dispatch_get_main_queue(), ^{
-				UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+				UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+                                                                message:message
+                                                               delegate:nil
+                                                      cancelButtonTitle:buttonTitle
+                                                      otherButtonTitles:nil];
 				[alert show];
 				[alert release];
 			});
@@ -139,18 +152,27 @@ NSString* secondaryKey   = @"secondaryKey";
 			[self startDownloading];
 		}
 	}
-	
-	
 }
-
 
 -(void)startDownloading
 {
     if (!self.revision) return;
     if ([PCDownloadApiClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
     {
-        NSString* message = @"Vous devez être connecté à Internet.";
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Warning!" message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+        NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
+                                                                   value:@"You must be connected to the Internet."];
+        
+        NSString    *title = [PCLocalizationManager localizedStringForKey:@"TITLE_WARNING"
+                                                                    value:@"Warning!"];
+
+        NSString    *buttonTitle = [PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                          value:@"OK"];
+        
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:buttonTitle
+                                              otherButtonTitles:nil];
         [alert show];
         [alert release];
         return;

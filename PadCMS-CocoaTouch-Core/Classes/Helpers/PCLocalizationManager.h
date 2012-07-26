@@ -1,8 +1,8 @@
 //
-//  PCKioskSubviewDelegateProtocol.h
-//  Pad CMS
+//  PCLocalizationManager.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by Oleg Zhitnik on 23.04.12.
+//  Created by Oleg Zhitnik on 18.07.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -35,15 +35,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PCKioskSubviewDelegateProtocol <NSObject>
+@interface PCLocalizationManager : NSObject
 
-- (void) downloadButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) previewButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) readButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) cancelButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) updateButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) purchaseButtonTappedWithRevisionIndex:(NSInteger) index;
-- (void) tapInKiosk;
-
++(NSString*) localizedStringForKey:(NSString *)key value:(NSString *)comment;
 @end

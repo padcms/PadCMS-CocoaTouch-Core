@@ -65,6 +65,8 @@
 @property (nonatomic, retain) NSMutableDictionary *notifications;
 /// @brief Magazines array PCIssue
 @property (nonatomic, retain) NSMutableArray *issues;
+/// @brief Number of columns available in preview mode
+@property (assign) NSUInteger previewColumnsNumber;
 
 /**
  @brief Designated initializer.

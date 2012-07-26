@@ -35,6 +35,7 @@
 
 #import "PCRevisionViewController.h"
 
+#import "InAppPurchases.h"
 #import "NSString+XMLEntities.h"
 #import "PCConfig.h"
 #import "PCDefaultStyleElements.h"
@@ -42,8 +43,10 @@
 #import "PCGoogleAnalytics.h"
 #import "PCHelpViewController.h"
 #import "PCHorizontalPageController.h"
+#import "PCLocalizationManager.h"
 #import "PCMacros.h"
 #import "PCMagazineViewControllersFactory.h"
+#import "PCResourceCache.h"
 #import "PCRevision.h"
 #import "PCScrollView.h"
 #import "PCSearchProvider.h"
@@ -51,6 +54,7 @@
 #import "PCStyler.h"
 #import "PCStoreController.h"
 #import "PCSubscriptionsMenuViewController.h"
+//#import "PCSubscriptionsMenuView.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -97,6 +101,7 @@
 @synthesize horizontalSummaryView;
 @synthesize horizontalHelpButton;
 @synthesize subscriptionButton;
+@synthesize previewMode = _previewMode;
 
 -(void)dealloc
 {
@@ -164,6 +169,7 @@
         horizontalSummaryView = nil;
         helpController = nil;
         subscriptionsMenu = nil;
+        _previewMode = NO;
         horizontalPagesViewControllers = [[NSMutableArray alloc] init];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
@@ -303,11 +309,17 @@
 
 - (void)createMagazineView
 {
-    NSUInteger revisionColumnsCount = revision.columns.count;
+    NSUInteger activeColumnsCount = 0;
+    if (_previewMode && revision.issue.application.previewColumnsNumber != 0) {
+        activeColumnsCount = MIN(revision.issue.application.previewColumnsNumber, revision.columns.count);
+    } else {
+        activeColumnsCount = revision.columns.count;
+    }
     
-    mainScrollView.contentSize = CGSizeMake(mainScrollView.frame.size.width * revisionColumnsCount, mainScrollView.frame.size.height);
+    mainScrollView.contentSize = CGSizeMake(mainScrollView.frame.size.width * activeColumnsCount, mainScrollView.frame.size.height);
     
-    for (unsigned i = 0; i < revisionColumnsCount; i++)
+    
+    for (NSUInteger i = 0; i < activeColumnsCount; i++)
     {
         PCColumn* column  = [revision.columns objectAtIndex:i];
         PCColumnViewController* columnViewController = [[PCMagazineViewControllersFactory factory] viewControllerForColumn:column];
@@ -337,7 +349,6 @@
 //            self.horizontalPagesViewController.view.backgroundColor = [UIColor whiteColor];
             horizontalScrollView.backgroundColor = [UIColor whiteColor];
             horizontalScrollView = [[PCScrollView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)];
-            horizontalScrollView.contentSize = CGSizeMake(1024 * [revision.horizontalPages count], 768);
             horizontalScrollView.delegate = self;
             horizontalScrollView.showsHorizontalScrollIndicator = NO;
             horizontalScrollView.showsVerticalScrollIndicator = NO;
@@ -352,7 +363,16 @@
             NSArray     *keys = [revision.horizontalPages allKeys];
             NSArray     *sortedKeys = [keys sortedArrayUsingSelector: @selector(compare:)];
 
-            for (int i = 0; i<[sortedKeys count]; i++)
+            NSUInteger activePageCount = 0;
+            if (_previewMode && revision.issue.application.previewColumnsNumber != 0) {
+                activePageCount = MIN(sortedKeys.count, revision.issue.application.previewColumnsNumber);
+            } else {
+                activePageCount = sortedKeys.count;
+            }
+            
+            horizontalScrollView.contentSize = CGSizeMake(1024 * activePageCount, 768);
+            
+            for (int i = 0; i < activePageCount; i++)
             {
                 NSNumber* key = [sortedKeys objectAtIndex:i];
                 NSString* resource  = [revision.horizontalPages objectForKey:key];
@@ -1651,7 +1671,8 @@
         [shareMenu addSubview:bg];
         
         UILabel* caption = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, shareMenu.frame.size.width, 20)];
-        caption.text = @"PARTAGE";
+        caption.text = [PCLocalizationManager localizedStringForKey:@"SHARING_MENU_CAPTION"
+                                                              value:@"SHARING"];
         caption.font = [UIFont fontWithName:@"Helvetica" size:17];
         caption.textColor = [UIColor whiteColor];
         caption.textAlignment = UITextAlignmentCenter;
@@ -1703,7 +1724,8 @@
         emailTitle.textColor = [UIColor whiteColor];
         emailTitle.backgroundColor = [UIColor blackColor];
         emailTitle.center = CGPointMake(95 + 11, btnTwitter.center.y + 45);
-        emailTitle.text = @"Envoyer un Mail";
+        emailTitle.text = [PCLocalizationManager localizedStringForKey:@"SHARING_MENU_TITLE_EMAIL"
+                                                                 value:@"Send Email"];
         [shareMenu addSubview:emailTitle];
         [emailTitle release];
         
@@ -2009,10 +2031,19 @@
 
 - (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index
 {
-    if (_activeTOCItems != nil) {
+    if (_activeTOCItems != nil && _activeTOCItems.count > index) {
         PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
-        UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe]];
-        return image;
+        
+        PCResourceCache * cache = [PCResourceCache defaultResourceCache];
+        NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+        UIImage *cachedImage = (UIImage *)[cache objectForKey:imagePath];
+        if (cachedImage != nil) {
+            return cachedImage;
+        } else {
+            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
+            [cache setObject:image forKey:imagePath];
+            return image;
+        }
     }
     
     return nil;

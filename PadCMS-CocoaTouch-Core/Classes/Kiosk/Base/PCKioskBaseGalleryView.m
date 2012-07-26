@@ -463,32 +463,51 @@
 
 - (void) downloadButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate downloadButtonTappedWithRevisionIndex:index];
+    if ([self.delegate respondsToSelector:@selector(downloadButtonTappedWithRevisionIndex:)]) {
+        [self.delegate downloadButtonTappedWithRevisionIndex:index];
+    }
+}
+
+- (void) previewButtonTappedWithRevisionIndex:(NSInteger)index
+{
+    if ([self.delegate respondsToSelector:@selector(previewButtonTappedWithRevisionIndex:)]) {
+        [self.delegate previewButtonTappedWithRevisionIndex:index];
+    }
 }
 
 - (void) readButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate readButtonTappedWithRevisionIndex:index];
+    if ([self.delegate respondsToSelector:@selector(readButtonTappedWithRevisionIndex:)]) {
+        [self.delegate readButtonTappedWithRevisionIndex:index];
+    }
 }
 
 - (void) cancelButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate cancelButtonTappedWithRevisionIndex:index];
+    if ([self.delegate respondsToSelector:@selector(cancelButtonTappedWithRevisionIndex:)]) {
+        [self.delegate cancelButtonTappedWithRevisionIndex:index];
+    }
 }
 
 - (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate deleteButtonTappedWithRevisionIndex:index];
+    if ([self.delegate respondsToSelector:@selector(deleteButtonTappedWithRevisionIndex:)]) {
+        [self.delegate deleteButtonTappedWithRevisionIndex:index];
+    }
 }
 
 - (void) updateButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate updateButtonTappedWithRevisionIndex:index];
+    if ([self.delegate respondsToSelector:@selector(updateButtonTappedWithRevisionIndex:)]) {
+        [self.delegate updateButtonTappedWithRevisionIndex:index];
+    }
 }
 
 - (void) purchaseButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate purchaseButtonTappedWithRevisionIndex:index];
+    if ([self.delegate respondsToSelector:@selector(purchaseButtonTappedWithRevisionIndex:)]) {
+        [self.delegate purchaseButtonTappedWithRevisionIndex:index];
+    }
 }
 
 #pragma mark - Downloading flow

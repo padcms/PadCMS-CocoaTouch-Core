@@ -193,6 +193,10 @@
     }
 }
 
+- (void)previewRevisionWithIndex:(NSInteger)index
+{
+}
+
 #pragma mark - Downloading flow
 
 - (void) downloadStartedWithRevisionIndex:(NSInteger)index
@@ -254,37 +258,58 @@
 
 - (void) tapInKiosk
 {
-    [self.delegate tapInKiosk];
+    if ([self.delegate respondsToSelector:@selector(tapInKiosk)]) {
+        [self.delegate tapInKiosk];
+    }
 }
 
 - (void) downloadButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate downloadRevisionWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(downloadRevisionWithIndex:)]) {
+        [self.delegate downloadRevisionWithIndex:index];
+    }
+}
+
+- (void)previewButtonTappedWithRevisionIndex:(NSInteger)index
+{
+    if ([self.delegate respondsToSelector:@selector(previewRevisionWithIndex:)]) {
+        [self.delegate previewRevisionWithIndex:index];
+    }
 }
 
 - (void) readButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate readRevisionWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(readRevisionWithIndex:)]) {
+        [self.delegate readRevisionWithIndex:index];
+    }
 }
 
 - (void) cancelButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate cancelDownloadingRevisionWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(cancelDownloadingRevisionWithIndex:)]) {
+        [self.delegate cancelDownloadingRevisionWithIndex:index];
+    }
 }
 
 - (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate deleteRevisionDataWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(deleteRevisionDataWithIndex:)]) {
+        [self.delegate deleteRevisionDataWithIndex:index];
+    }
 }
 
 - (void) updateButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate updateRevisionWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(updateRevisionWithIndex:)]) {
+        [self.delegate updateRevisionWithIndex:index];
+    }
 }
 
 - (void) purchaseButtonTappedWithRevisionIndex:(NSInteger) index
 {
-    [self.delegate purchaseRevisionWithIndex:index];
+    if ([self.delegate respondsToSelector:@selector(purchaseRevisionWithIndex:)]) {
+        [self.delegate purchaseRevisionWithIndex:index];
+    }
 }
 
 #pragma mark - Kiosk Subviews Navigation

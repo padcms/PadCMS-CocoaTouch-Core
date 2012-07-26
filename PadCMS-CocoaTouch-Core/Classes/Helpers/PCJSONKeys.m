@@ -55,6 +55,7 @@
  NSString* PCJSONApplicationNotificationEmailTitleKey       = @"application_notification_email_title";
  NSString* PCJSONApplicationNotificationTwitterKey          = @"application_notification_twitter";
  NSString* PCJSONApplicationNotificationFacebookKey         = @"application_notification_facebook";
+ NSString* PCJSONApplicationPreviewKey                      = @"application_preview";
 
  NSString* PCJSONIssuesKey                                  = @"issues";
  NSString* PCJSONIssueIDKey                                 = @"issue_id";

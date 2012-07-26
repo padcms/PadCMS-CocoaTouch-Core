@@ -56,6 +56,7 @@ PADCMS_EXTERN NSString* PCJSONApplicationNotificationEmailKey;
 PADCMS_EXTERN NSString* PCJSONApplicationNotificationEmailTitleKey;
 PADCMS_EXTERN NSString* PCJSONApplicationNotificationTwitterKey;
 PADCMS_EXTERN NSString* PCJSONApplicationNotificationFacebookKey;
+PADCMS_EXTERN NSString* PCJSONApplicationPreviewKey;
 
 PADCMS_EXTERN NSString* PCJSONIssuesKey;
 PADCMS_EXTERN NSString* PCJSONIssueIDKey;

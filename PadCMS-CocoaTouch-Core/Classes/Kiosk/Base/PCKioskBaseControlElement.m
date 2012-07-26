@@ -35,6 +35,7 @@
 
 #import "PCKioskBaseControlElement.h"
 #import "PCKioskShelfSettings.h"
+#import "PCLocalizationManager.h"
 
 @interface PCKioskBaseControlElement ()
 - (void)assignCoverImage:(UIImage*) coverImage;
@@ -59,6 +60,7 @@
     [revisionStateLabel release];
     
     [downloadButton release];
+    [previewButton release];
     [readButton release];
     [cancelButton release];
     [deleteButton release];
@@ -128,7 +130,9 @@
 {
     downloadButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[downloadButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_download.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[downloadButton setTitle:@"Download" forState:UIControlStateNormal];
+	[downloadButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_DOWNLOAD"
+                                                                    value:@"Download"]
+                    forState:UIControlStateNormal];
 	[downloadButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
 	[downloadButton titleLabel].backgroundColor = [UIColor clearColor];
 	[downloadButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -138,9 +142,23 @@
     downloadButton.exclusiveTouch = YES;
 	[self addSubview:downloadButton];
 	
+    previewButton = [UIButton buttonWithType:UIButtonTypeCustom];
+	[previewButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_preview.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
+	[previewButton setTitle:@"Preview" forState:UIControlStateNormal];
+	[previewButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
+	[previewButton titleLabel].backgroundColor = [UIColor clearColor];
+	[previewButton titleLabel].textAlignment = UITextAlignmentCenter;
+	[previewButton titleLabel].textColor = [UIColor whiteColor];	
+	[previewButton sizeToFit];
+    previewButton.hidden = YES;
+    previewButton.exclusiveTouch = YES;
+	[self addSubview:previewButton];
+	
 	readButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[readButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_read.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[readButton setTitle:@"Read" forState:UIControlStateNormal];
+	[readButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_READ"
+                                                                value:@"Read"]
+                forState:UIControlStateNormal];
 	[readButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
 	[readButton titleLabel].backgroundColor = [UIColor clearColor];
 	[readButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -152,7 +170,9 @@
 	
 	cancelButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[cancelButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_cancel.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[cancelButton setTitle:@"Cancel" forState:UIControlStateNormal];
+	[cancelButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_CANCEL"
+                                                                  value:@"Cancel"]
+                  forState:UIControlStateNormal];
 	[cancelButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:14];
 	[cancelButton titleLabel].backgroundColor = [UIColor clearColor];
 	[cancelButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -164,7 +184,9 @@
 	
 	deleteButton = [UIButton buttonWithType:UIButtonTypeCustom];
 	[deleteButton setBackgroundImage:[[UIImage imageNamed:@"kiosk_button_delete.png"] stretchableImageWithLeftCapWidth:16 topCapHeight:16] forState:UIControlStateNormal];
-	[deleteButton setTitle:@"Delete" forState:UIControlStateNormal];
+	[deleteButton setTitle:[PCLocalizationManager localizedStringForKey:@"KIOSK_BUTTON_TITLE_DELETE"
+                                                                  value:@"Delete"]
+                  forState:UIControlStateNormal];
 	[deleteButton titleLabel].font = [UIFont fontWithName:@"Verdana" size:15];
 	[deleteButton titleLabel].backgroundColor = [UIColor clearColor];
 	[deleteButton titleLabel].textAlignment = UITextAlignmentCenter;
@@ -175,6 +197,10 @@
 	[self addSubview:deleteButton];		
 
     downloadButton.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_FIRST_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, KIOSK_SHELF_CELL_BUTTONS_HEIGHT);
+    previewButton.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN,
+                                     KIOSK_SHELF_CELL_FIRST_BUTTON_TOP_MARGIN + KIOSK_SHELF_CELL_BUTTONS_HEIGHT, 
+                                     KIOSK_SHELF_CELL_BUTTONS_WIDTH, 
+                                     KIOSK_SHELF_CELL_BUTTONS_HEIGHT);
     cancelButton.frame = downloadButton.frame;
     readButton.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_FIRST_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, KIOSK_SHELF_CELL_BUTTONS_HEIGHT);
     deleteButton.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_THIRD_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, KIOSK_SHELF_CELL_BUTTONS_HEIGHT);
@@ -182,10 +208,12 @@
 
 - (void) adjustElements
 {
-    if([self.dataSource isRevisionDownloadedWithIndex:self.revisionIndex])
-    {
+    BOOL previewAvailable = [self previewAvailableForRevisionWithIndex:self.revisionIndex];
+    
+    if ([self.dataSource isRevisionDownloadedWithIndex:self.revisionIndex]) {
         
         downloadButton.hidden = YES;
+        previewButton.hidden = YES;
         cancelButton.hidden = YES;
         readButton.hidden = NO;
         deleteButton.hidden = NO;
@@ -194,10 +222,11 @@
         downloadingProgressView.hidden = YES;
         
     } else {
-        if(self.downloadInProgress)
-        {
+
+        if (self.downloadInProgress) {
             
             downloadButton.hidden = YES;
+            previewButton.hidden = YES;
             cancelButton.hidden = NO;
             readButton.hidden = YES;
             deleteButton.hidden = YES;
@@ -205,10 +234,10 @@
             downloadingInfoLabel.hidden = NO;
             downloadingProgressView.hidden = NO;
             
-        } else 
-        {
+        } else {
             
             downloadButton.hidden = NO;
+            previewButton.hidden = previewAvailable ? NO : YES;
             cancelButton.hidden = YES;
             readButton.hidden = YES;
             deleteButton.hidden = YES;
@@ -216,7 +245,17 @@
             downloadingInfoLabel.hidden = YES;
             downloadingProgressView.hidden = YES;
         }
+        
     }
+}
+
+- (BOOL)previewAvailableForRevisionWithIndex:(NSUInteger)index
+{
+    if ([self.dataSource respondsToSelector:@selector(previewAvailableForRevisionWithIndex:)]) {
+        return [self.dataSource previewAvailableForRevisionWithIndex:index];
+    }
+    
+    return NO;
 }
 
 - (void) assignButtonsHandlers
@@ -224,6 +263,10 @@
     [downloadButton addTarget:self
                        action:@selector(downloadButtonTapped)
              forControlEvents:UIControlEventTouchUpInside];
+    
+    [previewButton addTarget:self
+                      action:@selector(previewButtonTapped)
+            forControlEvents:UIControlEventTouchUpInside];
     
     [cancelButton addTarget:self
                      action:@selector(cancelButtonTapped)
@@ -282,22 +325,37 @@
 
 - (void) downloadButtonTapped
 {
-    [self.delegate downloadButtonTappedWithRevisionIndex:self.revisionIndex];
+    if ([self.delegate respondsToSelector:@selector(downloadButtonTappedWithRevisionIndex:)]) {
+        [self.delegate downloadButtonTappedWithRevisionIndex:self.revisionIndex];
+    }
+}
+
+- (void) previewButtonTapped
+{
+    if ([self.delegate respondsToSelector:@selector(previewButtonTappedWithRevisionIndex:)]) {
+        [self.delegate previewButtonTappedWithRevisionIndex:self.revisionIndex];
+    }
 }
 
 - (void) cancelButtonTapped
 {
-    [self.delegate cancelButtonTappedWithRevisionIndex:self.revisionIndex];
+    if ([self.delegate respondsToSelector:@selector(cancelButtonTappedWithRevisionIndex:)]) {
+        [self.delegate cancelButtonTappedWithRevisionIndex:self.revisionIndex];
+    }
 }
 
 - (void) readButtonTapped
 {
-    [self.delegate readButtonTappedWithRevisionIndex:self.revisionIndex];
+    if ([self.delegate respondsToSelector:@selector(readButtonTappedWithRevisionIndex:)]) {
+        [self.delegate readButtonTappedWithRevisionIndex:self.revisionIndex];
+    }
 }
 
 - (void) deleteButtonTapped
 {
-    [self.delegate deleteButtonTappedWithRevisionIndex:self.revisionIndex];
+    if ([self.delegate respondsToSelector:@selector(deleteButtonTappedWithRevisionIndex:)]) {
+        [self.delegate deleteButtonTappedWithRevisionIndex:self.revisionIndex];
+    }
 }
 
 #pragma mark - Download flow

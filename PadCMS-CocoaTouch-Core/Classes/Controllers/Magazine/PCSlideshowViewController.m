@@ -116,7 +116,6 @@
     {
         for (unsigned i = 0; i < [slideElements count]; i++)
         {
-
             PCPageElementSlide* element = [slideElements objectAtIndex:i];
             float scale = slidersView.frame.size.width/element.size.width;            
             CGSize elementSize = element.size;
@@ -136,7 +135,7 @@
             PCPageElementViewController *slideViewController = [[PCPageElementViewController alloc] initWithResource:fullResource];
             
             [slideViewController.view setFrame:newSlideRect];
-          slideViewController.element = element;
+            slideViewController.element = element;
           
             [self.slideViewControllers addObject:slideViewController];
          

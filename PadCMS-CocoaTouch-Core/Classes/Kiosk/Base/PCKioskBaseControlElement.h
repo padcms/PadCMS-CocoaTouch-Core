@@ -53,6 +53,7 @@
     UILabel                 *revisionStateLabel; ///< revision state
     
     UIButton                *downloadButton; ///< button for download revision
+    UIButton                *previewButton; ///< button for previewing revision
     UIButton                *cancelButton; ///< button for cancel downloading
     UIButton                *readButton; ///< button for reading revision
     UIButton                *deleteButton; ///< button for deleting revision content

@@ -149,8 +149,11 @@
         return;
     }
     
-    [self.magazineViewController.mainViewController presentViewController:_webViewController animated:YES completion:nil];
-
+    if (_webViewController && !_webViewController.presentingViewController)
+    {
+        [self.magazineViewController.mainViewController presentViewController:_webViewController animated:YES completion:nil];
+    }
+    
     _webViewVisible = YES;
 }
 
@@ -190,9 +193,12 @@
 
 -(void)deviceOrientationDidChange
 {
-    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) {
+    if (UIDeviceOrientationIsLandscape([UIDevice currentDevice].orientation)) 
+    {
         [self showBrowser];
-    } else {
+    } 
+    else if (UIDeviceOrientationIsPortrait([UIDevice currentDevice].orientation))
+    {
         [self hideBrowser];
     }
 }
