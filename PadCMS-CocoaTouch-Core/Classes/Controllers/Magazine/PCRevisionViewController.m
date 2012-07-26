@@ -232,8 +232,24 @@
     
     [_activeTOCItems removeAllObjects];
     
-    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+    
+    if (revision.horizontalPages != nil &&
+        revision.horizontalPages.count != 0 &&
+        UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
 
+        if (revision.horisontalTocItems != nil) {
+                NSArray *allKeys = revision.horisontalTocItems.allKeys;
+                NSArray *sortedKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
+                for (NSString *key in sortedKeys) {
+                    NSString *halfImagePath = [@"horisontal_toc_items" stringByAppendingPathComponent:[self.revision.horizontalPages objectForKey:key]];
+                    
+                    PCTocItem *tocItem = [[PCTocItem alloc] init];
+                    tocItem.thumbStripe = halfImagePath;
+                    [_activeTOCItems addObject:tocItem];
+                    [tocItem release];
+                }
+            }
+    } else {
         if (revision.toc != nil) {
             for (PCTocItem *tocItem in revision.toc) {
                 NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
@@ -258,20 +274,6 @@
                 }
                 
                 [_activeTOCItems addObject:tocItem];
-            }
-        }
-    } else {
-        
-        if (revision.horisontalTocItems != nil) {
-            NSArray *allKeys = revision.horisontalTocItems.allKeys;
-            NSArray *sortedKeys = [allKeys sortedArrayUsingSelector:@selector(compare:)];
-            for (NSString *key in sortedKeys) {
-                NSString *halfImagePath = [@"horisontal_toc_items" stringByAppendingPathComponent:[self.revision.horizontalPages objectForKey:key]];
-
-                PCTocItem *tocItem = [[PCTocItem alloc] init];
-                tocItem.thumbStripe = halfImagePath;
-                [_activeTOCItems addObject:tocItem];
-                [tocItem release];
             }
         }
     }
@@ -1510,9 +1512,6 @@
     
     if (revision.horizontalOrientation) {
         [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
-        
-        
-        
     } else {
         [topMenuView setFrame:CGRectMake(0, 0, 768, 43)];
     }
@@ -1520,6 +1519,7 @@
     [UIView animateWithDuration:0.3f animations:^{
         
         if (revision.horizontalOrientation) {
+            
             if (horizontalTopMenuView.hidden) {
                 [self showTopBar];
             } else {
@@ -2009,7 +2009,7 @@
     if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
     {
         [self dismissViewControllerAnimated:YES completion:nil]; 
-    } 
+    }
     else
     {
         [self dismissModalViewControllerAnimated:YES];
@@ -2038,7 +2038,7 @@
 - (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(PCGridView *)tocView
 {
     if (tocView == hudView.topTOCView) {
-        return CGSizeMake(150,  512/*self.view.bounds.size.height / 2*/);
+        return CGSizeMake(150, self.view.bounds.size.height / 2);
     } else if (tocView == hudView.bottomTOCView) {
         if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
             return CGSizeMake(150, 340 /*viewSize.height / 3*/);
@@ -2084,8 +2084,19 @@
 - (void)hudView:(PCHUDView *)hudView didSelectIndex:(NSUInteger)index
 {
     if (_activeTOCItems != nil) {
-
-        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        
+        if (revision.horizontalPages != nil &&
+            revision.horizontalPages.count != 0 &&
+            UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+            
+            if (index >= [self.revision.horizontalPages count]) {
+                return;
+            }
+            
+            [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
+            
+        } else {
+            
             PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
             
             NSInteger pageIndex = -1;
@@ -2099,12 +2110,6 @@
             [hudView hideTOCs];
             
             [self showPageWithIndex:pageIndex];
-        } else {
-            if (index >= [self.revision.horizontalPages count]) {
-                return;
-            }
-            
-            [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
         }
     }
 }
