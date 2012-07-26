@@ -13,6 +13,7 @@
 #import "PCScrollView.h"
 #import "AbstractBasePageViewController.h"
 #import "GalleryViewController.h"
+#import "PCVideoManager.h"
 
 @interface RevisionViewController ()
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -23,6 +24,7 @@
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
 @synthesize nextPageViewController=_nextPageViewController;
+@synthesize videoManager = _videoManager;
 @synthesize topSummaryView;
 
 - (id)initWithRevision:(PCRevision *)revision
@@ -35,6 +37,7 @@
 												 selector:@selector(deviceOrientationDidChange)
 													 name:@"UIDeviceOrientationDidChangeNotification"
 												   object:nil];
+        _videoManager = nil;
     }
     
     return self;
@@ -67,6 +70,7 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
+    [_videoManager release], _videoManager = nil;
 	[super dealloc];
 }
 
@@ -214,19 +218,10 @@
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_nextPageViewController.page userInfo:nil];
 		[self configureContentScrollForPage:_nextPageViewController.page];
+        [self dismissVideo];
 	}
-	
-	
 }
 
--(void)showGallery
-{
-	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
-	{
-		[self.navigationController pushViewController:[[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease]  animated:NO];
-	}
-	 
-}
 -(void) deviceOrientationDidChange
 {
 	if (_contentScrollView.dragging || _contentScrollView.decelerating) return;
@@ -244,10 +239,40 @@
 	}
 }
 
+- (void)dismissVideo
+{
+    if (_videoManager)
+    {
+        [_videoManager dismissVideo];
+        [_videoManager release], _videoManager = nil;
+    }
+}
+
+#pragma mark PCActionDelegate methods
+
+-(void)showGallery
+{
+	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
+	{
+		[self.navigationController pushViewController:[[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease]  animated:NO];
+	}
+	 
+}
+
 -(void)gotoPage:(PCPage *)page
 {
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];
 	[self configureContentScrollForPage:_nextPageViewController.page];
+    [self dismissVideo];
+}
+
+- (void)showVideo:(NSString *)videoURLString inRect:(CGRect)videoRect
+{
+    if (!_videoManager)
+    {
+        _videoManager = [[PCVideoManager alloc] init];
+    }
+    [_videoManager showVideo:videoURLString inRect:videoRect];
 }
 
 - (void)showTopBar

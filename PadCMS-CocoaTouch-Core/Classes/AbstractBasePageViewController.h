@@ -27,21 +27,23 @@
 @property (nonatomic, retain) NSMutableArray* actionButtons;
 
 - (id)initWithPage:(PCPage *)page;
--(void)loadFullView;
+- (void)loadFullView;
 - (CGRect)activeZoneRectForType:(NSString*)zoneType;
--(NSArray*)activeZonesAtPoint:(CGPoint)point;
--(void)releaseViews;
--(void)createActionButtons;
--(void)showHUD;
--(void)hideHUD;
+- (NSArray*)activeZonesAtPoint:(CGPoint)point;
+- (void)releaseViews;
+- (void)createActionButtons;
+- (void)showHUD;
+- (void)hideHUD;
 - (void)changeVideoLayout: (BOOL)isVideoEnabled;
--(BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
--(void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
+- (BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
+- (void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
+
 @end
 
 @protocol PCActionDelegate 
 	
--(void)showGallery;
--(void)gotoPage:(PCPage*)page;
+- (void)showGallery;
+- (void)gotoPage:(PCPage*)page;
+- (void)showVideo:(NSString*)videoURLString inRect:(CGRect)videoRect;
 
 @end
