@@ -55,6 +55,17 @@ typedef enum
 @property (nonatomic, assign) PCApplication *application;
 
 /**
+
+ @brief Current published revision
+ */ 
+//@property (readonly) PCRevision *currentRevision;
+
+/**
+ @brief back end server URL
+ */
+@property (retain, nonatomic) NSURL *backEndURL;
+
+/**
  @brief Directory where PCIssue instances stores data
  */ 
 @property (readonly) NSString *contentDirectory;
@@ -120,7 +131,18 @@ typedef enum
  @brief Designated initializer.
  @param Dictionary with parameters to initialize instance
  @param Root directory for content
+ @param Back end server URL
  */ 
-- (id)initWithParameters:(NSDictionary *)parameters rootDirectory:(NSString *)rootDirectory;
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory 
+              backEndURL:(NSURL *)backEndURL;
+
+/**
+ @brief Designated initializer.
+ @param Dictionary with parameters to initialize instance
+ @param Root directory for content
+ */ 
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory;
 
 @end

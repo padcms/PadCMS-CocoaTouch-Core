@@ -51,6 +51,8 @@
 
 @interface PCApplication : NSObject
 
+/// @brief URL of back end server
+@property (nonatomic, retain) NSURL *backEndURL;
 /// @brief Application content directory
 @property (nonatomic, retain) NSString *contentDirectory;
 /// @brief Application identifier
@@ -68,12 +70,24 @@
 /// @brief Number of columns available in preview mode
 @property (assign) NSUInteger previewColumnsNumber;
 
+
+/**
+ @brief Designated initializer.
+ @param Dictionary with parameters to initialize instance
+ @param Root directory for content
+ @param Back end url to download content from
+ */ 
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory 
+              backEndURL:(NSURL *)backEndURL;
+
 /**
  @brief Designated initializer.
  @param Dictionary with parameters to initialize instance
  @param Root directory for content
  */ 
-- (id)initWithParameters:(NSDictionary *)parameters rootDirectory:(NSString *)rootDirectory;
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory;
 
 /**
  @brief Return options for specific notification type. Options returns as NSDictionary*.

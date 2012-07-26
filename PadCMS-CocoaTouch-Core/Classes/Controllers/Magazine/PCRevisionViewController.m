@@ -1213,13 +1213,8 @@
     [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
 
     if (horizontalTopMenuView.hidden) {
-//        horizontalTopMenuView.hidden = NO;
-//        horizontalTopMenuView.alpha = 0.75f;
-//        [self.view bringSubviewToFront:horizontalTopMenuView];
         [self showTopBar];
     } else {
-//        horizontalTopMenuView.hidden = YES;
-//        horizontalTopMenuView.alpha = 0;
         [self hideTopBar];
     }
     
@@ -1505,73 +1500,93 @@
     
     if (revision.horizontalOrientation) {
         [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+        
+        
+        
     } else {
         [topMenuView setFrame:CGRectMake(0, 0, 768, 43)];
     }
 
     [UIView animateWithDuration:0.3f animations:^{
-
-        if ([revision.toc count] > 0)
-        {
-            int lastTocStripeIndex = -1;
-                           
-            for (int i = [revision.toc count]-1; i >= 0; i--)
-            {
-                PCTocItem *tempTocItem = [revision.toc objectAtIndex:i];
-                if (tempTocItem.thumbStripe)
-                {
-                    lastTocStripeIndex = i;
-                    break;
-                }
+        
+        if (revision.horizontalOrientation) {
+            if (horizontalTopMenuView.hidden) {
+                [self showTopBar];
+            } else {
+                [self hideTopBar];
             }
-             
-            if (lastTocStripeIndex != -1)
-            {
-                PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocStripeIndex];
-                NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
-                BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
-
-                if (fileExists) {
-                    _hudView.bottomTOCButton.hidden = !_hudView.bottomTOCButton.hidden;
+            
+            if (_hudView.bottomTOCButton.hidden) {
+                if (revision != nil && revision.horisontalTocItems != nil && revision.horisontalTocItems.count > 0) {
+                    _hudView.bottomTOCButton.hidden = NO;
+                    _hudView.bottomTOCButton.alpha = 1;
                 } else {
                     _hudView.bottomTOCButton.hidden = YES;
+                    _hudView.bottomTOCButton.alpha = 0;
                 }
-                _hudView.bottomTOCButton.alpha = _hudView.bottomTOCButton.hidden ? 0 : 1;
-             }
-        } 
-        
-        else {
-            _hudView.bottomTOCButton.hidden = YES;
-            _hudView.bottomTOCButton.alpha = 0;
-        }
-        
-        if (!tableOfContentsView.hidden) {
-            tableOfContentsView.hidden = YES;
-            tableOfContentsView.alpha = 0;
-        }
-        
-        if (topMenuView.hidden) {
-            [self showTopBar];
+            } else {
+                _hudView.bottomTOCButton.hidden = YES;
+                [self hideMenus];
+            }
+            
         } else {
-            [self hideTopBar];
-            [self.view sendSubviewToBack:_hudView];
+            if ([revision.toc count] > 0)
+            {            int lastTocStripeIndex = -1;
+                
+                for (int i = [revision.toc count]-1; i >= 0; i--)
+                {
+                    PCTocItem *tempTocItem = [revision.toc objectAtIndex:i];
+                    if (tempTocItem.thumbStripe)
+                    {
+                        lastTocStripeIndex = i;
+                        break;
+                    }
+                }
+                
+                if (lastTocStripeIndex != -1)
+                {
+                    PCTocItem* tocItem = [revision.toc objectAtIndex:lastTocStripeIndex];
+                    NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+                    BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:imagePath];
+                    
+                    if (fileExists) {
+                        _hudView.bottomTOCButton.hidden = !_hudView.bottomTOCButton.hidden;
+                    } else {
+                        _hudView.bottomTOCButton.hidden = YES;
+                    }
+                    _hudView.bottomTOCButton.alpha = _hudView.bottomTOCButton.hidden ? 0 : 1;
+                }
+            } 
+            
+            else {
+                _hudView.bottomTOCButton.hidden = YES;
+                _hudView.bottomTOCButton.alpha = 0;
+            }
+            
+            if (!tableOfContentsView.hidden) {
+                tableOfContentsView.hidden = YES;
+                tableOfContentsView.alpha = 0;
+            }
+            
+            if (topMenuView.hidden) {
+                [self showTopBar];
+            } else {
+                [self hideTopBar];
+                [self.view sendSubviewToBack:_hudView];
+            }
+            
+            if (!topSummaryView.hidden) {
+                topSummaryView.hidden = YES;
+                topSummaryView.alpha = 0;
+            }
+            
+            if (!shareMenu.hidden) {
+                shareMenu.hidden = YES;
+                shareMenu.alpha = 0;
+            }
+          
+
         }
-        
-        if (!topSummaryView.hidden) {
-            topSummaryView.hidden = YES;
-            topSummaryView.alpha = 0;
-        }
-        
-        if (!shareMenu.hidden) {
-            shareMenu.hidden = YES;
-            shareMenu.alpha = 0;
-        }
-        
-        if (!subscriptionsMenu.view.hidden) {
-            subscriptionsMenu.view.hidden = YES;
-            subscriptionsMenu.view.alpha = 0;
-        }
-        
     }];
 }
 
@@ -1652,7 +1667,7 @@
     {
         subscriptionsMenu = [[PCSubscriptionsMenuViewController alloc] initWithFrame:popupRect andSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
         //subscriptionsMenu.delegate = [InAppPurchases sharedInstance];
-        [self.view addSubview:subscriptionsMenu];
+        [self.view addSubview:subscriptionsMenu.view];
         subscriptionsMenu.view.hidden = YES;
     }
     [subscriptionsMenu updateFrame:popupRect];

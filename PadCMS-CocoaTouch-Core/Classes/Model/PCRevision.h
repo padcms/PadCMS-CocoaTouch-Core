@@ -61,6 +61,7 @@ typedef enum
 
 @interface PCRevision : NSObject
 
+@property (nonatomic, retain) NSURL *backEndURL;
 @property (readonly) NSString *contentDirectory;
 @property (nonatomic, assign) PCIssue *issue;
 @property (nonatomic, assign) NSInteger identifier;
@@ -90,12 +91,24 @@ typedef enum
 @property (nonatomic, retain) NSMutableArray* newHorizontalPages;
 
 
+
+/**
+ @brief Designated initializer.
+ @param Dictionary with parameters to initialize instance
+ @param Root directory for content
+ @param Back end server url
+ */ 
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory
+              backEndURL:(NSURL *)backEndURL;
+
 /**
  @brief Designated initializer.
  @param Dictionary with parameters to initialize instance
  @param Root directory for content
  */ 
-- (id)initWithParameters:(NSDictionary *)parameters rootDirectory:(NSString *)rootDirectory;
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory;
 
 - (UIImage *)coverImage;
 

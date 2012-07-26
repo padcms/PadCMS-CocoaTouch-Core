@@ -69,6 +69,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 @implementation PCRevision
 
+@synthesize backEndURL = _backEndURL;
 @synthesize contentDirectory = _contentDirectory;
 @synthesize issue = _issue;
 @synthesize identifier = _identifier;
@@ -100,6 +101,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 - (void)dealloc
 {
+    self.backEndURL = nil;
 	self.horisontalPagesObjects = nil;
     self.horizontalPages = nil;
     self.helpPages = nil;
@@ -117,10 +119,13 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     [super dealloc];
 }
 
-
-- (id)initWithParameters:(NSDictionary *)parameters rootDirectory:(NSString *)rootDirectory
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory
+              backEndURL:(NSURL *)backEndURL
 {
-    if (parameters == nil) return nil;
+    if (parameters == nil) {
+        return nil;
+    }
 
     self = [super init];
 
@@ -136,11 +141,17 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         self.helpPages = [parameters objectForKey:PCJSONIssueHelpPagesKey];
         _horizontalMode = NO;
         
+        if (backEndURL != nil) {
+            _backEndURL = [backEndURL retain];
+        } else {
+            _backEndURL = [PCConfig serverURL];
+        }
+        
         NSString *identifierString = [parameters objectForKey:PCJSONRevisionIDKey];
         
         _identifier = [identifierString integerValue];
         _contentDirectory = [[rootDirectory stringByAppendingPathComponent:
-                             [NSString stringWithFormat:@"%@-%@", PCRevisionDirectoryPrefix, identifierString]] copy];
+                              [NSString stringWithFormat:@"%@-%@", PCRevisionDirectoryPrefix, identifierString]] copy];
         
         [PCPathHelper createDirectoryIfNotExists:_contentDirectory];
         
@@ -214,6 +225,14 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     return self;
 }
 
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory
+{
+    return [self initWithParameters:parameters 
+                      rootDirectory:rootDirectory 
+                         backEndURL:nil];
+}
+
 - (id)init
 {
     self = [super init];
@@ -232,8 +251,10 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     
     if (![[NSFileManager defaultManager] fileExistsAtPath:databasePath])
     {
+        NSString *serverURLString = _backEndURL != nil ? _backEndURL.absoluteString : [PCConfig serverURLString] ;
+        
         NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@%d", 
-                                           [PCConfig serverURLString], PCRevisionExportPath, self.identifier]];
+                                           serverURLString, PCRevisionExportPath, self.identifier]];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         NSData *data = [NSURLConnection sendSynchronousRequest:request 
                                              returningResponse:nil error:nil];
@@ -267,8 +288,10 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     }
     else if (_coverImageListURL != nil)
     {
+        NSURL *serverURL = _backEndURL != nil ? _backEndURL : [PCConfig serverURL] ;
+        
         NSURL *fullCoverImageURL = [NSURL URLWithString:_coverImageListURL.absoluteString 
-                                          relativeToURL:[PCConfig serverURL]];
+                                          relativeToURL:serverURL];
         
         NSData *imageData = [NSData dataWithContentsOfURL:fullCoverImageURL];
         UIImage *image = [UIImage imageWithData:imageData];
@@ -308,10 +331,15 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 - (void)download:(PCRevisionDownloadSuccessBlock)successCallback failed:(PCRevisionDownloadFailedBlock) failedCallback canceled:(PCRevisionDownloadCanceledBlock) canceledCallback progress:(PCRevisionDownloadProgressBlock) progressCallback
 {
-    if (self.downloadOperation) return;
+    if (self.downloadOperation) {
+        return;
+    }
 
+    NSString *serverURLString = _backEndURL != nil ? _backEndURL.absoluteString : [PCConfig serverURLString] ;
+    
     NSURL *url = [NSURL URLWithString:[NSString stringWithFormat:@"%@/%@%d", 
-                                                                [PCConfig serverURLString], PCRevisionExportPath, self.identifier]];
+                                       serverURLString, PCRevisionExportPath, self.identifier]];
+    
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
    
     AFHTTPRequestOperation      *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
@@ -376,14 +404,16 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 {
     if (self.startVideo && ![self.startVideo isEqualToString:@""])
     {
-        NSString *videoURL = [[PCConfig serverURLString]stringByAppendingString:self.startVideo];
+        NSString *serverURLString = _backEndURL != nil ? _backEndURL.absoluteString : [PCConfig serverURLString] ;
+
+        NSString *videoURL = [serverURLString stringByAppendingString:self.startVideo];
         NSURL *url = [NSURL URLWithString:videoURL];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         
         AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
         self.downloadStartVideoOperation = operation;
         
-        NSString *videoPath = [videoURL stringByReplacingOccurrencesOfString:[[PCConfig serverURLString]stringByAppendingString:PCPadCMSResourseURLPart] withString:self.contentDirectory];
+        NSString *videoPath = [videoURL stringByReplacingOccurrencesOfString:[serverURLString stringByAppendingString:PCPadCMSResourseURLPart] withString:self.contentDirectory];
         NSLog(@"videPAth - %@", videoPath);
         NSString* directoryPath = [videoPath stringByDeletingLastPathComponent];
         [[NSFileManager defaultManager] createDirectoryAtPath:directoryPath withIntermediateDirectories:YES attributes:nil error:nil];

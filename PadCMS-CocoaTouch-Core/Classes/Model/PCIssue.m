@@ -36,12 +36,14 @@
 #import "PCIssue.h"
 #import "PCRevision.h"
 #import "PCPathHelper.h"
+#import "PCConfig.h"
 #import "InAppPurchases.h"
 
 @implementation PCIssue
 
 @synthesize application = _application;
 //@synthesize currentRevision = _currentRevision;
+@synthesize backEndURL = _backEndURL;
 @synthesize contentDirectory = _contentDirectory;
 @synthesize revisions = _revisions;
 @synthesize subscriptionType = _subscriptionType;
@@ -58,6 +60,7 @@
 
 - (void)dealloc
 {
+    self.backEndURL = nil;
     self.updatedDate = nil;
 //    self.revisionCreatedDate = nil;
 //    self.revisionUpdateDate = nil;
@@ -86,21 +89,30 @@
     return self;
 }
 
-- (id)initWithParameters:(NSDictionary *)parameters rootDirectory:(NSString *)rootDirectory
+- (id)initWithParameters:(NSDictionary *)parameters
+           rootDirectory:(NSString *)rootDirectory
+              backEndURL:(NSURL *)backEndURL
 {
-    if (parameters == nil) return nil;
+    if (parameters == nil) {
+        return nil;
+    }
 
     self = [super init];
     
-    if (self)
-    {
+    if (self != nil) {
         NSString *identifierString = [parameters objectForKey:PCJSONIssueIDKey];
         
+        if (backEndURL != nil) {
+            _backEndURL = [backEndURL retain];
+        } else {
+            _backEndURL = [PCConfig serverURL];
+        }
+
         _contentDirectory = [[rootDirectory stringByAppendingPathComponent:
-                             [NSString stringWithFormat:@"issue-%@", identifierString]] copy];
-
+                              [NSString stringWithFormat:@"issue-%@", identifierString]] copy];
+        
         [PCPathHelper createDirectoryIfNotExists:_contentDirectory];
-
+        
         _identifier = [identifierString integerValue];
         _title = [[parameters objectForKey:PCJSONIssueTitleKey] copy];
         _number = [[parameters objectForKey:PCJSONIssueNumberKey] copy];
@@ -130,19 +142,21 @@
         NSDictionary *revisionsParameters = [parameters objectForKey:PCJSONRevisionsKey];
         if ([revisionsParameters count] > 0)
         {
-            NSArray *revisionsKeys = [revisionsParameters allKeys];
-            for (NSString *key in revisionsKeys)
+            for (NSString *key in revisionsParameters)
             {
-                PCRevision *revision = [[PCRevision alloc]
-										initWithParameters:[revisionsParameters objectForKey:key]
-										rootDirectory:_contentDirectory];
-                
+                NSDictionary *revisionParameters = [revisionsParameters objectForKey:key];
+                PCRevision *revision = [[PCRevision alloc] initWithParameters:revisionParameters
+                                                                rootDirectory:_contentDirectory
+                                                                   backEndURL:_backEndURL];
+               
                 if (revision != nil)
                 {
                     [_revisions addObject:revision];
                 }
                 
                 revision.issue = self;
+                //         revision.helpPages = helpPages;
+               
                 [revision release];
             }
 			[_revisions sortUsingComparator:^NSComparisonResult(id obj1, id obj2) {
@@ -157,6 +171,14 @@
     }
     
     return self;
+}
+
+- (id)initWithParameters:(NSDictionary *)parameters 
+           rootDirectory:(NSString *)rootDirectory
+{
+    return [self initWithParameters:parameters 
+                      rootDirectory:rootDirectory
+                         backEndURL:nil];
 }
 
 - (void) loadProductPrices

@@ -41,7 +41,6 @@
 #import "Helper.h"
 #import "PCColumn.h"
 #import "PCConfig.h"
-#import "PCDownloadApiClient.h"
 #import "PCDownloadOperation.h"
 #import "PCHorizontalPage.h"
 #import "PCPage.h"
@@ -58,7 +57,10 @@
 #import "PCLocalizationManager.h"
 
 
-@interface PCDownloadManager(ForwardDeclaration)
+@interface PCDownloadManager()
+{
+    AFHTTPClient *_httpClient;
+}
 
 -(void)launchCoverPageDownloading;
 -(void)launchPortraitPagesDownloading;
@@ -109,14 +111,52 @@ NSString* secondaryKey   = @"secondaryKey";
   if (self != nil) {
 		
     _isReady = NO;
-	  
-	  [[PCDownloadApiClient sharedClient] addObserver:self forKeyPath:@"networkReachabilityStatus" options:NSKeyValueObservingOptionNew context:NULL];
+      
+      NSURL *serverURL = [PCConfig serverURL];
+      
+      if (serverURL != nil) {
+          _httpClient = [[AFHTTPClient alloc] initWithBaseURL:serverURL];
+          _httpClient.operationQueue.maxConcurrentOperationCount = 1;
+          [_httpClient addObserver:self 
+                        forKeyPath:@"networkReachabilityStatus" 
+                           options:NSKeyValueObservingOptionNew 
+                           context:NULL];
+      }
+
   }
   return self;
 
 }
 
+- (void)setRevision:(PCRevision *)revision
+{
+    @synchronized (self) {
+        [_revision release];
+        _revision = [revision retain];
+        
+        if (_httpClient != nil) {
+            [_httpClient removeObserver:self forKeyPath:@"networkReachabilityStatus"];
+            [_httpClient release];
+        }
+        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:_revision.backEndURL];
+        _httpClient.operationQueue.maxConcurrentOperationCount = 1;
+        [_httpClient addObserver:self 
+                      forKeyPath:@"networkReachabilityStatus" 
+                         options:NSKeyValueObservingOptionNew 
+                         context:NULL];
+    }
+}
 
+- (PCRevision *)revision
+{
+    PCRevision *result = nil;
+    
+    @synchronized (self) {
+        result = [[_revision retain] autorelease];
+    }
+    
+    return result;
+}
 
 -(void) observeValueForKeyPath: (NSString *)keyPath ofObject: (id) object
                         change: (NSDictionary *) change context: (void *) context
@@ -157,7 +197,7 @@ NSString* secondaryKey   = @"secondaryKey";
 -(void)startDownloading
 {
     if (!self.revision) return;
-    if ([PCDownloadApiClient sharedClient].networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
+    if (_httpClient.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
     {
         NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
                                                                    value:@"You must be connected to the Internet."];
@@ -234,7 +274,7 @@ NSString* secondaryKey   = @"secondaryKey";
   if ([primaryPageElements lastObject]) page.isComplete = NO;
     
   for (AFHTTPRequestOperation* operation in primaryPageElements) {
-    [[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:operation];
+    [_httpClient enqueueHTTPRequestOperation:operation];
   }
  /* [[PCDownloadApiClient sharedClient] enqueueBatchOfHTTPRequestOperations:primaryPageElements progressBlock:^(NSUInteger numberOfCompletedOperations, NSUInteger totalNumberOfOperations) {
     
@@ -252,7 +292,7 @@ NSString* secondaryKey   = @"secondaryKey";
    
     AFHTTPRequestOperation* elementOperation = obj;
     [elementOperation setQueuePriority:NSOperationQueuePriorityLow];
-    [[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:elementOperation];
+    [_httpClient enqueueHTTPRequestOperation:elementOperation];
     
   }];
 
@@ -313,7 +353,7 @@ NSString* secondaryKey   = @"secondaryKey";
 	
 
   for (AFHTTPRequestOperation* operation in self.portraiteTocOperations) {
-    [[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:operation];
+    [_httpClient enqueueHTTPRequestOperation:operation];
   }
   
   
@@ -406,7 +446,7 @@ NSString* secondaryKey   = @"secondaryKey";
 			else self.revision.isVerticalHelpComplete = NO;
 			[helpOperation setQueuePriority:NSOperationQueuePriorityVeryLow];
 			if (helpOperation) [self.helpOperations setObject:helpOperation forKey:key];
-			[[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:helpOperation];
+			[_httpClient enqueueHTTPRequestOperation:helpOperation];
 
             
             
@@ -495,7 +535,7 @@ NSString* secondaryKey   = @"secondaryKey";
   }
   ((PCDownloadOperation*)horizontalOperation).horizontalPageKey = key;
   if (horizontalOperation) [self.horizontalPageOperations setObject:horizontalOperation forKey:key];
-  [[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:horizontalOperation];
+  [_httpClient enqueueHTTPRequestOperation:horizontalOperation];
 
 }
 
@@ -540,7 +580,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		}
 		
 		if (horizontalTocOperation) [self.horizontalTocOperations addObject:horizontalTocOperation];
-		[[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:horizontalTocOperation];
+		[_httpClient enqueueHTTPRequestOperation:horizontalTocOperation];
 		
 	}
 	
@@ -722,7 +762,7 @@ NSString* secondaryKey   = @"secondaryKey";
     elementOperation.request = mutableURLRequest;
        elementOperation.outputStream = [NSOutputStream outputStreamToFileAtPath:canceledOperation.responseFilePath append:YES];
     elementOperation.outputStream = [NSOutputStream outputStreamToFileAtPath:elementOperation.responseFilePath append:YES];*/
-    [[PCDownloadApiClient sharedClient] enqueueHTTPRequestOperation:elementOperation];
+    [_httpClient enqueueHTTPRequestOperation:elementOperation];
   }
 }
 
@@ -733,8 +773,7 @@ NSString* secondaryKey   = @"secondaryKey";
                               itemLocation:(NSString*)locationPath
 {
   if ([[NSFileManager defaultManager] fileExistsAtPath:[self.revision.contentDirectory stringByAppendingPathComponent:locationPath]]) return nil;
-  NSURLRequest* request = [[PCDownloadApiClient sharedClient] requestWithMethod:@"GET" path:url parameters:nil];
-	NSLog(@"%@", url);
+  NSURLRequest* request = [_httpClient requestWithMethod:@"GET" path:url parameters:nil];
   AFHTTPRequestOperation* operation = [[[PCDownloadOperation alloc] initWithRequest:request] autorelease];
   //operation.successCallbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
 	operation.successCallbackQueue = _callbackQueue;
@@ -878,12 +917,12 @@ NSString* secondaryKey   = @"secondaryKey";
   if (!self.isReady) return;
 	if(!self.operationsDic) return;
 	
-  if (![[PCDownloadApiClient sharedClient].operationQueue.operations lastObject]) return;
+  if (![_httpClient.operationQueue.operations lastObject]) return;
   
    NSNumber* pageIdentifier = [NSNumber numberWithInteger:page.identifier];
   NSLog(@"Attempting boost page - %@", pageIdentifier);
   NSMutableArray* executingApps = [[NSMutableArray alloc] init];
-  for (PCDownloadOperation* operation in [PCDownloadApiClient sharedClient].operationQueue.operations) {
+  for (PCDownloadOperation* operation in _httpClient.operationQueue.operations) {
     [operation setQueuePriority:NSOperationQueuePriorityLow];
     if(operation.isExecuting && ((operation.page && operation.isThumbnail==NO) || operation.horizontalPageKey) ) [executingApps addObject:operation];
     
@@ -953,10 +992,10 @@ NSString* secondaryKey   = @"secondaryKey";
 	if (!self.revision) return;
 	if (!self.isReady) return;
 	if (!self.helpOperations) return;
-	if (![[PCDownloadApiClient sharedClient].operationQueue.operations lastObject]) return;
+	if (![_httpClient.operationQueue.operations lastObject]) return;
   NSLog(@"Attempting to boost help");
    NSMutableArray* executingApps = [[NSMutableArray alloc] init];
-	for (PCDownloadOperation* operation in [PCDownloadApiClient sharedClient].operationQueue.operations) {
+	for (PCDownloadOperation* operation in _httpClient.operationQueue.operations) {
     
 		if (operation.queuePriority == NSOperationQueuePriorityVeryHigh)
 			[operation setQueuePriority:NSOperationQueuePriorityHigh];
@@ -984,10 +1023,10 @@ NSString* secondaryKey   = @"secondaryKey";
 	if (!self.revision) return;
 	if (!self.isReady) return;
 	if (!self.horizontalPageOperations) return;
-	if (![[PCDownloadApiClient sharedClient].operationQueue.operations lastObject]) return;
+	if (![_httpClient.operationQueue.operations lastObject]) return;
   NSLog(@"Attempling to boost horizontal page - %@", identifier);
   NSMutableArray* executingApps = [[NSMutableArray alloc] init];
-	for (PCDownloadOperation* operation in [PCDownloadApiClient sharedClient].operationQueue.operations) {
+	for (PCDownloadOperation* operation in _httpClient.operationQueue.operations) {
 		[operation setQueuePriority:NSOperationQueuePriorityLow];
      if(operation.isExecuting && ((operation.page && operation.isThumbnail==NO) || operation.horizontalPageKey) ) [executingApps addObject:operation];
 	}
@@ -1029,10 +1068,10 @@ NSString* secondaryKey   = @"secondaryKey";
 	if (!self.isReady) return;
 	
  	if(!self.operationsDic) return;
-	if (![[PCDownloadApiClient sharedClient].operationQueue.operations lastObject]) return;
+	if (![_httpClient.operationQueue.operations lastObject]) return;
   NSLog(@"Attempting to boost element - %d, from page - %d", element.identifier, element.page.identifier);
    NSMutableArray* executingApps = [[NSMutableArray alloc] init];
-  for (PCDownloadOperation* operation in [PCDownloadApiClient sharedClient].operationQueue.operations) {
+  for (PCDownloadOperation* operation in _httpClient.operationQueue.operations) {
 		if(operation.isExecuting && ((operation.page && operation.isThumbnail==NO) || operation.horizontalPageKey) ) [executingApps addObject:operation];
 	}
 	 NSNumber* pageIdentifier = [NSNumber numberWithInteger:element.page.identifier];
@@ -1123,7 +1162,7 @@ NSString* secondaryKey   = @"secondaryKey";
 {
   [[NSNotificationCenter defaultCenter] removeObserver:self name:PCBoostPageNotification object:nil];
   self.isReady = NO;
-  [[PCDownloadApiClient sharedClient].operationQueue cancelAllOperations];
+  [_httpClient.operationQueue cancelAllOperations];
   self.operationsDic = nil;
   self.portraiteTocOperations = nil;
   self.helpOperations = nil;
