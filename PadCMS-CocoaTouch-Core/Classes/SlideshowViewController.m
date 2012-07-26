@@ -8,6 +8,7 @@
 
 #import "SlideshowViewController.h"
 #import "PCPageElement.h"
+#import "PCScrollView.h"
 
 @interface SlideshowViewController ()
 @property (nonatomic, retain) NSMutableSet* visibleElementControllers;

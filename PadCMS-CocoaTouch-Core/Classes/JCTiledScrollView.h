@@ -29,7 +29,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class JCTiledScrollView, JCTiledView;
+@class JCTiledScrollView, JCTiledView, PCScrollView;
 
 @protocol JCTileSource <NSObject>
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale;
@@ -55,7 +55,7 @@
 
 //internals
 @property (nonatomic, retain) JCTiledView *tiledView;
-@property (nonatomic, retain) UIScrollView *scrollView;
+@property (nonatomic, retain) PCScrollView *scrollView;
 
 @property (nonatomic, assign) size_t levelsOfZoom;
 @property (nonatomic, assign) size_t levelsOfDetail;

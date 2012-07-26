@@ -89,6 +89,8 @@ NSMutableSet *ViewsToIgnoreTouches = nil;
 
 - (id)init
 {
+    NSLog(@"[PCScrollview init]");
+    
     self = [super init];
     if (self) {
         _horizontalScrollButtonsEnabled = NO;

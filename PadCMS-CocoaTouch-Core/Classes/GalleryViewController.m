@@ -9,6 +9,7 @@
 #import "GalleryViewController.h"
 #import "PCPage.h"
 #import "PCPageElement.h"
+#import "PCScrollView.h"
 #import "PageElementViewController.h"
 #import "PCStyler.h"
 #import "PCPageElementBody.h"
