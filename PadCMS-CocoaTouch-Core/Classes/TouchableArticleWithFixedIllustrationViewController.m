@@ -8,7 +8,7 @@
 
 #import "TouchableArticleWithFixedIllustrationViewController.h"
 #import "PCPageElementBody.h"
-
+#import "PCPageActiveZone.h"
 
 @interface TouchableArticleWithFixedIllustrationViewController ()
 
@@ -59,7 +59,54 @@
 
 -(void)tapAction:(id)sender
 {
-     [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
+    CGPoint tapLocation = [sender locationInView:[sender view]];
+    
+    if (!self.bodyViewController.elementView.hidden&& 
+        ((NSArray*)[super activeZonesAtPoint:tapLocation]).count == 0)
+    {
+        CGPoint tapLocationWithOffset;
+        tapLocationWithOffset.x = self.bodyViewController.elementView.scrollView.contentOffset.x + tapLocation.x;
+        tapLocationWithOffset.y = self.bodyViewController.elementView.scrollView.contentOffset.y + tapLocation.y;
+        NSArray* actions = [self activeZonesAtPoint:tapLocationWithOffset];
+        for (PCPageActiveZone* action in actions)
+            if ([self pdfActiveZoneAction:action])
+                break;
+        if (actions.count == 0)
+        {
+            self.bodyViewController.elementView.hidden = YES;
+            [self changeVideoLayout:self.bodyViewController.elementView.hidden];
+        }
+    }
+    
+    else if (self.bodyViewController.elementView.hidden && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionButton])
+    {
+        //[self.articleView setScrollEnabled:self.bodyViewController.elementView.hidden];
+        [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
+        [self changeVideoLayout:self.bodyViewController.elementView.hidden];
+    }
+    
+    else
+    {
+        [super tapAction:sender];
+    }
+}
+
+-(BOOL) pdfActiveZoneAction:(PCPageActiveZone*)activeZone
+{
+    [super pdfActiveZoneAction:activeZone];
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
+    {
+        //[self.articleView setScrollEnabled:self.bodyViewController.elementView.hidden];
+        [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
+        [self changeVideoLayout:self.bodyViewController.elementView.hidden];
+        return YES;
+    }
+    return NO;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
 }
 
 @end

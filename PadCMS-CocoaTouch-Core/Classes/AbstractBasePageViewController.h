@@ -13,6 +13,7 @@
 @protocol PCActionDelegate;
 @class PCBrowserViewController;
 @class MBProgressHUD;
+@class PCPageActiveZone;
 @interface AbstractBasePageViewController : UIViewController<UIGestureRecognizerDelegate>
 {
 	PCPage* _page;
@@ -33,6 +34,9 @@
 -(void)createActionButtons;
 -(void)showHUD;
 -(void)hideHUD;
+- (void)changeVideoLayout: (BOOL)isVideoEnabled;
+-(BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
+-(void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
 @end
 
 @protocol PCActionDelegate 

@@ -70,6 +70,21 @@
 	self.actionButtons = nil;
 }
 
+- (void)changeVideoLayout: (BOOL)isVideoEnabled
+{
+    if (webBrowserViewController)
+    {
+        if (isVideoEnabled)
+        {
+            [self.view bringSubviewToFront:webBrowserViewController.view];
+        }
+        else 
+        {
+           // [self.view insertSubview:webBrowserViewController.view aboveSubview:self.backgroundViewController.view];    
+        }
+    }
+}
+
 - (CGRect)activeZoneRectForType:(NSString*)zoneType
 {
     for (PCPageElement* element in self.page.elements)
@@ -109,7 +124,9 @@
                 rect.origin.x *= scale;
                 rect.origin.y *= scale;
                 rect.origin.y = element.size.height*scale - rect.origin.y - rect.size.height;
-				
+//				UIView* testView = [[UIView alloc] initWithFrame:rect];
+//                testView.backgroundColor = [UIColor redColor];
+//                [self.view addSubview:testView];
                 if (CGRectContainsPoint(rect, point))
                 {
                     [activeZones addObject:pdfActiveZone];
