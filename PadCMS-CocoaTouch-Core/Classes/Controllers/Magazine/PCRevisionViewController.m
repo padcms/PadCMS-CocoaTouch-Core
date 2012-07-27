@@ -1903,7 +1903,10 @@
         [self hideMenus];
         if (!searchController)
         {
-            searchController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:nil];
+            NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources"
+                                                                               withExtension:@"bundle"]];
+            
+            searchController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
             searchController.revision = self.revision;
             searchController.delegate = self;
         }
