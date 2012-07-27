@@ -9,6 +9,8 @@
 #import "SlideshowViewController.h"
 #import "PCPageElement.h"
 #import "PCScrollView.h"
+#import "PCCustomPageControll.h"
+#import "PCStyler.h"
 
 @interface SlideshowViewController ()
 @property (nonatomic, retain) NSMutableSet* visibleElementControllers;
@@ -18,12 +20,14 @@
 @synthesize slideScrollView=_slideScrollView;
 @synthesize slideElements=_slideElements;
 @synthesize visibleElementControllers=_visibleElementControllers;
+@synthesize pageControll=_pageControll;
 
 -(void)dealloc
 {
 	[_visibleElementControllers release], _visibleElementControllers = nil;
 	[_slideElements release], _slideElements = nil;
 	[_slideScrollView release], _slideScrollView = nil;
+	[_pageControll release], _pageControll = nil;
 	[super dealloc];
 }
 
@@ -33,6 +37,7 @@
 	self.visibleElementControllers = nil;
 	self.slideScrollView = nil;
 	self.slideElements = nil;
+	self.pageControll = nil;
 }
 
 
@@ -68,6 +73,23 @@
 	//	_slideScrollView.backgroundColor = [UIColor yellowColor];
 		[self.view addSubview:_slideScrollView];
 		[self tilePages];
+		
+		
+		
+		CGRect pageControllRect = CGRectMake(frame.origin.x, frame.origin.y+frame.size.height-30, frame.size.width, 30);
+		self.pageControll = [[[PCCustomPageControll alloc] initWithFrame:pageControllRect] autorelease];
+		
+		NSDictionary* controllOption = nil;
+		if (self.page.color)
+			controllOption = [NSDictionary dictionaryWithObject:self.page.color forKey:PCButtonTintColorOptionKey];
+		
+		[[PCStyler defaultStyler] stylizeElement:self.pageControll withStyleName:PCSliderPageControlItemKey withOptions:controllOption];
+		
+		self.pageControll.numberOfPages = [_slideElements count];
+		self.pageControll.currentPage = 0;
+		[self.pageControll addTarget:self action:@selector(changePage:) forControlEvents:UIControlEventValueChanged];
+		[self.view addSubview:self.pageControll];
+		[self.view bringSubviewToFront:self.pageControll];
 		
 	}
 }
@@ -118,6 +140,15 @@
     return foundImage;
 }
 
+-(void)changePage:(id)sender
+{
+   
+	CGRect slidersViewRect = self.slideScrollView.frame;
+    CGRect slideRect = CGRectMake(slidersViewRect.size.width*self.pageControll.currentPage, 0, slidersViewRect.size.width, slidersViewRect.size.height);
+    [self.slideScrollView scrollRectToVisible:slideRect animated:YES];
+	
+
+}
 
 #pragma mark -
 #pragma mark ScrollView delegate methods
@@ -127,6 +158,10 @@
     [self tilePages];
 }
 
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+	self.pageControll.currentPage = lrint(self.slideScrollView.contentOffset.x/self.slideScrollView.frame.size.width);
+}
 
 
 @end

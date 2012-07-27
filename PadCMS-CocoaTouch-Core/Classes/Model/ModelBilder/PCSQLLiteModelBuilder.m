@@ -185,7 +185,45 @@
         if (bottomPage != nil) {
             [bottomPage.links setObject:pageIdentifier forKey:topConnector];
         }
+		
+		
 	}
+	
+	//creating horizontal links for column pages
+	for (PCPage* page in revision.pages) 
+	{
+		NSNumber *leftConnector = [NSNumber numberWithInt:PCTemplateLeftConnector];
+        NSNumber *rightConnector = [NSNumber numberWithInt:PCTemplateRightConnector];
+		NSNumber *topConnector = [NSNumber numberWithInt:PCTemplateTopConnector];
+		PCPage *leftPage = [revision pageForLink:[page.links objectForKey:leftConnector]];
+       
+        PCPage *rightPage = [revision pageForLink:[page.links objectForKey:rightConnector]];
+		
+		
+        
+		if (!rightPage && !leftPage)
+		{
+			PCPage *topPage = page;
+			do {
+				
+				topPage = [revision pageForLink:[topPage.links objectForKey:topConnector]];
+
+				PCPage *leftPage = [revision pageForLink:[topPage.links objectForKey:leftConnector]];
+				if (leftPage != nil) {
+					[page.links setObject: [NSNumber numberWithInt:leftPage.identifier] forKey:leftConnector];
+				}
+				
+				PCPage *rightPage = [revision pageForLink:[topPage.links objectForKey:rightConnector]];
+				
+				if (rightPage != nil) {
+					[page.links setObject: [NSNumber numberWithInt:rightPage.identifier] forKey:rightConnector];
+				}
+			} while (leftPage || rightPage);
+		}
+	}
+	
+	
+	
     
     NSString* horisontalPagesQuery = [NSString stringWithFormat:@"select * from %@",PCSQLitePageHorisontalTableName];
     FMResultSet* horisontalPages = [base executeQuery:horisontalPagesQuery];
