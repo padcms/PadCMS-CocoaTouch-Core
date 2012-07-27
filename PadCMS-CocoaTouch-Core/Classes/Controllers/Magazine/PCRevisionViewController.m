@@ -53,6 +53,7 @@
 #import "PCSearchViewController.h"
 #import "PCStyler.h"
 #import "PCSubscriptionsMenuView.h"
+#import "RRTopBarView.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -166,8 +167,6 @@
         tapGestureRecognizer = nil;
         horizontalTapGestureRecognizer = nil;
         tableOfContentButton = nil;
-        topMenuView = nil;
-        horizontalTopMenuView = nil;
         facebookViewController = nil;
         emailController = nil;
         _videoController = nil;
@@ -196,6 +195,7 @@
     _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _hudView.dataSource = self;
     _hudView.delegate = self;
+    _hudView.topBarView.delegate = self;
     [self.view addSubview:_hudView];
     
     if (revision.color != nil)
@@ -206,6 +206,12 @@
 
     _hudView.bottomTOCButton.hidden = YES;
     _hudView.bottomTOCButton.alpha = 0;
+
+    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+        [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+    }
 }
 
 - (void)destroyHUDView
@@ -285,29 +291,39 @@
 
 - (void)showTopBar
 {
+    NSLog(@"showTopBar");
+    
     [self.view bringSubviewToFront:_hudView];
-
-    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-        topMenuView.hidden = NO;
-        topMenuView.alpha = 0.75f;
-        [self.view bringSubviewToFront:topMenuView];
-    } else {
-        [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
-        horizontalTopMenuView.hidden = NO;
-        horizontalTopMenuView.alpha = 0.75f;
-        [self.view bringSubviewToFront:horizontalTopMenuView];
-    }
+    [_hudView setTopBarVisible:YES];
+    
+//    _topBarView.hidden = NO;
+//    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+//        topMenuView.hidden = NO;
+//        topMenuView.alpha = 0.75f;
+//        [self.view bringSubviewToFront:topMenuView];
+//    } else {
+//        [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+//        horizontalTopMenuView.hidden = NO;
+//        horizontalTopMenuView.alpha = 0.75f;
+//        [self.view bringSubviewToFront:horizontalTopMenuView];
+//    }
 }
 
 - (void)hideTopBar
 {
-    topMenuView.hidden = YES;
-    topMenuView.alpha = 0;
-    [self.view sendSubviewToBack:topMenuView];
+    NSLog(@"hideTopBar");
+
+    [_hudView setTopBarVisible:NO];
     
-    horizontalTopMenuView.hidden = YES;
-    horizontalTopMenuView.alpha = 0;
-    [self.view sendSubviewToBack:horizontalTopMenuView];
+//    _topBarView.hidden = YES;
+    
+//    topMenuView.hidden = YES;
+//    topMenuView.alpha = 0;
+//    [self.view sendSubviewToBack:topMenuView];
+//    
+//    horizontalTopMenuView.hidden = YES;
+//    horizontalTopMenuView.alpha = 0;
+//    [self.view sendSubviewToBack:horizontalTopMenuView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -482,7 +498,7 @@
     [self.view addSubview:horizontalSummaryView];
     [self.view bringSubviewToFront:horizontalSummaryView];
     [horizontalSummaryView setHidden:YES];
-    [horizontalTopMenuView setHidden:YES];
+//    [horizontalTopMenuView setHidden:YES];
 }
 
 - (void)_old_createHorizontalSummary
@@ -521,7 +537,7 @@
     [self.view addSubview:horizontalSummaryView];
     [self.view bringSubviewToFront:horizontalSummaryView];
     [horizontalSummaryView setHidden:YES];
-    [horizontalTopMenuView setHidden:YES];
+//    [horizontalTopMenuView setHidden:YES];
 }
 
 - (void)createTableOfContents
@@ -888,9 +904,9 @@
 
 - (void)initTopMenu
 {
-    topMenuView.hidden = YES;
-    topMenuView.alpha = 0;
-    [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 43)];
+//    topMenuView.hidden = YES;
+//    topMenuView.alpha = 0;
+//    [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, 43)];
 
     int lastTocSummaryIndex = -1;
     if ([revision.toc count] > 0)
@@ -913,13 +929,13 @@
         }
     }
     
-    [self.view addSubview:topMenuView];
-    
-    horizontalTopMenuView.hidden = YES;
-    horizontalTopMenuView.alpha = 0;
-    [horizontalTopMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.height, 43)];
-    
-    [self.view addSubview:horizontalTopMenuView];
+//    [self.view addSubview:topMenuView];
+//    
+//    horizontalTopMenuView.hidden = YES;
+//    horizontalTopMenuView.alpha = 0;
+//    [horizontalTopMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.height, 43)];
+//    
+//    [self.view addSubview:horizontalTopMenuView];
 }
     
 - (void) adjustHelpButton
@@ -969,7 +985,7 @@
             [horizontalScrollView setHidden:YES];
             [mainScrollView setHidden:NO];
             [mainScrollView setFrame:self.view.frame];
-            [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, topMenuView.frame.size.height)];
+//            [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, topMenuView.frame.size.height)];
         }
 
         [self createMagazineView];
@@ -1113,6 +1129,12 @@
 
 -(void)deviceOrientationDidChange
 {
+    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
+        [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+    }
+    
     if (self.revision.horizontalMode && horizontalPagesViewControllers.count != 0)
     {
         if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
@@ -1172,8 +1194,8 @@
             }
             if (!isOS5())
             {
-                [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, topMenuView.frame.size.height)];
-                tableOfContentButton.hidden = topMenuView.hidden;
+//                [topMenuView setFrame:CGRectMake(0, 0, self.view.frame.size.width, topMenuView.frame.size.height)];
+//                tableOfContentButton.hidden = topMenuView.hidden;
             }
 			[self.currentColumnViewController.currentPageViewController showHUD];
         }
@@ -1222,9 +1244,9 @@
         return;
     }
 
-    [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+//    [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
 
-    if (horizontalTopMenuView.hidden) {
+    if (![_hudView isTopBarVisible]) {
         [self showTopBar];
     } else {
         [self hideTopBar];
@@ -1510,17 +1532,17 @@
         return;
     }
     
-    if (revision.horizontalOrientation) {
-        [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
-    } else {
-        [topMenuView setFrame:CGRectMake(0, 0, 768, 43)];
-    }
+//    if (revision.horizontalOrientation) {
+//        [topMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
+//    } else {
+//        [topMenuView setFrame:CGRectMake(0, 0, 768, 43)];
+//    }
 
     [UIView animateWithDuration:0.3f animations:^{
         
         if (revision.horizontalOrientation) {
             
-            if (horizontalTopMenuView.hidden) {
+            if (![_hudView isTopBarVisible]) {
                 [self showTopBar];
             } else {
                 [self hideTopBar];
@@ -1578,7 +1600,7 @@
                 tableOfContentsView.alpha = 0;
             }
             
-            if (topMenuView.hidden) {
+            if (![_hudView isTopBarVisible]) {
                 [self showTopBar];
             } else {
                 [self hideTopBar];
@@ -1697,7 +1719,7 @@
         shareMenu = [[UIView alloc] init];
         
         UIImageView* bg = [[[UIImageView alloc] initWithImage:[UIImage imageNamed:@"sharePopup.png"]] autorelease];
-        shareMenu.frame = CGRectMake(self.view.frame.size.width - 200, 38, bg.frame.size.width, bg.frame.size.height);
+        shareMenu.frame = CGRectMake(self.view.frame.size.width - 180, 38, bg.frame.size.width, bg.frame.size.height);
         [shareMenu addSubview:bg];
         
         UILabel* caption = [[UILabel alloc] initWithFrame:CGRectMake(0, 30, shareMenu.frame.size.width, 20)];
@@ -1763,9 +1785,14 @@
         shareMenu.hidden = YES;
     }
     
-    shareMenu.frame = CGRectMake(self.view.frame.size.width - 200, 38, shareMenu.frame.size.width, shareMenu.frame.size.height);
+    shareMenu.frame = CGRectMake(self.view.frame.size.width - 180, 38, shareMenu.frame.size.width, shareMenu.frame.size.height);
     shareMenu.hidden = !shareMenu.hidden;
     shareMenu.alpha = shareMenu.hidden?0.0:1.0;
+    
+    if (!shareMenu.hidden) {
+        [self.view bringSubviewToFront:shareMenu];
+    }
+    
     /*if([shareMenu isDescendantOfView:self.view])
     {
         [shareMenu removeFromSuperview];
@@ -1782,9 +1809,9 @@
     [_hudView hideTOCs];
     _hudView.bottomTOCButton.hidden = YES;
     [topSummaryView setHidden:YES];
-    [topMenuView setHidden:YES];
+//    [topMenuView setHidden:YES];
     [horizontalSummaryView setHidden:YES];
-    [horizontalTopMenuView setHidden:YES];
+//    [horizontalTopMenuView setHidden:YES];
     [subscriptionsMenu setHidden:YES];
 }
 
@@ -2135,7 +2162,7 @@
 
         if (shareMenu != nil) {
             shareMenu.hidden = YES;
-        } 
+        }
         
         if (topSummaryView != nil) {
             topSummaryView.hidden = YES;
@@ -2143,6 +2170,59 @@
         
         [self hideTopBar];
     }
+}
+
+#pragma mark - RRTopBarViewDelegate
+
+- (void)topBarView:(RRTopBarView *)topBarView backButtonTapped:(UIButton *)button
+{
+    [self hideMenus];
+	[self unloadAll];
+    [self.mainViewController switchToKiosk];
+}
+
+- (void)topBarView:(RRTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
+{
+    [tableOfContentsView setHidden:YES];
+    [UIView beginAnimations:@"showTopSummaryView" context:nil];
+    
+    if (![topSummaryView.subviews count] > 0)
+    {
+        [self createTopSummaryView];
+    }
+    
+    [UIView setAnimationDuration:1];
+    topSummaryView.hidden = !topSummaryView.hidden;
+    topSummaryView.alpha = topSummaryView.hidden?0.0:1.0;
+    [UIView commitAnimations];
+}
+
+- (void)topBarView:(RRTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
+{
+    [self subscriptionsAction:button];
+}
+
+- (void)topBarView:(RRTopBarView *)topBarView shareButtonTapped:(UIButton *)button
+{
+    [self shareAction:button];
+}
+
+- (void)topBarView:(RRTopBarView *)topBarView helpButtonTapped:(UIButton *)button
+{
+    [self hideMenus];
+    
+    if (helpController == nil) {
+        helpController = [[PCHelpViewController alloc] initWithRevision:self.revision];
+        helpController.tintColor = self.revision.color;
+        helpController.delegate = self;
+    }
+    
+    [self.view addSubview:helpController.view];
+}
+
+- (void)topBarView:(RRTopBarView *)topBarView searchText:(NSString *)searchText
+{
+    NSLog(@"search: %@", searchText);
 }
 
 @end

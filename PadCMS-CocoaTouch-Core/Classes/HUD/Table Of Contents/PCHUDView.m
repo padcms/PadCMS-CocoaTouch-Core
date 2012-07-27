@@ -41,13 +41,15 @@
 #import "PCTOCGridViewCell.h"
 #import "PCGridViewIndex.h"
 #import "PCGridViewCell.h"
+#import "RRTopBarView.h"
 
 #define TopBarHeight 43
 NSString *EnabledKey = @"Enabled";
 
 @interface PCHUDView ()
 {
-    UIView *_topBarView;
+    BOOL _topBarVisible;
+    RRTopBarView *_topBarView;
     
     BOOL _topTOCVisible;
     UIButton *_topTOCButton;
@@ -73,6 +75,7 @@ NSString *EnabledKey = @"Enabled";
 @implementation PCHUDView
 @synthesize delegate;
 @synthesize dataSource;
+@synthesize topBarView = _topBarView;
 @synthesize topTOCButton = _topTOCButton;
 @synthesize topTOCView = _topTOCView;
 @synthesize bottomTOCButton = _bottomTOCButton;
@@ -102,9 +105,13 @@ NSString *EnabledKey = @"Enabled";
         [_tintView addGestureRecognizer:tintViewTapGestureRecognizer];
         [tintViewTapGestureRecognizer release];
         
-        _topBarView = [[UIView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
-        _topBarView.hidden = YES;
+        _topBarView = [[RRTopBarView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
+//        _topBarView.hidden = YES;
+        _topBarView.alpha = 0.75f;
+        _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:_topBarView];
+        
+        _topBarVisible = NO;
         
         
         NSDictionary *topTableOfContentsConfig = [PCConfig topTableOfContentsConfig];
@@ -164,8 +171,6 @@ NSString *EnabledKey = @"Enabled";
                                    forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:_bottomTOCButton];
             
-            
-            
             _bottomTOCBackgroundView = [[UIView alloc] init];
             _bottomTOCBackgroundView.backgroundColor = [UIColor blackColor];
             _bottomTOCBackgroundView.alpha = 0.5f;
@@ -188,7 +193,7 @@ NSString *EnabledKey = @"Enabled";
     [super layoutSubviews];
     
     // top bar view
-    _topBarView.frame = CGRectMake(0, 0, self.bounds.size.width, TopBarHeight);
+//    _topBarView.frame = CGRectMake(0, 0, self.bounds.size.width, TopBarHeight);
     
     // tint view
     _tintView.frame = CGRectMake(0, TopBarHeight, self.bounds.size.width, self.bounds.size.height - TopBarHeight);
@@ -250,6 +255,41 @@ NSString *EnabledKey = @"Enabled";
     if  (_bottomTOCVisible) {
         [self animateBottomTOC];
     }
+}
+
+- (void)animateTopBar
+{
+    CGPoint visibleTopBarCenter = CGPointMake(_topBarView.bounds.size.width / 2, _topBarView.bounds.size.height / 2);
+    CGPoint hiddenTopBarCenter = CGPointMake(_topBarView.bounds.size.width / 2, -_topBarView.bounds.size.height / 2);
+    
+    void (^animationBlock)() = nil;
+    void (^animationCompletionBlock)(BOOL finish) = nil;
+
+    if (_topBarVisible) {
+        // hide top bar
+        animationBlock = ^() {
+            _topBarView.center = hiddenTopBarCenter;
+        };
+        
+        animationCompletionBlock = ^(BOOL finish) {
+            _topBarVisible = NO;
+        };
+        
+    } else {
+        // show top bar
+        animationBlock = ^() {
+            _topBarView.center = visibleTopBarCenter;
+        };
+        
+        animationCompletionBlock = ^(BOOL finish) {
+            _topBarVisible = YES;
+        };
+
+    }
+    
+    [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                     animations:animationBlock
+                     completion:animationCompletionBlock];
 }
 
 - (void)animateTopTOC
@@ -525,6 +565,18 @@ NSString *EnabledKey = @"Enabled";
     }
     
     return 0;
+}
+
+- (void)setTopBarVisible:(BOOL)visible
+{
+    if (visible != _topBarVisible) {
+        [self animateTopBar];
+    }
+}
+
+- (BOOL)isTopBarVisible
+{
+    return _topBarVisible;
 }
 
 @end

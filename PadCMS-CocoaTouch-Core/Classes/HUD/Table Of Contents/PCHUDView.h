@@ -38,6 +38,7 @@
 #import "PCGridView.h"
 
 @class PCHUDView;
+@class RRTopBarView;
 
 /**
  @brief PCHUDView actions delegation protocol.
@@ -116,6 +117,8 @@
  */ 
 @property (assign, nonatomic) id<PCHUDViewDataSource> dataSource;
 
+@property (readonly) RRTopBarView *topBarView;
+
 /**
  @brief Button that manages top table of contents view.
  */ 
@@ -151,5 +154,9 @@
  @param options - options to be used by PCStyler object.
  */ 
 - (void)stylizeElementsWithOptions:(NSDictionary *)options;
+
+- (void)setTopBarVisible:(BOOL)visible;
+
+- (BOOL)isTopBarVisible;
 
 @end

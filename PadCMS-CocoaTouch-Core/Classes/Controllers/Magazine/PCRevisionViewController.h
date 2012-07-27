@@ -62,8 +62,9 @@
 @class PCMainViewController;
 @class PCScrollView;
 @class PCSubscriptionsMenuView;
+@protocol RRTopBarViewDelegate;
 
-@interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate, PCHUDViewDataSource, PCHUDViewDelegate>
+@interface PCRevisionViewController : UIViewController <UIScrollViewDelegate, PCEmailControllerDelegate, PCTwitterNewControllerDelegate, PCVideoControllerDelegate, PCHelpViewControllerDelegate, UIGestureRecognizerDelegate, PCSearchViewControllerDelegate, PCHUDViewDataSource, PCHUDViewDelegate, RRTopBarViewDelegate>
 
 {
     IBOutlet PCScrollView* mainScrollView;
@@ -72,8 +73,8 @@
     UIButton* tableOfContentButton;
     UITapGestureRecognizer* tapGestureRecognizer;
     UITapGestureRecognizer* horizontalTapGestureRecognizer;
-    IBOutlet UIView* topMenuView;
-    IBOutlet UIView* horizontalTopMenuView;
+//    IBOutlet UIView* topMenuView;
+//    IBOutlet UIView* horizontalTopMenuView;
     IBOutlet UIView* topSummaryView;
     PCScrollView* horizontalSummaryView;
     IBOutlet PCScrollView* topSummaryScrollView;
