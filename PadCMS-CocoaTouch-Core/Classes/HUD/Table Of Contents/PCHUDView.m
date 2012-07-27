@@ -117,13 +117,12 @@ NSString *EnabledKey = @"Enabled";
         if (showTopTableOfContents) {
             // top table of contents
             _topTOCButton = [[UIButton alloc] init];
-            _topTOCButton.frame = CGRectMake(frame.size.width - 100, 0, 50, 50);
+            _topTOCButton.frame = CGRectMake(70, 0, 50, 50);
             _topTOCButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleBottomMargin;
             [_topTOCButton addTarget:self
                                           action:@selector(topTOCButtonAction:) 
                                 forControlEvents:UIControlEventTouchUpInside];
             [self addSubview:_topTOCButton];
-            _topTOCButton.backgroundColor = [UIColor colorWithRed:0.35f green:0.35f blue:0.35f alpha:1.00f];
             
             
             _topTOCBackgroundView = [[UIView alloc] init];
@@ -405,12 +404,20 @@ NSString *EnabledKey = @"Enabled";
 
 - (void)stylizeElementsWithOptions:(NSDictionary *)options
 {
-    [[PCStyler defaultStyler] stylizeElement:_topTOCButton withStyleName:PCTopTocButtonKey withOptions:options];
+    UIImage *topTocMenuButtonBackgroundImage = [UIImage imageNamed:@"topTocMenuButtonBackground.png"];
+    _topTOCButton.bounds = CGRectMake(0,
+                                      0,
+                                      topTocMenuButtonBackgroundImage.size.width,
+                                      topTocMenuButtonBackgroundImage.size.height);
+    [_topTOCButton setBackgroundImage:topTocMenuButtonBackgroundImage forState:UIControlStateNormal];
+    _topTOCButton.backgroundColor = [UIColor clearColor];
     
-    [_topTOCButton setFrame:CGRectMake(self.frame.size.width - _topTOCButton.frame.size.width - 20, 
-                                                   0,
-                                                   _topTOCButton.frame.size.width,
-                                                   _topTOCButton.frame.size.height)];
+//    [[PCStyler defaultStyler] stylizeElement:_topTOCButton withStyleName:PCTopTocButtonKey withOptions:options];
+//    
+//    [_topTOCButton setFrame:CGRectMake(self.frame.size.width - _topTOCButton.frame.size.width - 20, 
+//                                                   0,
+//                                                   _topTOCButton.frame.size.width,
+//                                                   _topTOCButton.frame.size.height)];
     
     
     [[PCStyler defaultStyler] stylizeElement:_bottomTOCButton withStyleName:PCTocButtonKey withOptions:options];
