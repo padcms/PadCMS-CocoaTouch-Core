@@ -6,7 +6,7 @@
 //  Copyright (c) 2012 Adyax. All rights reserved.
 //
 
-#import "RRTopBarView.h"
+#import "PCTopBarView.h"
 
 #import "PCConfig.h"
 
@@ -20,7 +20,7 @@
 
 #define BarButtonOffset 0
 
-@interface RRTopBarView ()
+@interface PCTopBarView ()
 {
     UIImageView *_backgroundImageView;
     UIButton *_backButton;
@@ -40,7 +40,7 @@
 
 @end
 
-@implementation RRTopBarView
+@implementation PCTopBarView
 @synthesize delegate;
 
 - (void)dealloc
@@ -120,8 +120,6 @@
 
 - (void)backButtonTapped:(UIButton *)button
 {
-    NSLog(@"backButtonTapped:");
-    
     if ([self.delegate respondsToSelector:@selector(topBarView:backButtonTapped:)]) {
         [self.delegate topBarView:self backButtonTapped:button];
     }
@@ -129,8 +127,6 @@
 
 - (void)summaryButtonTapped:(UIButton *)button
 {
-    NSLog(@"summaryButtonTapped:");
-    
     if ([self.delegate respondsToSelector:@selector(topBarView:summaryButtonTapped:)]) {
         [self.delegate topBarView:self summaryButtonTapped:button];
     }
@@ -138,8 +134,6 @@
 
 - (void)subscriptionsButtonTapped:(UIButton *)button
 {
-    NSLog(@"subscriptionsButtonTapped:");
-    
     if ([self.delegate respondsToSelector:@selector(topBarView:subscriptionsButtonTapped:)]) {
         [self.delegate topBarView:self subscriptionsButtonTapped:button];
     }
@@ -147,8 +141,6 @@
 
 - (void)shareButtonTapped:(UIButton *)button
 {
-    NSLog(@"shareButtonTapped:");
-    
     if ([self.delegate respondsToSelector:@selector(topBarView:shareButtonTapped:)]) {
         [self.delegate topBarView:self shareButtonTapped:button];
     }
@@ -156,8 +148,6 @@
 
 - (void)helpButtonTapped:(UIButton *)button
 {
-    NSLog(@"helpButtonTapped:");
-    
     if ([self.delegate respondsToSelector:@selector(topBarView:helpButtonTapped:)]) {
         [self.delegate topBarView:self helpButtonTapped:button];
     }

@@ -36,14 +36,15 @@
 #import <UIKit/UIKit.h>
 
 #import "PCGridView.h"
+#import "PCTocView.h"
 
-@class PCHUDView;
-@class RRTopBarView;
+@class PCHudView;
+@class PCTopBarView;
 
 /**
  @brief PCHUDView actions delegation protocol.
  */ 
-@protocol PCHUDViewDelegate <NSObject>
+@protocol PCHudViewDelegate <NSObject>
 
 @optional
 /**
@@ -51,23 +52,15 @@
  @param hudView - PCHUDView instance requesting this information.
  @param index - index of selected cell.
  */ 
- - (void)hudView:(PCHUDView *)hudView didSelectIndex:(NSUInteger)index;
+ - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index;
 
 @optional
-/**
- @brief Tells the delegate to perform action before tocView will be shown.
- @param hudView - PCHUDView instance requesting this information.
- @param tocView - PCGridView instance that will be shown.
- */ 
-- (void)hudView:(PCHUDView *)hudView willShowTOC:(PCGridView *)tocView;
+
+- (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @optional
-/**
- @brief Tells the delegate to perform action before tocView will be hidden.
- @param hudView - PCHUDView instance requesting this information.
- @param tocView - PCGridView instance that will be hidden.
- */ 
-- (void)hudView:(PCHUDView *)hudView willHideTOC:(PCGridView *)tocView;
+
+- (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @end
 
@@ -75,7 +68,7 @@
 /**
  @brief PCHUDView data provider protocol. 
  */ 
-@protocol PCHUDViewDataSource <NSObject>
+@protocol PCHudViewDataSource <NSObject>
 
 /**
  @brief Asks the data source to return cell size for tocView in hudView.
@@ -83,21 +76,21 @@
  @param tocView - PCGridView instance to set cell size.
  @result the size for cells in grid view.
  */ 
-- (CGSize)hudView:(PCHUDView *)hudView itemSizeInTOC:(PCGridView *)tocView;
+- (CGSize)hudView:(PCHudView *)hudView itemSizeInTOC:(PCGridView *)tocView;
 
 /**
  @brief Asks the data source for image for given index.
  @param hudView - the PCHUDView object requesting this information.
  @result table of contents image.
  */ 
-- (UIImage *)hudView:(PCHUDView *)hudView tocImageForIndex:(NSUInteger)index;
+- (UIImage *)hudView:(PCHudView *)hudView tocImageForIndex:(NSUInteger)index;
 
 /**
  @brief Asks the data source for image for given index.
  @param hudView - the PCHUDView object requesting this information.
  @result the number of table of content items.
  */ 
-- (NSUInteger)hudViewTOCItemsCount:(PCHUDView *)hudView;
+- (NSUInteger)hudViewTOCItemsCount:(PCHudView *)hudView;
 
 @end 
 
@@ -105,39 +98,29 @@
 /**
  @brief PCGridView cell for displaying table of contents element.
  */ 
-@interface PCHUDView : UIView <PCGridViewDelegate, PCGridViewDataSource>
+@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, PCTocViewDelegate>
 
 /**
  @brief The object that acts as the delegate of the receiving HUD view.
  */ 
-@property (assign, nonatomic) id<PCHUDViewDelegate> delegate;
+@property (assign, nonatomic) id<PCHudViewDelegate> delegate;
 
 /**
  @brief The object that acts as the data source of the receiving HUD view.
  */ 
-@property (assign, nonatomic) id<PCHUDViewDataSource> dataSource;
+@property (assign, nonatomic) id<PCHudViewDataSource> dataSource;
 
-@property (readonly) RRTopBarView *topBarView;
-
-/**
- @brief Button that manages top table of contents view.
- */ 
-@property (readonly) UIButton *topTOCButton;
+@property (readonly) PCTopBarView *topBarView;
 
 /**
  @brief Grid view object used to display table of contents items at the top of the HUD view.
  */ 
-@property (readonly) PCGridView *topTOCView;
-
-/**
- @brief Button that manages bottom table of contents view.
- */ 
-@property (readonly) UIButton *bottomTOCButton;
+@property (readonly) PCTocView *topTocView;
 
 /**
  @brief Grid view object used to display table of contents items at the bottom of the HUD view.
  */ 
-@property (readonly) PCGridView *bottomTOCView;
+@property (readonly) PCTocView *bottomTocView;
 
 /**
  @brief reloads data of the receiver.
@@ -145,18 +128,9 @@
 - (void)reloadData;
 
 /**
- @brief hides all visible table of contents views of the receiver.
- */ 
-- (void)hideTOCs;
-
-/**
  @brief implements style for controls with PCStyler.
  @param options - options to be used by PCStyler object.
  */ 
 - (void)stylizeElementsWithOptions:(NSDictionary *)options;
-
-- (void)setTopBarVisible:(BOOL)visible;
-
-- (BOOL)isTopBarVisible;
 
 @end
