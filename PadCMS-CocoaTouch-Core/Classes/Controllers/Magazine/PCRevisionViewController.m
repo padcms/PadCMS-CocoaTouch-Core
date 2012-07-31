@@ -80,10 +80,14 @@
 - (BOOL) isOrientationChanged:(UIDeviceOrientation) orientation;
 - (void) createHorizontalSummary;
 - (void) changeHorizontalPage:(id) sender;
-- (void) horizontalTapAction:(id) sender;
+- (void) tapGesture:(id) sender;
 - (void) hideMenus;
 - (PCPage *) pageAtHorizontalIndex:(NSInteger)currentHorisontalPageIndex;
 - (void) unloadSummaries;
+
+- (void)verticalTocDownloaded:(NSNotification *)notification;
+- (void)horizontalTocDownloaded:(NSNotification *)notification;
+
 @end
 
 @implementation PCRevisionViewController
@@ -182,8 +186,8 @@
         horizontalPagesViewControllers = [[NSMutableArray alloc] init];
         
         [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(finishTocDownload:) name:endOfDownloadingTocNotification object:nil];
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(createHorizontalSummary) name:PCHorizontalTocDidDownloadNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(verticalTocDownloaded:) name:endOfDownloadingTocNotification object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(horizontalTocDownloaded:) name:PCHorizontalTocDidDownloadNotification object:nil];
         
     }
     return self;
@@ -295,39 +299,11 @@
 
 - (void)showTopBar
 {
-    NSLog(@"showTopBar");
-    
     [self.view bringSubviewToFront:_hudView];
-    [_hudView setTopBarVisible:YES];
-    
-//    _topBarView.hidden = NO;
-//    if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-//        topMenuView.hidden = NO;
-//        topMenuView.alpha = 0.75f;
-//        [self.view bringSubviewToFront:topMenuView];
-//    } else {
-//        [horizontalTopMenuView setFrame:CGRectMake(0, 0, 1024, 43)];
-//        horizontalTopMenuView.hidden = NO;
-//        horizontalTopMenuView.alpha = 0.75f;
-//        [self.view bringSubviewToFront:horizontalTopMenuView];
-//    }
 }
 
 - (void)hideTopBar
 {
-    NSLog(@"hideTopBar");
-
-    [_hudView setTopBarVisible:NO];
-    
-//    _topBarView.hidden = YES;
-    
-//    topMenuView.hidden = YES;
-//    topMenuView.alpha = 0;
-//    [self.view sendSubviewToBack:topMenuView];
-//    
-//    horizontalTopMenuView.hidden = YES;
-//    horizontalTopMenuView.alpha = 0;
-//    [self.view sendSubviewToBack:horizontalTopMenuView];
 }
 
 - (void)didReceiveMemoryWarning
@@ -442,7 +418,7 @@
             
             if (!horizontalTapGestureRecognizer)
             {
-                horizontalTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(horizontalTapAction:)];
+                horizontalTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
             }
             horizontalTapGestureRecognizer.cancelsTouchesInView=NO;
             horizontalTapGestureRecognizer.delegate = self;
@@ -1018,7 +994,7 @@
         }
     }
     
-    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
     tapGestureRecognizer.cancelsTouchesInView=NO;
     tapGestureRecognizer.delegate = self;
     [mainScrollView addGestureRecognizer:tapGestureRecognizer];
@@ -1240,25 +1216,6 @@
     if (index < 0 || index >= [self.revision.horizontalPages count])
         return;
     [horizontalScrollView scrollRectToVisible:CGRectMake(1024*index, 0, 1024, 768) animated:YES];
-}
-
-- (void) horizontalTapAction:(id) sender
-{
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
-    }
-    
-    if (_hudView.bottomTocView != nil) {
-        PCTocView *bottomTocView = _hudView.bottomTocView;
-        
-        if (bottomTocView.state == PCTocViewStateActive) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-        } else if (bottomTocView.state == PCTocViewStateHidden) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-        } else if (bottomTocView.state == PCTocViewStateVisible) {
-            [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
-        }
-    }
 }
 
 -(PCPageViewController*)showPage:(PCPage*)page
@@ -1520,8 +1477,7 @@
     }
 }
 
-
-- (void)tapAction:(UIGestureRecognizer *)sender
+- (void)tapGesture:(UIGestureRecognizer *)sender
 {
     if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
         [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
@@ -1533,7 +1489,9 @@
         if (bottomTocView.state == PCTocViewStateActive) {
             [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
         } else if (bottomTocView.state == PCTocViewStateHidden) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+//            if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+                [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+//            }
         } else if (bottomTocView.state == PCTocViewStateVisible) {
             [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
         }
@@ -1770,11 +1728,38 @@
 }
 
 
--(void)finishTocDownload:(NSNotification*)notif
+- (void)verticalTocDownloaded:(NSNotification *)notification
 {
-  [self createTableOfContents];
-  [self createTopSummaryView];
+    [self createTableOfContents];
+    [self createTopSummaryView];
+
+    PCTocView *bottomTocView = _hudView.bottomTocView;
+    if (bottomTocView != nil &&
+        bottomTocView.state == PCTocViewStateVisible &&
+        revision.verticalTocLoaded &&
+        revision.horizontalTocLoaded) {
+        
+        [bottomTocView.gridView reloadData];
+        [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
 }
+
+- (void)horizontalTocDownloaded:(NSNotification *)notification
+{
+    [self createHorizontalSummary];
+    
+    PCTocView *bottomTocView = _hudView.bottomTocView;
+    if (bottomTocView != nil &&
+        bottomTocView.state == PCTocViewStateVisible &&
+        revision.verticalTocLoaded &&
+        revision.horizontalTocLoaded) {
+        
+        [bottomTocView.gridView reloadData];
+        [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
+}
+
+
 #pragma mark PCEmailControllerDelegate methods
 
 - (void)dismissPCEmailController:(MFMailComposeViewController *)currentPCEmailController
@@ -2026,8 +2011,6 @@
 
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
-    NSLog(@"didSelectIndex:%u", index);
-    
     if (_activeTOCItems != nil) {
         
         if (revision.horizontalPages != nil &&

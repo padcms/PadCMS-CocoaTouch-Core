@@ -384,7 +384,12 @@ NSString *EnabledKey = @"Enabled";
                                                  -(topBarViewSize.height / 2));
             }
             
-            tocView.center = [tocView centerForState:state containerBounds:activeFrame];
+            // do not show empty toc
+            if (state == PCTocViewStateVisible && [self itemsCount] == 0) {
+                tocView.center = [tocView centerForState:PCTocViewStateHidden containerBounds:activeFrame];
+            } else {
+                tocView.center = [tocView centerForState:state containerBounds:activeFrame];
+            }
         };
         
         void (^completionBlock)(BOOL) = ^(BOOL finished) {

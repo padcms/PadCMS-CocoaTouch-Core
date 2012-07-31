@@ -277,7 +277,7 @@ typedef enum _PCTocViewPosition {
         if (buttonColorString != nil) {
             tempButtonColor = [UIColor colorWithHexString:buttonColorString];
             if (tempButtonColor != nil) {
-                buttonColor = [tempButtonColor retain];
+                buttonColor = tempButtonColor;
             }
         }
         

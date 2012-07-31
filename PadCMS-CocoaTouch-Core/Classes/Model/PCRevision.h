@@ -90,6 +90,8 @@ typedef enum
 @property (nonatomic, retain) AFHTTPRequestOperation *downloadOperation;
 @property (nonatomic, retain) AFHTTPRequestOperation *downloadStartVideoOperation;
 
+@property (readonly, nonatomic) BOOL verticalTocLoaded;
+@property (readonly, nonatomic) BOOL horizontalTocLoaded;
 
 /**
  @brief Designated initializer.
