@@ -1087,6 +1087,8 @@
 		C524005115BE7BD10064612D /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */; };
 		C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5457EE615C280B500439BB5 /* PCTopBarView.m */; };
+		C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */; };
+		C550057D15C8000B002A5F75 /* UIImage+CombinedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C550057B15C8000B002A5F75 /* UIImage+CombinedImage.m */; };
 		C55A914015C68BD4002020DB /* PCTocView.h in Headers */ = {isa = PBXBuildFile; fileRef = C55A913E15C68BD3002020DB /* PCTocView.h */; };
 		C55A914115C68BD4002020DB /* PCTocView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A913F15C68BD3002020DB /* PCTocView.m */; };
 		C55A914515C69066002020DB /* PCTocViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A914415C69066002020DB /* PCTocViewTest.m */; };
@@ -2222,6 +2224,8 @@
 		C51D595615AD5CAB001EEE0A /* PCResourceView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceView.m; sourceTree = "<group>"; };
 		C5457EE515C280B500439BB5 /* PCTopBarView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTopBarView.h; sourceTree = "<group>"; };
 		C5457EE615C280B500439BB5 /* PCTopBarView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTopBarView.m; sourceTree = "<group>"; };
+		C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+CombinedImage.h"; sourceTree = "<group>"; };
+		C550057B15C8000B002A5F75 /* UIImage+CombinedImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+CombinedImage.m"; sourceTree = "<group>"; };
 		C55A913E15C68BD3002020DB /* PCTocView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTocView.h; sourceTree = "<group>"; };
 		C55A913F15C68BD3002020DB /* PCTocView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTocView.m; sourceTree = "<group>"; };
 		C55A914415C69066002020DB /* PCTocViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTocViewTest.m; sourceTree = "<group>"; };
@@ -2565,6 +2569,8 @@
 				607F3F711588D0690097D960 /* NSDictionary+Additions.m */,
 				607F3F721588D0690097D960 /* NSString+XMLEntities.h */,
 				607F3F731588D0690097D960 /* NSString+XMLEntities.m */,
+				C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */,
+				C550057B15C8000B002A5F75 /* UIImage+CombinedImage.m */,
 			);
 			path = Categories;
 			sourceTree = "<group>";
@@ -3972,6 +3978,7 @@
 				C5E3084215BE74EF009E6F0B /* PCGridViewIndex.h in Headers */,
 				C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */,
 				C55A914015C68BD4002020DB /* PCTocView.h in Headers */,
+				C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4432,6 +4439,7 @@
 				C5E3084315BE74EF009E6F0B /* PCGridViewIndex.m in Sources */,
 				C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */,
 				C55A914115C68BD4002020DB /* PCTocView.m in Sources */,
+				C550057D15C8000B002A5F75 /* UIImage+CombinedImage.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
