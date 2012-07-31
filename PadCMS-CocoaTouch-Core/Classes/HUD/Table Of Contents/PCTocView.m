@@ -9,6 +9,7 @@
 #import "PCTocView.h"
 
 #import "PCGridView.h"
+#import "UIColor+HexString.h"
 
 typedef enum _PCTocViewPosition {
     PCTocViewPositionInvalid = -1,
@@ -245,8 +246,127 @@ typedef enum _PCTocViewPosition {
     return [tocView autorelease];
 }
 
++ (UIImage *)colorizeImage:(UIImage *)baseImage color:(UIColor *)theColor overlay:(UIImage *)overlayImage
+{
+	UIGraphicsEndImageContext();
+	UIGraphicsBeginImageContext(baseImage.size);
+    
+    CGContextRef ctx = UIGraphicsGetCurrentContext();
+    CGRect area = CGRectMake(0, 0, baseImage.size.width, baseImage.size.height);
+    
+    CGContextScaleCTM(ctx, 1, -1);
+    CGContextTranslateCTM(ctx, 0, -area.size.height);
+    
+    CGContextSaveGState(ctx);
+    CGContextClipToMask(ctx, area, baseImage.CGImage);
+    
+    if (theColor != nil) {
+        [theColor set];
+        CGContextFillRect(ctx, area);
+	}
+    
+    CGContextRestoreGState(ctx);
+    
+    CGContextSetBlendMode(ctx, kCGBlendModeMultiply);
+    CGContextDrawImage(ctx, area, baseImage.CGImage);
+	
+	
+	if (overlayImage != nil)
+    {
+        CGContextSetBlendMode(ctx, kCGBlendModeNormal);
+		CGContextDrawImage(ctx, area, overlayImage.CGImage);
+	}
+	
+    UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+    
+    UIGraphicsEndImageContext();
+    
+    return newImage;
+}
+
 #define BottomTocButtonDefaultWidth 100
 #define BottomTocButtonDefaultHeight 50
+
+#define BottomTocStyle @"PCBottomTocStyle"
+#define BottomTocButtonStyle @"PCBottomTocButtonStyle"
+#define BottomTocButtonStyleColor @"PCBottomTocButtonStyleColor"
+#define BottomTocButtonStyleImageName @"PCBottomTocButtonStyleImageName"
+#define BottomTocButtonStyleBackgroundImageName @"PCBottomTocButtonStyleBackgroundImageName"
+#define BottomTocBackgroundStyle @"PCBottomTocBackgroundStyle"
+#define BottomTocBackgroundStyleColor @"PCBottomTocBackgroundStyleColor"
+
+- (void)implementStyle:(NSDictionary *)style
+{
+    // button style
+    // default values
+    UIImage *buttonBackgroundImage = nil;
+    UIColor *buttonColor = [UIColor whiteColor];
+    
+    NSDictionary *buttonStyle = [style objectForKey:BottomTocButtonStyle];
+    if (buttonStyle != nil) {
+        // background color
+        UIColor *tempButtonColor = nil;
+        NSString *buttonColorString = [buttonStyle objectForKey:BottomTocButtonStyleColor];
+        if (buttonColorString != nil) {
+            tempButtonColor = [UIColor colorWithHexString:buttonColorString];
+            if (tempButtonColor != nil) {
+                buttonColor = [tempButtonColor retain];
+            }
+        }
+        
+        // image
+        NSString *buttonImageName = [buttonStyle objectForKey:BottomTocButtonStyleImageName];
+        UIImage *buttonImage = nil;
+        if (buttonImageName != nil) {
+            buttonImage = [UIImage imageNamed:buttonImageName];
+        }
+        
+        // backgound image
+        NSString *buttonBackgroundImageName = [buttonStyle objectForKey:BottomTocButtonStyleBackgroundImageName];
+        UIImage *tempButtonBackgroundImage = nil;
+        if (buttonBackgroundImageName != nil) {
+            tempButtonBackgroundImage = [UIImage imageNamed:buttonBackgroundImageName];
+        }
+        
+        if (tempButtonColor != nil && buttonImage != nil && tempButtonBackgroundImage != nil) {
+            buttonBackgroundImage = [PCTocView colorizeImage:tempButtonBackgroundImage
+                                                              color:tempButtonColor
+                                                            overlay:buttonImage];
+            CGSize imageSize = buttonBackgroundImage.size;
+            _button.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
+            [_button setImage:buttonBackgroundImage forState:UIControlStateNormal];
+            
+            buttonColor = [UIColor clearColor];
+
+        } else if (tempButtonBackgroundImage != nil) {
+            buttonBackgroundImage = tempButtonBackgroundImage;
+        }
+    }
+    
+    if (buttonBackgroundImage != nil) {
+        CGSize imageSize = buttonBackgroundImage.size;
+        _button.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
+        [_button setImage:buttonBackgroundImage forState:UIControlStateNormal];
+    } else {
+        _button.bounds = CGRectMake(0, 0, TopTocButtonDefaultWidth, TopTocButtonDefaultHeight);
+    }
+    
+    _button.backgroundColor = buttonColor;
+    
+    
+    // background style
+    UIColor *backgroundColor = [UIColor blackColor];
+    NSDictionary *backgroundStyle = [style objectForKey:BottomTocBackgroundStyle];
+    if (backgroundStyle != nil) {
+        NSString *backgroundColorString = [backgroundStyle objectForKey:BottomTocBackgroundStyleColor];
+        if (backgroundColorString != nil) {
+            backgroundColor = [UIColor colorWithHexString:backgroundColorString];
+        }
+    }
+    
+    _backgroundView.backgroundColor = backgroundColor;
+}
+
 
 + (PCTocView *)bottomTocViewWithFrame:(CGRect)frame
 {
@@ -260,26 +380,34 @@ typedef enum _PCTocViewPosition {
     
     CGSize tocSize = frame.size;
     
-    CGRect buttonFrame = CGRectMake(0,
-                                    0,
-                                    BottomTocButtonDefaultWidth,
-                                    BottomTocButtonDefaultHeight);
-    tocView.button.frame = buttonFrame;
+    NSDictionary *styleDictionary = [[[NSDictionary alloc] init] autorelease];
+    
+    NSDictionary *infoDictionary = [[NSBundle mainBundle] infoDictionary];
+    NSDictionary *PADCMSConfigDictionary = [infoDictionary objectForKey:@"PADCMSConfig"];
+    if (PADCMSConfigDictionary != nil) {
+        NSDictionary *tempStyleDictionary = [PADCMSConfigDictionary objectForKey:BottomTocStyle];
+        if (tempStyleDictionary != nil) {
+            styleDictionary = tempStyleDictionary;
+        }
+    }
+    
+    [tocView implementStyle:styleDictionary];
+    
+    CGSize buttonSize = tocView.button.bounds.size;
+    tocView.button.center = CGPointMake(buttonSize.width / 2, buttonSize.height / 2);
+
     tocView.button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin;
-    tocView.button.backgroundColor = [UIColor redColor];
     
     CGRect gridViewFrame = CGRectMake(0,
-                                      buttonFrame.size.height,
+                                      tocView.button.frame.size.height,
                                       tocSize.width,
-                                      tocSize.height - buttonFrame.size.height);
+                                      tocSize.height - tocView.button.frame.size.height);
     tocView.gridView.frame = gridViewFrame;
     tocView.gridView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     tocView.gridView.backgroundColor = [UIColor clearColor];
     
     tocView.backgroundView.frame = gridViewFrame;
     tocView.backgroundView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    tocView.backgroundView.backgroundColor = [UIColor blackColor];
-    tocView.backgroundView.alpha = 0.5f;
     
     return [tocView autorelease];
 }
