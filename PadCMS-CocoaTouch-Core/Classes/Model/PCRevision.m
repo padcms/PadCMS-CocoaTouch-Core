@@ -99,6 +99,8 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 @synthesize newHorizontalPages=_newHorizontalPages;
 @dynamic verticalTocLoaded;
 @dynamic horizontalTocLoaded;
+@dynamic validVerticalTocItems;
+@dynamic validHorizontalTocItems;
 
 - (void)dealloc
 {
@@ -701,6 +703,46 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     }
     
     return YES;
+}
+
+- (NSArray *)validVerticalTocItems
+{
+    NSMutableArray *validTocItems = [[[NSMutableArray alloc] init] autorelease];
+    NSFileManager *defaultFileManager = [NSFileManager defaultManager];
+    
+    NSArray *verticalTocItems = [_toc copy];
+    for (PCTocItem *tocItem in verticalTocItems) {
+        
+        // toc item thumb image should exist
+        NSString *imagePath = [_contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+        if (![defaultFileManager fileExistsAtPath:imagePath]) {
+            continue;
+        }
+        
+        // toc item page reference shoul refer to existign page
+        BOOL refersToExistingPage = NO;
+        for (PCPage *page in _pages) {
+            if (page.identifier == tocItem.firstPageIdentifier) {
+                refersToExistingPage = YES;
+            }
+        }
+        
+        if (!refersToExistingPage) {
+            continue;
+        }
+        
+        [validTocItems addObject:tocItem];
+    }
+    [verticalTocItems release];
+    
+    return validTocItems;
+}
+
+- (NSArray *)validHorizontalTocItems
+{
+    NSMutableArray *validTocItems = [[[NSMutableArray alloc] init] autorelease];
+    
+    return validTocItems;
 }
 
 - (NSString *)description

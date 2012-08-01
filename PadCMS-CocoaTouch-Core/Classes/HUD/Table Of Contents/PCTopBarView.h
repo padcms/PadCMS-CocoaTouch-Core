@@ -27,5 +27,6 @@
 @property (assign) id<PCTopBarViewDelegate> delegate;
 
 - (void)setSummaryButtonHidden:(BOOL)hidden animated:(BOOL)animated;
+- (void)hideKeyboard;
 
 @end

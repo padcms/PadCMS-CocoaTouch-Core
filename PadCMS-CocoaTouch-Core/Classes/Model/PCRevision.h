@@ -93,6 +93,8 @@ typedef enum
 
 @property (readonly, nonatomic) BOOL verticalTocLoaded;
 @property (readonly, nonatomic) BOOL horizontalTocLoaded;
+@property (readonly, nonatomic) NSArray *validVerticalTocItems;
+@property (readonly, nonatomic) NSArray *validHorizontalTocItems;
 
 /**
  @brief Designated initializer.

@@ -190,6 +190,11 @@
     }
 }
 
+- (void)hideKeyboard
+{
+    [_searchTextField resignFirstResponder];
+}
+
 #pragma mark - UITextFieldDelegate
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField

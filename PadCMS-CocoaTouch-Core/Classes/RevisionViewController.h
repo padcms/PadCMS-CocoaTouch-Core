@@ -8,11 +8,13 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractBasePageViewController.h"
+#import "PCHudView.h"
 
 @class PCRevision;
 @class PCVideoManager;
 
-@interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate>
+@interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
+UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate>
 {
 	IBOutlet UIView* topMenuView;
 }
