@@ -2058,7 +2058,7 @@
 
 - (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
 {
-    if (tocView == _hudView.topTOCView) {
+    if (tocView == _hudView.topTocView) {
        
         if (!subscriptionsMenu.view.hidden) {
             subscriptionsMenu.view.hidden = YES;
