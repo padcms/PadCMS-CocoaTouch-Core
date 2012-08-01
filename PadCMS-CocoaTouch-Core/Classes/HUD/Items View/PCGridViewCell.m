@@ -43,10 +43,17 @@
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
-    if (self) {
+    
+    if (self != nil) {
         _index = nil;
     }
+    
     return self;
+}
+
+- (NSString *)description
+{
+    return [NSString stringWithFormat:@"%@, index = %@", [super description], _index];
 }
 
 @end

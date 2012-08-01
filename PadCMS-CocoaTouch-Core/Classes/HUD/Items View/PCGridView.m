@@ -146,15 +146,15 @@
         if (CGRectIntersectsRect(visibleRect, currentItemViewFrame)) {
             
             PCGridViewCell *itemView = [self getSubviewForIndex:index];
+            PCGridViewIndex *itemIndex =[[[PCGridViewIndex alloc] init] autorelease];
+            itemIndex.row = index;
             
             if (itemView == nil) {
-                PCGridViewIndex *itemIndex =[[[PCGridViewIndex alloc] init] autorelease];
-                itemIndex.row = index;
-                itemView = [self cellForIndex:itemIndex]; 
-                itemView.index = itemIndex;
+                itemView = [self cellForIndex:itemIndex];
             }
             
             if (itemView != nil) {
+                itemView.index = itemIndex;
                 itemView.frame = currentItemViewFrame;
                 itemView.hidden = NO;
                 
@@ -219,6 +219,9 @@
     CGPoint location = [recognizer locationInView:self];
     
     NSArray *subviews = self.subviews;
+    
+    NSLog(@"subviews = %@", subviews);
+    
     for (UIView *subview in subviews) {
         if (CGRectContainsPoint(subview.frame, location)) {
             UIColor *originalColor = subview.backgroundColor;
@@ -233,10 +236,14 @@
                                                   }];
                              }];
             
-            PCGridViewIndex *index = [self indexForPoint:location];
+//            PCGridViewIndex *index = [self indexForPoint:location];
+            PCGridViewCell *cell = (PCGridViewCell *)subview;
+            PCGridViewIndex *index = cell.index;
             
             if (index != nil) {
                 [self didSelectCellAtIndex:index];
+            } else {
+                NSLog(@"subview = %@", subview);
             }
             
             break;

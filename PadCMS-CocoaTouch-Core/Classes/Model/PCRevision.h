@@ -91,6 +91,8 @@ typedef enum
 @property (nonatomic, retain) NSMutableArray* newHorizontalPages;
 
 
+@property (readonly, nonatomic) BOOL verticalTocLoaded;
+@property (readonly, nonatomic) BOOL horizontalTocLoaded;
 
 /**
  @brief Designated initializer.

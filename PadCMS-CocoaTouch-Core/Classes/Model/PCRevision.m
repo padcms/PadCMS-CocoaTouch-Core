@@ -97,7 +97,8 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 @synthesize startVideo = _startVideo;
 @synthesize downloadStartVideoOperation = _downloadStartVideoOperation;
 @synthesize newHorizontalPages=_newHorizontalPages;
-
+@dynamic verticalTocLoaded;
+@dynamic horizontalTocLoaded;
 
 - (void)dealloc
 {
@@ -662,6 +663,44 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     }
     
     return NO;
+}
+
+- (BOOL)verticalTocLoaded
+{
+    // TODO: Omit toc items without references
+    NSFileManager *defaultFileManager = [NSFileManager defaultManager];
+    NSArray *verticalToc = [[_toc copy] autorelease];
+    for (PCTocItem* tocItem in verticalToc) {
+        
+        NSString *thumbStripe = tocItem.thumbStripe;
+        if (thumbStripe != nil) {
+            NSString *imagePath = [_contentDirectory stringByAppendingPathComponent:thumbStripe];
+            if (![defaultFileManager fileExistsAtPath:imagePath]) {
+                return NO;
+            }
+        }
+    }
+    
+    return YES;
+}
+
+- (BOOL)horizontalTocLoaded
+{
+    // TODO: Use PCTocItem instances
+    // TODO: Omit toc items without references
+    NSFileManager *defaultFileManager = [NSFileManager defaultManager];
+    NSDictionary *horizontalToc = [[_horisontalTocItems copy] autorelease];
+    for (NSString *key in horizontalToc) {
+        NSString *thumbStripe = [horizontalToc objectForKey:key];
+        NSString *horizontalThumbStripesFolder = [_contentDirectory stringByAppendingPathComponent:@"horisontal_toc_items"];
+        NSString *imagePath = [horizontalThumbStripesFolder stringByAppendingPathComponent:thumbStripe];
+        if (![defaultFileManager fileExistsAtPath:imagePath]) {
+            NSLog(@"imagePath = %@", imagePath);
+            return NO;
+        }
+    }
+    
+    return YES;
 }
 
 - (NSString *)description
