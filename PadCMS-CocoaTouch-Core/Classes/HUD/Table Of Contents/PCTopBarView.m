@@ -9,6 +9,7 @@
 #import "PCTopBarView.h"
 
 #import "PCConfig.h"
+#import "PCLocalizationManager.h"
 
 #define BarBackgroundImage @"panel_button.png"
 #define BarLogoImage @"logo.png"
@@ -70,7 +71,6 @@
         } else {
             _backButton.backgroundColor = [UIColor orangeColor];
         }
-        _backButton.backgroundColor = [UIColor orangeColor];
         [_backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_backButton];
         
@@ -106,7 +106,7 @@
         _subscriptionsButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
         
         // TODO: make localizable
-        [_subscriptionsButton setTitle:@"Abonnement" forState:UIControlStateNormal];
+        [_subscriptionsButton setTitle:[PCLocalizationManager localizedStringForKey:@"Subscription" value:@"Subscription"] forState:UIControlStateNormal];
         _subscriptionsButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
         
         [_subscriptionsButton setImage:[UIImage imageNamed:BarSubscriptionsButtonImage] forState:UIControlStateNormal];
