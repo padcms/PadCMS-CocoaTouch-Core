@@ -39,9 +39,9 @@
 #import "PCDefaultStyleElements.h"
 #import "PCGridViewCell.h"
 #import "PCGridViewIndex.h"
-#import "PCStyler.h"
 #import "PCTOCGridViewCell.h"
 #import "PCTopBarView.h"
+#import "PCGridViewIndex.h"
 
 #define TopBarHeight 43
 NSString *EnabledKey = @"Enabled";
@@ -176,61 +176,36 @@ NSString *EnabledKey = @"Enabled";
     return NO;
 }
 
-- (void)stylizeElementsWithOptions:(NSDictionary *)options
-{
-    /*
-    UIImage *topTocMenuButtonBackgroundImage = [UIImage imageNamed:@"topTocMenuButtonBackground.png"];
-    _topTOCButton.bounds = CGRectMake(0,
-                                      0,
-                                      topTocMenuButtonBackgroundImage.size.width,
-                                      topTocMenuButtonBackgroundImage.size.height);
-    [_topTOCButton setBackgroundImage:topTocMenuButtonBackgroundImage forState:UIControlStateNormal];
-    _topTOCButton.backgroundColor = [UIColor clearColor];
-    
-//    [[PCStyler defaultStyler] stylizeElement:_topTOCButton withStyleName:PCTopTocButtonKey withOptions:options];
-//    
-//    [_topTOCButton setFrame:CGRectMake(self.frame.size.width - _topTOCButton.frame.size.width - 20, 
-//                                                   0,
-//                                                   _topTOCButton.frame.size.width,
-//                                                   _topTOCButton.frame.size.height)];
-    
-    
-    [[PCStyler defaultStyler] stylizeElement:_bottomTOCButton withStyleName:PCTocButtonKey withOptions:options];
-    
-    [_bottomTOCButton setFrame:CGRectMake(0, 
-                                                      MAX(self.frame.size.height, self.frame.size.width) - _bottomTOCButton.frame.size.height,
-                                                      _bottomTOCButton.frame.size.width,
-                                                      _bottomTOCButton.frame.size.height)];
-     */
-}
-
 #pragma mark - PCGridViewDelegate
 
-- (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index
+- (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index;
 {
-    NSLog(@"didSelectCellAtIndex:%u", index.row);
-    
-    [self didSelectIndex:index.row];
+    [self didSelectIndex:index.column];
 }
 
 #pragma mark - PCGridViewDataSource
 
 - (PCGridViewCell *)gridView:(PCGridView *)gridView cellForIndex:(PCGridViewIndex *)index
 {
-    PCTOCGridViewCell *item = (PCTOCGridViewCell *)[gridView dequeueReusableItemView];
+    PCTOCGridViewCell *item = (PCTOCGridViewCell *)[gridView dequeueReusableCell];
     
     if (item == nil) {
         item = [[[PCTOCGridViewCell alloc] init] autorelease];
     }
     
-    [item setImage:[self imageForIndex:index.row]];
+    [item setImage:[self imageForIndex:index.column]];
     
     return item;
 }
 
-- (NSUInteger)gridViewNumberOfRows:(PCGridView *)gridView
+- (NSUInteger)gridViewNumberOfColumns:(PCGridView *)gridView
 {
     return [self itemsCount];
+}
+
+- (NSUInteger)gridViewNumberOfRows:(PCGridView *)gridView
+{
+    return 1;
 }
 
 - (CGSize)gridViewCellSize:(PCGridView *)gridView

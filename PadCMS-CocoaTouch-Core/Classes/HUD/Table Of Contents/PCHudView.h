@@ -98,7 +98,7 @@
 /**
  @brief PCGridView cell for displaying table of contents element.
  */ 
-@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, PCTocViewDelegate>
+@interface PCHudView : UIView <MFGridViewDelegate, MFGridViewDataSource, PCTocViewDelegate>
 
 /**
  @brief The object that acts as the delegate of the receiving HUD view.
@@ -126,11 +126,5 @@
  @brief reloads data of the receiver.
  */ 
 - (void)reloadData;
-
-/**
- @brief implements style for controls with PCStyler.
- @param options - options to be used by PCStyler object.
- */ 
-- (void)stylizeElementsWithOptions:(NSDictionary *)options;
 
 @end

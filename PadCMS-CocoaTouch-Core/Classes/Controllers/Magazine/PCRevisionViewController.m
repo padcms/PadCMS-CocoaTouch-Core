@@ -205,7 +205,6 @@
     if (revision.color != nil)
     {
         NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
-        [_hudView stylizeElementsWithOptions:options];
     }
 
 //    _hudView.bottomTOCButton.hidden = YES;
