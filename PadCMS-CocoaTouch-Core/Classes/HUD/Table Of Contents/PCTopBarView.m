@@ -64,12 +64,23 @@
         [self addSubview:_backgroundImageView];
         
         _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, boundsSize.height, boundsSize.height)];
-        [_backButton setImage:[UIImage imageNamed:BarHomeButtonImage] forState:UIControlStateNormal];
+        UIImage *homeButtonImage = [UIImage imageNamed:BarHomeButtonImage];
+        if (homeButtonImage != nil) {
+            [_backButton setImage:homeButtonImage forState:UIControlStateNormal];
+        } else {
+            _backButton.backgroundColor = [UIColor orangeColor];
+        }
+        _backButton.backgroundColor = [UIColor orangeColor];
         [_backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_backButton];
         
         _summaryButton = [[UIButton alloc] initWithFrame:CGRectMake(boundsSize.height + BarButtonOffset, 0, boundsSize.height, boundsSize.height)];
-        [_summaryButton setImage:[UIImage imageNamed:BarSummaryButtonImage] forState:UIControlStateNormal];
+        UIImage *summaryButtonImage = [UIImage imageNamed:BarSummaryButtonImage];
+        if (summaryButtonImage != nil) {
+            [_summaryButton setImage:summaryButtonImage forState:UIControlStateNormal];
+        } else {
+            _summaryButton.backgroundColor = [UIColor orangeColor];
+        }
         [_summaryButton addTarget:self action:@selector(summaryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_summaryButton];
         
@@ -104,13 +115,23 @@
         
         _shareButton = [[UIButton alloc] initWithFrame:CGRectMake(boundsSize.width - boundsSize.height * 2 - BarButtonOffset, 0, boundsSize.height, boundsSize.height)];
         _shareButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_shareButton setImage:[UIImage imageNamed:BarShareButtonImage] forState:UIControlStateNormal];
+        UIImage *shareButtonImage = [UIImage imageNamed:BarShareButtonImage];
+        if (shareButtonImage != nil) {
+            [_shareButton setImage:shareButtonImage forState:UIControlStateNormal];
+        } else {
+            _shareButton.backgroundColor = [UIColor orangeColor];
+        }
         [_shareButton addTarget:self action:@selector(shareButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_shareButton];
         
         _helpButton = [[UIButton alloc] initWithFrame:CGRectMake(boundsSize.width - boundsSize.height, 0, boundsSize.height, boundsSize.height)];
         _helpButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-        [_helpButton setImage:[UIImage imageNamed:BarHelpButtonImage] forState:UIControlStateNormal];
+        UIImage *helpButtomImage = [UIImage imageNamed:BarHelpButtonImage];
+        if (helpButtomImage != nil) {
+            [_helpButton setImage:helpButtomImage forState:UIControlStateNormal];
+        } else {
+            _helpButton.backgroundColor = [UIColor orangeColor];
+        }
         [_helpButton addTarget:self action:@selector(helpButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
         [self addSubview:_helpButton];
     }
