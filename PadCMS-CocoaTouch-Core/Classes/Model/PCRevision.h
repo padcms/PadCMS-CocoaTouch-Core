@@ -73,6 +73,7 @@ typedef enum
 @property (nonatomic, assign) PCRevisionState state; 
 @property (nonatomic, retain) NSURL *coverImageListURL;
 @property (nonatomic, retain) NSMutableArray *toc;
+@property (nonatomic, retain) NSMutableArray *horizontalToc;
 @property (nonatomic, retain) NSMutableArray *pages;
 @property (nonatomic, assign) BOOL horizontalMode;
 @property (nonatomic, assign) BOOL horizontalOrientation;
@@ -92,6 +93,9 @@ typedef enum
 
 @property (readonly, nonatomic) BOOL verticalTocLoaded;
 @property (readonly, nonatomic) BOOL horizontalTocLoaded;
+@property (readonly, nonatomic) NSArray *validVerticalTocItems;
+@property (readonly, nonatomic) NSArray *validHorizontalTocItems;
+
 
 /**
  @brief Designated initializer.
