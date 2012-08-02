@@ -235,6 +235,7 @@
 
 - (void)updateHUDView
 {
+    /*
     if (revision == nil) {
         return;
     }
@@ -294,6 +295,7 @@
     [_hudView reloadData];
     
     [self.view bringSubviewToFront:_hudView];
+    */
 }
 
 - (void)showTopBar
@@ -1181,6 +1183,8 @@
     }
     
     [self updateHUDView];
+    
+     [_hudView reloadData];
 }
 
 - (PCPage *) pageAtHorizontalIndex:(NSInteger)currentHorisontalPageIndex
@@ -1978,8 +1982,15 @@
 
 - (NSUInteger)hudViewTOCItemsCount:(PCHudView *)hudView
 {
-    if (_activeTOCItems != nil) {
-        return _activeTOCItems.count;
+    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision interfaceOrientationAvailable:currentOrientation]) {
+        if (revision.horizontalTocLoaded) {
+            return revision.validHorizontalTocItems.count;
+        }
+    } else {
+        if (revision.verticalTocLoaded) {
+            return revision.validVerticalTocItems.count;
+        }
     }
     
     return 0;
@@ -1987,60 +1998,54 @@
 
 - (UIImage *)hudView:(PCHudView *)hudView tocImageForIndex:(NSUInteger)index
 {
-    if (_activeTOCItems != nil && _activeTOCItems.count > index) {
-        PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
-        
-        PCResourceCache * cache = [PCResourceCache defaultResourceCache];
-        NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
-        UIImage *cachedImage = (UIImage *)[cache objectForKey:imagePath];
-        if (cachedImage != nil) {
-            return cachedImage;
-        } else {
-            UIImage *image = [UIImage imageWithContentsOfFile:imagePath];
-            [cache setObject:image forKey:imagePath];
-            return image;
-        }
+    PCTocItem *tocItem = nil;
+
+    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision interfaceOrientationAvailable:currentOrientation]) {
+        tocItem = [revision.validHorizontalTocItems objectAtIndex:index];
+    } else {
+        tocItem = [revision.validVerticalTocItems objectAtIndex:index];
     }
     
-    return nil;
+    PCResourceCache *cache = [PCResourceCache defaultResourceCache];
+    
+    NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
+    
+    UIImage *image = [cache objectForKey:imagePath];
+    
+    if (image == nil) {
+        image = [UIImage imageWithContentsOfFile:imagePath];
+        [cache setObject:image forKey:imagePath];
+    }
+    
+    return image;
 }
 
 #pragma mark - RRTableOfContentsViewDelegate
 
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
-    if (_activeTOCItems != nil) {
-        
-        if (revision.horizontalPages != nil &&
-            revision.horizontalPages.count != 0 &&
-            UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-            
-            if (index >= [self.revision.horizontalPages count]) {
-                return;
-            }
-            
-            [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
-            
-        } else {
-            
-            PCTocItem *tocItem = [_activeTOCItems objectAtIndex:index];
-            
-            NSInteger pageIndex = -1;
-            NSArray *revisionPages = revision.pages;
-            for (PCPage *page in revisionPages) {
-                if (page.identifier == tocItem.firstPageIdentifier) {
-                    pageIndex = [revisionPages indexOfObject:page];
-                }
-            }
-            
-//            [hudView hideTOCs];
-            
-            [self showPageWithIndex:pageIndex];
+    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision interfaceOrientationAvailable:currentOrientation]) {
+
+        if (index >= [self.revision.horizontalPages count]) {
+            return;
         }
-    }
-    
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+        
+        [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
+        
+    } else {
+        PCTocItem *tocItem = [revision.validVerticalTocItems objectAtIndex:index];
+        NSInteger pageIndex = -1;
+        NSArray *revisionPages = revision.pages;
+        for (PCPage *page in revisionPages) {
+            if (page.identifier == tocItem.firstPageIdentifier) {
+                pageIndex = [revisionPages indexOfObject:page];
+                break;
+            }
+        }
+        
+        [self showPageWithIndex:pageIndex];
     }
 }
 

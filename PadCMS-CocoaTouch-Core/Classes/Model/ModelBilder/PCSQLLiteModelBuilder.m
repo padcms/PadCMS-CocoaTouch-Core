@@ -273,6 +273,12 @@
 		
         NSString *horisontalTocItemPath = [resources stringByReplacingOccurrencesOfString:@"1024-768" withString:@"204-153"];
         [revision.horisontalTocItems setObject:horisontalTocItemPath forKey:[NSNumber numberWithInt:horisontalPageId]];
+        
+        PCTocItem *tocItem = [[[PCTocItem alloc] init] autorelease];
+        tocItem.firstPageIdentifier = horizontalPage.identifier.integerValue;
+        tocItem.thumbStripe = [@"horisontal_toc_items" stringByAppendingPathComponent:horisontalTocItemPath];
+        [revision.horizontalToc addObject:tocItem];
+        
         [horizontalPage release];
     }
 	
@@ -284,19 +290,38 @@
     
     while ([menus next]) 
     {
-        PCTocItem* tocItem = [[PCTocItem alloc] init];
-        tocItem.title = [menus stringForColumn:PCSQLiteTitleColumnName];
-        tocItem.tocItemDescription = [menus stringForColumn:PCSQLiteDescriptionColumnName];
-        if ([menus stringForColumn:PCSQLiteColorColumnName])
-            tocItem.color = [PCDataHelper colorFromString:[menus stringForColumn:PCSQLiteColorColumnName]];
-        tocItem.thumbStripe = [menus stringForColumn:PCSQLiteThumbStripeColumnName];
-        tocItem.thumbSummary = [menus stringForColumn:PCSQLiteThumbSummaryColumnName];
-        tocItem.firstPageIdentifier = [menus intForColumn:PCSQLiteFirstpageIDColumnName];
+        NSString *title = [menus stringForColumn:PCSQLiteTitleColumnName];
+        NSString *description = [menus stringForColumn:PCSQLiteDescriptionColumnName];
+        NSString *colorString = [menus stringForColumn:PCSQLiteColorColumnName];
+        NSString *thumbStripe = [menus stringForColumn:PCSQLiteThumbStripeColumnName];
+        NSString *thumbSummary = [menus stringForColumn:PCSQLiteThumbSummaryColumnName];
+        NSString *firstPageIdentifierString = [menus stringForColumn:PCSQLiteFirstpageIDColumnName];
+        
+        if (thumbStripe == nil ||
+            [thumbStripe isEqualToString:@""] ||
+            firstPageIdentifierString == nil ||
+            [firstPageIdentifierString isEqualToString:@""]) {
+            continue;
+        }
+        
+        PCTocItem *tocItem = [[[PCTocItem alloc] init] autorelease];
+        tocItem.title = title;
+        tocItem.tocItemDescription = description;
+        
+        if (colorString != nil && ![colorString isEqualToString:@""]) {
+            tocItem.color = [PCDataHelper colorFromString:colorString];
+        }
+        
+        tocItem.thumbStripe = thumbStripe;
+        tocItem.thumbSummary = thumbSummary;
+        tocItem.firstPageIdentifier = firstPageIdentifierString.integerValue;
+
         PCPage* page = [revision pageWithId:tocItem.firstPageIdentifier];
-        if (page && tocItem.color)
-            [page setColor:tocItem.color];
-        [[revision toc] addObject:tocItem];
-        [tocItem release];
+        if (page != nil && tocItem.color != nil) {
+            page.color = tocItem.color;
+        }
+        
+        [revision.toc addObject:tocItem];
     }
     
     [revision updateColumns]; 
