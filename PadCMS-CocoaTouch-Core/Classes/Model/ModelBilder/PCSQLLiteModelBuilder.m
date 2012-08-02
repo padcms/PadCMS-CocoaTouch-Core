@@ -275,7 +275,7 @@
         [revision.horisontalTocItems setObject:horisontalTocItemPath forKey:[NSNumber numberWithInt:horisontalPageId]];
         
         PCTocItem *tocItem = [[[PCTocItem alloc] init] autorelease];
-        tocItem.firstPageIdentifier = horizontalPage.identifier.integerValue;
+        tocItem.firstPageIdentifier = horizontalPage.identifier;
         tocItem.thumbStripe = [@"horisontal_toc_items" stringByAppendingPathComponent:horisontalTocItemPath];
         [revision.horizontalToc addObject:tocItem];
         
