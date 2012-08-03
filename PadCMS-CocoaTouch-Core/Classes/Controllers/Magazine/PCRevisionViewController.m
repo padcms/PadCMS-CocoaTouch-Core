@@ -1986,7 +1986,7 @@
 - (NSUInteger)hudViewTocItemsCount:(PCHudView *)hudView
 {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation]) {
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
         if (revision.horizontalTocLoaded) {
             return revision.validHorizontalTocItems.count;
         }
@@ -2004,7 +2004,7 @@
     PCTocItem *tocItem = nil;
 
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation]) {
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
         tocItem = [revision.validHorizontalTocItems objectAtIndex:index];
     } else {
         tocItem = [revision.validVerticalTocItems objectAtIndex:index];
@@ -2029,7 +2029,7 @@
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation]) {
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
 
         if (index >= [self.revision.horizontalPages count]) {
             return;
