@@ -1055,6 +1055,8 @@
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
 		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
+		AB566FDE15C2BF4E00089673 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */; };
+		AB566FDF15C2BF4E00089673 /* UIImage+Resize.h in Headers */ = {isa = PBXBuildFile; fileRef = AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */; };
 		AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB61EE2D15B858710031496A /* GalleryViewController.h */; };
 		AB61EE3015B858710031496A /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB61EE2E15B858710031496A /* GalleryViewController.m */; };
 		AB8137A315C07C48002FC0E4 /* Page3DViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB8137A115C07C48002FC0E4 /* Page3DViewController.h */; };
@@ -2215,6 +2217,8 @@
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
+		AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		AB61EE2D15B858710031496A /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
 		AB61EE2E15B858710031496A /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		AB8137A115C07C48002FC0E4 /* Page3DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page3DViewController.h; sourceTree = "<group>"; };
@@ -2484,6 +2488,8 @@
 		607F3EF11588CF820097D960 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */,
+				AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */,
 				607F3EF21588CF820097D960 /* Helper.h */,
 				607F3EF31588CF820097D960 /* Helper.mm */,
 				607F3EF61588CF820097D960 /* PCConfig.h */,
@@ -4066,6 +4072,7 @@
 				C5E3084015BE74EF009E6F0B /* PCGridViewCell.h in Headers */,
 				C5E3084215BE74EF009E6F0B /* PCGridViewIndex.h in Headers */,
 				84127DA715C18739007BDCE7 /* PCVideoManager.h in Headers */,
+				AB566FDF15C2BF4E00089673 /* UIImage+Resize.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4536,6 +4543,7 @@
 				C5E3084115BE74EF009E6F0B /* PCGridViewCell.m in Sources */,
 				C5E3084315BE74EF009E6F0B /* PCGridViewIndex.m in Sources */,
 				84127DA815C18739007BDCE7 /* PCVideoManager.m in Sources */,
+				AB566FDE15C2BF4E00089673 /* UIImage+Resize.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

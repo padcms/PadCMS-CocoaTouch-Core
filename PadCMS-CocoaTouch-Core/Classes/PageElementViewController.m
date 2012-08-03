@@ -10,6 +10,7 @@
 #import "PCPage.h"
 #import "PCPageElement.h"
 #import "PCScrollView.h"
+#import "UIImage+Resize.h"
 
 @interface PageElementViewController ()
 @property (readonly) float scale;
@@ -85,6 +86,15 @@
 		_elementView.levelsOfZoom = 1;
 		_elementView.levelsOfDetail = 2;
 		_elementView.scrollView.maximumZoomScale = 1.0;
+		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+			UIImage* image = [[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@BQ.png", [self.fullPathToContent stringByDeletingPathExtension]]] resizedImage:scrollContentSize interpolationQuality:kCGInterpolationLow];
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				_elementView.scrollView.backgroundColor = [UIColor colorWithPatternImage:image];
+			});
+			
+
+		});
 	}
 	return _elementView;
 }
