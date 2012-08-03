@@ -76,7 +76,8 @@
 
 - (void)updateSubviews
 {
-    if (_cellSize.width == 0 || _cellSize.height == 0) {
+    if (_cellSize.width == 0 || _cellSize.height == 0 ||
+        _numberOfColumns == 0 || _numberOfRows == 0) {
         return;
     }
     

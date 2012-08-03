@@ -285,6 +285,8 @@
     NSString* horisontalPagesQuery = [NSString stringWithFormat:@"select * from %@",PCSQLitePageHorisontalTableName];
     FMResultSet* horisontalPages = [base executeQuery:horisontalPagesQuery];
     
+    [revision.horizontalToc removeAllObjects];
+    
     while ([horisontalPages next]) 
     {
         NSInteger horisontalPageId = [horisontalPages intForColumn:PCSQLiteIDColumnName];
@@ -306,6 +308,8 @@
     
     NSString* menusQuery = [NSString stringWithFormat:@"select * from %@",PCSQLiteMenuTableName];
     FMResultSet* menus = [base executeQuery:menusQuery];
+    
+    [revision.toc removeAllObjects];
     
     while ([menus next]) 
     {
