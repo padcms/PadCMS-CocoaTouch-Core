@@ -1044,7 +1044,7 @@
     if (revision != nil) {
         UIInterfaceOrientation currentInterfaceOrientation = [UIApplication sharedApplication].statusBarOrientation;
         
-        BOOL currentInterfaceAvailable = [revision interfaceOrientationAvailable:currentInterfaceOrientation];
+        BOOL currentInterfaceAvailable = [revision supportsInterfaceOrientation:currentInterfaceOrientation];
         
         if (!currentInterfaceAvailable) {
             if (UIDeviceOrientationIsLandscape(currentInterfaceOrientation)) {

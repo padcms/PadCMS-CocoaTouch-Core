@@ -652,7 +652,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	
 }
 
-- (BOOL)interfaceOrientationAvailable:(UIInterfaceOrientation)interfaceOrientation
+- (BOOL)supportsInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     if (!self.horizontalOrientation && !self.horizontalMode) {
         // vertical(portrait) only revision
@@ -672,7 +672,6 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 - (BOOL)verticalTocLoaded
 {
-    // TODO: Omit toc items without references
     NSFileManager *defaultFileManager = [NSFileManager defaultManager];
     NSArray *verticalToc = [[_toc copy] autorelease];
     for (PCTocItem* tocItem in verticalToc) {
@@ -691,16 +690,16 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 - (BOOL)horizontalTocLoaded
 {
-    // TODO: Use PCTocItem instances
-    // TODO: Omit toc items without references
     NSFileManager *defaultFileManager = [NSFileManager defaultManager];
-    NSDictionary *horizontalToc = [[_horisontalTocItems copy] autorelease];
-    for (NSString *key in horizontalToc) {
-        NSString *thumbStripe = [horizontalToc objectForKey:key];
-        NSString *horizontalThumbStripesFolder = [_contentDirectory stringByAppendingPathComponent:@"horisontal_toc_items"];
-        NSString *imagePath = [horizontalThumbStripesFolder stringByAppendingPathComponent:thumbStripe];
-        if (![defaultFileManager fileExistsAtPath:imagePath]) {
-            return NO;
+    NSArray *horizontalToc = [[_horizontalToc copy] autorelease];
+    for (PCTocItem* tocItem in horizontalToc) {
+        
+        NSString *thumbStripe = tocItem.thumbStripe;
+        if (thumbStripe != nil) {
+            NSString *imagePath = [_contentDirectory stringByAppendingPathComponent:thumbStripe];
+            if (![defaultFileManager fileExistsAtPath:imagePath]) {
+                return NO;
+            }
         }
     }
     

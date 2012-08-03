@@ -6,6 +6,7 @@
 @interface PCGridViewCell : UIView
 
 @property (retain, nonatomic) PCGridViewIndex *index;
-@property (readonly, nonatomic) NSUInteger instanceIndex;
+
++ (NSUInteger)instanceCount;
 
 @end
