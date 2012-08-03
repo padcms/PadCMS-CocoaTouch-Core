@@ -1965,7 +1965,7 @@
 		
 }
 
-#pragma mark - RRTableOfContentsViewDataSource
+#pragma mark - PCTableOfContentsViewDataSource
 
 - (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView
 {
@@ -2023,7 +2023,7 @@
     return image;
 }
 
-#pragma mark - RRTableOfContentsViewDelegate
+#pragma mark - PCTableOfContentsViewDelegate
 
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
@@ -2073,7 +2073,7 @@
     }
 }
 
-#pragma mark - RRTopBarViewDelegate
+#pragma mark - PCTopBarViewDelegate
 
 - (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
 {

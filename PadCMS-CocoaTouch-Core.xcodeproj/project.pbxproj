@@ -1107,10 +1107,7 @@
 		C50E49A115AEAA4800222413 /* test-resource.png in Resources */ = {isa = PBXBuildFile; fileRef = C50E49A015AEAA4800222413 /* test-resource.png */; };
 		C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */; };
 		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
-		C524004F15BE7BD10064612D /* PCGridView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083815BE74EF009E6F0B /* PCGridView.h */; };
-		C524005015BE7BD10064612D /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083A15BE74EF009E6F0B /* PCGridViewCell.h */; };
-		C524005115BE7BD10064612D /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */; };
-		C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
+		C524004F15BE7BD10064612D /* (null) in CopyFiles */ = {isa = PBXBuildFile; };
 		C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5457EE615C280B500439BB5 /* PCTopBarView.m */; };
 		C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */; };
@@ -1153,13 +1150,12 @@
 				84D5E39615BE811A00BEF5D6 /* PCSubscriptionsMenuViewController.h in CopyFiles */,
 				AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */,
 				AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */,
-				C524004F15BE7BD10064612D /* PCGridView.h in CopyFiles */,
+				C524004F15BE7BD10064612D /* (null) in CopyFiles */,
 				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
 				C5A784E615C9522F00370829 /* PCGridView.h in CopyFiles */,
 				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
 				C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */,
 				C58C16A715B3FFD600665295 /* PCHudView.h in CopyFiles */,
-				840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
 				C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
@@ -2227,7 +2223,7 @@
 		84D5E39115BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuViewController.h; sourceTree = "<group>"; };
 		84D5E39215BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSubscriptionsMenuViewController.m; sourceTree = "<group>"; };
 		AB0A0E7815A4278E00B9758C /* RevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisionViewController.h; sourceTree = "<group>"; };
-		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisionViewController.m; sourceTree = "<group>"; };
+		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RevisionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AB22134615BE2F75001F355A /* SlideshowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideshowViewController.h; sourceTree = "<group>"; };
 		AB22134715BE2F76001F355A /* SlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideshowViewController.m; sourceTree = "<group>"; };
 		AB22135F15BE4945001F355A /* HTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPageViewController.h; sourceTree = "<group>"; };
@@ -4105,7 +4101,7 @@
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
 				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
 				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
-				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
+				C58C16A115B3FE7400665295 /* PCHudView.h in Headers */,
 				AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */,
 				AB22134815BE2F77001F355A /* SlideshowViewController.h in Headers */,
 				AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */,
@@ -4115,7 +4111,6 @@
 				C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */,
 				84127DA715C18739007BDCE7 /* PCVideoManager.h in Headers */,
 				C58C16A115B3FE7400665295 /* PCHudView.h in Headers */,
-				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
 				C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */,
 				C55A914015C68BD4002020DB /* PCTocView.h in Headers */,
 				C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */,
@@ -4589,7 +4584,6 @@
 				C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */,
 				84127DA815C18739007BDCE7 /* PCVideoManager.m in Sources */,
 				C58C16A215B3FE7400665295 /* PCHudView.m in Sources */,
-				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
 				C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */,
 				C55A914115C68BD4002020DB /* PCTocView.m in Sources */,
 				C550057D15C8000B002A5F75 /* UIImage+CombinedImage.m in Sources */,
