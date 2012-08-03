@@ -168,6 +168,6 @@ typedef enum
  @brief Check availability of interface orientation
  @param interfaceOrientation - interface orientation to check availability
  */ 
-- (BOOL)interfaceOrientationAvailable:(UIInterfaceOrientation)interfaceOrientation;
+- (BOOL)supportsInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 @end

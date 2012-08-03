@@ -1735,20 +1735,7 @@
     [self createTableOfContents];
     [self createTopSummaryView];
 
-    PCTocView *bottomTocView = _hudView.bottomTocView;
-    if (bottomTocView != nil &&
-        bottomTocView.state == PCTocViewStateVisible &&
-        revision.verticalTocLoaded &&
-        revision.horizontalTocLoaded) {
-        
-        [bottomTocView.gridView reloadData];
-        [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-    }
-}
-
-- (void)horizontalTocDownloaded:(NSNotification *)notification
-{
-    [self createHorizontalSummary];
+    [_hudView reloadData];
     
     PCTocView *bottomTocView = _hudView.bottomTocView;
     if (bottomTocView != nil &&
@@ -1756,7 +1743,22 @@
         revision.verticalTocLoaded &&
         revision.horizontalTocLoaded) {
         
-        [bottomTocView.gridView reloadData];
+        [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
+}
+
+- (void)horizontalTocDownloaded:(NSNotification *)notification
+{
+    [self createHorizontalSummary];
+
+    [_hudView reloadData];
+    
+    PCTocView *bottomTocView = _hudView.bottomTocView;
+    if (bottomTocView != nil &&
+        bottomTocView.state == PCTocViewStateVisible &&
+        revision.verticalTocLoaded &&
+        revision.horizontalTocLoaded) {
+        
         [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
     }
 }
@@ -1963,9 +1965,9 @@
 		
 }
 
-#pragma mark - RRTableOfContentsViewDataSource
+#pragma mark - PCTableOfContentsViewDataSource
 
-- (CGSize)hudView:(PCHudView *)hudView itemSizeInTOC:(PCGridView *)tocView
+- (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView
 {
     if (tocView == hudView.topTocView.gridView) {
         return CGSizeMake(150, self.view.bounds.size.height / 2);
@@ -1980,10 +1982,10 @@
     return CGSizeZero;
 }
 
-- (NSUInteger)hudViewTOCItemsCount:(PCHudView *)hudView
+- (NSUInteger)hudViewTocItemsCount:(PCHudView *)hudView
 {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision interfaceOrientationAvailable:currentOrientation]) {
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
         if (revision.horizontalTocLoaded) {
             return revision.validHorizontalTocItems.count;
         }
@@ -2001,7 +2003,7 @@
     PCTocItem *tocItem = nil;
 
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision interfaceOrientationAvailable:currentOrientation]) {
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
         tocItem = [revision.validHorizontalTocItems objectAtIndex:index];
     } else {
         tocItem = [revision.validVerticalTocItems objectAtIndex:index];
@@ -2021,12 +2023,12 @@
     return image;
 }
 
-#pragma mark - RRTableOfContentsViewDelegate
+#pragma mark - PCTableOfContentsViewDelegate
 
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision interfaceOrientationAvailable:currentOrientation]) {
+    if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
 
         if (index >= [self.revision.horizontalPages count]) {
             return;
@@ -2071,7 +2073,7 @@
     }
 }
 
-#pragma mark - RRTopBarViewDelegate
+#pragma mark - PCTopBarViewDelegate
 
 - (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
 {

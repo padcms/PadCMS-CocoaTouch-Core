@@ -61,9 +61,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 @property (nonatomic, readwrite, retain) PCApplication* application;
 @property (nonatomic, retain) PCRevisionViewController* revisionViewController;
 
-
-//---TEST----
-@property (nonatomic, retain) RevisionViewController* revisionController;
 @end
 
 @implementation PCStoreController
@@ -71,7 +68,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 //@synthesize navigationController=_navigationController;
 @synthesize application=_application;
 @synthesize revisionViewController=_revisionViewController;
-@synthesize revisionController=_revisionController;
 
 - (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController
 {
@@ -104,7 +100,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   [_rootViewController release], _rootViewController = nil;
   [_application release], _application = nil;
   [_revisionViewController release], _revisionViewController = nil;
-  [_revisionController release], _revisionController = nil;
   [super dealloc];
 }
 
@@ -381,15 +376,9 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [PCDownloadManager sharedManager].revision = currentRevision;
     [[PCDownloadManager sharedManager] startDownloading];
     
-    if (_revisionController == nil)
-    {
-            
-      _revisionController = [[RevisionViewController alloc] initWithRevision:currentRevision];
-      [self.rootViewController.navigationController pushViewController:_revisionController animated:NO];
-      
-      
-      
-    }
+      RevisionViewController *revisionController = [[RevisionViewController alloc] initWithRevision:currentRevision];
+      [self.rootViewController.navigationController pushViewController:revisionController animated:NO];
+      [revisionController release];
     
  /*   if (_revisionViewController == nil)
     {
