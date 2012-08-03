@@ -86,7 +86,7 @@
 		_elementView.levelsOfZoom = 1;
 		_elementView.levelsOfDetail = 2;
 		_elementView.scrollView.maximumZoomScale = 1.0;
-		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+/*		dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
 			UIImage* image = [[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@BQ.png", [self.fullPathToContent stringByDeletingPathExtension]]] resizedImage:scrollContentSize interpolationQuality:kCGInterpolationLow];
 			
 			dispatch_async(dispatch_get_main_queue(), ^{
@@ -94,7 +94,7 @@
 			});
 			
 
-		});
+		});*/
 	}
 	return _elementView;
 }
@@ -105,7 +105,7 @@
 
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale
 {
-	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@_%d_%d.png", [self.fullPathToContent stringByDeletingPathExtension], row + 1, column + 1]];
+	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
 	return image;
 }
 
