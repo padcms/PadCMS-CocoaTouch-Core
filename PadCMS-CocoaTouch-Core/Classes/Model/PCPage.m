@@ -125,6 +125,8 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
 
 - (NSString*)description
 {
+    return [NSString stringWithFormat:@"%@ identifier = %d", [super description], identifier];
+    
     NSString* discription = NSStringFromClass(self.class);
     discription = [discription stringByAppendingString:@"\r"];
 

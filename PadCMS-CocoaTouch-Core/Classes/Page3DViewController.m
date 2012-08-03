@@ -264,7 +264,8 @@
 	EAGLView *openGLView = [director openGLView];
     [openGLView removeFromSuperview];
 	
-	[director end];	
+	[director end];
+    [director purgeCachedData];
 }
 
 - (void)clearGraphicsCache

@@ -192,9 +192,11 @@
     
     if (cell == nil)
     {
-        NSArray *topLevelObjects = [[NSBundle mainBundle] loadNibNamed:CellIdentifier
-                                                                 owner:cell
-                                                               options:nil];
+        NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources"
+                                                                           withExtension:@"bundle"]];
+        NSArray *topLevelObjects = [bundle loadNibNamed:CellIdentifier
+                                                  owner:cell
+                                                options:nil];
         cell = [topLevelObjects objectAtIndex:0];
     }
     [cell assignIssueTitle:@""
