@@ -48,7 +48,6 @@
 @property (nonatomic) CGRect videoRect;
 @property (nonatomic, retain) NSURL *videoURL;
 
-- (id) init;
-- (void) presentURL: (NSString *) url;
+- (void)presentURL:(NSString *)url;
 
 @end

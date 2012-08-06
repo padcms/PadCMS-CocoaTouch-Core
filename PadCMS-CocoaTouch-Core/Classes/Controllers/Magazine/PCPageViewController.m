@@ -641,7 +641,7 @@
             break;
     if (actions.count == 0)
     {
-        [self.magazineViewController tapAction:gestureRecognizer];
+        [self.magazineViewController tapGesture:gestureRecognizer];
     }
 }
 

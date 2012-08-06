@@ -80,7 +80,6 @@
 - (BOOL) isOrientationChanged:(UIDeviceOrientation) orientation;
 - (void) createHorizontalSummary;
 - (void) changeHorizontalPage:(id) sender;
-- (void) tapGesture:(id) sender;
 - (void) hideMenus;
 - (PCPage *) pageAtHorizontalIndex:(NSInteger)currentHorisontalPageIndex;
 - (void) unloadSummaries;
@@ -1480,7 +1479,7 @@
     }
 }
 
-- (void)tapGesture:(UIGestureRecognizer *)sender
+- (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
     if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
         [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];

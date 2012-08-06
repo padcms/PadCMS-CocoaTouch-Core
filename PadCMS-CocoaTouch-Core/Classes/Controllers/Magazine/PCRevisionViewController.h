@@ -170,7 +170,7 @@
 /**
  @brief Tap action callback
  */
--(void)tapAction:(UIGestureRecognizer*)sender;
+- (void)tapGesture:(UIGestureRecognizer *)recognizer;
 
 @property (retain, nonatomic) IBOutlet UITextField *searchTextField;
 - (IBAction)searchTextDidEndOnExit:(id)sender;
