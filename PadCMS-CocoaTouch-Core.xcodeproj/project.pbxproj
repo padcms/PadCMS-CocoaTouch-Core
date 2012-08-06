@@ -1051,6 +1051,10 @@
 		AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22134715BE2F76001F355A /* SlideshowViewController.m */; };
 		AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
 		AB22136215BE4947001F355A /* HTMLPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22136015BE4945001F355A /* HTMLPageViewController.m */; };
+		AB2334A115CF75FA006651DD /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = AB23349F15CF75FA006651DD /* ImageCache.h */; };
+		AB2334A215CF75FA006651DD /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2334A015CF75FA006651DD /* ImageCache.m */; };
+		AB2334A615CF8B56006651DD /* UIImage+ImmediateLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */; };
+		AB2334A715CF8B56006651DD /* UIImage+ImmediateLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */; };
 		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
@@ -2230,6 +2234,10 @@
 		AB22134715BE2F76001F355A /* SlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideshowViewController.m; sourceTree = "<group>"; };
 		AB22135F15BE4945001F355A /* HTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPageViewController.h; sourceTree = "<group>"; };
 		AB22136015BE4945001F355A /* HTMLPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLPageViewController.m; sourceTree = "<group>"; };
+		AB23349F15CF75FA006651DD /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		AB2334A015CF75FA006651DD /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
+		AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImmediateLoading.h"; sourceTree = "<group>"; };
+		AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImmediateLoading.m"; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
@@ -3520,6 +3528,8 @@
 				ABC7E1D015A9C1D600B06A38 /* Templates */,
 				AB0A0E7815A4278E00B9758C /* RevisionViewController.h */,
 				AB0A0E7915A4278E00B9758C /* RevisionViewController.m */,
+				AB23349F15CF75FA006651DD /* ImageCache.h */,
+				AB2334A015CF75FA006651DD /* ImageCache.m */,
 				AB61EE2D15B858710031496A /* GalleryViewController.h */,
 				AB61EE2E15B858710031496A /* GalleryViewController.m */,
 			);
@@ -3618,6 +3628,8 @@
 		ABC7E1D515A9C3FF00B06A38 /* externals */ = {
 			isa = PBXGroup;
 			children = (
+				AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */,
+				AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */,
 				ABC7E24515AAAA7900B06A38 /* EasyTableView.h */,
 				ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */,
 				ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */,
@@ -4124,6 +4136,8 @@
 				C5A784DC15C950A600370829 /* PCGridView.h in Headers */,
 				C5A784DF15C950A600370829 /* PCGridViewCell.h in Headers */,
 				C5A784E215C950A600370829 /* PCGridViewIndex.h in Headers */,
+				AB2334A115CF75FA006651DD /* ImageCache.h in Headers */,
+				AB2334A615CF8B56006651DD /* UIImage+ImmediateLoading.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4598,6 +4612,8 @@
 				C5A784DD15C950A600370829 /* PCGridView.m in Sources */,
 				C5A784E015C950A600370829 /* PCGridViewCell.m in Sources */,
 				C5A784E315C950A600370829 /* PCGridViewIndex.m in Sources */,
+				AB2334A215CF75FA006651DD /* ImageCache.m in Sources */,
+				AB2334A715CF8B56006651DD /* UIImage+ImmediateLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

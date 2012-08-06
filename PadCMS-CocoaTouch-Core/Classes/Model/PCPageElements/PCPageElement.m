@@ -74,6 +74,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
     if (self = [super init])
     {
         size = CGSizeZero;
+		realSize = CGSizeZero;
         identifier = -1;
         fieldTypeName = nil;
         resource = nil;
@@ -153,5 +154,44 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
   });
   
 }
+
+-(NSString *)fullPathToContent
+{
+	return [self.page.revision.contentDirectory stringByAppendingPathComponent:self.resource];
+}
+
+-(CGSize)realImageSize
+{
+	if (CGSizeEqualToSize(realSize, CGSizeZero))
+	{
+		NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
+		CGFloat height = [[information objectForKey:@"height"] floatValue];
+		CGFloat width = [[information objectForKey:@"width"] floatValue];
+		realSize = CGSizeMake(width, height); 
+	}
+	
+	return realSize;
+}
+
+-(NSUInteger)tileIndexForResource:(NSString *)aResource
+{
+	//example: aResource = @"resource_1_2"
+
+	//NSString* name = [[aResource stringByDeletingPathExtension] lastPathComponent];
+	NSInteger maxColumn = ceilf(self.realImageSize.width / 256.0f);
+	NSArray* stringComponents = [aResource componentsSeparatedByString:@"_"];
+	NSInteger row = [[stringComponents objectAtIndex:1] integerValue];
+	NSInteger column = [[stringComponents objectAtIndex:2] integerValue];
+	return (row - 1) * maxColumn + column;
+}
+
+- (NSString *)resourcePathForTileIndex:(NSUInteger)index
+{
+	NSInteger maxColumn = ceilf(self.realImageSize.width / 256.0f);
+	NSInteger row = ceilf((index - 1) / maxColumn) + 1;
+	NSInteger column = index%maxColumn?index%maxColumn:maxColumn;
+	return [NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row, column]; 
+}
+
 
 @end

@@ -29,7 +29,7 @@
 
 #import "JCTiledLayer.h"
 
-static const CFTimeInterval kDefaultFadeDuration = 0.08;
+static const CFTimeInterval kDefaultFadeDuration = 0.00;
 
 @implementation JCTiledLayer
 
