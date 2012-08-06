@@ -78,6 +78,7 @@ typedef enum _PCTocViewPosition {
 @synthesize backgroundView = _backgroundView;
 @synthesize button = _button;
 @synthesize gridView = _gridView;
+@synthesize delegate = _delegate;
 
 - (void)dealloc
 {
