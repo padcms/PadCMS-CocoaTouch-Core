@@ -305,8 +305,6 @@
                 break;
             }
         }
-        NSLog(@"errorLog - %@", self.moviePlayer.accessLog);
-
         [self stopPlayingVideo];
         return;
     }

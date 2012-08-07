@@ -99,8 +99,6 @@
     if (videoElement.resource)
     {
         NSURL *videoURL = [NSURL fileURLWithPath:[_page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource]];
-        NSLog(@"url - %@", videoURL);
-        NSLog(@"string - %@", [videoURL relativeString]);
         [[PCVideoManager sharedVideoManager] showVideo:[videoURL relativeString] inRect:videoRect];
     }
 }
