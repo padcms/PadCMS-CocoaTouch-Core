@@ -14,11 +14,11 @@
 @class PCBrowserViewController;
 @class MBProgressHUD;
 @class PCPageActiveZone;
-@interface AbstractBasePageViewController : UIViewController<UIGestureRecognizerDelegate>
+@class PCPageElementVideo;
+@interface AbstractBasePageViewController : UIViewController
 {
 	PCPage* _page;
 	float _scale;
-	UITapGestureRecognizer* tapGestureRecognizer;
 	PCBrowserViewController *webBrowserViewController;
 	MBProgressHUD* HUD;
 }
@@ -35,8 +35,6 @@
 - (void)showHUD;
 - (void)hideHUD;
 - (void)changeVideoLayout: (BOOL)isVideoEnabled;
-- (BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
-- (void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
 - (void)showFullscreenVideo:(UIView *)videoView;
 
 @end

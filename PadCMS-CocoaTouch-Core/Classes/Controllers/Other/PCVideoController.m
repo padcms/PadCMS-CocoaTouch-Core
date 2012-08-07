@@ -43,9 +43,6 @@
 @interface PCVideoController () 
 
 - (BOOL) isConnectionEstablished;
-- (void) fullScreenMovie:(NSNotification *) notification;
-- (void) pushVideoScreen:(NSNotification *) notification;
-- (void) startPlayingVideo;
 - (void) stopPlayingVideo;
 - (void) videoHasFinishedPlaying:(NSNotification *) paramNotification;
 - (void) videoHasChanged:(NSNotification *) paramNotification;
@@ -115,47 +112,6 @@
     return YES;
 }
 
-/*- (void) fullScreenMovie:(NSNotification*) notification
-{   
-	self.url = (NSURL *)notification.object;
-    
-    if (![[self.url absoluteString] hasPrefix:@"file://"] &&  ![self isConnectionEstablished] )
-    {
-        return;
-    }
-    
-    if ([[self.url absoluteString] hasPrefix:@"file://"])
-    {
-        NSString* videoPath = [self.url path];
-        BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:videoPath];
-        if (!fileExists)
-        {
-            NSRange pathRange = [videoPath rangeOfString:@"/element"];
-            videoPath = [videoPath substringFromIndex:pathRange.location];
-            videoPath = [[[PCConfig serverURLString] stringByAppendingString:@"/resources/none"] stringByAppendingString:videoPath];
-            self.url = [NSURL URLWithString:videoPath];
-        }
-    }
-    
-    [self startPlayingVideo];
-}
-
-- (void) pushVideoScreen:(NSNotification*) notification
-{
-	NSString* theURL = (NSString*)notification.object;
-    if (![theURL hasPrefix:@"file://"] &&  ![self isConnectionEstablished] )
-    {
-        return;
-    }	
-    
-	PCBrowserViewController* bvc = [[PCBrowserViewController alloc] initWithNibName:nil bundle:nil];
-	[bvc view];
-	[bvc presentURL:theURL];
-    
-//    [self.delegate videoControllerWillShow:bvc animated:YES];
-    
-	[bvc release];
-}*/
 
 - (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect
 {
@@ -203,54 +159,12 @@
         NSLog(@"Successfully instantiated the movie player.");
         
         [_moviePlayer play];
-        //[_moviePlayer setFullscreen:YES animated:YES];
-
     }
     else
     {
         NSLog(@"Failed to instantiate the movie player.");
     }
 }
-
-/*- (void) startPlayingVideo
-{
-    if (self.isVideoPlaying)
-    {
-        return;
-    }
-    
-    if (self.moviePlayer != nil)
-    {
-        [self stopPlayingVideo];
-    }
-    
-    MPMoviePlayerController *newMoviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:self.url];
-    self.moviePlayer = newMoviePlayer;
-    [newMoviePlayer release];
-    [self.moviePlayer prepareToPlay];
-    [self showHUD];
-    
-    if ([self.delegate respondsToSelector:@selector(videoControllerShow:)]) 
-    {
-        [self.delegate videoControllerShow:self];
-    }
-    
-    self.isVideoPlaying = YES;
-    
-    if (self.moviePlayer != nil)
-    {
-        
-        NSLog(@"Successfully instantiated the movie player.");
-
-        [self.moviePlayer play];
-        [self.moviePlayer setFullscreen:YES animated:YES];
-        [self.moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
-    }
-    else
-    {
-        NSLog(@"Failed to instantiate the movie player.");
-    }
-}*/
 
 - (void) stopPlayingVideo
 {

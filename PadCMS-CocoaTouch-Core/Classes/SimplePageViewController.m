@@ -11,6 +11,7 @@
 #import "PCPageElementBody.h"
 #import "PCPageElementVideo.h"
 #import "PCScrollView.h"
+#import "PCPageActiveZone.h"
 
 @interface SimplePageViewController ()
 
@@ -39,7 +40,14 @@
 {
 	if (!_page.isComplete) [self showHUD];
 	if (!_page.isComplete) return;
+    
+    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+	tapGestureRecognizer.cancelsTouchesInView = NO;
+	tapGestureRecognizer.delegate = self;
+    [self.view  addGestureRecognizer:tapGestureRecognizer];
+    
 	[self loadBackground];	
+
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_page firstElementForType:PCPageElementTypeBody];
     if (bodyElement != nil)
     {
@@ -96,7 +104,7 @@
     }
     
     ((PCVideoManager *)[PCVideoManager sharedVideoManager]).delegate = self;
-    
+
     if (videoElement.stream)
         [[PCVideoManager sharedVideoManager] showVideo:videoElement.stream inRect:videoRect];
     
@@ -106,6 +114,43 @@
         [[PCVideoManager sharedVideoManager] showVideo:[videoURL relativeString] inRect:videoRect];
     }
 }
+
+-(BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone
+{
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneNavigation])
+    {
+        NSString* mashinName = [activeZone.URL lastPathComponent];
+        NSArray* components = [mashinName componentsSeparatedByString:@"#"];
+        NSString* addeditional = nil;
+        if ([components count] > 1)
+        {
+            mashinName = [components objectAtIndex:0];
+            addeditional = [components objectAtIndex:1];
+        }
+        
+		PCPage* targetPage = [_page.revision pageWithMachineName:mashinName];
+        [self.delegate gotoPage:targetPage];
+        return YES;
+    }
+    //if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]||[activeZone.URL hasPrefix:PCPDFActiveZoneVideo])
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]) //|| [activeZone.URL hasPrefix:@"http://"])
+    {
+        PCPageElementVideo* video = (PCPageElementVideo *)[self.page firstElementForType:PCPageElementTypeVideo];
+        [self showVideo:video];
+        return YES;
+    }
+    if ([activeZone.URL hasPrefix:@"http://"])
+    {
+        if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:activeZone.URL]])
+        {
+            NSLog(@"Failed to open url:%@",[activeZone.URL description]);
+        }
+        return YES;
+    }
+  
+    return NO;
+}
+
 
 #pragma mark PCVideoManagerDelegate methods
 
@@ -135,6 +180,41 @@
 - (void)videoControllerWillDismiss
 {
     
+}
+
+#pragma mark UIGestureRecognizerDelegate methods
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
+	
+	if (([touch.view isKindOfClass:[UIButton class]]) &&
+		(gestureRecognizer == tapGestureRecognizer)) {
+		return NO;
+	}
+	return YES;
+}
+
+-(void)tapAction:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.view];
+    NSArray* actions = [self activeZonesAtPoint:point];
+    for (PCPageActiveZone* action in actions)
+        if ([self pdfActiveZoneAction:action])
+            break;
+    if (actions.count == 0)
+    {
+        //      [self.delegate tapAction:gestureRecognizer];
+    }
+}
+
+- (BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    CGPoint point = [gestureRecognizer locationInView:self.view];
+    NSArray* actions = [self activeZonesAtPoint:point];
+    if (actions&&[actions count]>0)
+        return YES;
+    //   [self.delegate tapAction:gestureRecognizer];
+    
+    return NO;
 }
 
 @end

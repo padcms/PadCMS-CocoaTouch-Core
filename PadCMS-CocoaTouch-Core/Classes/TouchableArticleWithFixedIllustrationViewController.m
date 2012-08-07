@@ -86,7 +86,6 @@
     
     else if (self.bodyViewController.elementView.hidden && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionButton])
     {
-        //[self.articleView setScrollEnabled:self.bodyViewController.elementView.hidden];
         [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
         [self changeVideoLayout:self.bodyViewController.elementView.hidden];
     }
@@ -102,7 +101,6 @@
     [super pdfActiveZoneAction:activeZone];
     if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
     {
-        //[self.articleView setScrollEnabled:self.bodyViewController.elementView.hidden];
         [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
         [self changeVideoLayout:self.bodyViewController.elementView.hidden];
         return YES;
