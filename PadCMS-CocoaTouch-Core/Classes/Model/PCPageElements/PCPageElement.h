@@ -53,6 +53,7 @@ PADCMS_EXTERN NSString * const PCGalleryElementDidDownloadNotification;
     NSString* contentText;
     NSDictionary* dataRects;
     CGSize size;
+	CGSize realSize;
     NSMutableArray* activeZones;
 }
 
@@ -83,5 +84,13 @@ PADCMS_EXTERN NSString * const PCGalleryElementDidDownloadNotification;
  @param elementType - specific type of element
  */
 - (CGRect)rectForElementType:(NSString*)elementType;
+
+- (NSString *)fullPathToContent;
+
+- (CGSize)realImageSize;
+
+- (NSUInteger)tileIndexForResource:(NSString*)resource;
+
+- (NSString*)resourcePathForTileIndex:(NSUInteger)index;
 
 @end

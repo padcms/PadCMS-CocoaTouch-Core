@@ -144,7 +144,7 @@
         if (![self isDisplayingImageForIndex:index]) {
 			PCPageElement* galleryElement = [self.galleryElements objectAtIndex:index];
 			PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:galleryElement andFrame:CGRectOffset(self.view.bounds, _galleryScrollView.bounds.size.width * index, 0.0f)];
-			if (_isHorizontal)
+		/*	if (_isHorizontal)
 			{
 				CGAffineTransform transform = CGAffineTransformMakeRotation(3.14159/2);
 				CGRect frame = CGRectMake(_galleryScrollView.bounds.size.width * index, 0.0f, self.view.bounds.size.width, self.view.bounds.size.height);
@@ -156,7 +156,7 @@
 				//	elementController.elementView.tiledView.frame = self.view.bounds;
 				//	elementController.elementView.backgroundColor = [UIColor greenColor];
 				//NSLog(@"FRAME - main %@, scrol - %@, tile - %@", NSStringFromCGSize(elementController.elementView.scrollView.contentSize), NSStringFromCGRect(elementController.elementView.scrollView.frame),NSStringFromCGRect([elementController.elementView.tiledView frame]));
-			}
+			}*/
 			
 			NSArray* popups = [[galleryElement.dataRects allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[c] %@",PCPDFActiveZonePopup]];
 			for (NSString* type in popups) {

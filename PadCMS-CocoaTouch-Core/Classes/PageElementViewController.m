@@ -10,6 +10,9 @@
 #import "PCPage.h"
 #import "PCPageElement.h"
 #import "PCScrollView.h"
+#import "UIImage+Resize.h"
+#import "ImageCache.h"
+#import "JCTiledView.h"
 
 @interface PageElementViewController ()
 @property (readonly) float scale;
@@ -72,10 +75,10 @@
 	{
 		if (!self.element.isComplete) return nil;
 		CGRect elementView_frame = _elementFrame;
-		NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
+		/*NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
 		CGFloat height = [[information objectForKey:@"height"] floatValue];
-		CGFloat width = [[information objectForKey:@"width"] floatValue];
-		CGSize scrollContentSize = CGSizeMake(width, height); 
+		CGFloat width = [[information objectForKey:@"width"] floatValue];*/
+		CGSize scrollContentSize = [self.element realImageSize]; 
 		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
 		_elementView.dataSource = self;
 		
@@ -85,6 +88,15 @@
 		_elementView.levelsOfZoom = 1;
 		_elementView.levelsOfDetail = 2;
 		_elementView.scrollView.maximumZoomScale = 1.0;
+	/*	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+			UIImage* image = [[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/BQresource.png", [self.fullPathToContent stringByDeletingLastPathComponent]]] resizedImage:scrollContentSize interpolationQuality:kCGInterpolationLow];
+			
+			dispatch_async(dispatch_get_main_queue(), ^{
+				_elementView.scrollView.backgroundColor = [UIColor colorWithPatternImage:image];
+			});
+			
+
+		});*/
 	}
 	return _elementView;
 }
@@ -95,9 +107,47 @@
 
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale
 {
-	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@_%d_%d.png", [self.fullPathToContent stringByDeletingPathExtension], row + 1, column + 1]];
+/*	ImageCache* cache = [ImageCache sharedImageCache];
+	NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
+	//UIImage* goodQualityImage = [cache.elementCache valueForKeyPath: [NSString stringWithFormat:@"%d.%d", _element.identifier, index]];
+	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	if (goodQualityImage)
+	{
+		return goodQualityImage;
+
+	}	
+	UIImage* badQualityimage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/BQresource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+		
+		[cache storeTileForElement:_element withIndex:index];
+		dispatch_async(dispatch_get_main_queue(), ^{
+			[self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
+		});
+	});
+	return badQualityimage;*/
+	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
 	return image;
+	
+/*	ImageCache* cache = [ImageCache sharedImageCache];
+	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
+	 UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	 if (goodQualityImage)
+	 {
+	 return goodQualityImage;
+	 
+	 }	
+	 
+	 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+	 
+	 [cache storeTileForElement:_element withIndex:index];
+	 dispatch_async(dispatch_get_main_queue(), ^{
+	 [self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
+	 });
+	 });
+	 return nil;*/
+	
 }
+
 
 
 

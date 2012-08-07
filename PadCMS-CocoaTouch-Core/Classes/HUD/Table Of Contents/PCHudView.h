@@ -76,7 +76,7 @@
  @param tocView - PCGridView instance to set cell size.
  @result the size for cells in grid view.
  */ 
-- (CGSize)hudView:(PCHudView *)hudView itemSizeInTOC:(PCGridView *)tocView;
+- (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView;
 
 /**
  @brief Asks the data source for image for given index.
@@ -90,7 +90,7 @@
  @param hudView - the PCHUDView object requesting this information.
  @result the number of table of content items.
  */ 
-- (NSUInteger)hudViewTOCItemsCount:(PCHudView *)hudView;
+- (NSUInteger)hudViewTocItemsCount:(PCHudView *)hudView;
 
 @end 
 
@@ -98,7 +98,7 @@
 /**
  @brief PCGridView cell for displaying table of contents element.
  */ 
-@interface PCHudView : UIView <MFGridViewDelegate, MFGridViewDataSource, PCTocViewDelegate>
+@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, PCTocViewDelegate>
 
 /**
  @brief The object that acts as the delegate of the receiving HUD view.

@@ -5,14 +5,14 @@
 @class PCGridViewCell;
 @class PCGridViewIndex;
 
-@protocol MFGridViewDelegate <UIScrollViewDelegate>
+@protocol PCGridViewDelegate <UIScrollViewDelegate>
 @optional
 - (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index;
 
 @end
 
 
-@protocol MFGridViewDataSource <NSObject>
+@protocol PCGridViewDataSource <NSObject>
 
 - (NSUInteger)gridViewNumberOfRows:(PCGridView *)gridView;
 - (NSUInteger)gridViewNumberOfColumns:(PCGridView *)gridView;
@@ -24,8 +24,8 @@
 
 @interface PCGridView : UIScrollView
 
-@property (assign, nonatomic) id<MFGridViewDelegate> delegate;
-@property (assign, nonatomic) id<MFGridViewDataSource> dataSource;
+@property (assign, nonatomic) id<PCGridViewDelegate> delegate;
+@property (assign, nonatomic) id<PCGridViewDataSource> dataSource;
 
 - (void)reloadData;
 - (PCGridViewCell *)dequeueReusableCell;

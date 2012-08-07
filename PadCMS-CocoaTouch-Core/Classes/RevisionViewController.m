@@ -17,7 +17,6 @@
 #import "PCResourceCache.h"
 #import "PCScrollView.h"
 #import "PCTocView.h"
-#import "PCTopBarView.h"
 #import "PCVideoManager.h"
 
 @interface RevisionViewController ()
@@ -30,10 +29,12 @@
 - (void)tapGesture:(UIGestureRecognizer *)recognizer;
 - (void)verticalTocDownloaded:(NSNotification *)notification;
 - (void)horizontalTocDownloaded:(NSNotification *)notification;
+- (void)dismiss;
 
 @end
 
 @implementation RevisionViewController
+@synthesize delegate;
 @synthesize revision = _revision;
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
@@ -89,6 +90,7 @@
     _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _hudView.dataSource = self;
     _hudView.delegate = self;
+    _hudView.topBarView.delegate = self;
     [_hudView reloadData];
     [self.view addSubview:_hudView];
     
@@ -423,7 +425,7 @@
 
 #pragma mark - PCHudViewDataSource
 
-- (CGSize)hudView:(PCHudView *)hudView itemSizeInTOC:(PCGridView *)tocView
+- (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView
 {
     if (tocView == hudView.topTocView.gridView) {
         return CGSizeMake(150, self.view.bounds.size.height / 2);
@@ -444,7 +446,8 @@
     
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
-        [_revision interfaceOrientationAvailable:currentOrientation]) {
+        [_revision supportsInterfaceOrientation:currentOrientation] &&
+        _revision.horizontalMode) {
         tocItem = [_revision.validHorizontalTocItems objectAtIndex:index];
     } else {
         tocItem = [_revision.validVerticalTocItems objectAtIndex:index];
@@ -464,11 +467,12 @@
     return image;
 }
 
-- (NSUInteger)hudViewTOCItemsCount:(PCHudView *)hudView
+- (NSUInteger)hudViewTocItemsCount:(PCHudView *)hudView
 {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
-        [_revision interfaceOrientationAvailable:currentOrientation]) {
+        [_revision supportsInterfaceOrientation:currentOrientation] &&
+        _revision.horizontalMode) {
         if (_revision.horizontalTocLoaded) {
             return _revision.validHorizontalTocItems.count;
         }
@@ -487,7 +491,8 @@
 {
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
-        [_revision interfaceOrientationAvailable:currentOrientation]) {
+        [_revision supportsInterfaceOrientation:currentOrientation] &&
+        _revision.horizontalMode) {
         
         if (index >= [self.revision.horizontalPages count]) {
             return;
@@ -520,6 +525,43 @@
 - (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
 {
     
+}
+
+#pragma makr - PCTopBarViewDelegate
+
+- (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
+{
+//    [self.navigationController popViewControllerAnimated:NO];
+    [self dismiss];
+}
+
+- (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
+{
+}
+
+- (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
+{
+}
+
+- (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button
+{
+}
+
+- (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button
+{
+}
+
+- (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
+{
+    NSLog(@"search: %@", searchText);
+}
+
+#pragma mark - delegate methods
+- (void)dismiss
+{
+    if ([self.delegate respondsToSelector:@selector(revisionViewControllerDidDismiss:)]) {
+        [self.delegate revisionViewControllerDidDismiss:self];
+    }
 }
 
 @end

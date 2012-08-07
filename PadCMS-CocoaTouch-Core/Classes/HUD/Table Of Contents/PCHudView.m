@@ -246,8 +246,8 @@ NSString *EnabledKey = @"Enabled";
 
 - (CGSize)topItemSize
 {
-    if ([self.dataSource respondsToSelector:@selector(hudView:itemSizeInTOC:)]) {
-        return [self.dataSource hudView:self itemSizeInTOC:_topTocView.gridView];
+    if ([self.dataSource respondsToSelector:@selector(hudView:itemSizeInToc:)]) {
+        return [self.dataSource hudView:self itemSizeInToc:_topTocView.gridView];
     }
 
     return CGSizeZero;
@@ -255,8 +255,8 @@ NSString *EnabledKey = @"Enabled";
 
 - (CGSize)bottomItemSize
 {
-    if ([self.dataSource respondsToSelector:@selector(hudView:itemSizeInTOC:)]) {
-        return [self.dataSource hudView:self itemSizeInTOC:_bottomTocView.gridView];
+    if ([self.dataSource respondsToSelector:@selector(hudView:itemSizeInToc:)]) {
+        return [self.dataSource hudView:self itemSizeInToc:_bottomTocView.gridView];
     }
     
     return CGSizeZero;
@@ -273,8 +273,8 @@ NSString *EnabledKey = @"Enabled";
 
 - (NSUInteger)itemsCount
 {
-    if ([self.dataSource respondsToSelector:@selector(hudViewTOCItemsCount:)]) {
-        return [self.dataSource hudViewTOCItemsCount:self];
+    if ([self.dataSource respondsToSelector:@selector(hudViewTocItemsCount:)]) {
+        return [self.dataSource hudViewTocItemsCount:self];
     }
     
     return 0;

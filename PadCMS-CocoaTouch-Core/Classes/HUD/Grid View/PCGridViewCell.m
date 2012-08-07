@@ -14,15 +14,11 @@ static NSUInteger GridViewCellInstanceCount = 0;
 
 @implementation PCGridViewCell
 @synthesize index = _index;
-@synthesize instanceIndex = _instanceIndex;
 
 - (void)dealloc
 {
     --GridViewCellInstanceCount;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:@"GridViewCellInstanceCountChanged" 
-                                                        object:[NSNumber numberWithUnsignedInteger:GridViewCellInstanceCount]];
-
     [_index release];
     [super dealloc];
 }
@@ -35,13 +31,15 @@ static NSUInteger GridViewCellInstanceCount = 0;
         _instanceIndex = GridViewCellInstanceCount;
         ++GridViewCellInstanceCount;
 
-        [[NSNotificationCenter defaultCenter] postNotificationName:@"GridViewCellInstanceCountChanged" 
-                                                            object:[NSNumber numberWithUnsignedInteger:GridViewCellInstanceCount]];
-        
         _index = nil;
     }
 
     return self;
+}
+
++ (NSUInteger)instanceCount
+{
+    return GridViewCellInstanceCount;
 }
 
 @end

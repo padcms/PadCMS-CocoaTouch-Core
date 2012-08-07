@@ -1051,10 +1051,16 @@
 		AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22134715BE2F76001F355A /* SlideshowViewController.m */; };
 		AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
 		AB22136215BE4947001F355A /* HTMLPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22136015BE4945001F355A /* HTMLPageViewController.m */; };
+		AB2334A115CF75FA006651DD /* ImageCache.h in Headers */ = {isa = PBXBuildFile; fileRef = AB23349F15CF75FA006651DD /* ImageCache.h */; };
+		AB2334A215CF75FA006651DD /* ImageCache.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2334A015CF75FA006651DD /* ImageCache.m */; };
+		AB2334A615CF8B56006651DD /* UIImage+ImmediateLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */; };
+		AB2334A715CF8B56006651DD /* UIImage+ImmediateLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */; };
 		AB32070F15927C5A0076361B /* PCStoreController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; settings = {ATTRIBUTES = (); }; };
 		AB32071015927C5A0076361B /* PCStoreController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB32070E15927C5A0076361B /* PCStoreController.m */; };
 		AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB32070D15927C5A0076361B /* PCStoreController.h */; };
 		AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */; };
+		AB566FDE15C2BF4E00089673 /* UIImage+Resize.m in Sources */ = {isa = PBXBuildFile; fileRef = AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */; };
+		AB566FDF15C2BF4E00089673 /* UIImage+Resize.h in Headers */ = {isa = PBXBuildFile; fileRef = AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */; };
 		AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB61EE2D15B858710031496A /* GalleryViewController.h */; };
 		AB61EE3015B858710031496A /* GalleryViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB61EE2E15B858710031496A /* GalleryViewController.m */; };
 		AB8137A315C07C48002FC0E4 /* Page3DViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB8137A115C07C48002FC0E4 /* Page3DViewController.h */; };
@@ -1107,10 +1113,6 @@
 		C50E49A115AEAA4800222413 /* test-resource.png in Resources */ = {isa = PBXBuildFile; fileRef = C50E49A015AEAA4800222413 /* test-resource.png */; };
 		C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */; };
 		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
-		C524004F15BE7BD10064612D /* PCGridView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083815BE74EF009E6F0B /* PCGridView.h */; };
-		C524005015BE7BD10064612D /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083A15BE74EF009E6F0B /* PCGridViewCell.h */; };
-		C524005115BE7BD10064612D /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5E3083C15BE74EF009E6F0B /* PCGridViewIndex.h */; };
-		C51D595815AD5CAB001EEE0A /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
 		C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5457EE615C280B500439BB5 /* PCTopBarView.m */; };
 		C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */; };
@@ -1120,6 +1122,26 @@
 		C55A914515C69066002020DB /* PCTocViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A914415C69066002020DB /* PCTocViewTest.m */; };
 		C55A914615C691AB002020DB /* PCTocView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A913F15C68BD3002020DB /* PCTocView.m */; };
 		C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C55A913E15C68BD3002020DB /* PCTocView.h */; };
+		C5792DEE15D1170300716781 /* RevisionViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0A0E7815A4278E00B9758C /* RevisionViewController.h */; };
+		C5792DF015D1172300716781 /* ImageCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB23349F15CF75FA006651DD /* ImageCache.h */; };
+		C5792DF115D1172C00716781 /* GalleryViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB61EE2D15B858710031496A /* GalleryViewController.h */; };
+		C5792DF215D1173800716781 /* UIImage+ImmediateLoading.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */; };
+		C5792DF315D1173A00716781 /* EasyTableView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E24515AAAA7900B06A38 /* EasyTableView.h */; };
+		C5792DF415D1173B00716781 /* JCTiledScrollView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
+		C5792DF515D1173C00716781 /* JCTiledView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D815A9C42100B06A38 /* JCTiledView.h */; };
+		C5792DF615D1173E00716781 /* JCTiledLayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */; };
+		C5792DF715D1174200716781 /* BasicArticleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
+		C5792DF815D1174400716781 /* SimplePageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */; };
+		C5792DF915D1174700716781 /* AbstractBasePageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */; };
+		C5792DFA15D1174800716781 /* ScrollingPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21D15AA611A00B06A38 /* ScrollingPageViewController.h */; };
+		C5792DFB15D1174A00716781 /* TouchableArticleWithFixedIllustrationViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E22515AA7F3F00B06A38 /* TouchableArticleWithFixedIllustrationViewController.h */; };
+		C5792DFC15D1174B00716781 /* SliderBasedMiniArticleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */; };
+		C5792DFD15D1174D00716781 /* InteractivesBulletsViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABCBAF3815AE256A0022893B /* InteractivesBulletsViewController.h */; };
+		C5792DFE15D1175100716781 /* PageElementViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABCBAF3C15AF61840022893B /* PageElementViewController.h */; };
+		C5792DFF15D1175200716781 /* SlideshowViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB22134615BE2F75001F355A /* SlideshowViewController.h */; };
+		C5792E0015D1175400716781 /* HTMLPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
+		C5792E0115D1175500716781 /* Page3DViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB8137A115C07C48002FC0E4 /* Page3DViewController.h */; };
+		C5792E0215D1176C00716781 /* PCTopBarView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */; };
 		C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */; };
 		C58C16A115B3FE7400665295 /* PCHudView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHudView.h */; };
@@ -1138,6 +1160,7 @@
 		C5A784E615C9522F00370829 /* PCGridView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5A784D615C950A600370829 /* PCGridView.h */; };
 		C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5A784D815C950A600370829 /* PCGridViewCell.h */; };
 		C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5A784DA15C950A600370829 /* PCGridViewIndex.h */; };
+		C5CC2F5F15CBB4E8004DF863 /* PCGridViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
 /* End PBXBuildFile section */
 
@@ -1150,17 +1173,36 @@
 			files = (
 				84127DA915C190A1007BDCE7 /* PCVideoManager.h in CopyFiles */,
 				84D5E39615BE811A00BEF5D6 /* PCSubscriptionsMenuViewController.h in CopyFiles */,
+				C5792DF015D1172300716781 /* ImageCache.h in CopyFiles */,
+				C5792DEE15D1170300716781 /* RevisionViewController.h in CopyFiles */,
+				C5792DF415D1173B00716781 /* JCTiledScrollView.h in CopyFiles */,
+				C5792DF515D1173C00716781 /* JCTiledView.h in CopyFiles */,
 				AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */,
 				AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */,
-				C524004F15BE7BD10064612D /* PCGridView.h in CopyFiles */,
-				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
+				C5792DF315D1173A00716781 /* EasyTableView.h in CopyFiles */,
+				C5792DF115D1172C00716781 /* GalleryViewController.h in CopyFiles */,
+				C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */,
 				C5A784E615C9522F00370829 /* PCGridView.h in CopyFiles */,
-				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
+				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
+				C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */,
+				C5792DF615D1173E00716781 /* JCTiledLayer.h in CopyFiles */,
+				C5792E0215D1176C00716781 /* PCTopBarView.h in CopyFiles */,
+				C5792DF715D1174200716781 /* BasicArticleViewController.h in CopyFiles */,
+				C5792DF815D1174400716781 /* SimplePageViewController.h in CopyFiles */,
 				C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */,
 				C58C16A715B3FFD600665295 /* PCHudView.h in CopyFiles */,
-				840A2B8115B58C7600B0B641 /* PCSubscriptionsMenuView.h in CopyFiles */,
+				C5792DF215D1173800716781 /* UIImage+ImmediateLoading.h in CopyFiles */,
+				C5792DF915D1174700716781 /* AbstractBasePageViewController.h in CopyFiles */,
+				C5792DFA15D1174800716781 /* ScrollingPageViewController.h in CopyFiles */,
+				C5792DFB15D1174A00716781 /* TouchableArticleWithFixedIllustrationViewController.h in CopyFiles */,
+				C5792DFC15D1174B00716781 /* SliderBasedMiniArticleViewController.h in CopyFiles */,
+				C5792DFE15D1175100716781 /* PageElementViewController.h in CopyFiles */,
+				C5792DFD15D1174D00716781 /* InteractivesBulletsViewController.h in CopyFiles */,
+				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
+				C5792DFF15D1175200716781 /* SlideshowViewController.h in CopyFiles */,
+				C5792E0015D1175400716781 /* HTMLPageViewController.h in CopyFiles */,
+				C5792E0115D1175500716781 /* Page3DViewController.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
-				C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
 				60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */,
 				60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */,
@@ -1177,7 +1219,6 @@
 				607F461E1589EAF70097D960 /* PCHorizontalPageController.h in CopyFiles */,
 				607F461F1589EAF70097D960 /* PCHorizontalScrollingPageViewController.h in CopyFiles */,
 				607F46211589EAF70097D960 /* PCHTMLPageViewController.h in CopyFiles */,
-				C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */,
 				607F46221589EAF70097D960 /* PCInteractiveBulletWithFlash.h in CopyFiles */,
 				607F46231589EAF70097D960 /* PCLandscapeViewController.h in CopyFiles */,
 				607F46241589EAF70097D960 /* PCLanscapeSladeshowColumnViewController.h in CopyFiles */,
@@ -2226,14 +2267,20 @@
 		84D5E39115BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuViewController.h; sourceTree = "<group>"; };
 		84D5E39215BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSubscriptionsMenuViewController.m; sourceTree = "<group>"; };
 		AB0A0E7815A4278E00B9758C /* RevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisionViewController.h; sourceTree = "<group>"; };
-		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = RevisionViewController.m; sourceTree = "<group>"; };
+		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RevisionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
 		AB22134615BE2F75001F355A /* SlideshowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideshowViewController.h; sourceTree = "<group>"; };
 		AB22134715BE2F76001F355A /* SlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideshowViewController.m; sourceTree = "<group>"; };
 		AB22135F15BE4945001F355A /* HTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPageViewController.h; sourceTree = "<group>"; };
 		AB22136015BE4945001F355A /* HTMLPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTMLPageViewController.m; sourceTree = "<group>"; };
+		AB23349F15CF75FA006651DD /* ImageCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageCache.h; sourceTree = "<group>"; };
+		AB2334A015CF75FA006651DD /* ImageCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageCache.m; sourceTree = "<group>"; };
+		AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImmediateLoading.h"; sourceTree = "<group>"; };
+		AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImmediateLoading.m"; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
 		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
+		AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
+		AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
 		AB61EE2D15B858710031496A /* GalleryViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = GalleryViewController.h; sourceTree = "<group>"; };
 		AB61EE2E15B858710031496A /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		AB8137A115C07C48002FC0E4 /* Page3DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page3DViewController.h; sourceTree = "<group>"; };
@@ -2296,6 +2343,7 @@
 		C5A784D915C950A600370829 /* PCGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewCell.m; sourceTree = "<group>"; };
 		C5A784DA15C950A600370829 /* PCGridViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewIndex.h; sourceTree = "<group>"; };
 		C5A784DB15C950A600370829 /* PCGridViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewIndex.m; sourceTree = "<group>"; };
+		C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewTest.m; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
 		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2510,6 +2558,8 @@
 		607F3EF11588CF820097D960 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
+				AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */,
+				AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */,
 				607F3EF21588CF820097D960 /* Helper.h */,
 				607F3EF31588CF820097D960 /* Helper.mm */,
 				607F3EF61588CF820097D960 /* PCConfig.h */,
@@ -3516,6 +3566,8 @@
 				ABC7E1D015A9C1D600B06A38 /* Templates */,
 				AB0A0E7815A4278E00B9758C /* RevisionViewController.h */,
 				AB0A0E7915A4278E00B9758C /* RevisionViewController.m */,
+				AB23349F15CF75FA006651DD /* ImageCache.h */,
+				AB2334A015CF75FA006651DD /* ImageCache.m */,
 				AB61EE2D15B858710031496A /* GalleryViewController.h */,
 				AB61EE2E15B858710031496A /* GalleryViewController.m */,
 			);
@@ -3614,6 +3666,8 @@
 		ABC7E1D515A9C3FF00B06A38 /* externals */ = {
 			isa = PBXGroup;
 			children = (
+				AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */,
+				AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */,
 				ABC7E24515AAAA7900B06A38 /* EasyTableView.h */,
 				ABC7E24615AAAA7B00B06A38 /* EasyTableView.m */,
 				ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */,
@@ -3647,6 +3701,7 @@
 				C50E499B15AEA43200222413 /* PCResourceViewTest.m */,
 				C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */,
 				C55A914415C69066002020DB /* PCTocViewTest.m */,
+				C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */,
 			);
 			path = "PadCMS-CocoaTouch-Core-Tests";
 			sourceTree = "<group>";
@@ -4102,7 +4157,7 @@
 				C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */,
 				ABCBAF3A15AE256C0022893B /* InteractivesBulletsViewController.h in Headers */,
 				ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */,
-				C58C16A115B3FE7400665295 /* PCHUDView.h in Headers */,
+				C58C16A115B3FE7400665295 /* PCHudView.h in Headers */,
 				AB61EE2F15B858710031496A /* GalleryViewController.h in Headers */,
 				AB22134815BE2F77001F355A /* SlideshowViewController.h in Headers */,
 				AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */,
@@ -4111,14 +4166,16 @@
 				600ACDA415B6E9C900F0233C /* PCLocalizationManager.h in Headers */,
 				C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */,
 				84127DA715C18739007BDCE7 /* PCVideoManager.h in Headers */,
+				AB566FDF15C2BF4E00089673 /* UIImage+Resize.h in Headers */,
 				C58C16A115B3FE7400665295 /* PCHudView.h in Headers */,
-				840A2B6915B56BE000B0B641 /* PCSubscriptionsMenuView.h in Headers */,
 				C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */,
 				C55A914015C68BD4002020DB /* PCTocView.h in Headers */,
 				C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */,
 				C5A784DC15C950A600370829 /* PCGridView.h in Headers */,
 				C5A784DF15C950A600370829 /* PCGridViewCell.h in Headers */,
 				C5A784E215C950A600370829 /* PCGridViewIndex.h in Headers */,
+				AB2334A115CF75FA006651DD /* ImageCache.h in Headers */,
+				AB2334A615CF8B56006651DD /* UIImage+ImmediateLoading.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4585,14 +4642,16 @@
 				600ACDA515B6E9C900F0233C /* PCLocalizationManager.m in Sources */,
 				C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */,
 				84127DA815C18739007BDCE7 /* PCVideoManager.m in Sources */,
+				AB566FDE15C2BF4E00089673 /* UIImage+Resize.m in Sources */,
 				C58C16A215B3FE7400665295 /* PCHudView.m in Sources */,
-				840A2B6A15B56BE000B0B641 /* PCSubscriptionsMenuView.m in Sources */,
 				C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */,
 				C55A914115C68BD4002020DB /* PCTocView.m in Sources */,
 				C550057D15C8000B002A5F75 /* UIImage+CombinedImage.m in Sources */,
 				C5A784DD15C950A600370829 /* PCGridView.m in Sources */,
 				C5A784E015C950A600370829 /* PCGridViewCell.m in Sources */,
 				C5A784E315C950A600370829 /* PCGridViewIndex.m in Sources */,
+				AB2334A215CF75FA006651DD /* ImageCache.m in Sources */,
+				AB2334A715CF8B56006651DD /* UIImage+ImmediateLoading.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4617,6 +4676,7 @@
 				C5A784DE15C950A600370829 /* PCGridView.m in Sources */,
 				C5A784E115C950A600370829 /* PCGridViewCell.m in Sources */,
 				C5A784E415C950A600370829 /* PCGridViewIndex.m in Sources */,
+				C5CC2F5F15CBB4E8004DF863 /* PCGridViewTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -31,7 +31,7 @@
 #import "JCTiledLayer.h"
 #import "math.h"
 
-static const CGFloat kDefaultTileSize = 256.0f;
+//static const CGFloat kDefaultTileSize = 512.0f;
 
 @interface JCTiledView ()
 - (JCTiledLayer *)tiledLayer;
@@ -54,7 +54,7 @@ static const CGFloat kDefaultTileSize = 256.0f;
     CGSize scaledTileSize = CGSizeApplyAffineTransform(self.tileSize, CGAffineTransformMakeScale(self.contentScaleFactor, self.contentScaleFactor));
     self.tiledLayer.tileSize = scaledTileSize;
     self.tiledLayer.levelsOfDetail = 1;
-    self.numberOfZoomLevels = 3;
+	self.numberOfZoomLevels = 3;
 	self.backgroundColor = [UIColor clearColor];
   }
 
@@ -81,16 +81,18 @@ static const CGFloat kDefaultTileSize = 256.0f;
 
 - (void)setNumberOfZoomLevels:(size_t)levels
 {
-  self.tiledLayer.levelsOfDetailBias = levels;
+	self.tiledLayer.levelsOfDetailBias = 0;//levels;
 }
 
 - (void)drawRect:(CGRect)rect
 {
+	NSLog(@"CGRECT - %@", NSStringFromCGRect(rect));
   CGContextRef ctx = UIGraphicsGetCurrentContext();
-  CGFloat scale = CGContextGetCTM(ctx).a / self.tiledLayer.contentsScale;
+	CGFloat scale = [UIScreen mainScreen].scale;//CGContextGetCTM(ctx).a / self.tiledLayer.contentsScale;
 
   NSInteger col = (CGRectGetMinX(rect) * scale) / self.tileSize.width;
   NSInteger row = (CGRectGetMinY(rect) * scale) / self.tileSize.height;
+	NSLog(@"col - %d, row - %d, scale - %f, size - %@",col,row,scale, NSStringFromCGSize(self.tileSize));
 
   UIImage *tile_image = [(id<JCTiledBitmapViewDelegate>)self.delegate tiledView:self imageForRow:row column:col scale:scale];
   [tile_image drawInRect:rect];
