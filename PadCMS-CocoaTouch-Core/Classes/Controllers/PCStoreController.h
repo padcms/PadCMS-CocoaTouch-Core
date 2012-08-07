@@ -37,10 +37,11 @@
 #import "PCKioskDataSourceProtocol.h"
 #import "PCKioskViewControllerDelegateProtocol.h"
 #import "PCSearchViewController.h"
+#import "RevisionViewController.h"
 
 @class PCApplication;
 @protocol PCStoreControllerDelegate;
-@interface PCStoreController : NSObject <PCKioskDataSourceProtocol,PCKioskViewControllerDelegateProtocol, PCSearchViewControllerDelegate>
+@interface PCStoreController : NSObject <PCKioskDataSourceProtocol,PCKioskViewControllerDelegateProtocol, PCSearchViewControllerDelegate, RevisionViewControllerDelegate>
 
 @property (nonatomic, readonly, retain) UIViewController<PCStoreControllerDelegate>* rootViewController;
 //@property (nonatomic, readonly, retain) UINavigationController* navigationController;

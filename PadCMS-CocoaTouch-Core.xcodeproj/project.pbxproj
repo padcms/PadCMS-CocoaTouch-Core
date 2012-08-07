@@ -1113,7 +1113,6 @@
 		C50E49A115AEAA4800222413 /* test-resource.png in Resources */ = {isa = PBXBuildFile; fileRef = C50E49A015AEAA4800222413 /* test-resource.png */; };
 		C50E49A415AEE36A00222413 /* PCResourceCacheTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */; };
 		C51D595715AD5CAB001EEE0A /* PCResourceView.h in Headers */ = {isa = PBXBuildFile; fileRef = C51D595515AD5CAB001EEE0A /* PCResourceView.h */; };
-		C524004F15BE7BD10064612D /* (null) in CopyFiles */ = {isa = PBXBuildFile; };
 		C5457EE715C280B500439BB5 /* PCTopBarView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5457EE615C280B500439BB5 /* PCTopBarView.m */; };
 		C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */; };
@@ -1123,6 +1122,26 @@
 		C55A914515C69066002020DB /* PCTocViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A914415C69066002020DB /* PCTocViewTest.m */; };
 		C55A914615C691AB002020DB /* PCTocView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A913F15C68BD3002020DB /* PCTocView.m */; };
 		C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C55A913E15C68BD3002020DB /* PCTocView.h */; };
+		C5792DEE15D1170300716781 /* RevisionViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB0A0E7815A4278E00B9758C /* RevisionViewController.h */; };
+		C5792DF015D1172300716781 /* ImageCache.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB23349F15CF75FA006651DD /* ImageCache.h */; };
+		C5792DF115D1172C00716781 /* GalleryViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB61EE2D15B858710031496A /* GalleryViewController.h */; };
+		C5792DF215D1173800716781 /* UIImage+ImmediateLoading.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */; };
+		C5792DF315D1173A00716781 /* EasyTableView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E24515AAAA7900B06A38 /* EasyTableView.h */; };
+		C5792DF415D1173B00716781 /* JCTiledScrollView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
+		C5792DF515D1173C00716781 /* JCTiledView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D815A9C42100B06A38 /* JCTiledView.h */; };
+		C5792DF615D1173E00716781 /* JCTiledLayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */; };
+		C5792DF715D1174200716781 /* BasicArticleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
+		C5792DF815D1174400716781 /* SimplePageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */; };
+		C5792DF915D1174700716781 /* AbstractBasePageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */; };
+		C5792DFA15D1174800716781 /* ScrollingPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21D15AA611A00B06A38 /* ScrollingPageViewController.h */; };
+		C5792DFB15D1174A00716781 /* TouchableArticleWithFixedIllustrationViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E22515AA7F3F00B06A38 /* TouchableArticleWithFixedIllustrationViewController.h */; };
+		C5792DFC15D1174B00716781 /* SliderBasedMiniArticleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E23515AAA33C00B06A38 /* SliderBasedMiniArticleViewController.h */; };
+		C5792DFD15D1174D00716781 /* InteractivesBulletsViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABCBAF3815AE256A0022893B /* InteractivesBulletsViewController.h */; };
+		C5792DFE15D1175100716781 /* PageElementViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABCBAF3C15AF61840022893B /* PageElementViewController.h */; };
+		C5792DFF15D1175200716781 /* SlideshowViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB22134615BE2F75001F355A /* SlideshowViewController.h */; };
+		C5792E0015D1175400716781 /* HTMLPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
+		C5792E0115D1175500716781 /* Page3DViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = AB8137A115C07C48002FC0E4 /* Page3DViewController.h */; };
+		C5792E0215D1176C00716781 /* PCTopBarView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C58C169F15B3FE7400665295 /* PCTOCGridViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169B15B3FE7400665295 /* PCTOCGridViewCell.h */; };
 		C58C16A015B3FE7400665295 /* PCTOCGridViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169C15B3FE7400665295 /* PCTOCGridViewCell.m */; };
 		C58C16A115B3FE7400665295 /* PCHudView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHudView.h */; };
@@ -1154,16 +1173,36 @@
 			files = (
 				84127DA915C190A1007BDCE7 /* PCVideoManager.h in CopyFiles */,
 				84D5E39615BE811A00BEF5D6 /* PCSubscriptionsMenuViewController.h in CopyFiles */,
+				C5792DF015D1172300716781 /* ImageCache.h in CopyFiles */,
+				C5792DEE15D1170300716781 /* RevisionViewController.h in CopyFiles */,
+				C5792DF415D1173B00716781 /* JCTiledScrollView.h in CopyFiles */,
+				C5792DF515D1173C00716781 /* JCTiledView.h in CopyFiles */,
 				AB3207151592DD700076361B /* PCStoreControllerDelegate.h in CopyFiles */,
 				AB32071215927EB30076361B /* PCStoreController.h in CopyFiles */,
-				C524004F15BE7BD10064612D /* (null) in CopyFiles */,
-				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
+				C5792DF315D1173A00716781 /* EasyTableView.h in CopyFiles */,
+				C5792DF115D1172C00716781 /* GalleryViewController.h in CopyFiles */,
+				C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */,
 				C5A784E615C9522F00370829 /* PCGridView.h in CopyFiles */,
-				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
+				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
+				C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */,
+				C5792DF615D1173E00716781 /* JCTiledLayer.h in CopyFiles */,
+				C5792E0215D1176C00716781 /* PCTopBarView.h in CopyFiles */,
+				C5792DF715D1174200716781 /* BasicArticleViewController.h in CopyFiles */,
+				C5792DF815D1174400716781 /* SimplePageViewController.h in CopyFiles */,
 				C58C16A615B3FFD600665295 /* PCTOCGridViewCell.h in CopyFiles */,
 				C58C16A715B3FFD600665295 /* PCHudView.h in CopyFiles */,
+				C5792DF215D1173800716781 /* UIImage+ImmediateLoading.h in CopyFiles */,
+				C5792DF915D1174700716781 /* AbstractBasePageViewController.h in CopyFiles */,
+				C5792DFA15D1174800716781 /* ScrollingPageViewController.h in CopyFiles */,
+				C5792DFB15D1174A00716781 /* TouchableArticleWithFixedIllustrationViewController.h in CopyFiles */,
+				C5792DFC15D1174B00716781 /* SliderBasedMiniArticleViewController.h in CopyFiles */,
+				C5792DFE15D1175100716781 /* PageElementViewController.h in CopyFiles */,
+				C5792DFD15D1174D00716781 /* InteractivesBulletsViewController.h in CopyFiles */,
+				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
+				C5792DFF15D1175200716781 /* SlideshowViewController.h in CopyFiles */,
+				C5792E0015D1175400716781 /* HTMLPageViewController.h in CopyFiles */,
+				C5792E0115D1175500716781 /* Page3DViewController.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
-				C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
 				60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */,
 				60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */,
@@ -1180,7 +1219,6 @@
 				607F461E1589EAF70097D960 /* PCHorizontalPageController.h in CopyFiles */,
 				607F461F1589EAF70097D960 /* PCHorizontalScrollingPageViewController.h in CopyFiles */,
 				607F46211589EAF70097D960 /* PCHTMLPageViewController.h in CopyFiles */,
-				C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */,
 				607F46221589EAF70097D960 /* PCInteractiveBulletWithFlash.h in CopyFiles */,
 				607F46231589EAF70097D960 /* PCLandscapeViewController.h in CopyFiles */,
 				607F46241589EAF70097D960 /* PCLanscapeSladeshowColumnViewController.h in CopyFiles */,
