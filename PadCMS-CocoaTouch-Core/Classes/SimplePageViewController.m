@@ -88,7 +88,11 @@
     
     if (CGRectEqualToRect(videoRect, CGRectZero))
     {
-        videoRect = CGRectMake(0, 0, 1024, 768);
+        videoRect = self.view.frame;
+        if ((videoRect.size.width < videoRect.size.height) && (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])))
+        {
+            videoRect = CGRectMake(videoRect.origin.y, videoRect.origin.x, videoRect.size.height, videoRect.size.width);
+        }
     }
     
     ((PCVideoManager *)[PCVideoManager sharedVideoManager]).delegate = self;
@@ -116,7 +120,7 @@
         [self showFullscreenVideo:videoView];
         return;
     }
-    if (_backgroundViewController)
+    if (_backgroundViewController && !CGRectEqualToRect([_backgroundViewController.element rectForElementType:PCPageElementTypeVideo], CGRectZero))
     {
         [_backgroundViewController.elementView.scrollView addSubview:videoView];
         [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];

@@ -176,6 +176,19 @@
     _moviePlayer.view.autoresizingMask = UIViewContentModeScaleAspectFill;
 
     [self.moviePlayer prepareToPlay];
+    
+    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+    if (CGRectEqualToRect(videoRect, appRect) || 
+        (videoRect.size.width == appRect.size.height && videoRect.size.height == appRect.size.width)) 
+    {
+        [_moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
+    }
+    else
+    {
+        [_moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
+    }
+    
     [self showHUD];
 }
 
@@ -191,7 +204,7 @@
         
         [_moviePlayer play];
         //[_moviePlayer setFullscreen:YES animated:YES];
-        [_moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
+
     }
     else
     {
@@ -246,7 +259,6 @@
         _isVideoPlaying = NO;
         [self hideHUD];
         [_moviePlayer stop];
-        [_moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
         
         [_moviePlayer.view removeFromSuperview];
         [[UIApplication sharedApplication] setStatusBarHidden:YES];

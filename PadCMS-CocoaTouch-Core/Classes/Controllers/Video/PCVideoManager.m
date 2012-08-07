@@ -108,11 +108,13 @@
         BOOL fileExists = [[NSFileManager defaultManager] fileExistsAtPath:tempVideoURLString];
         if (!fileExists)
         {
-            NSRange pathRange = [videoPath rangeOfString:@"/element"];
-            videoPath = [videoPath substringFromIndex:pathRange.location];
-            videoPath = [[[PCConfig serverURLString] stringByAppendingString:@"/resources/none"] stringByAppendingString:videoPath];
+            NSRange pathRange = [tempVideoURLString rangeOfString:@"/element"];
+            tempVideoURLString = [tempVideoURLString substringFromIndex:pathRange.location];
+            tempVideoURLString = [[[PCConfig serverURLString] stringByAppendingString:@"/resources/none"] stringByAppendingString:tempVideoURLString];
+            [self showVideoController:[NSURL URLWithString:tempVideoURLString] inRect:videoFrame];
+            return;
         }
-        [self showVideoController:videoURL inRect:videoFrame];
+        [self showVideoController:[NSURL fileURLWithPath:tempVideoURLString] inRect:videoFrame];
         return;
     }
     

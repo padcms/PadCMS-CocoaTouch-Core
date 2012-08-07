@@ -55,7 +55,12 @@
 	_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 	_tapGestureRecognizer.cancelsTouchesInView = NO;
 	[self.view  addGestureRecognizer:_tapGestureRecognizer];
-	[self createVideoFrame];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self createVideoFrame];
 }
 
 -(void)tapAction:(id)sender
