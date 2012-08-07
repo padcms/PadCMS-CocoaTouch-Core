@@ -29,10 +29,12 @@
 - (void)tapGesture:(UIGestureRecognizer *)recognizer;
 - (void)verticalTocDownloaded:(NSNotification *)notification;
 - (void)horizontalTocDownloaded:(NSNotification *)notification;
+- (void)dismiss;
 
 @end
 
 @implementation RevisionViewController
+@synthesize delegate;
 @synthesize revision = _revision;
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
@@ -532,7 +534,8 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
 {
-    [self.navigationController popViewControllerAnimated:NO];
+//    [self.navigationController popViewControllerAnimated:NO];
+    [self dismiss];
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
@@ -556,5 +559,12 @@
     NSLog(@"search: %@", searchText);
 }
 
+#pragma mark - delegate methods
+- (void)dismiss
+{
+    if ([self.delegate respondsToSelector:@selector(revisionViewControllerDidDismiss:)]) {
+        [self.delegate revisionViewControllerDidDismiss:self];
+    }
+}
 
 @end

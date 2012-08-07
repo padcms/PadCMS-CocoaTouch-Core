@@ -49,7 +49,6 @@
 #import "PCDownloadApiClient.h"
 #import "PCRevisionViewController.h"
 #import "InAppPurchases.h"
-#import "RevisionViewController.h"
 #import "PCRemouteNotificationCenter.h"
 #import "PCGoogleAnalytics.h"
 
@@ -377,6 +376,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [[PCDownloadManager sharedManager] startDownloading];
     
       RevisionViewController *revisionController = [[RevisionViewController alloc] initWithRevision:currentRevision];
+    revisionController.delegate = self;
       [self.rootViewController.navigationController pushViewController:revisionController animated:NO];
       [revisionController release];
     
@@ -749,8 +749,11 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	//[[NSNotificationCenter defaultCenter] postNotificationName:reloadCellNotification object:nil];
 }
 
+#pragma mark - RevisionViewControllerDelegate
 
-
-
+- (void)revisionViewControllerDidDismiss:(RevisionViewController *)revisionViewController
+{
+  [self.rootViewController.navigationController popViewControllerAnimated:NO];
+}
 
 @end
