@@ -145,7 +145,7 @@
             
             _summaryButton = [[UIButton alloc] initWithFrame:CGRectMake(boundsSize.height + BarButtonOffset, 0, boundsSize.height, boundsSize.height)];
             
-            UIImage *summaryButtonImage = [UIImage imageNamed:[backButtonConfig objectForKey:TopBarViewSummaryButtonImage]];
+            UIImage *summaryButtonImage = [UIImage imageNamed:[summaryButtonConfig objectForKey:TopBarViewSummaryButtonImage]];
             if (summaryButtonImage != nil) {
                 [_summaryButton setImage:summaryButtonImage forState:UIControlStateNormal];
             } else {
