@@ -13,6 +13,7 @@
 #import "PCBrowserViewController.h"
 #import "PCVideoController.h"
 #import "MBProgressHUD.h"
+#import "PCVideoManager.h"
 
 @interface AbstractBasePageViewController ()
 
@@ -240,7 +241,7 @@
         [self.delegate gotoPage:targetPage];
     }
     //if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]||[activeZone.URL hasPrefix:PCPDFActiveZoneVideo])
-    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo])
+    /*if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo])
     {
         NSArray* videoElements = [self.page elementsForType:PCPageElementTypeVideo];
         PCPageElementVideo* video = nil;
@@ -303,12 +304,12 @@
                 NSLog(@"Failed to open url:%@",[activeZone.URL description]);
             }
         }
-    }
+    }*/
     return NO;
 }
 
 
-- (void) showVideo:(NSString *)resourcePath
+/*- (void) showVideo:(NSString *)resourcePath
 {      
     if (resourcePath == nil) return;
     
@@ -339,8 +340,12 @@
         if (videoURL)
             [[NSNotificationCenter defaultCenter] postNotificationName:PCVCFullScreenMovieNotification object:videoURL];
     }
-}
+}*/
 
+- (void) showFullscreenVideo:(UIView *)videoView
+{
+    [self.delegate showVideo:videoView];
+}
 
 -(void)showHUD
 {
@@ -387,10 +392,7 @@
 			[self hideHUD];
 			[self loadFullView];
 		}
-		
 	}
-	
-	
 }
 
 

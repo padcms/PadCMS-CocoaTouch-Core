@@ -34,7 +34,6 @@
 //
 
 #import "PCVideoController.h"
-//#import "Reachability.h"
 #import "PCConfig.h"
 #import "PCBrowserViewController.h"
 #import "PCDownloadApiClient.h"
@@ -76,8 +75,6 @@
         _HUD = nil;
         _isVideoPlaying = NO;
         
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(fullScreenMovie:) name:PCVCFullScreenMovieNotification object:nil];
-		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(pushVideoScreen:) name:PCVCPushVideoScreenNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoHasFinishedPlaying:) name:MPMoviePlayerPlaybackDidFinishNotification object:self.moviePlayer];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoHasChanged:) name:MPMoviePlayerLoadStateDidChangeNotification object:self.moviePlayer];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(videoHasExitedFullScreen:) name:MPMoviePlayerDidExitFullscreenNotification object:self.moviePlayer];
@@ -118,10 +115,9 @@
     return YES;
 }
 
-- (void) fullScreenMovie:(NSNotification*) notification
+/*- (void) fullScreenMovie:(NSNotification*) notification
 {   
 	self.url = (NSURL *)notification.object;
-	NSLog(@"url = %@", self.url);
     
     if (![[self.url absoluteString] hasPrefix:@"file://"] &&  ![self isConnectionEstablished] )
     {
@@ -159,10 +155,51 @@
 //    [self.delegate videoControllerWillShow:bvc animated:YES];
     
 	[bvc release];
+}*/
+
+- (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect
+{
+    NSLog(@"url - %@", videoURL);
+    if (_isVideoPlaying)
+    {
+        return;
+    }
+    
+    if (_moviePlayer != nil)
+    {
+        [self stopPlayingVideo];
+    }
+    
+    _moviePlayer = [[MPMoviePlayerController alloc] initWithContentURL:videoURL];
+    
+    _moviePlayer.view.frame = videoRect;
+    _moviePlayer.view.autoresizingMask = UIViewContentModeScaleAspectFill;
+
+    [self.moviePlayer prepareToPlay];
+    [self showHUD];
 }
 
+- (void) playVideo
+{
+    //[[UIApplication sharedApplication] setStatusBarHidden:NO];
+    
+    _isVideoPlaying = YES;
+    
+    if (_moviePlayer != nil)
+    {
+        NSLog(@"Successfully instantiated the movie player.");
+        
+        [_moviePlayer play];
+        //[_moviePlayer setFullscreen:YES animated:YES];
+        [_moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
+    }
+    else
+    {
+        NSLog(@"Failed to instantiate the movie player.");
+    }
+}
 
-- (void) startPlayingVideo
+/*- (void) startPlayingVideo
 {
     if (self.isVideoPlaying)
     {
@@ -200,44 +237,42 @@
     {
         NSLog(@"Failed to instantiate the movie player.");
     }
-}
+}*/
 
 - (void) stopPlayingVideo
 {
-    if (self.moviePlayer != nil)
+    if (_moviePlayer != nil)
     {
-        self.isVideoPlaying = NO;
+        _isVideoPlaying = NO;
         [self hideHUD];
-        [self.moviePlayer stop];
-        [self.moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
-
-        if ([self.delegate respondsToSelector:@selector(videoControllerHide:)]) 
-        {
-            [self.delegate videoControllerHide:self];
-        }
+        [_moviePlayer stop];
+        [_moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
+        
+        [_moviePlayer.view removeFromSuperview];
+        //[[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
 }
 
 -(void)showHUD
 {
-    if (!self.HUD)
+    if (!_HUD)
     {
-        self.HUD = [[MBProgressHUD alloc] initWithView:self.moviePlayer.view];
-        self.HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING" value:@"Loading"]; 
+        _HUD = [[MBProgressHUD alloc] initWithView:self.moviePlayer.view];
+        _HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING" value:@"Loading"]; 
     }
     
     [self.moviePlayer.view addSubview:self.HUD];
-    [self.HUD show:YES];
+    [_HUD show:YES];
 }
 
 -(void)hideHUD
 {
 	if (self.HUD)
 	{
-        [self.HUD hide:YES];
-		[self.HUD removeFromSuperview];
-		[self.HUD release];
-		self.HUD = nil;
+        [_HUD hide:YES];
+		[_HUD removeFromSuperview];
+		[_HUD release];
+		_HUD = nil;
 	}
 }
 
@@ -269,8 +304,9 @@
                 NSLog(@"MPMovieFinishReasonUserExited");
                 break;
             }
-            
         }
+        NSLog(@"errorLog - %@", self.moviePlayer.accessLog);
+
         [self stopPlayingVideo];
         return;
     }

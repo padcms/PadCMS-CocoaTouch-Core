@@ -314,13 +314,10 @@
     [self dismissVideo];
 }
 
-- (void)showVideo:(NSString *)videoURLString inRect:(CGRect)videoRect
+- (void)showVideo:(UIView *)videoView
 {
-    if (!_videoManager)
-    {
-        _videoManager = [[PCVideoManager alloc] init];
-    }
-    [_videoManager showVideo:videoURLString inRect:videoRect];
+    [self.view addSubview:videoView];
+    [self.view bringSubviewToFront:videoView];
 }
 
 - (void)showTopBar

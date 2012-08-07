@@ -8,8 +8,9 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractBasePageViewController.h"
+#import "PCVideoManager.h"
 
-@interface SimplePageViewController : AbstractBasePageViewController
+@interface SimplePageViewController : AbstractBasePageViewController <PCVideoManagerDelegate>
 {
 	PageElementViewController* _backgroundViewController;
 	PageElementViewController* _bodyViewController;
@@ -18,6 +19,7 @@
 @property (nonatomic, retain) PageElementViewController* backgroundViewController;
 @property (nonatomic, retain) PageElementViewController* bodyViewController;
 
+- (void)createVideoFrame;
+- (void)loadBackground;
 
--(void)loadBackground;
 @end

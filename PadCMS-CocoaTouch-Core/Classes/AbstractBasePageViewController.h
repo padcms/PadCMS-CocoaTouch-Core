@@ -37,6 +37,7 @@
 - (void)changeVideoLayout: (BOOL)isVideoEnabled;
 - (BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
 - (void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
+- (void)showFullscreenVideo:(UIView *)videoView;
 
 @end
 
@@ -44,6 +45,6 @@
 	
 - (void)showGallery;
 - (void)gotoPage:(PCPage*)page;
-- (void)showVideo:(NSString*)videoURLString inRect:(CGRect)videoRect;
+- (void)showVideo:(UIView *)videoView;
 
 @end

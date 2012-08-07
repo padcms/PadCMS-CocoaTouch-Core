@@ -9,8 +9,8 @@
 #import "SimplePageViewController.h"
 #import "PCPageElement.h"
 #import "PCPageElementBody.h"
-
-
+#import "PCPageElementVideo.h"
+#import "PCScrollView.h"
 
 @interface SimplePageViewController ()
 
@@ -47,9 +47,9 @@
 		self.bodyViewController = elementController;
 		[elementController release];
 		[self.view addSubview:self.bodyViewController.elementView];
-		
 	}
 	[self createActionButtons];
+    [self createVideoFrame];
 }
 
 -(void)loadBackground
@@ -63,7 +63,71 @@
 		[self.view addSubview:self.backgroundViewController.elementView];
 
 	}
+}
 
+- (void)createVideoFrame
+{
+    /*NSLog(@"page.id - %d, elements - %@", _page.identifier, _page.elements);
+    if ([_page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && 
+        ![_page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
+    {*/
+        PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
+    if (videoElement)
+        [self showVideo:videoElement];
+    //}
+}
+
+- (void)showVideo:(PCPageElementVideo*)videoElement
+{    
+    CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+    
+    if (CGRectEqualToRect(videoRect, CGRectZero))
+    {
+        videoRect = CGRectMake(0, 0, 1024, 768);
+    }
+    
+    ((PCVideoManager *)[PCVideoManager sharedVideoManager]).delegate = self;
+    
+    if (videoElement.stream)
+        [[PCVideoManager sharedVideoManager] showVideo:videoElement.stream inRect:videoRect];
+    
+    if (videoElement.resource)
+    {
+        NSURL *videoURL = [NSURL fileURLWithPath:[_page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource]];
+        NSLog(@"url - %@", videoURL);
+        NSLog(@"string - %@", [videoURL relativeString]);
+        [[PCVideoManager sharedVideoManager] showVideo:[videoURL relativeString] inRect:videoRect];
+    }
+}
+
+#pragma mark PCVideoManagerDelegate methods
+
+- (void)videoControllerWillShow:(id)videoControllerToShow
+{
+    UIView *videoView = ((UIViewController*)videoControllerToShow).view;
+    NSLog(@"videoView - %@", videoView);
+    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+    if (CGRectEqualToRect(videoView.frame, appRect) || 
+        (videoView.frame.size.width == appRect.size.height && videoView.frame.size.height == appRect.size.width))
+    {
+        [self showFullscreenVideo:videoView];
+        return;
+    }
+    if (_backgroundViewController)
+    {
+        [_backgroundViewController.elementView.scrollView addSubview:videoView];
+        [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];
+    }
+    else 
+    {
+        [_bodyViewController.elementView.scrollView addSubview:videoView];
+        [_bodyViewController.elementView.scrollView bringSubviewToFront:videoView];
+    }
+}
+
+- (void)videoControllerWillDismiss
+{
+    
 }
 
 @end
