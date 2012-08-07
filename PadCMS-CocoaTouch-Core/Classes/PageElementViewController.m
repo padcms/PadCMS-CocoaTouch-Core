@@ -121,12 +121,31 @@
 		
 		[cache storeTileForElement:_element withIndex:index];
 		dispatch_async(dispatch_get_main_queue(), ^{
-			[self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * 256.0, row * 256.0, 256.0, 256.0)];
+			[self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
 		});
 	});
 	return badQualityimage;*/
 	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
 	return image;
+	
+/*	ImageCache* cache = [ImageCache sharedImageCache];
+	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
+	 UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	 if (goodQualityImage)
+	 {
+	 return goodQualityImage;
+	 
+	 }	
+	 
+	 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+	 
+	 [cache storeTileForElement:_element withIndex:index];
+	 dispatch_async(dispatch_get_main_queue(), ^{
+	 [self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
+	 });
+	 });
+	 return nil;*/
+	
 }
 
 

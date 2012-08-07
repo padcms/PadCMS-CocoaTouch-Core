@@ -57,7 +57,7 @@
 
 -(void)clearMemory
 {
-	[_queue cancelAllOperations];
+	//[_queue cancelAllOperations];
 	[_operations removeAllObjects];
 	[_elementCache removeAllObjects];
 }

@@ -178,7 +178,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 	//example: aResource = @"resource_1_2"
 
 	//NSString* name = [[aResource stringByDeletingPathExtension] lastPathComponent];
-	NSInteger maxColumn = ceilf(self.realImageSize.width / 256.0f);
+	NSInteger maxColumn = ceilf(self.realImageSize.width / kDefaultTileSize);
 	NSArray* stringComponents = [aResource componentsSeparatedByString:@"_"];
 	NSInteger row = [[stringComponents objectAtIndex:1] integerValue];
 	NSInteger column = [[stringComponents objectAtIndex:2] integerValue];
@@ -187,7 +187,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 
 - (NSString *)resourcePathForTileIndex:(NSUInteger)index
 {
-	NSInteger maxColumn = ceilf(self.realImageSize.width / 256.0f);
+	NSInteger maxColumn = ceilf(self.realImageSize.width / kDefaultTileSize);
 	NSInteger row = ceilf((index - 1) / maxColumn) + 1;
 	NSInteger column = index%maxColumn?index%maxColumn:maxColumn;
 	return [NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row, column]; 

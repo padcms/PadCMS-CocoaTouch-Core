@@ -1211,8 +1211,8 @@ NSString* secondaryKey   = @"secondaryKey";
 	NSString* lastRowPNGname = [NSString stringWithFormat:@"resource_%@_%@.png",lastRowNumber,lastColumnNumber];
 
 	UIImage* image = [UIImage imageWithContentsOfFile:[directoryPath stringByAppendingPathComponent:lastRowPNGname]];
-	float height = 256 * ([lastRowNumber intValue] - 1) + image.size.height/[UIScreen mainScreen].scale;
-	float width = 256 * ([lastColumnNumber intValue] - 1) + image.size.width/[UIScreen mainScreen].scale;
+	float height = kDefaultTileSize * ([lastRowNumber intValue] - 1) + image.size.height/[UIScreen mainScreen].scale;
+	float width = kDefaultTileSize * ([lastColumnNumber intValue] - 1) + image.size.width/[UIScreen mainScreen].scale;
 	NSDictionary* information = [NSDictionary dictionaryWithObjectsAndKeys:[NSNumber numberWithFloat:height],@"height", [NSNumber numberWithFloat:width],@"width",nil];
 	[information writeToFile:[directoryPath stringByAppendingPathComponent:@"information.plist"] atomically:YES];
 	
