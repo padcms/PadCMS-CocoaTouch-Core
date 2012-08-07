@@ -39,7 +39,6 @@
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
 @synthesize nextPageViewController=_nextPageViewController;
-@synthesize videoManager = _videoManager;
 @synthesize topSummaryView;
 
 - (id)initWithRevision:(PCRevision *)revision
@@ -52,7 +51,6 @@
 												 selector:@selector(deviceOrientationDidChange)
 													 name:@"UIDeviceOrientationDidChangeNotification"
 												   object:nil];
-        _videoManager = nil;
     }
     
     return self;
@@ -120,7 +118,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
-    [_videoManager release], _videoManager = nil;
 	[super dealloc];
 }
 
@@ -268,7 +265,7 @@
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_nextPageViewController.page userInfo:nil];
 		[self configureContentScrollForPage:_nextPageViewController.page];
-        [self dismissVideo];
+        //[self dismissVideo];
 	}
 }
 
@@ -289,14 +286,14 @@
 	}
 }
 
-- (void)dismissVideo
+/*- (void)dismissVideo
 {
     if (_videoManager)
     {
         [_videoManager dismissVideo];
         [_videoManager release], _videoManager = nil;
     }
-}
+}*/
 
 #pragma mark PCActionDelegate methods
 
@@ -313,7 +310,7 @@
 {
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];
 	[self configureContentScrollForPage:_nextPageViewController.page];
-    [self dismissVideo];
+    //[self dismissVideo];
 }
 
 - (void)showVideo:(UIView *)videoView

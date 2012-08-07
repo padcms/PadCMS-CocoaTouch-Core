@@ -249,7 +249,7 @@
         [_moviePlayer setControlStyle:MPMovieControlStyleEmbedded];
         
         [_moviePlayer.view removeFromSuperview];
-        //[[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
 }
 

@@ -49,6 +49,11 @@
 		[self.view addSubview:self.bodyViewController.elementView];
 	}
 	[self createActionButtons];
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
     [self createVideoFrame];
 }
 
