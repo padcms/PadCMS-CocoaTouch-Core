@@ -209,8 +209,12 @@
 //    _hudView.bottomTOCButton.hidden = YES;
 //    _hudView.bottomTOCButton.alpha = 0;
 
-    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-        [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
     } else {
         [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
     }
@@ -1109,8 +1113,12 @@
 
 -(void)deviceOrientationDidChange
 {
-    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-        [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
     } else {
         [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
     }
@@ -1745,6 +1753,16 @@
         
         [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
     }
+    
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+    }
 }
 
 - (void)horizontalTocDownloaded:(NSNotification *)notification
@@ -1760,6 +1778,16 @@
         revision.horizontalTocLoaded) {
         
         [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
+
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
     }
 }
 
