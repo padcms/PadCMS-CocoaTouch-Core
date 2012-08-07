@@ -117,6 +117,8 @@ PADCMS_EXTERN NSString* const PCBoostPageNotification;
 /**
  @brief Page basic color.
  */ 
+@property (nonatomic, retain) UIColor* backgroundColor;
+
 @property (nonatomic,retain) UIColor* color;
 
 @property (nonatomic,assign) BOOL isComplete;

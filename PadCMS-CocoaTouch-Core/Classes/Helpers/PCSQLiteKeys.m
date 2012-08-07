@@ -37,6 +37,7 @@
 
  NSString* PCSQLitePageTableName                                = @"page";
  NSString* PCSQLitePageImpositionTableName                      = @"page_imposition";
+ NSString* PCSQLitePageBackgroundColor							= @"color";
  NSString* PCSQLiteElementTableName                             = @"element";
  NSString* PCSQLiteElementDataTableName                         = @"element_data";
  NSString* PCSQLiteElementDataPositionTableName                 = @"element_data_position";

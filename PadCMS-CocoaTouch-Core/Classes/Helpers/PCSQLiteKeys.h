@@ -38,6 +38,7 @@
 
 PADCMS_EXTERN NSString* PCSQLitePageTableName;
 PADCMS_EXTERN NSString* PCSQLitePageImpositionTableName;
+PADCMS_EXTERN NSString* PCSQLitePageBackgroundColor;
 PADCMS_EXTERN NSString* PCSQLiteElementTableName;
 PADCMS_EXTERN NSString* PCSQLiteElementDataTableName;
 PADCMS_EXTERN NSString* PCSQLiteElementDataPositionTableName;

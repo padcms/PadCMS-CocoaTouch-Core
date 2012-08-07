@@ -48,6 +48,7 @@
 {
 	UIView *view = [[[UIView alloc] initWithFrame:[UIScreen mainScreen].applicationFrame] autorelease];
 	view.autoresizingMask = (UIViewAutoresizingFlexibleWidth|UIViewAutoresizingFlexibleHeight);
+	view.backgroundColor = _page.backgroundColor;
 	self.view = view;
 	tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 	tapGestureRecognizer.cancelsTouchesInView = NO;

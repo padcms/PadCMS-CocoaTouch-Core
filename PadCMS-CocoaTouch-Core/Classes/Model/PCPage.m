@@ -64,6 +64,7 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
 @synthesize repeatingTimer=_repeatingTimer;
 @synthesize isUpdateProgress=_isUpdateProgress;
 @synthesize isHorizontal=_isHorizontal;
+@synthesize backgroundColor=_backgroundColor;
 
 - (void)dealloc
 {
@@ -77,6 +78,7 @@ NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
     _progressDelegate = nil;
     [_primaryElements release], _primaryElements = nil;
     [_secondaryElements release], _secondaryElements = nil;
+	[_backgroundColor release], _backgroundColor = nil;
     [super dealloc];
 }
 

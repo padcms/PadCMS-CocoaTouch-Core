@@ -66,6 +66,8 @@
         PCPage* page = [[PCPage alloc] init];
         page.identifier = [pages intForColumn:PCSQLiteIDColumnName];
         page.machineName = [pages stringForColumn:PCSQLiteMachineNameColumnName];
+		NSString* bgColorHexString = [pages stringForColumn:PCSQLitePageBackgroundColor];
+		page.backgroundColor = bgColorHexString?[UIColor colorWithHexString:bgColorHexString]:[UIColor whiteColor];
         NSInteger templateID = [pages intForColumn:PCSQLiteTemplateColumnName];
         page.pageTemplate = [[PCPageTemplatesPool templatesPool] templateForId:templateID];
         
