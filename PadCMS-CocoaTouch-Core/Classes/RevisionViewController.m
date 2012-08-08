@@ -322,6 +322,10 @@
 -(void)gotoPage:(PCPage *)page
 {
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];
+	if (!_nextPageViewController.page.isComplete)
+	{
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_nextPageViewController.page userInfo:nil];
+	}
 	[self configureContentScrollForPage:_nextPageViewController.page];
     //[self dismissVideo];
 }

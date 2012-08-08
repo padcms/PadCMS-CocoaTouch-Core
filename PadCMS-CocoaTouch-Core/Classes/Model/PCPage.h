@@ -45,6 +45,8 @@ PADCMS_EXTERN NSString* endOfDownloadingPageNotification;
 
 PADCMS_EXTERN NSString* const PCBoostPageNotification;
 
+PADCMS_EXTERN NSString * const PCMiniArticleElementDidDownloadNotification;
+
 @class PCMagazine,PCColumn,PCPageElement;
 @protocol PCDownloadProgressProtocol;
 /**

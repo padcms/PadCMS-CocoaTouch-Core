@@ -11,8 +11,13 @@
 #import "PCScrollView.h"
 #import "PCCustomPageControll.h"
 #import "PCStyler.h"
+#import "MBProgressHUD.h"
+#import "JCTiledView.h"
 
 @interface SlideshowViewController ()
+{
+	MBProgressHUD* slideHUD;
+}
 @property (nonatomic, retain) NSMutableSet* visibleElementControllers;
 @end
 
@@ -24,6 +29,7 @@
 
 -(void)dealloc
 {
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.page];
 	[_visibleElementControllers release], _visibleElementControllers = nil;
 	[_slideElements release], _slideElements = nil;
 	[_slideScrollView release], _slideScrollView = nil;
@@ -45,6 +51,7 @@
 {
 	if (!_page.isComplete) [self showHUD];
 	if (!_page.isComplete) return;
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(slideDownloaded:) name:PCMiniArticleElementDidDownloadNotification object:self.page];
 	[self loadBackground];
 	self.slideElements = [_page elementsForType:PCPageElementTypeSlide];
 	for (int i = 0; i < [_slideElements count]; ++i) {
@@ -146,6 +153,13 @@
 	CGRect slidersViewRect = self.slideScrollView.frame;
     CGRect slideRect = CGRectMake(slidersViewRect.size.width*self.pageControll.currentPage, 0, slidersViewRect.size.width, slidersViewRect.size.height);
     [self.slideScrollView scrollRectToVisible:slideRect animated:YES];
+	NSInteger currentSlideIndex = self.pageControll.currentPage;
+	PCPageElement* currentElement = [self.slideElements objectAtIndex:currentSlideIndex];
+	
+	if (!currentElement.isComplete)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:currentElement];
+	[self hideSlideHUD];
+	[self showHUDforSlideAtIndex:currentSlideIndex];
 	
 
 }
@@ -160,7 +174,87 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-	self.pageControll.currentPage = lrint(self.slideScrollView.contentOffset.x/self.slideScrollView.frame.size.width);
+	NSInteger currentSlideIndex = lrint(self.slideScrollView.contentOffset.x/self.slideScrollView.frame.size.width);
+	self.pageControll.currentPage = currentSlideIndex;
+	PCPageElement* currentElement = [self.slideElements objectAtIndex:currentSlideIndex];
+
+	if (!currentElement.isComplete)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:currentElement];
+	[self hideSlideHUD];
+	[self showHUDforSlideAtIndex:currentSlideIndex];
+}
+
+#pragma mark -
+#pragma mark Progress indicator methods
+
+-(void)showHUDforSlideAtIndex:(NSInteger)index
+{
+    if (self.slideElements.count == 0) {
+        return;
+    }
+    
+	if (!self.page.isComplete) return;
+	PCPageElement* currentElement = [self.slideElements objectAtIndex:index];
+	if (currentElement.isComplete) return;
+	if (slideHUD)
+	{
+		if (slideHUD.tag == index+100)  return;
+		currentElement.progressDelegate = nil;
+		[slideHUD removeFromSuperview];
+		[slideHUD release];
+		slideHUD = nil;
+	}
+	
+	
+	slideHUD = [[MBProgressHUD alloc] initWithView:self.view];
+	slideHUD.tag = index+100;
+	//slideHUD.frame = CGRectMake(0, 0, 80.0f, 80.f);
+	slideHUD.userInteractionEnabled = YES;
+	CGRect frame = [self activeZoneRectForType:PCPDFActiveZoneScroller];
+	slideHUD.center = CGPointMake(/*index*sliderRect.size.width +*/ frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height/2);
+	NSLog(@"FRAme HUD - %@", NSStringFromCGRect(slideHUD.frame));
+	[self.view addSubview:slideHUD];
+	[self.view insertSubview:slideHUD belowSubview:_slideScrollView];
+	slideHUD.mode = MBProgressHUDModeAnnularDeterminate;
+	currentElement.progressDelegate = slideHUD;
+	[slideHUD show:YES];
+}
+
+-(void)hideSlideHUD
+{
+	if (slideHUD)
+	{
+		[slideHUD hide:YES];
+		PCPageElement* currentElement = [self.slideElements objectAtIndex:slideHUD.tag - 100];
+		currentElement.progressDelegate = nil;
+		[slideHUD removeFromSuperview];
+		[slideHUD release];
+		slideHUD = nil;
+	}
+}
+
+- (void)slideDownloaded:(NSNotification*)notif
+{
+	PCPageElement* downloadedElement = [[notif userInfo] objectForKey:@"element"];
+	PCPageElement* currentElement = [self.slideElements objectAtIndex:self.pageControll.currentPage];
+	if (slideHUD)
+	{
+		if (slideHUD.tag == 100 + self.pageControll.currentPage)
+		{
+			[self hideSlideHUD];
+		}
+	}
+	if (currentElement == downloadedElement)
+	{
+		for (PageElementViewController* elementController in self.visibleElementControllers) {
+			if (elementController.element == currentElement)
+			{
+				[elementController.elementView removeFromSuperview];
+				elementController.elementView = nil;
+				[_slideScrollView addSubview:elementController.elementView];
+			}
+		}
+	}
 }
 
 

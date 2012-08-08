@@ -617,32 +617,31 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
-  if([animationID isEqualToString:@"View Flip"])
-  {
-    [self.rootViewController deviceOrientationDidChange];
-  }
+	if([animationID isEqualToString:@"View Flip"])
+	{
+		[self.rootViewController deviceOrientationDidChange];
+	}
 }
 
 - (void) switchToKiosk
 {
-  [[NSURLCache sharedURLCache] removeAllCachedResponses];
-  [[PCDownloadManager sharedManager] cancelAllOperations];
- // [_revisionViewController.view removeFromSuperview];
+	[[NSURLCache sharedURLCache] removeAllCachedResponses];
+	[[PCDownloadManager sharedManager] cancelAllOperations];
 	[self.rootViewController.navigationController popToRootViewControllerAnimated:NO];
-  self.revisionViewController = nil;
+	self.revisionViewController = nil;
   
 }
 
 - (void) searchWithKeyphrase:(NSString*) keyphrase
 {
-  NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
-  PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
-  searchViewController.searchKeyphrase = keyphrase;
-  searchViewController.application = _application;
-  searchViewController.delegate = self;
-  [self.rootViewController.navigationController pushViewController:searchViewController animated:NO];
+	NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
+	PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
+	searchViewController.searchKeyphrase = keyphrase;
+	searchViewController.application = _application;
+	searchViewController.delegate = self;
+	[self.rootViewController.navigationController pushViewController:searchViewController animated:NO];
   
-  [searchViewController release];
+	[searchViewController release];
 }
 
 -(void)subscribe

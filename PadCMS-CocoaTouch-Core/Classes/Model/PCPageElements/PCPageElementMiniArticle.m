@@ -35,7 +35,7 @@
 
 #import "PCPageElementMiniArticle.h"
 
-NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleElementDidDownloadNotification";
+//NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleElementDidDownloadNotification";
 
 @implementation PCPageElementMiniArticle
 

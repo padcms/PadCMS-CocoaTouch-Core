@@ -40,7 +40,7 @@
  @brief Represents Mini Article element of the page.
  */
 
-PADCMS_EXTERN NSString * const PCMiniArticleElementDidDownloadNotification;
+//PADCMS_EXTERN NSString * const PCMiniArticleElementDidDownloadNotification;
 
 @interface PCPageElementMiniArticle : PCPageElement
 {

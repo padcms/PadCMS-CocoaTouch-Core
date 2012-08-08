@@ -43,6 +43,7 @@
 
 NSString* endOfDownloadingPageNotification   = @"endOfDownloadingPageNotification";
 NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
+NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleElementDidDownloadNotification";
 
 @implementation PCPage
 
