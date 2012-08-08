@@ -47,8 +47,12 @@
 @end
 
 @interface PCVideoManager : NSObject <UIAlertViewDelegate>
+{
+    BOOL _isStartVideoShown;
+}
 
 @property (nonatomic, assign, readwrite) id <PCVideoManagerDelegate> delegate;
+@property (nonatomic, assign) BOOL isStartVideoShown;
 
 + (id) sharedVideoManager;
 - (void) showVideo:(NSString*) videoPath inRect:(CGRect) videoFrame;

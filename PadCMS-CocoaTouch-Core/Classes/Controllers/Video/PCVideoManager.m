@@ -67,6 +67,7 @@
 @synthesize videoPath = _videoPath;
 @synthesize videoFrame = _videoFrame;
 @synthesize delegate = _delegate;
+@synthesize isStartVideoShown = _isStartVideoShown;
 
 + (id)sharedVideoManager 
 {
@@ -88,6 +89,7 @@
         _videoPath = nil;
         _videoController = nil;
         _videoFrame = CGRectZero;
+        _isStartVideoShown = NO;
     }
     return self;
 }
@@ -126,23 +128,8 @@
     
     else if ([videoPath hasPrefix:@"http://"])
     {
-        if ([videoPath hasPrefix:@"http://youtube.com"] || [videoPath hasPrefix:@"http://www.youtube.com"] ||
-            [videoPath hasPrefix:@"http://youtu.be"] || [videoPath hasPrefix:@"http://www.youtu.be"] || 
-            [videoPath hasPrefix:@"http://dailymotion.com"] || [videoPath hasPrefix:@"http://www.dailymotion.com"] ||
-            [videoPath hasPrefix:@"http://vimeo.com"] || [videoPath hasPrefix:@"http://www.vimeo.com"])
-        {
-            [self showBrowserViewController:[NSURL URLWithString:videoPath] inRect:videoFrame];
-            return;
-        }
-        
-        else 
-        {
-            if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:videoPath]])
-            {
-                NSLog(@"Failed to open url:%@",[videoPath description]);
-            }
-            return;
-        }
+        [self showBrowserViewController:[NSURL URLWithString:videoPath] inRect:videoFrame];
+        return;
     }
 }
 
