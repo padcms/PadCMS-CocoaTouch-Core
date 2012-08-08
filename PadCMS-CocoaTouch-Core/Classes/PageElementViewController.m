@@ -130,6 +130,19 @@
 	
 /*	ImageCache* cache = [ImageCache sharedImageCache];
 	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
+	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	if (goodQualityImage)
+	{
+		return goodQualityImage;
+		
+	}
+	[cache storeTileForElement:_element withIndex:index];
+	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];*/
+	
+	
+	//setNeedDisplay withoy badQualities
+/*	ImageCache* cache = [ImageCache sharedImageCache];
+	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
 	 UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	 if (goodQualityImage)
 	 {

@@ -47,6 +47,7 @@ typedef enum _KiosqueType {
  */
 @interface PCConfig : NSObject
 
++ (NSDictionary *)padCMSConfig;
 + (NSDictionary *)topTableOfContentsConfig;
 + (NSDictionary *)bottomTableOfContentsConfig;
 

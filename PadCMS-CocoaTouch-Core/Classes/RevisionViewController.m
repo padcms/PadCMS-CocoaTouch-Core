@@ -188,6 +188,7 @@
 		[_currentPageViewController.view removeFromSuperview];
 		self.currentPageViewController = _nextPageViewController;
 		CGRect frame = self.currentPageViewController.view.frame;
+		frame.size = CGSizeMake(pageWidth, pageHeight);
 		frame.origin = CGPointMake(dx, dy);	
 		self.currentPageViewController.view.frame = frame;
 		if (!self.currentPageViewController.view.superview)
@@ -327,6 +328,7 @@
 		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_nextPageViewController.page userInfo:nil];
 	}
 	[self configureContentScrollForPage:_nextPageViewController.page];
+	
     //[self dismissVideo];
 }
 

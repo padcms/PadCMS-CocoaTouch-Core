@@ -55,11 +55,21 @@
  - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index;
 
 @optional
-
+/**
+ @brief Tells the delegate that the toc view will transit to state.
+ @param hudView - PCHUDView instance requesting this information.
+ @param tocView - PCTocView instance that will transit to new state.
+ @param state - PCTocViewState structure describing toc view new state.
+ */
 - (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @optional
-
+/**
+ @brief Tells the delegate that the toc view did transit to state.
+ @param hudView - PCHUDView instance requesting this information.
+ @param tocView - PCTocView instance that did transit to new state.
+ @param state - PCTocViewState structure describing toc view new state.
+ */
 - (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @end

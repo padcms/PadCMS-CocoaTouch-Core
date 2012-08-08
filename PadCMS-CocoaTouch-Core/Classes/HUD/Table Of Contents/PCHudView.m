@@ -166,13 +166,18 @@ NSString *EnabledKey = @"Enabled";
 
 - (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
 {
-    NSArray *subviews = self.subviews;
-    for (UIView *subview in subviews) {
-        if (CGRectContainsPoint(subview.frame, point) && subview.alpha > 0.01f) {
-            return YES;
-        }
+    if (CGRectContainsPoint(_topBarView.frame, point)) {
+        return YES;
     }
-
+    
+    if (_topTocView != nil && CGRectContainsPoint(_topTocView.frame, point)) {
+        return [_topTocView pointInside:[self convertPoint:point toView:_topTocView] withEvent:event];
+    }
+    
+    if (_bottomTocView != nil && CGRectContainsPoint(_bottomTocView.frame, point)) {
+        return [_bottomTocView pointInside:[self convertPoint:point toView:_bottomTocView] withEvent:event];
+    }
+    
     return NO;
 }
 

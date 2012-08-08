@@ -58,12 +58,6 @@ NSString const *PCStyleSheetKey = @"PCStyleSheet";
 NSString const *PCConfigApplicationDefaultLanguageKey = @"PCConfigApplicationDefaultLanguage"; 
 
 
-@interface PCConfig ()
-
-+ (NSDictionary *)padCMSConfig;
-
-@end
-
 @implementation PCConfig
 
 #pragma mark - private class methods

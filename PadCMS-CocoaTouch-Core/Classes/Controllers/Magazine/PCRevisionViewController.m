@@ -81,7 +81,6 @@
 - (BOOL) isOrientationChanged:(UIDeviceOrientation) orientation;
 - (void) createHorizontalSummary;
 - (void) changeHorizontalPage:(id) sender;
-- (void) tapGesture:(id) sender;
 - (void) hideMenus;
 - (PCPage *) pageAtHorizontalIndex:(NSInteger)currentHorisontalPageIndex;
 - (void) unloadSummaries;
@@ -210,8 +209,12 @@
 //    _hudView.bottomTOCButton.hidden = YES;
 //    _hudView.bottomTOCButton.alpha = 0;
 
-    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-        [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
     } else {
         [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
     }
@@ -996,7 +999,7 @@
     }
     
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
-    tapGestureRecognizer.cancelsTouchesInView=NO;
+    tapGestureRecognizer.cancelsTouchesInView = NO;
     tapGestureRecognizer.delegate = self;
     [mainScrollView addGestureRecognizer:tapGestureRecognizer];
     
@@ -1110,8 +1113,12 @@
 
 -(void)deviceOrientationDidChange
 {
-    if (UIDeviceOrientationIsPortrait([[UIDevice currentDevice] orientation])) {
-        [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
     } else {
         [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
     }
@@ -1480,7 +1487,7 @@
     }
 }
 
-- (void)tapGesture:(UIGestureRecognizer *)sender
+- (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
     if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
         [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
@@ -1498,15 +1505,6 @@
             [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
         }
     }
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
- 
-  if (([touch.view isKindOfClass:[UIButton class]]) &&
-      ((gestureRecognizer == tapGestureRecognizer) || (gestureRecognizer == horizontalTapGestureRecognizer))) {
-    return NO;
-  }
-  return YES;
 }
 
 -(IBAction)showTOCAction:(id)sender
@@ -1745,6 +1743,16 @@
         
         [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
     }
+    
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+    }
 }
 
 - (void)horizontalTocDownloaded:(NSNotification *)notification
@@ -1760,6 +1768,16 @@
         revision.horizontalTocLoaded) {
         
         [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
+
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
     }
 }
 
@@ -2124,6 +2142,36 @@
 - (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
 {
     NSLog(@"search: %@", searchText);
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
+
+//    NSLog(@"Touch in view with class: %@", NSStringFromClass(touch.view.class));
+
+//    if (gestureRecognizer == tapGestureRecognizer) {
+//        NSLog(@"tapGestureRecognizer");
+//    } else if (gestureRecognizer == horizontalTapGestureRecognizer) {
+//        NSLog(@"horizontalTapGestureRecognizer");
+//    }
+    
+    if (([touch.view isKindOfClass:[UIButton class]]) &&
+        ((gestureRecognizer == tapGestureRecognizer) || (gestureRecognizer == horizontalTapGestureRecognizer))) {
+        
+//        NSLog(@"return NO");
+        return NO;
+    }
+    
+//    NSLog(@"return YES");
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+//    NSLog(@"shouldRecognizeSimultaneouslyWithGestureRecognizer:");
+    return YES;
 }
 
 @end
