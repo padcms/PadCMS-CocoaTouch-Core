@@ -25,6 +25,7 @@
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
+@property (nonatomic, readonly) PCPage* initialPage;
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer;
 - (void)verticalTocDownloaded:(NSNotification *)notification;
@@ -40,9 +41,10 @@
 @synthesize currentPageViewController=_currentPageViewController;
 @synthesize nextPageViewController=_nextPageViewController;
 @synthesize videoManager = _videoManager;
+@synthesize initialPage = _initialPage;
 @synthesize topSummaryView;
 
-- (id)initWithRevision:(PCRevision *)revision
+- (id)initWithRevision:(PCRevision *)revision withInitialPage:(PCPage*)initialPage
 {
 	self = [super init];
     
@@ -53,10 +55,18 @@
 													 name:@"UIDeviceOrientationDidChangeNotification"
 												   object:nil];
         _videoManager = nil;
+		_initialPage = [initialPage retain];
     }
     
     return self;
 }
+
+- (id)initWithRevision:(PCRevision *)revision
+{
+	return [self initWithRevision:revision withInitialPage:revision.coverPage];
+}
+
+
 
 - (void)viewDidLoad
 {
@@ -71,7 +81,7 @@
     _contentScrollView.showsVerticalScrollIndicator = NO;
     _contentScrollView.showsHorizontalScrollIndicator = NO;
 	_contentScrollView.directionalLockEnabled = YES;
-	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:[self.revision coverPage]];
+	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
 	[self configureContentScrollForPage:_nextPageViewController.page];
     _contentScrollView.delegate = self;
 	_contentScrollView.bounces = NO;
@@ -121,6 +131,7 @@
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
     [_videoManager release], _videoManager = nil;
+	[_initialPage release], _initialPage = nil;
 	[super dealloc];
 }
 
@@ -557,6 +568,15 @@
 - (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
 {
     NSLog(@"search: %@", searchText);
+	NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
+	PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
+	searchViewController.searchKeyphrase = searchText;
+	searchViewController.revision = _revision;
+	searchViewController.delegate = self;
+	[self.navigationController pushViewController:searchViewController animated:NO];
+	
+	[searchViewController release];
+
 }
 
 #pragma mark - delegate methods
@@ -566,5 +586,27 @@
         [self.delegate revisionViewControllerDidDismiss:self];
     }
 }
+
+#pragma mark - PCSearchViewControllerDelegate
+
+- (void) showRevisionWithIdentifier:(NSInteger) revisionIdentifier andPageIndex:(NSInteger) pageIndex
+{
+	[self dismissPCSearchViewController:nil];
+	NSAssert(pageIndex >= 0 && pageIndex < [_revision.pages count], @"pageIndex not within range");
+	[self gotoPage:[_revision.pages objectAtIndex:pageIndex]];
+	
+}
+
+-(void)dismissPCSearchViewController:(PCSearchViewController *)currentPCSearchViewController
+{
+	[self.navigationController popViewControllerAnimated:NO];
+	
+	UIViewController *viewController = [[UIViewController alloc] init];
+	[self presentModalViewController:viewController animated:NO];
+	[self dismissModalViewControllerAnimated:NO];
+	[viewController release];
+}
+
+
 
 @end

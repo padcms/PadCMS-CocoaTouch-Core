@@ -1030,7 +1030,6 @@
 		60A5DCD9158B796200E3E98A /* LandscapeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FDB1588D3DE0097D960 /* LandscapeController.xib */; };
 		60A5DCDA158B796200E3E98A /* PCSearchResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FE81588D3DE0097D960 /* PCSearchResultViewCell.xib */; };
 		60A5DCDB158B796200E3E98A /* PCSearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FEB1588D3DF0097D960 /* PCSearchViewController.xib */; };
-		60A5DCDE158B79E500E3E98A /* PCRevisionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */; };
 		60A5DCF4158F44D100E3E98A /* button_answ.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCEF158F44D100E3E98A /* button_answ.png */; };
 		60A5DCF5158F44D100E3E98A /* button_home.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCF0158F44D100E3E98A /* button_home.png */; };
 		60A5DCF6158F44D100E3E98A /* button_partager.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCF1158F44D100E3E98A /* button_partager.png */; };
@@ -1093,6 +1092,7 @@
 		ABCBAF3B15AE256C0022893B /* InteractivesBulletsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCBAF3915AE256B0022893B /* InteractivesBulletsViewController.m */; };
 		ABCBAF3E15AF61880022893B /* PageElementViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABCBAF3C15AF61840022893B /* PageElementViewController.h */; };
 		ABCBAF3F15AF61880022893B /* PageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABCBAF3D15AF61860022893B /* PageElementViewController.m */; };
+		ABE9AADD15D22BE9009ED552 /* PCRevisionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCDD158B79E500E3E98A /* PCRevisionViewController.xib */; };
 		ABF4D2E91590516400DAAD0F /* PCDownloadApiClient.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E31590516400DAAD0F /* PCDownloadApiClient.h */; settings = {ATTRIBUTES = (); }; };
 		ABF4D2EA1590516400DAAD0F /* PCDownloadApiClient.m in Sources */ = {isa = PBXBuildFile; fileRef = ABF4D2E41590516400DAAD0F /* PCDownloadApiClient.m */; };
 		ABF4D2EB1590516400DAAD0F /* PCDownloadManager.h in Headers */ = {isa = PBXBuildFile; fileRef = ABF4D2E51590516400DAAD0F /* PCDownloadManager.h */; };
@@ -2277,7 +2277,7 @@
 		AB2334A415CF8B55006651DD /* UIImage+ImmediateLoading.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+ImmediateLoading.h"; sourceTree = "<group>"; };
 		AB2334A515CF8B56006651DD /* UIImage+ImmediateLoading.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+ImmediateLoading.m"; sourceTree = "<group>"; };
 		AB32070D15927C5A0076361B /* PCStoreController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCStoreController.h; sourceTree = "<group>"; };
-		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 2; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 2; usesTabs = 0; };
+		AB32070E15927C5A0076361B /* PCStoreController.m */ = {isa = PBXFileReference; fileEncoding = 4; indentWidth = 4; lastKnownFileType = sourcecode.c.objc; path = PCStoreController.m; sourceTree = "<group>"; tabWidth = 4; usesTabs = 1; };
 		AB3207141592C5C80076361B /* PCStoreControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PCStoreControllerDelegate.h; sourceTree = "<group>"; };
 		AB566FDC15C2BF4D00089673 /* UIImage+Resize.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImage+Resize.m"; sourceTree = "<group>"; };
 		AB566FDD15C2BF4D00089673 /* UIImage+Resize.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImage+Resize.h"; sourceTree = "<group>"; };
@@ -4274,7 +4274,6 @@
 				60A5DCDA158B796200E3E98A /* PCSearchResultViewCell.xib in Resources */,
 				60A5DCDB158B796200E3E98A /* PCSearchViewController.xib in Resources */,
 				60A5DCD4158B793F00E3E98A /* InfoPlist.strings in Resources */,
-				60A5DCDE158B79E500E3E98A /* PCRevisionViewController.xib in Resources */,
 				60A5DCF4158F44D100E3E98A /* button_answ.png in Resources */,
 				60A5DCF5158F44D100E3E98A /* button_home.png in Resources */,
 				60A5DCF6158F44D100E3E98A /* button_partager.png in Resources */,
@@ -4284,6 +4283,7 @@
 				60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */,
 				60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */,
 				600ACDA915B6F0A500F0233C /* Localizable.strings in Resources */,
+				ABE9AADD15D22BE9009ED552 /* PCRevisionViewController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

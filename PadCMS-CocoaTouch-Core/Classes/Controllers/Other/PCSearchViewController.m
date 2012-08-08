@@ -146,7 +146,7 @@
 {
     if(searchFinished)
     {
-        if(self.revision!=nil)
+        /*if(self.revision!=nil)
         {
             [self dismissByDelegate];
         } else {
@@ -158,7 +158,8 @@
             {
                 [self dismissModalViewControllerAnimated:YES];
             }
-        }
+        }*/
+		 [self dismissByDelegate];
     } else {
         [self.searchTask cancelSearch];
     }
@@ -251,7 +252,7 @@
         
         if(item)
         {
-            if(self.revision!=nil)
+           /* if(self.revision!=nil)
             {
                 [self dismissByDelegate];
             } else {
@@ -263,7 +264,7 @@
                 {
                     [self dismissModalViewControllerAnimated:YES];
                 }
-            }
+            }*/
             
             [self.delegate showRevisionWithIdentifier:item.revisionIdentifier
                                          andPageIndex:(usePageIndex ? item.pageIndex : 0)];

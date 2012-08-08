@@ -51,6 +51,7 @@
 - (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController;
 - (void)launch;
 - (void)switchToKiosk;
+- (void) searchWithKeyphrase:(NSString*) keyphrase;
 
 
 @end

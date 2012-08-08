@@ -10,6 +10,7 @@
 #import "AbstractBasePageViewController.h"
 #import "PCHudView.h"
 #import "PCTopBarView.h"
+#import "PCSearchViewController.h"
 
 @class PCRevision;
 @class PCVideoManager;
@@ -22,7 +23,7 @@
 @end
 
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
-UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate>
+UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate, PCSearchViewControllerDelegate>
 {
 	IBOutlet UIView* topMenuView;
 }
@@ -35,5 +36,6 @@ UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarVie
 @property (nonatomic, retain) PCVideoManager *videoManager;
 
 - (id)initWithRevision:(PCRevision *)revision;
+- (id)initWithRevision:(PCRevision *)revision withInitialPage:(PCPage*)initialPage;
 
 @end

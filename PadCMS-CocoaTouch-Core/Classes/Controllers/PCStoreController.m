@@ -364,40 +364,37 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [self.rootViewController tapInKiosk];
 }
 
+
 - (void) readRevisionWithIndex:(NSInteger)index
 {
-  PCRevision *currentRevision = [self revisionWithIndex:index];
-  
-  if (currentRevision)
-  {
-    [self rotateInterfaceIfNeedWithRevision:currentRevision];
+	PCRevision *currentRevision = [self revisionWithIndex:index];
+   [self launchRevison:currentRevision withInitialPage:nil];
+   
+}
+	 
+- (void) launchRevison:(PCRevision*)aRevison withInitialPage:(PCPage*)aPage
+{
+#ifdef DEBUG
+	NSAssert(aRevison, @"revision is nil");
+#endif
+	if (!aRevison) return;
+	[self rotateInterfaceIfNeedWithRevision:aRevison];
     
-    [PCDownloadManager sharedManager].revision = currentRevision;
-    [[PCDownloadManager sharedManager] startDownloading];
-    
-      RevisionViewController *revisionController = [[RevisionViewController alloc] initWithRevision:currentRevision];
-    revisionController.delegate = self;
-      [self.rootViewController.navigationController pushViewController:revisionController animated:NO];
-      [revisionController release];
-    
- /*   if (_revisionViewController == nil)
-    {
-      NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
-      
-      _revisionViewController = [[PCRevisionViewController alloc] 
-                                 initWithNibName:@"PCRevisionViewController"
-                                 bundle:bundle];
-      
-      [_revisionViewController setRevision:currentRevision];
-      _revisionViewController.mainViewController = self;
-      _revisionViewController.initialPageIndex = 0;
-   //   [self.rootViewController.view addSubview:_revisionViewController.view];
-		[self.rootViewController.navigationController pushViewController:_revisionViewController animated:NO];
-     
-      
-      
-    }*/
-  }
+	[PCDownloadManager sharedManager].revision = aRevison;
+	[[PCDownloadManager sharedManager] startDownloading];
+    RevisionViewController *revisionController = nil;
+		
+	if (aPage)
+	{
+		revisionController = [[RevisionViewController alloc] initWithRevision:aRevison withInitialPage:aPage];
+	}
+	else {
+		revisionController = [[RevisionViewController alloc] initWithRevision:aRevison];
+	}
+	
+	revisionController.delegate = self;
+	[self.rootViewController.navigationController pushViewController:revisionController animated:NO];
+	[revisionController release];
 }
 
 - (void) deleteRevisionDataWithIndex:(NSInteger)index
@@ -638,13 +635,13 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 - (void) searchWithKeyphrase:(NSString*) keyphrase
 {
-  PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:nil];
+  NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
+  PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
   searchViewController.searchKeyphrase = keyphrase;
-  searchViewController.application = self.application;
+  searchViewController.application = _application;
   searchViewController.delegate = self;
+  [self.rootViewController.navigationController pushViewController:searchViewController animated:NO];
   
-  [self.rootViewController presentViewController:searchViewController animated:YES completion:nil];
- 
   [searchViewController release];
 }
 
@@ -653,49 +650,23 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	[[InAppPurchases sharedInstance] subscribe];
 }
 
+
 #pragma mark - PCSearchViewControllerDelegate
 
 - (void) showRevisionWithIdentifier:(NSInteger) revisionIdentifier andPageIndex:(NSInteger) pageIndex
 {
-  PCRevision *currentRevision = [self revisionWithIdentifier:revisionIdentifier];
-  
-  if (currentRevision)
-  {
-    [self rotateInterfaceIfNeedWithRevision:currentRevision];
-    
-    [PCDownloadManager sharedManager].revision = currentRevision;
-    [[PCDownloadManager sharedManager] startDownloading];
-    
-    if (_revisionViewController == nil)
-    {
-      _revisionViewController = [[PCRevisionViewController alloc] 
-                                 initWithNibName:@"PCRevisionViewController"
-                                 bundle:nil];
-      
-      [_revisionViewController setRevision:currentRevision];
-      _revisionViewController.mainViewController = self;
-      _revisionViewController.initialPageIndex = pageIndex;
-      [self.rootViewController.view addSubview:_revisionViewController.view];
-      
-    }
-  }
+	[self dismissPCSearchViewController:nil];
+	PCRevision *currentRevision = [self revisionWithIdentifier:revisionIdentifier];
+	NSAssert(pageIndex >= 0 && pageIndex < [currentRevision.pages count], @"pageIndex not within range");
+	PCPage* page = [currentRevision.pages objectAtIndex:pageIndex];
+	[self launchRevison:currentRevision withInitialPage:page];
+
 }
 
-/*
-- (void) productDataRecieved:(NSNotification *) notification
+-(void)dismissPCSearchViewController:(PCSearchViewController *)currentPCSearchViewController
 {
-	NSLog(@"From VersionManager::productDataRecieved: %@ %@", [(NSDictionary *)[notification object] objectForKey:@"productIdentifier"], [(NSDictionary *)[notification object] objectForKey:@"localizedPrice"]);
-	for(int i = 0; i < [self.items count]; ++i)
-	{
-		NSDictionary *item = [self.items objectAtIndex:i];
-		
-		if([[(NSDictionary *)[notification object] objectForKey:@"productIdentifier"] isEqualToString:[item objectForKey:@"issue_product_id"]])
-		{
-			[item setValue:[NSString stringWithString:[(NSDictionary *)[notification object] objectForKey:@"localizedPrice"]] forKey:@"price"];
-			return;
-		}
-	}
-}*/
+	[self.rootViewController.navigationController popViewControllerAnimated:NO];
+}
 
 -(void)restartApplication
 {
@@ -718,7 +689,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	NSMutableDictionary *mainDict = [NSMutableDictionary dictionary];
 	[mainDict setObject:@"purchase.apple.verifyReceipt" forKey:@"method"];
   
-  NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData", nil];
+	NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData", nil];
 	
   
 	
