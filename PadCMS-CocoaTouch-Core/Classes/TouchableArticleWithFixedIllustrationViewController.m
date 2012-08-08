@@ -55,7 +55,12 @@
 	_tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 	_tapGestureRecognizer.cancelsTouchesInView = NO;
 	[self.view  addGestureRecognizer:_tapGestureRecognizer];
-	
+}
+
+- (void)viewDidAppear:(BOOL)animated
+{
+    [super viewDidAppear:animated];
+    [self createVideoFrame];
 }
 
 -(void)tapAction:(id)sender
@@ -81,7 +86,6 @@
     
     else if (self.bodyViewController.elementView.hidden && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionButton])
     {
-        //[self.articleView setScrollEnabled:self.bodyViewController.elementView.hidden];
         [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
         [self changeVideoLayout:self.bodyViewController.elementView.hidden];
     }
@@ -97,7 +101,6 @@
     [super pdfActiveZoneAction:activeZone];
     if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
     {
-        //[self.articleView setScrollEnabled:self.bodyViewController.elementView.hidden];
         [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
         [self changeVideoLayout:self.bodyViewController.elementView.hidden];
         return YES;

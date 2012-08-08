@@ -82,14 +82,14 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    [self createWebView];
+    [self createReturnButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     [super viewWillAppear:animated];
-    
-    [self createWebView];
-    [self createReturnButton];
 }
 
 - (void)viewDidDisappear:(BOOL)animated

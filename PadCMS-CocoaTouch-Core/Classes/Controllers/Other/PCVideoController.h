@@ -65,5 +65,7 @@
 @property (nonatomic, assign, readwrite) id <PCVideoControllerDelegate> delegate;
 
 - (id) init;
+- (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect;
+- (void) playVideo;
 
 @end

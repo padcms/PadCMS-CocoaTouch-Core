@@ -33,7 +33,6 @@ UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarVie
 @property (retain) AbstractBasePageViewController* currentPageViewController;
 @property (retain) AbstractBasePageViewController* nextPageViewController;
 @property (nonatomic, retain) IBOutlet UIView* topSummaryView;
-@property (nonatomic, retain) PCVideoManager *videoManager;
 
 - (id)initWithRevision:(PCRevision *)revision;
 - (id)initWithRevision:(PCRevision *)revision withInitialPage:(PCPage*)initialPage;

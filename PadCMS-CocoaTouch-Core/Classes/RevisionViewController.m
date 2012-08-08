@@ -40,7 +40,6 @@
 @synthesize contentScrollView=_contentScrollView;
 @synthesize currentPageViewController=_currentPageViewController;
 @synthesize nextPageViewController=_nextPageViewController;
-@synthesize videoManager = _videoManager;
 @synthesize initialPage = _initialPage;
 @synthesize topSummaryView;
 
@@ -54,8 +53,9 @@
 												 selector:@selector(deviceOrientationDidChange)
 													 name:@"UIDeviceOrientationDidChangeNotification"
 												   object:nil];
-        _videoManager = nil;
+
 		_initialPage = [initialPage retain];
+
     }
     
     return self;
@@ -130,7 +130,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
-    [_videoManager release], _videoManager = nil;
 	[_initialPage release], _initialPage = nil;
 	[super dealloc];
 }
@@ -279,7 +278,7 @@
 	{
 		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_nextPageViewController.page userInfo:nil];
 		[self configureContentScrollForPage:_nextPageViewController.page];
-        [self dismissVideo];
+        //[self dismissVideo];
 	}
 }
 
@@ -300,14 +299,14 @@
 	}
 }
 
-- (void)dismissVideo
+/*- (void)dismissVideo
 {
     if (_videoManager)
     {
         [_videoManager dismissVideo];
         [_videoManager release], _videoManager = nil;
     }
-}
+}*/
 
 #pragma mark PCActionDelegate methods
 
@@ -324,16 +323,13 @@
 {
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];
 	[self configureContentScrollForPage:_nextPageViewController.page];
-    [self dismissVideo];
+    //[self dismissVideo];
 }
 
-- (void)showVideo:(NSString *)videoURLString inRect:(CGRect)videoRect
+- (void)showVideo:(UIView *)videoView
 {
-    if (!_videoManager)
-    {
-        _videoManager = [[PCVideoManager alloc] init];
-    }
-    [_videoManager showVideo:videoURLString inRect:videoRect];
+    [self.view addSubview:videoView];
+    [self.view bringSubviewToFront:videoView];
 }
 
 - (void)showTopBar
