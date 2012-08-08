@@ -150,7 +150,9 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 {
   _downloadProgress = downloadProgress;
   dispatch_async(dispatch_get_main_queue(), ^{
-    [self.progressDelegate setProgress:downloadProgress];
+      if ([self.progressDelegate respondsToSelector:@selector(setProgress:)]) {
+          [self.progressDelegate setProgress:downloadProgress];
+      }
   });
   
 }

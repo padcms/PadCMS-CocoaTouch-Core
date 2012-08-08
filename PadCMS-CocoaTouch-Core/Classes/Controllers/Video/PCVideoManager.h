@@ -53,5 +53,6 @@
 + (id) sharedVideoManager;
 - (void) showVideo:(NSString*) videoPath inRect:(CGRect) videoFrame;
 - (void) dismissVideo;
+- (BOOL) isVideoURL:(NSString*) URLString;
 
 @end

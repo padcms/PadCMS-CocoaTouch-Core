@@ -41,7 +41,7 @@
 @interface PCTOCGridViewCell : PCGridViewCell
 
 /**
- @brief image setter. Set image and validates size 
+ @brief Image setter. Sets image and validates size
  @param image - UIImage to be displayed
  */ 
 - (void)setImage:(UIImage *)image;

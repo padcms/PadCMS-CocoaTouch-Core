@@ -195,4 +195,16 @@
     return YES;
 }
 
+- (BOOL)isVideoURL:(NSString *)URLString
+{
+    if ([URLString hasPrefix:@"http://youtube.com"] || [URLString hasPrefix:@"http://www.youtube.com"] ||
+        [URLString hasPrefix:@"http://youtu.be"] || [URLString hasPrefix:@"http://www.youtu.be"] || 
+        [URLString hasPrefix:@"http://dailymotion.com"] || [URLString hasPrefix:@"http://www.dailymotion.com"] ||
+        [URLString hasPrefix:@"http://vimeo.com"] || [URLString hasPrefix:@"http://www.vimeo.com"])
+    {
+        return YES;
+    }
+    return NO;
+}
+
 @end
