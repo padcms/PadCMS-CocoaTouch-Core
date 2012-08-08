@@ -23,5 +23,7 @@
 - (void)loadBackground;
 - (BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
 - (void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
+- (void)showVideo:(PCPageElementVideo *)videoElement inRect:(CGRect)videoFrame;
+- (void)showVideo:(PCPageElementVideo *)videoElement;
 
 @end
