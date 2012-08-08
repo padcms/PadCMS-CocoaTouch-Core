@@ -141,11 +141,14 @@
     }
     if ([activeZone.URL hasPrefix:@"http://"])
     {
-        if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:activeZone.URL]])
+        if (![[PCVideoManager sharedVideoManager] isVideoURL:activeZone.URL])
         {
-            NSLog(@"Failed to open url:%@",[activeZone.URL description]);
+            if (![[UIApplication sharedApplication] openURL:[NSURL URLWithString:activeZone.URL]])
+            {
+                NSLog(@"Failed to open url:%@",[activeZone.URL description]);
+            }
+            return YES;
         }
-        return YES;
     }
   
     return NO;

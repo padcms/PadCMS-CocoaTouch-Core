@@ -259,7 +259,8 @@
 
 -(void)videoHasExitedFullScreen:(NSNotification *)paramNotification
 {
-    [self stopPlayingVideo];
+    //[self stopPlayingVideo];
+    [self.moviePlayer play];
 }
 
 @end
