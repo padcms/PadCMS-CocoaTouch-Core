@@ -999,7 +999,7 @@
     }
     
     tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapGesture:)];
-    tapGestureRecognizer.cancelsTouchesInView=NO;
+    tapGestureRecognizer.cancelsTouchesInView = NO;
     tapGestureRecognizer.delegate = self;
     [mainScrollView addGestureRecognizer:tapGestureRecognizer];
     
@@ -1506,15 +1506,6 @@
             [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
         }
     }
-}
-
--(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
- 
-  if (([touch.view isKindOfClass:[UIButton class]]) &&
-      ((gestureRecognizer == tapGestureRecognizer) || (gestureRecognizer == horizontalTapGestureRecognizer))) {
-    return NO;
-  }
-  return YES;
 }
 
 -(IBAction)showTOCAction:(id)sender
@@ -2145,6 +2136,36 @@
 - (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
 {
     NSLog(@"search: %@", searchText);
+}
+
+#pragma mark - UIGestureRecognizerDelegate
+
+-(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
+
+//    NSLog(@"Touch in view with class: %@", NSStringFromClass(touch.view.class));
+
+//    if (gestureRecognizer == tapGestureRecognizer) {
+//        NSLog(@"tapGestureRecognizer");
+//    } else if (gestureRecognizer == horizontalTapGestureRecognizer) {
+//        NSLog(@"horizontalTapGestureRecognizer");
+//    }
+    
+    if (([touch.view isKindOfClass:[UIButton class]]) &&
+        ((gestureRecognizer == tapGestureRecognizer) || (gestureRecognizer == horizontalTapGestureRecognizer))) {
+        
+//        NSLog(@"return NO");
+        return NO;
+    }
+    
+//    NSLog(@"return YES");
+    return YES;
+}
+
+- (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
+shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
+{
+//    NSLog(@"shouldRecognizeSimultaneouslyWithGestureRecognizer:");
+    return YES;
 }
 
 @end

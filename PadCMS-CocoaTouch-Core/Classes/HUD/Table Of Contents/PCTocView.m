@@ -170,6 +170,17 @@ typedef enum _PCTocViewPosition {
     _position = position;
 }
 
+- (BOOL)pointInside:(CGPoint)point withEvent:(UIEvent *)event
+{
+    if (CGRectContainsPoint(_button.frame, point) ||
+        CGRectContainsPoint(_gridView.frame, point)) {
+
+        return YES;
+    }
+
+    return NO;
+}
+
 - (CGPoint)hiddenStateCenterForRect:(CGRect)rect
 {
     switch (_position) {
