@@ -84,8 +84,6 @@ const CGFloat MinCameraScale = 0.25f;
 
 - (void)onOpen
 {
-    [super onOpen];
-    
     [self.activeCamera moveToShowAllOf:_modelNode withPadding:0.1];
 }
 
@@ -162,12 +160,8 @@ const CGFloat MinCameraScale = 0.25f;
 
 - (void)loadModel:(NSString *)modelName
 {
-    NSLog(@"RR3DScene loadModel:%@", modelName);
-    
     [self removeChild:_modelNode];
-    
     _modelNode = [CC3PODResourceNode nodeFromFile:modelName];
-    
     [self addChild:_modelNode];
 }
 
