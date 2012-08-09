@@ -34,28 +34,23 @@
 //
 
 #import <Foundation/Foundation.h>
-
-#import "PCSearchTaskDelegate.h"
 #import "PCApplication.h"
+#import "PCSearchBaseProvider.h"
 
 @class PCRevision;
 @class PCSearchTask;
 
 /**
  @class PCSearchProvider
- @brief Singletone that provides search functionality entry-point
+ @brief Class that provides search in revisions
  */
-@interface PCSearchProvider : NSObject
+@interface PCSearchProvider : PCSearchBaseProvider
 
 /**
- @brief Returns initialized PCSearchTask task instance
- @param keyphrase - searching keyphrase entered by user
- @param magazine - current magazine if the search was initiated from magazine viewing mode, or nil else
- @param delegate - object that receiving notifications from search task
- */
-+ (PCSearchTask *)searchWithKeyphrase:(NSString *)keyphrase
-                             revision:(PCRevision *)revision 
-                             delegate:(id<PCSearchTaskDelegate>)delegate
-                          application:(PCApplication*) application;
+ @brief Main application object, for revisions enumeration
+ */ 
+@property (atomic, assign) PCApplication *application;
+
+-(id) initWithKeyPhrase:(NSString*) keyPhrase andApplication:(PCApplication*)_application;
 
 @end

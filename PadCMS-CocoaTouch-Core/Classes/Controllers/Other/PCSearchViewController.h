@@ -34,7 +34,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "PCSearchTaskDelegate.h"
+#import "PCSearchProviderDelegate.h"
 #import "PCApplication.h"
 
 @class PCRevision;
@@ -56,14 +56,10 @@
  @brief Searching View Controller 
  */
 @interface PCSearchViewController : UIViewController <UITableViewDelegate, UITableViewDataSource, 
-PCSearchTaskDelegate>
-{
-    BOOL searchFinished;
-}
+PCSearchProviderDelegate>
 
 @property (retain, nonatomic) NSString *searchKeyphrase;
 @property (retain, nonatomic) PCRevision *revision;
-@property (retain, nonatomic) PCSearchTask *searchTask;
 
 @property (retain, nonatomic) IBOutlet UILabel *titleLabel;
 @property (retain, nonatomic) IBOutlet UITableView *searchResultsTableView;

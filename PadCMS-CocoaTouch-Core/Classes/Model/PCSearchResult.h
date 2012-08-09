@@ -34,7 +34,8 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PCSearchResultItem.h"
+
+@class PCSearchResultItem;
 
 /**
  @class PCSearchResult

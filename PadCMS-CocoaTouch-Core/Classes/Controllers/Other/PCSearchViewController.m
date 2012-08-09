@@ -39,16 +39,15 @@
 #import "PCSearchProvider.h"
 #import "PCSearchResultViewCell.h"
 #import "PCSearchResult.h"
-#import "PCSearchTask.h"
+#import "PCSearchResultItem.h"
 
-@interface PCSearchViewController (private)
+@interface PCSearchViewController ()
+
+@property(nonatomic, retain) PCSearchProvider *searchProvider;
 
 -(void) issueTitleClicked:(id)sender;
 -(void) pageTitleClicked:(id)sender;
 -(void) stopSearching;
--(void) sendSearchResultSelectedNotificationWithRevisionId:(NSInteger) revisionId
-                                              andPageIndex:(NSInteger) pageIndex
-                                             andIssueTitle:(NSString*)issueTitle;
 -(void) resultItemSelectedWithIndex:(NSInteger) index
                   andUsingPageIndex:(BOOL) usePageIndex;
 
@@ -61,9 +60,9 @@
 @synthesize searchingActivityIndicator;
 @synthesize searchKeyphrase;
 @synthesize revision;
-@synthesize searchTask;
 @synthesize application = _application;
 @synthesize delegate = _delegate;
+@synthesize searchProvider;
 
 - (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
@@ -71,7 +70,6 @@
     
     if (self)
     {
-        searchFinished = NO;
     }
     
     return self;
@@ -105,23 +103,15 @@
 {
     [super viewDidAppear:animated];
     
-    if(self.searchTask!=nil)
-    {
-        self.searchTask = nil;
-    }
     
-    searchFinished = NO;
-    self.searchTask = [PCSearchProvider searchWithKeyphrase:self.searchKeyphrase
-                                                   revision:self.revision
-                                                   delegate:self
-                                                application:self.application];
-    
+    self.searchProvider = [[[PCSearchProvider alloc] initWithKeyPhrase:self.searchKeyphrase
+                                                       andApplication:self.application] autorelease];
     [UIView beginAnimations:@"startSearch" context:nil];
     [UIView setAnimationDuration:1];
     searchResultsTableView.alpha = 0.5;
     [UIView commitAnimations];
     
-    [self.searchTask startSearch];
+    [self.searchProvider searchInRevision:self.revision];
 }
     
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -134,17 +124,15 @@
     [searchResultsTableView release];
     [searchingActivityIndicator release];
     [titleLabel release];
-    if(self.searchTask)
-    {
-        self.searchTask.delegate = nil;
-        self.searchTask = nil;
-    }
+    
+    self.searchProvider = nil;
+
     [super dealloc];
 }
 
 - (IBAction)cancelClick:(id)sender
 {
-    if(searchFinished)
+    if(![self.searchProvider searchInPorgress])
     {
         /*if(self.revision!=nil)
         {
@@ -161,7 +149,7 @@
         }*/
 		 [self dismissByDelegate];
     } else {
-        [self.searchTask cancelSearch];
+        [self.searchProvider cancelSearch];
     }
 }
 
@@ -169,15 +157,15 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    if(self.searchTask)
+    if(self.searchProvider)
     {
-        @synchronized (self.searchTask.result)
+        @synchronized (self.searchProvider.result)
         {
-            if(self.searchTask.result)
+            if(self.searchProvider.result)
             {
-                if(self.searchTask.result.items)
+                if(self.searchProvider.result.items)
                 {
-                    return [self.searchTask.result.items count];
+                    return [self.searchProvider.result.items count];
                 }
             }
         }
@@ -207,13 +195,13 @@
 
     cell.tag = row;
     
-    if(self.searchTask.result)
+    if(self.searchProvider.result)
     {
-        @synchronized (self.searchTask.result)
+        @synchronized (self.searchProvider.result)
         {
-            if(self.searchTask.result.items)
+            if(self.searchProvider.result.items)
             {
-                PCSearchResultItem      *item = [self.searchTask.result.items objectAtIndex:row];
+                PCSearchResultItem      *item = [self.searchProvider.result.items objectAtIndex:row];
                 
                 if(item)
                 {
@@ -246,9 +234,9 @@
 -(void) resultItemSelectedWithIndex:(NSInteger) index
                   andUsingPageIndex:(BOOL) usePageIndex
 {
-    if(index>=0 && index<[self.searchTask.result.items count])
+    if(index>=0 && index<[self.searchProvider.result.items count])
     {
-        PCSearchResultItem      *item = [self.searchTask.result.items objectAtIndex:index];
+        PCSearchResultItem      *item = [self.searchProvider.result.items objectAtIndex:index];
         
         if(item)
         {
@@ -274,7 +262,7 @@
 
 -(void) issueTitleClicked:(id)sender
 {
-    if(!searchFinished) return;
+    if([self.searchProvider searchInPorgress]) return;
     if([sender isKindOfClass:[UIButton class]])
     {
         UIButton        *button = (UIButton*)sender;
@@ -285,7 +273,7 @@
 
 -(void) pageTitleClicked:(id)sender
 {
-    if(!searchFinished) return;
+    if([self.searchProvider searchInPorgress]) return;
     if([sender isKindOfClass:[UIButton class]])
     {
         UIButton        *button = (UIButton*)sender;
@@ -314,7 +302,7 @@
 
 -(void) searchTaskCanceled
 {
-    if(!searchFinished)[self stopSearching];
+    [self stopSearching];
     if ([self respondsToSelector:@selector(dismissViewControllerAnimated:completion:)]) 
     {
         [self dismissViewControllerAnimated:YES completion:nil];
@@ -327,7 +315,6 @@
 
 -(void) stopSearching
 {
-    searchFinished = YES;
     [UIView setAnimationDuration:1];
     searchResultsTableView.alpha = 1.0;
     [UIView commitAnimations];

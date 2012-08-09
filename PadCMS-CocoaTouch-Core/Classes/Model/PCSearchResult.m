@@ -34,6 +34,7 @@
 //
 
 #import "PCSearchResult.h"
+#import "PCSearchResultItem.h"
 
 @implementation PCSearchResult
 @synthesize items;
