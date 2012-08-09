@@ -586,6 +586,7 @@
 {
     if ([self.delegate respondsToSelector:@selector(revisionViewControllerDidDismiss:)]) {
         [self.delegate revisionViewControllerDidDismiss:self];
+        [[PCVideoManager sharedVideoManager] setIsStartVideoShown:NO];
     }
 }
 

@@ -80,30 +80,43 @@
 
 - (void)createVideoFrame
 {
-    /*NSLog(@"page.id - %d, elements - %@", _page.identifier, _page.elements);
-    if ([_page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && 
-        ![_page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo])
-    {*/
+    if (([_page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && 
+        ![_page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo]) || 
+        _page.revision.coverPage == _page)
+    {
         PCPageElementVideo *videoElement = (PCPageElementVideo*)[self.page firstElementForType:PCPageElementTypeVideo];
-    if (videoElement)
-        [self showVideo:videoElement];
-    //}
+        if (videoElement && !(_page.revision.coverPage == _page && [[PCVideoManager sharedVideoManager] isStartVideoShown]))
+        {
+            [self showVideo:videoElement];
+            [[PCVideoManager sharedVideoManager] setIsStartVideoShown:YES];
+        }
+    }
 }
 
 - (void)showVideo:(PCPageElementVideo*)videoElement
+{
+    [self showVideo:videoElement inRect:CGRectZero];
+}
+
+- (void)showVideo:(PCPageElementVideo*)videoElement inRect:(CGRect)videoFrame
 {    
-    CGRect videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+    CGRect videoRect = videoFrame;
     
     if (CGRectEqualToRect(videoRect, CGRectZero))
     {
-        videoRect = self.view.frame;
-        if ((videoRect.size.width < videoRect.size.height) && (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])))
+        videoRect = [self activeZoneRectForType:PCPDFActiveZoneVideo];
+        
+        if (CGRectEqualToRect(videoRect, CGRectZero))
         {
-            videoRect = CGRectMake(videoRect.origin.y, videoRect.origin.x, videoRect.size.height, videoRect.size.width);
+            videoRect = self.view.frame;
+            if ((videoRect.size.width < videoRect.size.height) && (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])))
+            {
+                videoRect = CGRectMake(videoRect.origin.y, videoRect.origin.x, videoRect.size.height, videoRect.size.width);
+            }
         }
     }
     
-    ((PCVideoManager *)[PCVideoManager sharedVideoManager]).delegate = self;
+    [[PCVideoManager sharedVideoManager] setDelegate:self];
 
     if (videoElement.stream)
         [[PCVideoManager sharedVideoManager] showVideo:videoElement.stream inRect:videoRect];
@@ -133,9 +146,9 @@
         return YES;
     }
     //if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]||[activeZone.URL hasPrefix:PCPDFActiveZoneVideo])
-    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]) //|| [activeZone.URL hasPrefix:@"http://"])
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo])
     {
-        PCPageElementVideo* video = (PCPageElementVideo *)[self.page firstElementForType:PCPageElementTypeVideo];
+        PCPageElementVideo *video = (PCPageElementVideo *)[self.page firstElementForType:PCPageElementTypeVideo];
         [self showVideo:video];
         return YES;
     }
@@ -147,8 +160,21 @@
             {
                 NSLog(@"Failed to open url:%@",[activeZone.URL description]);
             }
-            return YES;
         }
+        else
+        {
+            PCPageElementVideo *video = [[PCPageElementVideo alloc] init];
+            video.stream = activeZone.URL;
+            CGRect videoRect = activeZone.rect;
+            CGSize pageSize = self.view.bounds.size;
+            if ((pageSize.width < pageSize.height) && (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])))
+            {
+                pageSize = CGSizeMake(pageSize.height, pageSize.width);
+            }
+            videoRect.origin.y = pageSize.height - videoRect.origin.y - videoRect.size.height;
+            [self showVideo:video inRect:videoRect];
+        }
+        return YES;
     }
   
     return NO;
@@ -168,16 +194,20 @@
         [self showFullscreenVideo:videoView];
         return;
     }
-    if (_backgroundViewController && !CGRectEqualToRect([_backgroundViewController.element rectForElementType:PCPageElementTypeVideo], CGRectZero))
+    if (_backgroundViewController)
     {
-        [_backgroundViewController.elementView.scrollView addSubview:videoView];
-        [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];
+        for (PCPageActiveZone *activeZone in _backgroundViewController.element.activeZones)
+        {
+            if ([[PCVideoManager sharedVideoManager] isVideoURL:activeZone.URL] || [activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo])
+            {
+                [_backgroundViewController.elementView.scrollView addSubview:videoView];
+                [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];
+                return;
+            }
+        }
     }
-    else 
-    {
-        [_bodyViewController.elementView.scrollView addSubview:videoView];
-        [_bodyViewController.elementView.scrollView bringSubviewToFront:videoView];
-    }
+    [_bodyViewController.elementView.scrollView addSubview:videoView];
+    [_bodyViewController.elementView.scrollView bringSubviewToFront:videoView];
 }
 
 - (void)videoControllerWillDismiss
