@@ -1,8 +1,8 @@
 //
-//  PCSearchTask.h
-//  Pad CMS
+//  PCSearchBaseProvider.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by Oleg Zhitnik on 02.03.12.
+//  Created by Oleg Zhitnik on 31.07.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -34,69 +34,103 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "PCRevision.h"
+#import "PCSearchProviderDelegate.h"
 #import "PCSearchResult.h"
-#import "PCSearchTaskDelegate.h"
-#import "PCApplication.h"
 
-@class PCRevision;
 /**
- @class PCSearchTask
- @brief This class implements searching in magazines
+ @class PCSearchBaseProvider
+ @brief Class that provides and manage searching
  */
-@interface PCSearchTask : NSObject
-{
-    PCRevision *revision;   ///< current revision if the search was initiated from magazine viewing mode, or nil else
-}
+@interface PCSearchBaseProvider : NSObject
 
 /**
- @brief The key phrase for search
+ @brief Object that receiving notifications from searching thread (performed in main-thread)
  */ 
-@property (nonatomic, retain) NSString *keyphrase;
+@property (atomic, assign) id<PCSearchProviderDelegate> delegate;
 
 /**
- @brief The regular expression for search, created from the key phrase
+ @brief Searching regexp string
  */ 
-@property (nonatomic, retain) NSString *keyphraseRegexp;
+
+@property (nonatomic, retain) NSString *keyPhraseRegexp;
 
 /**
- @brief Searching result
+ @brief Searching in progress flag
+ */ 
+@property (nonatomic, assign) BOOL searchInPorgress;
+
+/**
+ @brief Searching result (array)
  */ 
 @property (atomic, retain) PCSearchResult *result;
 
 /**
- @brief Background thread that perform search
+ @brief Searching thread
  */ 
-@property (atomic, assign) NSThread *searchingThread;
+@property (nonatomic, assign) NSThread *searchingThread;
 
 /**
- @brief object that receiving notifications from searching thread (performed in main-thread)
+ @brief Revision for searching
  */ 
-@property (atomic, assign) id<PCSearchTaskDelegate> delegate;
+@property (nonatomic, assign) PCRevision *targetRevision;
+
+
 
 /**
- @brief main application object
+ @brief
  */ 
-@property (atomic, assign) PCApplication *application;
+-(id) initWithKeyPhrase:(NSString*) keyPhrase;
 
 /**
- @brief Returns new initialized instance of the PCSearchTask class
- @param smagazine - current magazine if the search was initiated from magazine viewing mode, or nil else
- @param skeyphrase - searching keyphrase entered by user
- @param sdelegate - object that receiving notifications from search task
+ @brief
  */ 
-- (id)initWithRevision:(PCRevision *)srevision
-             keyPhrase:(NSString *)skeyphrase 
-              delegate:(id<PCSearchTaskDelegate>)sdelegate
-           application:(PCApplication*) application;
+-(NSString*) searchingRegexpFromKeyPhrase:(NSString*) keyphrase;
 
 /**
- @brief Starts searching process
+ @brief
  */ 
--(void) startSearch;
+-(BOOL) isStringContainsRegexp:(NSString*) string;
 
 /**
- @brief Cancel searching process
+ @brief
+ */ 
+-(void) searchInRevision:(PCRevision*) revision;
+
+/**
+ @brief
  */ 
 -(void) cancelSearch;
+
+/**
+ @brief
+ */ 
+
+- (void) searchThread:(id)someObject;
+/**
+ @brief
+ */ 
+
+- (void) callDelegateTaskStarted;
+/**
+ @brief
+ */ 
+
+- (void) callDelegateTaskFinished;
+/**
+ @brief
+ */ 
+
+- (void) callDelegateTaskCanceled;
+/**
+ @brief
+ */ 
+
+- (void) callDelegateTaskUpdated;
+
+/**
+ @brief
+ */ 
+- (void) search;
 
 @end

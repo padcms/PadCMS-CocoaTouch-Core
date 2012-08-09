@@ -34,7 +34,6 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "PCRevision.h"
 
 /**
  @class PCSearchResultItem

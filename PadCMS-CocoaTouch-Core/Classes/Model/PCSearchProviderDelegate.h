@@ -1,8 +1,8 @@
 //
-//  PCSearchTaskDelegate.h
-//  Pad CMS
+//  PCSearchProviderDelegate.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by Oleg Zhitnik on 02.03.12.
+//  Created by Oleg Zhitnik on 03.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -36,9 +36,10 @@
 #import <Foundation/Foundation.h>
 
 /**
- @brief Set of methods to be implemented to act PCSearchTask delegate
+ @brief Set of methods to be implemented to act with PCSearchBaseProvider subclass delegate
  */ 
-@protocol PCSearchTaskDelegate <NSObject>
+@protocol PCSearchProviderDelegate <NSObject>
+
 @required
 
 /**
@@ -62,4 +63,5 @@
  @brief Called when background searching task is canceled execution
  */ 
 -(void) searchTaskCanceled;
+
 @end

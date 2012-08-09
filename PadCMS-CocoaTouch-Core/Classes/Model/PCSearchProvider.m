@@ -34,69 +34,129 @@
 //
 
 #import "PCSearchProvider.h"
-#import "PCSearchTask.h"
+#import "PCIssue.h"
+#import "PCSearchResultItem.h"
 
-@interface PCSearchProvider (Private)
-+ (PCSearchProvider*)GetInstance;
-- (PCSearchTask *)searchWithKeyphrase:(NSString *)keyphrase
-                             revision:(PCRevision *)revision 
-                             delegate:(id<PCSearchTaskDelegate>)delegate
-                          application:(PCApplication*) application;
+@interface PCSearchProvider ()
+- (void) searchInRevision:(PCRevision *)_revision;
+- (BOOL) isPageContainsRegexp:(PCPage*)page;
+- (BOOL) isPageElementContainsRegexp:(PCPageElement*)element;
 @end
 
 @implementation PCSearchProvider
+@synthesize application;
 
-static PCSearchProvider *instance = nil;
-
-- (id)init
+-(id) initWithKeyPhrase:(NSString*) keyPhrase andApplication:(PCApplication*)_application
 {
     self = [super init];
     if (self)
     {
+        [super initWithKeyPhrase:keyPhrase];
+        self.application = _application;
     }
-    
     return self;
 }
 
 - (void)dealloc
 {
+    self.application = nil;
     [super dealloc];
 }
 
-+ (PCSearchTask *)searchWithKeyphrase:(NSString *)keyphrase
-                             revision:(PCRevision *)revision 
-                             delegate:(id<PCSearchTaskDelegate>)delegate
-                          application:(PCApplication*) application
+- (void) search
 {
-    return [[PCSearchProvider GetInstance] searchWithKeyphrase:keyphrase
-                                                      revision:revision
-                                                      delegate:delegate
-                                                   application:application];
+    if(self.targetRevision)
+    {
+        [self searchInRevision:self.targetRevision];
+        
+        if ([self.searchingThread isCancelled])
+        {
+            [self callDelegateTaskCanceled];
+        }
+    } else {
+        // search in all revisions
+        NSMutableArray *allRevisions = [[NSMutableArray alloc] init];
+        
+        NSArray *issues = self.application.issues;
+        for (PCIssue *issue in issues)
+        {
+            [allRevisions addObjectsFromArray:issue.revisions];
+        }
+        
+        for(PCRevision *currentRevision in allRevisions)
+        {
+            [self searchInRevision:currentRevision];
+            
+            if([self.searchingThread isCancelled])
+            {
+                [self callDelegateTaskCanceled];
+                break;
+            }
+        }
+        
+        [allRevisions release];
+    }
 }
 
 #pragma mark --- Private ---
 
-+ (PCSearchProvider*)GetInstance
+- (void)searchInRevision:(PCRevision *)_revision
 {
-    if (instance == nil)
-    {
-        instance = [[PCSearchProvider alloc] init];
-    }
+    if(_revision == nil || _revision.pages == nil) return;
     
-    return instance;
+    for (int i = 0; i < [_revision.pages count]; i++)
+    {
+        if([self.searchingThread isCancelled])
+        {
+            return;
+        }
+        
+        PCPage *currentPage = [_revision.pages objectAtIndex:i];
+        
+        if([self isPageContainsRegexp:currentPage])
+        {
+            // add page to result set
+            PCSearchResultItem  *item = [[PCSearchResultItem alloc] initWithIssueTitle:_revision.issue.title
+                                                                          andPageTitle:currentPage.title
+                                                                 andRevisionIdentifier:_revision.identifier
+                                                                          andPageIndex:i];
+            [self.result addResultItem:item];
+            [item release];
+            [self callDelegateTaskUpdated];
+        }
+    }
 }
 
-- (PCSearchTask *)searchWithKeyphrase:(NSString *)keyphrase
-                             revision:(PCRevision *)revision 
-                             delegate:(id<PCSearchTaskDelegate>)delegate
-                          application:(PCApplication*) application
+- (BOOL) isPageContainsRegexp:(PCPage*)page;
 {
-    PCSearchTask *searchTask = [[PCSearchTask alloc] initWithRevision:revision 
-                                                            keyPhrase:keyphrase 
-                                                             delegate:delegate
-                                                          application:application];
+    if(!page) return NO;
+    if(!page.elements) return NO;
     
-    return [searchTask autorelease];
+    for(PCPageElement* currentElement in page.elements)
+    {
+        if([self.searchingThread isCancelled])
+        {
+            return NO;
+        }
+        
+        if([self isPageElementContainsRegexp:currentElement])
+        {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+- (BOOL) isPageElementContainsRegexp:(PCPageElement*)element;
+{
+    if(element)
+    {
+        if(element.contentText)
+        {
+            if([self isStringContainsRegexp:element.contentText]) return YES;
+        }
+    }
+    return NO;
 }
 
 @end
