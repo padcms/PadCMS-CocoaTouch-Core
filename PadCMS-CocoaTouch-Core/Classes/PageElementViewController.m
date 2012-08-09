@@ -44,7 +44,7 @@
 	NSLog(@"element dealloc");
 	[_element release], _element = nil;
 	[_elementView release], _elementView = nil;
-    [[PCVideoManager sharedVideoManager] dismissVideo];
+    //[[PCVideoManager sharedVideoManager] dismissVideo];
 	[super dealloc];
 }
 

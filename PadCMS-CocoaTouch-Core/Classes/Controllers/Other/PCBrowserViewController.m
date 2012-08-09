@@ -60,7 +60,8 @@
 {
     self = [super init];
     
-    if (self != nil) {
+    if (self != nil) 
+    {
         _webView = nil;
         _HUD = nil;
         _videoURL = nil;
@@ -72,9 +73,9 @@
 
 - (void)dealloc
 {
-    [_webView release];
-    [_HUD release];
-    [_videoURL release];
+    [_webView release], _webView = nil;
+    [_HUD release], _HUD = nil;
+    [_videoURL release], _videoURL = nil;
     _videoRect = CGRectZero;
     
     [super dealloc];
@@ -83,9 +84,6 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-    
-    [self createWebView];
-    [self createReturnButton];
 }
 
 - (void)viewWillAppear:(BOOL)animated
@@ -103,16 +101,20 @@
 
 - (void)createWebView
 {
-    _webView = [[UIWebView alloc] initWithFrame:self.videoRect];
-    _webView.delegate = self;
-    _webView.scrollView.scrollEnabled = NO;
-    _webView.scrollView.bounces = NO;
+    if (!_webView)
+    {
+        _webView = [[UIWebView alloc] initWithFrame:self.view.frame];
+        _webView.delegate = self;
+        _webView.scrollView.scrollEnabled = NO;
+        _webView.scrollView.bounces = NO;
+    }
     [self.view addSubview:_webView];
 }
 
 - (void)createReturnButton
 {
-    if (CGSizeEqualToSize(self.videoRect.size, [[UIScreen mainScreen] bounds].size)) {
+    if (CGSizeEqualToSize(self.videoRect.size, [[UIScreen mainScreen] bounds].size)) 
+    {
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
         [backButton addTarget:self action:@selector(stopShowingBrowserVideo) forControlEvents:UIControlEventTouchUpInside];
         NSDictionary *buttonOption = [NSDictionary dictionaryWithObject:[NSValue valueWithCGRect:self.view.frame] forKey:PCButtonParentViewFrameKey];
@@ -123,13 +125,23 @@
     }
 }
 
+- (void)showBrowserVideo:(NSString *)url inRect:(CGRect)frame
+{
+    self.view.frame = frame;
+    [self createWebView];
+    [self createReturnButton];
+    _webView.frame = frame;
+    [self presentURL:url];
+}
+
 - (void)stopShowingBrowserVideo
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     [_webView removeFromSuperview];
-    [_webView release];
+    [_webView release], _webView = nil;
     NSArray *subviews = self.view.subviews;
-    for (UIView *subview in subviews) {
+    for (UIView *subview in subviews) 
+    {
         [subview removeFromSuperview];
     }
     [self.view removeFromSuperview];
@@ -144,7 +156,8 @@
 
 -(void)showHUD
 {
-    if (_HUD == nil) {
+    if (_HUD == nil) 
+    {
         _HUD = [[MBProgressHUD alloc] initWithView:self.webView];
         _HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING"
                                                                 value:@"Loading"];
@@ -156,16 +169,18 @@
 
 -(void)hideHUD
 {
-	if (_HUD != nil) {
+	if (_HUD != nil) 
+    {
         [_HUD hide:YES];
 		[_HUD removeFromSuperview];
-		[_HUD release];
+		[_HUD release], _HUD = nil;
 	}
 }
 
 - (BOOL)webView:(UIWebView *)webView shouldStartLoadWithRequest:(NSURLRequest *)request navigationType:(UIWebViewNavigationType)navigationType
 {
-    if ([[request.URL absoluteURL] isEqual:[self.videoURL absoluteURL]]) {
+    if ([[request.URL absoluteURL] isEqual:[self.videoURL absoluteURL]]) 
+    {
         return YES;
     }
     

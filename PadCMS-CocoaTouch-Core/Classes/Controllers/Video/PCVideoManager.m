@@ -135,11 +135,10 @@
 
 - (void)showVideoController:(NSURL *)videoURL inRect:(CGRect)videoFrame
 {
-    if(_videoController)
+    if (!_videoController)
     {
-        [_videoController release], _videoController = nil;
+        _videoController = [[PCVideoController alloc] init];
     }
-    _videoController = [[PCVideoController alloc] init];
     [_videoController createVideoPlayer:videoURL inRect:videoFrame];
     [_delegate videoControllerWillShow:self.videoController.moviePlayer];
     [_videoController playVideo];
@@ -147,14 +146,12 @@
 
 - (void)showBrowserViewController:(NSURL *)videoURL inRect:(CGRect)videoFrame
 {    
-    if(_browserViewController)
+    if (!_browserViewController)
     {
-        [_browserViewController release], _browserViewController = nil;
+        _browserViewController = [[PCBrowserViewController alloc] init];
     }
-    _browserViewController = [[PCBrowserViewController alloc] init];
-    _browserViewController.videoRect = videoFrame;
+    [_browserViewController showBrowserVideo:[videoURL absoluteString] inRect:videoFrame];
     [_delegate videoControllerWillShow:self.browserViewController];
-    [_browserViewController presentURL:[videoURL absoluteString]];
 }
 
 - (void)dismissVideo

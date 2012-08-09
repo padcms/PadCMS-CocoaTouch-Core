@@ -15,6 +15,8 @@
 
 @interface SimplePageViewController ()
 
+-(void)tapAction:(UIGestureRecognizer *)gestureRecognizer;
+
 @end
 
 @implementation SimplePageViewController
@@ -41,10 +43,7 @@
 	if (!_page.isComplete) [self showHUD];
 	if (!_page.isComplete) return;
     
-    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-	tapGestureRecognizer.cancelsTouchesInView = NO;
-	tapGestureRecognizer.delegate = self;
-    [self.view  addGestureRecognizer:tapGestureRecognizer];
+  
     
 	[self loadBackground];	
 
@@ -63,6 +62,10 @@
 {
     [super viewDidAppear:animated];
     [self createVideoFrame];
+    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+	tapGestureRecognizer.cancelsTouchesInView = NO;
+	tapGestureRecognizer.delegate = self;
+    [self.view  addGestureRecognizer:tapGestureRecognizer];
 }
 
 -(void)loadBackground
@@ -202,12 +205,14 @@
             {
                 [_backgroundViewController.elementView.scrollView addSubview:videoView];
                 [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];
+                NSLog(@"subviews - %@", _backgroundViewController.elementView.scrollView.subviews);
                 return;
             }
         }
     }
     [_bodyViewController.elementView.scrollView addSubview:videoView];
     [_bodyViewController.elementView.scrollView bringSubviewToFront:videoView];
+    NSLog(@"subviews - %@", videoView.subviews);
 }
 
 - (void)videoControllerWillDismiss
