@@ -13,6 +13,7 @@
 #import "UIImage+Resize.h"
 #import "ImageCache.h"
 #import "JCTiledView.h"
+#import "PCVideoManager.h"
 
 @interface PageElementViewController ()
 @property (readonly) float scale;
@@ -33,7 +34,6 @@
         _element = [element retain];
 		_scale = [UIScreen mainScreen].scale;
 		_elementFrame = elementFrame;
-		
     }
     return self;
 }
@@ -44,6 +44,7 @@
 	NSLog(@"element dealloc");
 	[_element release], _element = nil;
 	[_elementView release], _elementView = nil;
+    [[PCVideoManager sharedVideoManager] dismissVideo];
 	[super dealloc];
 }
 

@@ -67,5 +67,6 @@
 - (id) init;
 - (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect;
 - (void) playVideo;
+- (void) stopPlayingVideo;
 
 @end

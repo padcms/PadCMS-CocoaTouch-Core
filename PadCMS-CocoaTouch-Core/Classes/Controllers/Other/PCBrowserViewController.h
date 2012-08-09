@@ -49,5 +49,6 @@
 @property (nonatomic, retain) NSURL *videoURL;
 
 - (void)presentURL:(NSString *)url;
+- (void)stopShowingBrowserVideo;
 
 @end

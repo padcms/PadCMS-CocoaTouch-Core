@@ -159,7 +159,11 @@
 
 - (void)dismissVideo
 {
+    [_videoController stopPlayingVideo];
+    [_videoController release], _videoController = nil;
     
+    [_browserViewController stopShowingBrowserVideo];
+    [_browserViewController release], _browserViewController = nil;
 }
 
 - (BOOL)isConnectionEstablished
@@ -188,6 +192,7 @@
         [URLString hasPrefix:@"http://youtu.be"] || [URLString hasPrefix:@"http://www.youtu.be"] || 
         [URLString hasPrefix:@"http://dailymotion.com"] || [URLString hasPrefix:@"http://www.dailymotion.com"] ||
         [URLString hasPrefix:@"http://vimeo.com"] || [URLString hasPrefix:@"http://www.vimeo.com"] ||
+        [URLString hasPrefix:@"http://player.vimeo.com"] || [URLString hasPrefix:@"http://www.player.vimeo.com"] ||
         [[URLString pathExtension] isEqualToString:@"mp4"] || [[URLString pathExtension] isEqualToString:@"avi"] ||
         [[URLString pathExtension] isEqualToString:@"m4v"])
     {

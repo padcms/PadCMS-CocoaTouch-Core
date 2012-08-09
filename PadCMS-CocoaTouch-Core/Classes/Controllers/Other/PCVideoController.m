@@ -43,7 +43,6 @@
 @interface PCVideoController () 
 
 - (BOOL) isConnectionEstablished;
-- (void) stopPlayingVideo;
 - (void) videoHasFinishedPlaying:(NSNotification *) paramNotification;
 - (void) videoHasChanged:(NSNotification *) paramNotification;
 - (void) videoHasExitedFullScreen:(NSNotification *) paramNotification;

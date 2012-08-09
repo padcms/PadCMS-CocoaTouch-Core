@@ -96,7 +96,7 @@
 - (void)viewDidDisappear:(BOOL)animated
 {
     [self hideHUD];
-    [self backButtonTap];
+    [self stopShowingBrowserVideo];
     
     [super viewDidDisappear:animated];
 }
@@ -114,7 +114,7 @@
 {
     if (CGSizeEqualToSize(self.videoRect.size, [[UIScreen mainScreen] bounds].size)) {
         UIButton *backButton = [UIButton buttonWithType:UIButtonTypeCustom];
-        [backButton addTarget:self action:@selector(backButtonTap) forControlEvents:UIControlEventTouchUpInside];
+        [backButton addTarget:self action:@selector(stopShowingBrowserVideo) forControlEvents:UIControlEventTouchUpInside];
         NSDictionary *buttonOption = [NSDictionary dictionaryWithObject:[NSValue valueWithCGRect:self.view.frame] forKey:PCButtonParentViewFrameKey];
         [[PCStyler defaultStyler] stylizeElement:backButton withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
         [backButton setFrame:CGRectMake(self.view.frame.size.width - backButton.frame.size.width, 0, backButton.frame.size.width, backButton.frame.size.height)];
@@ -123,7 +123,7 @@
     }
 }
 
-- (void)backButtonTap
+- (void)stopShowingBrowserVideo
 {
 	[[NSNotificationCenter defaultCenter] postNotificationName:MPMoviePlayerPlaybackDidFinishNotification object:nil];
     [_webView removeFromSuperview];
