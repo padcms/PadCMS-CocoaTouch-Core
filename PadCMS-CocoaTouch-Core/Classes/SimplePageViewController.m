@@ -205,14 +205,12 @@
             {
                 [_backgroundViewController.elementView.scrollView addSubview:videoView];
                 [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];
-                NSLog(@"subviews - %@", _backgroundViewController.elementView.scrollView.subviews);
                 return;
             }
         }
     }
     [_bodyViewController.elementView.scrollView addSubview:videoView];
     [_bodyViewController.elementView.scrollView bringSubviewToFront:videoView];
-    NSLog(@"subviews - %@", videoView.subviews);
 }
 
 - (void)videoControllerWillDismiss
@@ -234,6 +232,7 @@
 -(void)tapAction:(UIGestureRecognizer *)gestureRecognizer
 {
     CGPoint point = [gestureRecognizer locationInView:self.view];
+    NSLog(@"tap - %@", NSStringFromCGPoint(point));
     NSArray* actions = [self activeZonesAtPoint:point];
     for (PCPageActiveZone* action in actions)
         if ([self pdfActiveZoneAction:action])

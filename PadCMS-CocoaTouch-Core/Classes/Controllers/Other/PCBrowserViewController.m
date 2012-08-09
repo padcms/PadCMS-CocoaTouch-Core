@@ -130,7 +130,7 @@
     self.view.frame = frame;
     [self createWebView];
     [self createReturnButton];
-    _webView.frame = frame;
+    _webView.frame = CGRectMake(0, 0, self.view.frame.size.width, self.view.frame.size.height);
     [self presentURL:url];
 }
 
