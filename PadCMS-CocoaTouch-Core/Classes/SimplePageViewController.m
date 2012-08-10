@@ -82,6 +82,7 @@
 
 - (void)createVideoFrame
 {
+    [[PCVideoManager sharedVideoManager] dismissVideo];
     if (([_page hasPageActiveZonesOfType:PCPDFActiveZoneVideo] && 
         ![_page hasPageActiveZonesOfType:PCPDFActiveZoneActionVideo]) || 
         _page.revision.coverPage == _page)

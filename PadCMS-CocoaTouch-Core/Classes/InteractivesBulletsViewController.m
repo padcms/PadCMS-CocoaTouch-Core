@@ -140,18 +140,6 @@
             break;
 }
 
-/*-(BOOL) pdfActiveZoneAction:(PCPageActiveZone*)activeZone
-{
-    [super pdfActiveZoneAction:activeZone];
-    if ([activeZone.URL hasPrefix:PCPDFActiveZoneActionButton])
-    {
-        [self.bodyViewController.elementView setHidden:!self.bodyViewController.elementView.hidden];
-        [self changeVideoLayout:self.bodyViewController.elementView.hidden];
-        return YES;
-    }
-    return NO;
-}*/
-
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
 {
     return YES;
