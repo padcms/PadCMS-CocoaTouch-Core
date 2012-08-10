@@ -1,8 +1,8 @@
 //
-//  PCTOCGridViewCell.h
+//  PCSummaryGridViewCell.h
 //  Pad CMS
 //
-//  Created by Maxim Pervushin on 7/16/12.
+//  Created by Maxim Pervushin on 8/9/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -11,13 +11,13 @@
 //  modify and/ or redistribute the software under the terms of the CeCILL-C
 //  license as circulated by CEA, CNRS and INRIA at the following URL
 //  "http://www.cecill.info".
-//  
+//
 //  As a counterpart to the access to the source code and  rights to copy,
 //  modify and redistribute granted by the license, users are provided only
 //  with a limited warranty  and the software's author,  the holder of the
 //  economic rights,  and the successive licensors  have only  limited
 //  liability.
-//  
+//
 //  In this respect, the user's attention is drawn to the risks associated
 //  with loading,  using,  modifying and/or developing or reproducing the
 //  software by the user in light of its specific status of free software,
@@ -28,7 +28,7 @@
 //  requirements in conditions enabling the security of their systems and/or
 //  data to be ensured and,  more generally, to use and operate it in the
 //  same conditions as regards security.
-//  
+//
 //  The fact that you are presently reading this means that you have had
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
@@ -36,14 +36,16 @@
 #import "PCGridViewCell.h"
 
 /**
- @brief PCGridView cell for displaying table of contents element.
- */ 
-@interface PCTOCGridViewCell : PCGridViewCell
+ @class PCSummaryGridViewCell
+ @brief An instance of the PCSummaryGridViewCell represents custom grid view cell that should be used for displaying summary items. 
+ */
+@interface PCSummaryGridViewCell : PCGridViewCell
 
 /**
- @brief Image setter. Sets image and validates size
- @param image - UIImage to be displayed
- */ 
-- (void)setImage:(UIImage *)image;
+ @brief Sets image and text of the receiver.
+ @param Image to set.
+ @param Text to parse and set.
+ */
+- (void)setImage:(UIImage *)image text:(NSString *)text;
 
 @end

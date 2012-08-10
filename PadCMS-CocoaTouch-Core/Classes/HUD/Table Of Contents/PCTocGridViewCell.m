@@ -33,19 +33,19 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCTOCGridViewCell.h"
+#import "PCTocGridViewCell.h"
 
 #define VerticalMargin 10
 #define HorizontalMargin 10
 
-@interface PCTOCGridViewCell ()
+@interface PCTocGridViewCell ()
 {
     UIImageView *_imageView;
 }
 
 @end
 
-@implementation PCTOCGridViewCell
+@implementation PCTocGridViewCell
 
 - (id)initWithFrame:(CGRect)frame
 {

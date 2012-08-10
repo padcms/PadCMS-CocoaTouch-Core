@@ -39,17 +39,23 @@
 #import "PCDefaultStyleElements.h"
 #import "PCGridViewCell.h"
 #import "PCGridViewIndex.h"
-#import "PCTOCGridViewCell.h"
+#import "PCTocGridViewCell.h"
 #import "PCTopBarView.h"
 #import "PCGridViewIndex.h"
+#import "PCSummaryView.h"
+#import "PCSummaryGridViewCell.h"
 
 #define TopBarHeight 43
+#define SummaryViewXOffset -50
+#define SummaryViewYOffset 20
+
 NSString *EnabledKey = @"Enabled";
 
 @interface PCHudView ()
 {
     UIView *_tintView;
     PCTopBarView *_topBarView;
+    PCSummaryView *_summaryView;
     PCTocView *_topTocView;
     PCTocView *_bottomTocView;
 }
@@ -63,6 +69,7 @@ NSString *EnabledKey = @"Enabled";
 @synthesize delegate;
 @synthesize dataSource;
 @synthesize topBarView = _topBarView;
+@synthesize summaryView = _summaryView;
 @synthesize topTocView = _topTocView;
 @synthesize bottomTocView = _bottomTocView;
 
@@ -86,6 +93,11 @@ NSString *EnabledKey = @"Enabled";
         _topBarView.alpha = 0.75f;
         _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         [self addSubview:_topBarView];
+        
+        // configure summary
+        _summaryView = [[PCSummaryView alloc] initWithFrame:CGRectMake(0, 0, 400, 1000)];
+        _summaryView.gridView.dataSource = self;
+        _summaryView.gridView.delegate = self;
         
         // configure tocs
         NSDictionary *topTableOfContentsConfig = [PCConfig topTableOfContentsConfig];
@@ -155,12 +167,70 @@ NSString *EnabledKey = @"Enabled";
 
 - (void)reloadData
 {
+    if (_summaryView != nil) {
+        [_summaryView reloadData];
+    }
+    
     if (_topTocView != nil) {
         [_topTocView.gridView reloadData];
     }
     
     if (_bottomTocView != nil) {
         [_bottomTocView.gridView reloadData];
+    }
+}
+
+- (void)showSummaryInView:(UIView *)view atPoint:(CGPoint)point animated:(BOOL)animated
+{
+    if (_summaryView == nil) {
+        return;
+    }
+        
+    CGSize containerViewSize = view.bounds.size;
+    CGSize summaryViewSize = _summaryView.bounds.size;
+    
+    if (animated) {
+        _summaryView.hidden = NO;
+        _summaryView.alpha = 0;
+        [view addSubview:_summaryView];
+        _summaryView.frame = CGRectMake(point.x + SummaryViewXOffset,
+                                        point.y + SummaryViewYOffset,
+                                        summaryViewSize.width,
+                                        containerViewSize.height - point.y - 100);
+
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:^{
+                             _summaryView.alpha = 1;
+                         } completion:nil];
+    } else {
+        _summaryView.alpha = 1;
+        [view addSubview:_summaryView];
+        _summaryView.frame = CGRectMake(point.x + SummaryViewXOffset,
+                                        point.y + SummaryViewYOffset,
+                                        summaryViewSize.width,
+                                        containerViewSize.height - point.y - 100);
+        _summaryView.hidden = NO;
+    }
+}
+
+- (void)hideSummaryAnimated:(BOOL)animated
+{
+    if (_summaryView == nil) {
+        return;
+    }
+
+    if (animated) {
+        _summaryView.alpha = 1;
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:^{
+                             _summaryView.alpha = 0;
+                         } completion:^(BOOL finished) {
+                             [_summaryView removeFromSuperview];
+                             _summaryView.hidden = YES;
+                         }];
+    } else {
+        [_summaryView removeFromSuperview];
+        _summaryView.hidden = YES;
     }
 }
 
@@ -178,6 +248,10 @@ NSString *EnabledKey = @"Enabled";
         return [_bottomTocView pointInside:[self convertPoint:point toView:_bottomTocView] withEvent:event];
     }
     
+    if (_summaryView != nil && CGRectContainsPoint(_summaryView.frame, point)) {
+        return [_summaryView pointInside:[self convertPoint:point toView:_summaryView] withEvent:event];
+    }
+    
     return NO;
 }
 
@@ -185,32 +259,61 @@ NSString *EnabledKey = @"Enabled";
 
 - (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index;
 {
-    [self didSelectIndex:index.column];
+    if (gridView == _summaryView.gridView) {
+        [self didSelectIndex:index.row];
+    } else {
+        [self didSelectIndex:index.column];
+    }
 }
 
 #pragma mark - PCGridViewDataSource
 
 - (PCGridViewCell *)gridView:(PCGridView *)gridView cellForIndex:(PCGridViewIndex *)index
 {
-    PCTOCGridViewCell *item = (PCTOCGridViewCell *)[gridView dequeueReusableCell];
+    PCGridViewCell *item = [gridView dequeueReusableCell];
     
-    if (item == nil) {
-        item = [[[PCTOCGridViewCell alloc] init] autorelease];
+    if (gridView == _topTocView.gridView || gridView == _bottomTocView.gridView) {
+       
+        if (item == nil) {
+            item = [[[PCTocGridViewCell alloc] init] autorelease];
+        }
+        
+        [(PCTocGridViewCell *)item setImage:[self imageForIndex:index.column]];
+        
+    } else if (gridView == _summaryView.gridView) {
+        
+        if (item == nil) {
+            item = [[[PCSummaryGridViewCell alloc] init] autorelease];
+        }
+        
+        [(PCSummaryGridViewCell *)item setImage:[self summaryImageForIndex:index.row]
+                                           text:[self summaryTextForIndex:index.row]];
+    
     }
-    
-    [item setImage:[self imageForIndex:index.column]];
     
     return item;
 }
 
 - (NSUInteger)gridViewNumberOfColumns:(PCGridView *)gridView
 {
-    return [self itemsCount];
+    if (gridView == _topTocView.gridView || gridView == _bottomTocView.gridView) {
+        return [self itemsCount];
+    } else if (gridView == _summaryView.gridView) {
+        return 1;
+    }
+
+    return 0;
 }
 
 - (NSUInteger)gridViewNumberOfRows:(PCGridView *)gridView
 {
-    return 1;
+    if (gridView == _topTocView.gridView || gridView == _bottomTocView.gridView) {
+        return 1;
+    } else if (gridView == _summaryView.gridView) {
+        return [self itemsCount];
+    }
+    
+    return 0;
 }
 
 - (CGSize)gridViewCellSize:(PCGridView *)gridView
@@ -219,6 +322,8 @@ NSString *EnabledKey = @"Enabled";
         return [self topItemSize];
     } else if (gridView == _bottomTocView.gridView) {
         return [self bottomItemSize];
+    } else if (gridView == _summaryView.gridView) {
+        return [self summaryItemSize];
     }
     
     return CGSizeZero;
@@ -249,6 +354,15 @@ NSString *EnabledKey = @"Enabled";
 
 #pragma mark - data source
 
+- (CGSize)summaryItemSize
+{
+    if ([self.dataSource respondsToSelector:@selector(hudView:itemSizeInToc:)]) {
+        return [self.dataSource hudView:self itemSizeInToc:_summaryView.gridView];
+    }
+    
+    return CGSizeZero;
+}
+
 - (CGSize)topItemSize
 {
     if ([self.dataSource respondsToSelector:@selector(hudView:itemSizeInToc:)]) {
@@ -265,6 +379,24 @@ NSString *EnabledKey = @"Enabled";
     }
     
     return CGSizeZero;
+}
+
+- (UIImage *)summaryImageForIndex:(NSUInteger)index
+{
+    if ([self.dataSource respondsToSelector:@selector(hudView:summaryImageForIndex:)]) {
+        return [self.dataSource hudView:self summaryImageForIndex:index];
+    }
+    
+    return nil;
+}
+
+- (NSString *)summaryTextForIndex:(NSUInteger)index
+{
+    if ([self.dataSource respondsToSelector:@selector(hudView:summaryTextForIndex:)]) {
+        return [self.dataSource hudView:self summaryTextForIndex:index];
+    }
+    
+    return nil;
 }
 
 - (UIImage *)imageForIndex:(NSUInteger)index
