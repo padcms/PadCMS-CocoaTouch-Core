@@ -43,7 +43,10 @@
 	if (!_page.isComplete) [self showHUD];
 	if (!_page.isComplete) return;
     
-  
+    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+	tapGestureRecognizer.cancelsTouchesInView = NO;
+	tapGestureRecognizer.delegate = self;
+    [self.view  addGestureRecognizer:tapGestureRecognizer];
     
 	[self loadBackground];	
 
@@ -62,10 +65,6 @@
 {
     [super viewDidAppear:animated];
     [self createVideoFrame];
-    tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
-	tapGestureRecognizer.cancelsTouchesInView = NO;
-	tapGestureRecognizer.delegate = self;
-    [self.view  addGestureRecognizer:tapGestureRecognizer];
 }
 
 -(void)loadBackground
@@ -166,6 +165,7 @@
         }
         else
         {
+            NSLog(@"url - %@", activeZone.URL);
             PCPageElementVideo *video = [[PCPageElementVideo alloc] init];
             video.stream = activeZone.URL;
             CGRect videoRect = activeZone.rect;
