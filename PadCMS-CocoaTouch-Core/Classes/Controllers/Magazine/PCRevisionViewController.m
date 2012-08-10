@@ -54,6 +54,7 @@
 #import "PCStyler.h"
 #import "PCSubscriptionsMenuView.h"
 #import "PCTopBarView.h"
+#import "RRSummaryView.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20
@@ -201,10 +202,10 @@
     _hudView.topBarView.delegate = self;
     [self.view addSubview:_hudView];
     
-    if (revision.color != nil)
-    {
-        NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
-    }
+//    if (revision.color != nil)
+//    {
+//        NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];
+//    }
 
 //    _hudView.bottomTOCButton.hidden = YES;
 //    _hudView.bottomTOCButton.alpha = 0;
@@ -1499,9 +1500,7 @@
         if (bottomTocView.state == PCTocViewStateActive) {
             [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
         } else if (bottomTocView.state == PCTocViewStateHidden) {
-//            if (revision.verticalTocLoaded && revision.horizontalTocLoaded) {
-                [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-//            }
+            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
         } else if (bottomTocView.state == PCTocViewStateVisible) {
             [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
         }
@@ -1996,6 +1995,8 @@
         } else {
             return CGSizeMake(250, 192 /*viewSize.height / 4*/);
         }
+    } else if (tocView == hudView.summaryView.gridView) {
+        return CGSizeMake(314, 100);
     }
     
     return CGSizeZero;
@@ -2015,6 +2016,31 @@
     }
     
     return 0;
+}
+
+- (UIImage *)hudView:(PCHudView *)hudView summaryImageForIndex:(NSUInteger)index
+{
+    NSArray *tocItems = revision.validVerticalTocItems;
+    
+    if (tocItems != nil && tocItems.count > index) {
+        PCTocItem *tocItem = [tocItems objectAtIndex:index];
+        UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary]];
+        return image;
+    }
+    
+    return nil;
+}
+
+- (NSString *)hudView:(PCHudView *)hudView summaryTextForIndex:(NSUInteger)index
+{
+    NSArray *tocItems = revision.validVerticalTocItems;
+    
+    if (tocItems != nil && tocItems.count > index) {
+        PCTocItem *tocItem = [tocItems objectAtIndex:index];
+        return tocItem.title;
+    }
+    
+    return nil;
 }
 
 - (UIImage *)hudView:(PCHudView *)hudView tocImageForIndex:(NSUInteger)index
@@ -2046,6 +2072,9 @@
 
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
+    NSLog(@"hudView:didSelectIndex: %u", index);
+    
+    
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
 
@@ -2078,6 +2107,7 @@
     
     if (tocView == hudView.bottomTocView && state == PCTocViewStateHidden) {
         [self hideMenus];
+        [_hudView hideSummaryAnimated:YES];
     }
 }
 
@@ -2096,18 +2126,11 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
 {
-    [tableOfContentsView setHidden:YES];
-    [UIView beginAnimations:@"showTopSummaryView" context:nil];
-    
-    if (![topSummaryView.subviews count] > 0)
-    {
-        [self createTopSummaryView];
+    if (_hudView.summaryView.hidden) {
+        [_hudView showSummaryInView:self.view atPoint:button.center animated:YES];
+    } else {
+        [_hudView hideSummaryAnimated:YES];
     }
-    
-    [UIView setAnimationDuration:1];
-    topSummaryView.hidden = !topSummaryView.hidden;
-    topSummaryView.alpha = topSummaryView.hidden?0.0:1.0;
-    [UIView commitAnimations];
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
@@ -2142,29 +2165,18 @@
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
 
-//    NSLog(@"Touch in view with class: %@", NSStringFromClass(touch.view.class));
-
-//    if (gestureRecognizer == tapGestureRecognizer) {
-//        NSLog(@"tapGestureRecognizer");
-//    } else if (gestureRecognizer == horizontalTapGestureRecognizer) {
-//        NSLog(@"horizontalTapGestureRecognizer");
-//    }
-    
     if (([touch.view isKindOfClass:[UIButton class]]) &&
         ((gestureRecognizer == tapGestureRecognizer) || (gestureRecognizer == horizontalTapGestureRecognizer))) {
         
-//        NSLog(@"return NO");
         return NO;
     }
     
-//    NSLog(@"return YES");
     return YES;
 }
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer
 shouldRecognizeSimultaneouslyWithGestureRecognizer:(UIGestureRecognizer *)otherGestureRecognizer
 {
-//    NSLog(@"shouldRecognizeSimultaneouslyWithGestureRecognizer:");
     return YES;
 }
 

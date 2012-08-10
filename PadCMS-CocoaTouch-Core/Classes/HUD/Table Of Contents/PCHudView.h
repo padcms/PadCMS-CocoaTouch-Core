@@ -40,6 +40,7 @@
 
 @class PCHudView;
 @class PCTopBarView;
+@class PCSummaryView;
 
 /**
  @brief PCHUDView actions delegation protocol.
@@ -88,6 +89,10 @@
  */ 
 - (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView;
 
+
+- (UIImage *)hudView:(PCHudView *)hudView summaryImageForIndex:(NSUInteger)index;
+- (NSString *)hudView:(PCHudView *)hudView summaryTextForIndex:(NSUInteger)index;
+
 /**
  @brief Asks the data source for image for given index.
  @param hudView - the PCHUDView object requesting this information.
@@ -122,6 +127,8 @@
 
 @property (readonly) PCTopBarView *topBarView;
 
+@property (readonly) PCSummaryView *summaryView;
+
 /**
  @brief Grid view object used to display table of contents items at the top of the HUD view.
  */ 
@@ -136,5 +143,8 @@
  @brief reloads data of the receiver.
  */ 
 - (void)reloadData;
+
+- (void)showSummaryInView:(UIView *)view atPoint:(CGPoint)point animated:(BOOL)animated;
+- (void)hideSummaryAnimated:(BOOL)animated;
 
 @end
