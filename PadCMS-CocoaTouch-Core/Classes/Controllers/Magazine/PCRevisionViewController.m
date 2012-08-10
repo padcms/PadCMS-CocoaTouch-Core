@@ -54,7 +54,7 @@
 #import "PCStyler.h"
 #import "PCSubscriptionsMenuView.h"
 #import "PCTopBarView.h"
-#import "RRSummaryView.h"
+#import "PCSummaryView.h"
 
 #define TocElementWidth 130
 #define TocElementsMargin 20

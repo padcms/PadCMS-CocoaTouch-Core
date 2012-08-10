@@ -39,7 +39,7 @@
 #import "PCDefaultStyleElements.h"
 #import "PCGridViewCell.h"
 #import "PCGridViewIndex.h"
-#import "PCTOCGridViewCell.h"
+#import "PCTocGridViewCell.h"
 #import "PCTopBarView.h"
 #import "PCGridViewIndex.h"
 #import "PCSummaryView.h"
@@ -275,10 +275,10 @@ NSString *EnabledKey = @"Enabled";
     if (gridView == _topTocView.gridView || gridView == _bottomTocView.gridView) {
        
         if (item == nil) {
-            item = [[[PCTOCGridViewCell alloc] init] autorelease];
+            item = [[[PCTocGridViewCell alloc] init] autorelease];
         }
         
-        [(PCTOCGridViewCell *)item setImage:[self imageForIndex:index.column]];
+        [(PCTocGridViewCell *)item setImage:[self imageForIndex:index.column]];
         
     } else if (gridView == _summaryView.gridView) {
         

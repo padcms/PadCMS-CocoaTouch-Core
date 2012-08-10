@@ -38,7 +38,7 @@
 /**
  @brief PCGridView cell for displaying table of contents element.
  */ 
-@interface PCTOCGridViewCell : PCGridViewCell
+@interface PCTocGridViewCell : PCGridViewCell
 
 /**
  @brief Image setter. Sets image and validates size

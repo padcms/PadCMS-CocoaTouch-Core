@@ -89,8 +89,18 @@
  */ 
 - (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView;
 
-
+/**
+ @brief Asks the data source for image for given index to be used in summary view.
+ @param The PCHUDView object requesting this information.
+ @result Summary item image.
+ */
 - (UIImage *)hudView:(PCHudView *)hudView summaryImageForIndex:(NSUInteger)index;
+
+/**
+ @brief Asks the data source for text for given index to be used in summary view.
+ @param The PCHUDView object requesting this information.
+ @result Summary item text.
+ */
 - (NSString *)hudView:(PCHudView *)hudView summaryTextForIndex:(NSUInteger)index;
 
 /**
@@ -125,8 +135,14 @@
  */ 
 @property (assign, nonatomic) id<PCHudViewDataSource> dataSource;
 
+/**
+ @brief The PCTopBarView object.
+ */
 @property (readonly) PCTopBarView *topBarView;
 
+/**
+ @brief The PCSummaryView object.
+ */
 @property (readonly) PCSummaryView *summaryView;
 
 /**
@@ -140,11 +156,22 @@
 @property (readonly) PCTocView *bottomTocView;
 
 /**
- @brief reloads data of the receiver.
+ @brief Reloads data of the receiver.
  */ 
 - (void)reloadData;
 
+/**
+ @brief Shows summary view in the given view at the given position.
+ @param UIView object that should be used to present summary view.
+ @param CGPoint structure that represents the place where summary view should be placed.
+ @param The flag that indicates that the summary view should be shown with animation or without.
+ */
 - (void)showSummaryInView:(UIView *)view atPoint:(CGPoint)point animated:(BOOL)animated;
+
+/**
+ @brief Hides summary view.
+ @param The flag that indicates that the summary view should be hidden with animation or without.
+ */
 - (void)hideSummaryAnimated:(BOOL)animated;
 
 @end
