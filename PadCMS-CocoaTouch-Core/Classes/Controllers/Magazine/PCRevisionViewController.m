@@ -2024,7 +2024,15 @@
     
     if (tocItems != nil && tocItems.count > index) {
         PCTocItem *tocItem = [tocItems objectAtIndex:index];
-        UIImage *image = [UIImage imageWithContentsOfFile:[revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary]];
+        
+        PCResourceCache *cache = [PCResourceCache defaultResourceCache];
+        NSString *imagePath = [revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
+        UIImage *image = [cache objectForKey:imagePath];
+        if (image == nil) {
+            image = [UIImage imageWithContentsOfFile:imagePath];
+            [cache setObject:image forKey:imagePath];
+        }
+        
         return image;
     }
     
@@ -2072,9 +2080,6 @@
 
 - (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
 {
-    NSLog(@"hudView:didSelectIndex: %u", index);
-    
-    
     UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
     if (UIInterfaceOrientationIsLandscape(currentOrientation) && [revision supportsInterfaceOrientation:currentOrientation] && revision.horizontalMode) {
 
