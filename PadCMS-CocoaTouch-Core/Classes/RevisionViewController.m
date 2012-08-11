@@ -18,6 +18,7 @@
 #import "PCScrollView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
+#import "ImageCache.h"
 
 @interface RevisionViewController ()
 {
@@ -161,6 +162,7 @@
 	//After every page changing we need to recalculate content size of the revision scroll view depending on links of current page. Content size must allow scrolling to neighbour pages, and at the same time block scroll in direction where page links are empty (nil).
 	
 	if (!page) return;
+	if (page.isComplete) [[ImageCache sharedImageCache] loadPrimaryImagesForPage:page]; 
 	CGFloat pageWidth = self.view.bounds.size.width;
 	CGFloat pageHeight = self.view.bounds.size.height;
 	int widthMultiplier = 1;

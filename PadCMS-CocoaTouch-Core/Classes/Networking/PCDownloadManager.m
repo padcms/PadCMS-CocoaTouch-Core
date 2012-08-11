@@ -1176,7 +1176,7 @@ NSString* secondaryKey   = @"secondaryKey";
 }
 
 
-- (void)setSuccessCallbackQueue:(dispatch_queue_t)successCallbackQueue {
+- (void)setCallbackQueue:(dispatch_queue_t)successCallbackQueue {
     if (successCallbackQueue != _callbackQueue) {
         if (_callbackQueue) {
             dispatch_release(_callbackQueue);

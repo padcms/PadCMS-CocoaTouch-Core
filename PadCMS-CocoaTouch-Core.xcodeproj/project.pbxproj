@@ -1069,6 +1069,8 @@
 		AB8137A715C08764002FC0E4 /* PCPageElementViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3FD11588D3DE0097D960 /* PCPageElementViewController.m */; };
 		AB8137A815C08766002FC0E4 /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
 		AB8137A915C08767002FC0E4 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */; };
+		AB8FE71615D50F76006156D5 /* PCImageLoadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = AB8FE71415D50F76006156D5 /* PCImageLoadOperation.h */; };
+		AB8FE71715D50F76006156D5 /* PCImageLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8FE71515D50F76006156D5 /* PCImageLoadOperation.m */; };
 		ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
 		ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */; };
 		ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
@@ -2288,6 +2290,8 @@
 		AB61EE2E15B858710031496A /* GalleryViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GalleryViewController.m; sourceTree = "<group>"; };
 		AB8137A115C07C48002FC0E4 /* Page3DViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Page3DViewController.h; sourceTree = "<group>"; };
 		AB8137A215C07C48002FC0E4 /* Page3DViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Page3DViewController.m; sourceTree = "<group>"; };
+		AB8FE71415D50F76006156D5 /* PCImageLoadOperation.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCImageLoadOperation.h; sourceTree = "<group>"; };
+		AB8FE71515D50F76006156D5 /* PCImageLoadOperation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCImageLoadOperation.m; sourceTree = "<group>"; };
 		ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BasicArticleViewController.h; sourceTree = "<group>"; };
 		ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BasicArticleViewController.m; sourceTree = "<group>"; };
 		ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JCTiledScrollView.h; sourceTree = "<group>"; };
@@ -3575,6 +3579,8 @@
 				AB2334A015CF75FA006651DD /* ImageCache.m */,
 				AB61EE2D15B858710031496A /* GalleryViewController.h */,
 				AB61EE2E15B858710031496A /* GalleryViewController.m */,
+				AB8FE71415D50F76006156D5 /* PCImageLoadOperation.h */,
+				AB8FE71515D50F76006156D5 /* PCImageLoadOperation.m */,
 			);
 			name = newTest;
 			sourceTree = "<group>";
@@ -4185,6 +4191,7 @@
 				AB2334A615CF8B56006651DD /* UIImage+ImmediateLoading.h in Headers */,
 				C51F272C15D39C9300BCDB85 /* PC3dView.h in Headers */,
 				60A2502E15C9322B00E60821 /* PCSearchBaseProvider.h in Headers */,
+				AB8FE71615D50F76006156D5 /* PCImageLoadOperation.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4662,6 +4669,7 @@
 				AB2334A715CF8B56006651DD /* UIImage+ImmediateLoading.m in Sources */,
 				C51F272D15D39C9300BCDB85 /* PC3dView.m in Sources */,
 				60A2502F15C9322B00E60821 /* PCSearchBaseProvider.m in Sources */,
+				AB8FE71715D50F76006156D5 /* PCImageLoadOperation.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
