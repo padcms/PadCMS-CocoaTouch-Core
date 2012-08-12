@@ -96,7 +96,15 @@
 
 -(void)storeTileForElement:(PCPageElement *)element withIndex:(NSUInteger)index
 {
+	if (!element.isComplete) return;
 	NSString* path = [element resourcePathForTileIndex:index];
+	if (!path) return;
+	NSNumber* elementIdentifier = [NSNumber numberWithInt:element.identifier];
+	if ([[self.elementCache objectForKey:elementIdentifier] objectForKey:[NSNumber numberWithInteger:index]])
+	{
+		NSLog(@"HaHaHa");
+		return;
+	}
 	UIImage* image = [[[UIImage alloc] initImmediateLoadWithContentsOfFile:path] retain];
 	//UIImage* image = [[UIImage alloc] initWithContentsOfFile:path];
 	if (!image)
@@ -104,7 +112,7 @@
 		NSLog(@"ERRRor!!! - %@, %d", path, index);
 		return;
 	}
-	NSNumber* elementIdentifier = [NSNumber numberWithInt:element.identifier];
+	
 	if (![self.elementCache objectForKey:elementIdentifier])
 	{
 		[self.elementCache setObject:[NSMutableDictionary dictionary] forKey:elementIdentifier];
@@ -119,6 +127,13 @@
 
 -(void)clearMemoryForElement:(PCPageElement *)element
 {
+}
+
+-(void)clearMemoryForPage:(PCPage *)page
+{
+	for (PCPageElement* pageElement in page.primaryElements) {
+		[self.elementCache removeObjectForKey:[NSNumber numberWithInt:pageElement.identifier]];
+	}
 }
 
 
@@ -138,11 +153,31 @@
 	dispatch_async(self.callbackQueue, ^{
 		NSInteger maxIndex = ceilf(1024.0f / kDefaultTileSize) * ceilf(768.0f / kDefaultTileSize);
 		
+		NSArray* oldPages = [_currentPages retain];
 		self.currentPages = [self getNeighborsForPage:aPage];
-		
+		for (PCPage* page in oldPages) {
+			if (![_currentPages containsObject:page])
+			{
+				[self clearMemoryForPage:page];
+			}
+		}
+		[oldPages release], oldPages = nil;
 		for (PCPage* page in self.currentPages) {
+			
+			PCPageElement* backgroundElement = [page firstElementForType:PCPageElementTypeBackground];
+			if (![self.elementCache objectForKey:[NSNumber numberWithInt:backgroundElement.identifier]] && backgroundElement )
+			{
+				for (int i = 1; i <=maxIndex; ++i) {
+					NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+						[self storeTileForElement:backgroundElement withIndex:i];
+					}];
+					[self.queue addOperation:operation];
+				}
+			}
+			
+			
 			PCPageElement* bodyElement = [page firstElementForType:PCPageElementTypeBody];
-			if (![self.elementCache objectForKey:[NSNumber numberWithInt:bodyElement.identifier]])
+			if (![self.elementCache objectForKey:[NSNumber numberWithInt:bodyElement.identifier]] && bodyElement)
 			{
 				for (int i = 1; i <=maxIndex; ++i) {
 					NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
@@ -152,8 +187,21 @@
 				}
 			}
 			
+			PCPageElement* scrollElement = [page firstElementForType:PCPageElementTypeScrollingPane];
+			if (![self.elementCache objectForKey:[NSNumber numberWithInt:scrollElement.identifier]] && scrollElement)
+			{
+				for (int i = 1; i <=maxIndex; ++i) {
+					NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+						[self storeTileForElement:scrollElement withIndex:i];
+					}];
+					[self.queue addOperation:operation];
+				}
+			}
 			
-			for (PCPageElement* element in page.primaryElements) {
+			
+			
+			
+		/*	for (PCPageElement* element in page.primaryElements) {
 				if ([self.elementCache objectForKey:[NSNumber numberWithInt:element.identifier]]) continue;
 				if (![element.fieldTypeName isEqualToString:PCPageElementTypeBody] &&
 					![element.fieldTypeName isEqualToString:PCPageElementTypeVideo] &&
@@ -169,7 +217,9 @@
 						[self.queue addOperation:operation];
 					}
 				}
-			}
+				
+				
+			}*/
 		}
 		
 		

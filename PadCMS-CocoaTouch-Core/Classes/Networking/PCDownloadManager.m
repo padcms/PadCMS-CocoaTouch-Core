@@ -655,7 +655,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		
 		[zipArchive release];
 		[self archiveCroppedImageSizeToDirectory:outputDirectory];
-		
+	//	[element calculateSize];
 		
 	/*	NSString* resourceFullPath = [self.revision.contentDirectory stringByAppendingPathComponent:path];
 		UIImage* basicArticleBodyImage = [UIImage imageWithContentsOfFile:resourceFullPath];

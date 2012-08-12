@@ -129,11 +129,16 @@
 				
 			}
         }
+		
         [revision.pages addObject:page];
         page.revision = revision;
-        
+/*        for (PCPageElement* element in page.elements)
+		{
+			[element calculateSize];
+		}*/
         [page release];
     }
+	
 	
 	for (PCPage* page in wrongPages) {
 		[revision.pages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -440,7 +445,7 @@
     [pageElement pushElementData:elementDatas];
     [pageElement setDataRects:elementDataRects];
     [pageElement.activeZones addObjectsFromArray:elementActiveZones];
-    [elementDatas release];
+	[elementDatas release];
     [elementDataRects release];
     [elementActiveZones release];
     return [pageElement autorelease];
