@@ -13,4 +13,5 @@
 @interface InteractivesBulletsViewController : SimplePageViewController
 @property (nonatomic, retain) NSArray* miniArticles;
 @property (nonatomic, retain) PCPageElementMiniArticle *selectedMiniArticle;
+@property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 @end

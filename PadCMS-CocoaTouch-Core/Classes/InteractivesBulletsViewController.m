@@ -17,11 +17,14 @@
 @implementation InteractivesBulletsViewController
 @synthesize miniArticles=_miniArticles;
 @synthesize selectedMiniArticle=_selectedMiniArticle;
+@synthesize tapGestureRecognizer=_tapGestureRecognizer;
 
 -(void)dealloc
 {
 	[_miniArticles release], _miniArticles = nil;
 	[_selectedMiniArticle release], _selectedMiniArticle = nil;
+    [self.view removeGestureRecognizer:_tapGestureRecognizer];
+    [_tapGestureRecognizer release], _tapGestureRecognizer = nil;
 	[super dealloc];
 }
 
@@ -29,6 +32,8 @@
 {
 	[super releaseViews];
 	self.miniArticles = nil;
+    [self.view removeGestureRecognizer:_tapGestureRecognizer];
+	self.tapGestureRecognizer = nil;
 }
 
 
@@ -79,6 +84,9 @@
 			[self.view addSubview:button];
 		}
 	}
+    _tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+	_tapGestureRecognizer.cancelsTouchesInView = NO;
+	[self.view  addGestureRecognizer:_tapGestureRecognizer];
 }
 
 -(void)changeArticle:(UIButton*)sender
@@ -101,5 +109,40 @@
 	
 }
 
+-(void)tapAction:(id)sender
+{
+    CGPoint tapLocation = [sender locationInView:[sender view]];
+    
+    NSMutableArray* activeZones = [[NSMutableArray alloc] init];
+
+    for (PCPageActiveZone* pdfActiveZone in _selectedMiniArticle.activeZones)
+    {
+        CGRect rect = pdfActiveZone.rect;
+        if (!CGRectEqualToRect(rect, CGRectZero))
+        {
+            CGSize pageSize = self.view.bounds.size;
+            float scale = pageSize.width/_selectedMiniArticle.size.width;
+            rect.size.width *= scale;
+            rect.size.height *= scale;
+            rect.origin.x *= scale;
+            rect.origin.y *= scale;
+            rect.origin.y = _selectedMiniArticle.size.height*scale - rect.origin.y - rect.size.height;
+
+            if (CGRectContainsPoint(rect, tapLocation))
+            {
+                [activeZones addObject:pdfActiveZone];
+            }
+        }
+    }
+    
+    for (PCPageActiveZone* action in activeZones)
+        if ([self pdfActiveZoneAction:action])
+            break;
+}
+
+-(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
+{
+    return YES;
+}
 
 @end

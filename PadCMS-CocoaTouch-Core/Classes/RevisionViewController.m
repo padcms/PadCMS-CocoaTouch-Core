@@ -16,6 +16,7 @@
 #import "PCPageViewController.h"
 #import "PCResourceCache.h"
 #import "PCScrollView.h"
+#import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
 #import "ImageCache.h"
@@ -453,10 +454,46 @@
         } else {
             return CGSizeMake(250, 192 /*viewSize.height / 4*/);
         }
+    } else if (tocView == hudView.summaryView.gridView) {
+        return CGSizeMake(314, 100);
     }
     
     return CGSizeZero;
 }
+
+- (UIImage *)hudView:(PCHudView *)hudView summaryImageForIndex:(NSUInteger)index
+{
+    NSArray *tocItems = _revision.validVerticalTocItems;
+    
+    if (tocItems != nil && tocItems.count > index) {
+        PCTocItem *tocItem = [tocItems objectAtIndex:index];
+        
+        PCResourceCache *cache = [PCResourceCache defaultResourceCache];
+        NSString *imagePath = [_revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
+        UIImage *image = [cache objectForKey:imagePath];
+        if (image == nil) {
+            image = [UIImage imageWithContentsOfFile:imagePath];
+            [cache setObject:image forKey:imagePath];
+        }
+        
+        return image;
+    }
+    
+    return nil;
+}
+
+- (NSString *)hudView:(PCHudView *)hudView summaryTextForIndex:(NSUInteger)index
+{
+    NSArray *tocItems = _revision.validVerticalTocItems;
+    
+    if (tocItems != nil && tocItems.count > index) {
+        PCTocItem *tocItem = [tocItems objectAtIndex:index];
+        return tocItem.title;
+    }
+    
+    return nil;
+}
+
 
 - (UIImage *)hudView:(PCHudView *)hudView tocImageForIndex:(NSUInteger)index
 {
@@ -516,11 +553,8 @@
             return;
         }
         
-//        [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
-        
     } else {
         PCTocItem *tocItem = [_revision.validVerticalTocItems objectAtIndex:index];
-//        NSInteger pageIndex = -1;
         NSArray *revisionPages = _revision.pages;
         for (PCPage *page in revisionPages) {
             if (page.identifier == tocItem.firstPageIdentifier) {
@@ -528,8 +562,6 @@
                 break;
             }
         }
-        
-//        [self showPageWithIndex:pageIndex];
     }
 }
 
@@ -538,11 +570,14 @@
     if (tocView == hudView.topTocView) {
         [hudView.topBarView hideKeyboard];
     }
+    
+    if (tocView == hudView.bottomTocView && state == PCTocViewStateHidden) {
+        [_hudView hideSummaryAnimated:YES];
+    }
 }
 
 - (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
 {
-    
 }
 
 #pragma makr - PCTopBarViewDelegate
@@ -555,6 +590,11 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
 {
+    if (_hudView.summaryView.hidden) {
+        [_hudView showSummaryInView:self.view atPoint:button.center animated:YES];
+    } else {
+        [_hudView hideSummaryAnimated:YES];
+    }
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
