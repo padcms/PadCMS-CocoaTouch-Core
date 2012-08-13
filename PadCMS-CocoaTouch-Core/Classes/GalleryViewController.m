@@ -55,6 +55,7 @@ static int currentPopupTag = -1;
 
 -(void)dealloc
 {
+//	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.page];
 	[_popupController release], _popupController = nil;
 	[_visibleElementControllers release], _visibleElementControllers = nil;
 	[_page release], _page = nil;
@@ -102,6 +103,11 @@ static int currentPopupTag = -1;
 	[[PCStyler defaultStyler] stylizeElement:btnReturn withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
 	[btnReturn addTarget:self action:@selector(btnReturnTap:) forControlEvents:UIControlEventTouchUpInside];
 	[self.view addSubview:btnReturn];
+	
+//	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateGallery:) name:PCGalleryElementDidDownloadNotification object:self.page];
+	PCPageElement* currentElement = [self.galleryElements objectAtIndex:0];
+	if (!currentElement.isComplete)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:currentElement];
 	
 	[self tilePages];
 	// Do any additional setup after loading the view.
@@ -310,6 +316,38 @@ static int currentPopupTag = -1;
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
     [self tilePages];
+}
+
+/*
+-(void)updateGallery:(NSNotification*)notif
+{
+	PCPageElement* galleryElement = [[notif userInfo] objectForKey:@"element"];
+	NSUInteger index = [self.galleryElements indexOfObject:galleryElement];
+	if (index == NSNotFound)
+	{
+		NSLog(@"NSNot foung result for index while updating gallery");
+		return;
+	}
+	[self hideHUDAtIndex:index];
+	
+    NSString *fullResourcePath = [self.page.revision.contentDirectory stringByAppendingPathComponent:galleryElement.resource];
+	NSInteger currentIndex = lrint(self.mainScrollView.contentOffset.x/self.mainScrollView.frame.size.width);
+	if ([[NSFileManager defaultManager] fileExistsAtPath:fullResourcePath] && !(ABS(currentIndex - index) > 1))
+	{
+		UIImage *image = [UIImage imageWithContentsOfFile:fullResourcePath];
+		[[self.imageViews objectAtIndex:index] setImage:image];
+	}
+}*/
+
+-(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
+{
+
+	NSInteger currentSlideIndex = lrint(self.galleryScrollView.contentOffset.x/self.galleryScrollView.frame.size.width);
+	//self.pageControll.currentPage = currentSlideIndex;
+	PCPageElement* currentElement = [self.galleryElements objectAtIndex:currentSlideIndex];
+	if (!currentElement.isComplete)
+		[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:currentElement];
+	
 }
 
 @end
