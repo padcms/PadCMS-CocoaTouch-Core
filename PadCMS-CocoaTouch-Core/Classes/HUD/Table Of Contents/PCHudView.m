@@ -98,6 +98,7 @@ NSString *EnabledKey = @"Enabled";
         _summaryView = [[PCSummaryView alloc] initWithFrame:CGRectMake(0, 0, 400, 1000)];
         _summaryView.gridView.dataSource = self;
         _summaryView.gridView.delegate = self;
+        _summaryView.hidden = YES;
         
         // configure tocs
         NSDictionary *topTableOfContentsConfig = [PCConfig topTableOfContentsConfig];
@@ -248,7 +249,7 @@ NSString *EnabledKey = @"Enabled";
         return [_bottomTocView pointInside:[self convertPoint:point toView:_bottomTocView] withEvent:event];
     }
     
-    if (_summaryView != nil && CGRectContainsPoint(_summaryView.frame, point)) {
+    if (_summaryView != nil && !_summaryView.hidden && CGRectContainsPoint(_summaryView.frame, point)) {
         return [_summaryView pointInside:[self convertPoint:point toView:_summaryView] withEvent:event];
     }
     

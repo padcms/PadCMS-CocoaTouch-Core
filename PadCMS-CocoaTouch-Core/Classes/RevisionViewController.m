@@ -20,6 +20,7 @@
 #import "PCTocView.h"
 #import "PCVideoManager.h"
 #import "ImageCache.h"
+#import "EasyTableView.h"
 
 @interface RevisionViewController ()
 {
@@ -400,6 +401,8 @@
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
+    NSLog(@"tapGesture:");
+    
     if (_hudView.topTocView != nil) {
         PCTocView *topTocView = _hudView.topTocView;
         
@@ -435,7 +438,8 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ([touch.view isKindOfClass:UIButton.class]) {
+    if ([touch.view isKindOfClass:UIButton.class] ||
+        touch.view.tag == CELL_CONTENT_TAG) {
         return NO;
     }
     
