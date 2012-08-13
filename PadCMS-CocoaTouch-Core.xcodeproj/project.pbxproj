@@ -1025,7 +1025,6 @@
 		60A5DCB6158B613D00E3E98A /* FBLoginDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D61588D84A0097D960 /* FBLoginDialog.h */; };
 		60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D41588D84A0097D960 /* FBDialog.h */; };
 		60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43DC1588D8940097D960 /* FBRequest.h */; };
-		60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5DCC9158B793F00E3E98A /* Cocoa.framework */; };
 		60A5DCD4158B793F00E3E98A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCD2158B793F00E3E98A /* InfoPlist.strings */; };
 		60A5DCD9158B796200E3E98A /* LandscapeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FDB1588D3DE0097D960 /* LandscapeController.xib */; };
 		60A5DCDA158B796200E3E98A /* PCSearchResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FE81588D3DE0097D960 /* PCSearchResultViewCell.xib */; };
@@ -1107,7 +1106,6 @@
 		C50E498815AEA20E00222413 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F3E621588C8D70097D960 /* CoreGraphics.framework */; };
 		C50E498E15AEA20E00222413 /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = C50E498C15AEA20E00222413 /* InfoPlist.strings */; };
 		C50E499015AEA20E00222413 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E498F15AEA20E00222413 /* main.m */; };
-		C50E499A15AEA39B00222413 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C50E499915AEA39B00222413 /* GHUnitIOS.framework */; };
 		C50E499C15AEA43200222413 /* PCResourceViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C50E499B15AEA43200222413 /* PCResourceViewTest.m */; };
 		C50E499D15AEA4D500222413 /* PCResourceView.m in Sources */ = {isa = PBXBuildFile; fileRef = C51D595615AD5CAB001EEE0A /* PCResourceView.m */; };
 		C50E499E15AEA4E200222413 /* PCResourceCache.m in Sources */ = {isa = PBXBuildFile; fileRef = C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */; };
@@ -1157,7 +1155,6 @@
 		C58C16A115B3FE7400665295 /* PCHudView.h in Headers */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHudView.h */; };
 		C58C16A215B3FE7400665295 /* PCHudView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169E15B3FE7400665295 /* PCHudView.m */; };
 		C58C16A715B3FFD600665295 /* PCHudView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C58C169D15B3FE7400665295 /* PCHudView.h */; };
-		C59692E815D8EABB002137BA /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C59692E015D8EABB002137BA /* libOCMock.a */; };
 		C59692EB15D8FF16002137BA /* PCTestFrameworksTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C59692EA15D8FF16002137BA /* PCTestFrameworksTest.m */; };
 		C5A784DC15C950A600370829 /* PCGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A784D615C950A600370829 /* PCGridView.h */; };
 		C5A784DD15C950A600370829 /* PCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A784D715C950A600370829 /* PCGridView.m */; };
@@ -1172,6 +1169,8 @@
 		C5A784E715C9523500370829 /* PCGridViewCell.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5A784D815C950A600370829 /* PCGridViewCell.h */; };
 		C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5A784DA15C950A600370829 /* PCGridViewIndex.h */; };
 		C5CC2F5F15CBB4E8004DF863 /* PCGridViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */; };
+		C5CF6D2815D9038A00E92162 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CF6D1F15D9038A00E92162 /* GHUnitIOS.framework */; };
+		C5CF6D2915D9038A00E92162 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CF6D2015D9038A00E92162 /* libOCMock.a */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
 /* End PBXBuildFile section */
 
@@ -2261,7 +2260,6 @@
 		60A2502C15C9322B00E60821 /* PCSearchBaseProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSearchBaseProvider.h; sourceTree = "<group>"; };
 		60A2502D15C9322B00E60821 /* PCSearchBaseProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCSearchBaseProvider.m; sourceTree = "<group>"; };
 		60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PadCMS-CocoaTouch-Core-Resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
-		60A5DCC9158B793F00E3E98A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		60A5DCCC158B793F00E3E98A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		60A5DCCD158B793F00E3E98A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		60A5DCCE158B793F00E3E98A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2335,7 +2333,6 @@
 		C50E498D15AEA20E00222413 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		C50E498F15AEA20E00222413 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		C50E499115AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PadCMS-CocoaTouch-Core-Tests-Prefix.pch"; sourceTree = "<group>"; };
-		C50E499915AEA39B00222413 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = "PadCMS-CocoaTouch-Core-Tests/Frameworks/GHUnitIOS.framework"; sourceTree = "<group>"; };
 		C50E499B15AEA43200222413 /* PCResourceViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceViewTest.m; sourceTree = "<group>"; };
 		C50E49A015AEAA4800222413 /* test-resource.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "test-resource.png"; path = "Resources/test-resource.png"; sourceTree = "<group>"; };
 		C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCacheTest.m; sourceTree = "<group>"; };
@@ -2358,13 +2355,6 @@
 		C58C169C15B3FE7400665295 /* PCTocGridViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTocGridViewCell.m; sourceTree = "<group>"; };
 		C58C169D15B3FE7400665295 /* PCHudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHudView.h; sourceTree = "<group>"; };
 		C58C169E15B3FE7400665295 /* PCHudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHudView.m; sourceTree = "<group>"; };
-		C59692E015D8EABB002137BA /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = "PadCMS-CocoaTouch-Core-Tests/Frameworks/libOCMock.a"; sourceTree = "<group>"; };
-		C59692E215D8EABB002137BA /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
-		C59692E315D8EABB002137BA /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
-		C59692E415D8EABB002137BA /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
-		C59692E515D8EABB002137BA /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
-		C59692E615D8EABB002137BA /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
-		C59692E715D8EABB002137BA /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		C59692EA15D8FF16002137BA /* PCTestFrameworksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTestFrameworksTest.m; sourceTree = "<group>"; };
 		C5A784D615C950A600370829 /* PCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridView.h; sourceTree = "<group>"; };
 		C5A784D715C950A600370829 /* PCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridView.m; sourceTree = "<group>"; };
@@ -2373,6 +2363,14 @@
 		C5A784DA15C950A600370829 /* PCGridViewIndex.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewIndex.h; sourceTree = "<group>"; };
 		C5A784DB15C950A600370829 /* PCGridViewIndex.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewIndex.m; sourceTree = "<group>"; };
 		C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridViewTest.m; sourceTree = "<group>"; };
+		C5CF6D1F15D9038A00E92162 /* GHUnitIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GHUnitIOS.framework; path = "Adyax/padcms-ios/PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Tests/Frameworks/GHUnitIOS.framework"; sourceTree = "<group>"; };
+		C5CF6D2015D9038A00E92162 /* libOCMock.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libOCMock.a; path = "Adyax/padcms-ios/PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Tests/Frameworks/libOCMock.a"; sourceTree = "<group>"; };
+		C5CF6D2215D9038A00E92162 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		C5CF6D2315D9038A00E92162 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		C5CF6D2415D9038A00E92162 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		C5CF6D2515D9038A00E92162 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		C5CF6D2615D9038A00E92162 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		C5CF6D2715D9038A00E92162 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
 		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -2397,7 +2395,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2408,8 +2405,8 @@
 				C50E498615AEA20E00222413 /* UIKit.framework in Frameworks */,
 				C50E498715AEA20E00222413 /* Foundation.framework in Frameworks */,
 				C50E498815AEA20E00222413 /* CoreGraphics.framework in Frameworks */,
-				C50E499A15AEA39B00222413 /* GHUnitIOS.framework in Frameworks */,
-				C59692E815D8EABB002137BA /* libOCMock.a in Frameworks */,
+				C5CF6D2815D9038A00E92162 /* GHUnitIOS.framework in Frameworks */,
+				C5CF6D2915D9038A00E92162 /* libOCMock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3493,9 +3490,9 @@
 		60891D961587971300894531 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				C59692E015D8EABB002137BA /* libOCMock.a */,
-				C59692E115D8EABB002137BA /* OCMock */,
-				C50E499915AEA39B00222413 /* GHUnitIOS.framework */,
+				C5CF6D1F15D9038A00E92162 /* GHUnitIOS.framework */,
+				C5CF6D2015D9038A00E92162 /* libOCMock.a */,
+				C5CF6D2115D9038A00E92162 /* OCMock */,
 				607F46A9158A0EAF0097D960 /* libsqlite3.dylib */,
 				607F469C1589FE4A0097D960 /* QuartzCore.framework */,
 				607F44C11589E0AB0097D960 /* SystemConfiguration.framework */,
@@ -3503,7 +3500,6 @@
 				607F3E621588C8D70097D960 /* CoreGraphics.framework */,
 				607F3E601588C8D00097D960 /* UIKit.framework */,
 				60891D971587971300894531 /* Foundation.framework */,
-				60A5DCC9158B793F00E3E98A /* Cocoa.framework */,
 				60A5DCCB158B793F00E3E98A /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -3815,20 +3811,6 @@
 			path = "Table Of Contents";
 			sourceTree = "<group>";
 		};
-		C59692E115D8EABB002137BA /* OCMock */ = {
-			isa = PBXGroup;
-			children = (
-				C59692E215D8EABB002137BA /* NSNotificationCenter+OCMAdditions.h */,
-				C59692E315D8EABB002137BA /* OCMArg.h */,
-				C59692E415D8EABB002137BA /* OCMConstraint.h */,
-				C59692E515D8EABB002137BA /* OCMock.h */,
-				C59692E615D8EABB002137BA /* OCMockObject.h */,
-				C59692E715D8EABB002137BA /* OCMockRecorder.h */,
-			);
-			name = OCMock;
-			path = "PadCMS-CocoaTouch-Core-Tests/Frameworks/OCMock";
-			sourceTree = "<group>";
-		};
 		C5A784D515C950A600370829 /* Grid View */ = {
 			isa = PBXGroup;
 			children = (
@@ -3840,6 +3822,20 @@
 				C5A784DB15C950A600370829 /* PCGridViewIndex.m */,
 			);
 			path = "Grid View";
+			sourceTree = "<group>";
+		};
+		C5CF6D2115D9038A00E92162 /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				C5CF6D2215D9038A00E92162 /* NSNotificationCenter+OCMAdditions.h */,
+				C5CF6D2315D9038A00E92162 /* OCMArg.h */,
+				C5CF6D2415D9038A00E92162 /* OCMConstraint.h */,
+				C5CF6D2515D9038A00E92162 /* OCMock.h */,
+				C5CF6D2615D9038A00E92162 /* OCMockObject.h */,
+				C5CF6D2715D9038A00E92162 /* OCMockRecorder.h */,
+			);
+			name = OCMock;
+			path = "Adyax/padcms-ios/PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Tests/Frameworks/OCMock";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -4923,7 +4919,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks\"";
 				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4951,7 +4947,7 @@
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Prefix.pch";
-				HEADER_SEARCH_PATHS = "$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks";
+				HEADER_SEARCH_PATHS = "\"$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks\"";
 				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Tests/PadCMS-CocoaTouch-Core-Tests-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
