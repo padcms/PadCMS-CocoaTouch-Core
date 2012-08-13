@@ -116,10 +116,6 @@
 - (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect
 {
     NSLog(@"url - %@", videoURL);
-    if (_isVideoPlaying)
-    {
-        return;
-    }
     
     if (_moviePlayer != nil)
     {
@@ -130,8 +126,6 @@
     
     _moviePlayer.view.frame = videoRect;
     _moviePlayer.view.autoresizingMask = UIViewContentModeScaleAspectFill;
-
-    //[self.moviePlayer prepareToPlay];
     
     if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:videoRect])
     {
@@ -159,7 +153,7 @@
         if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:_moviePlayer.view.frame])
             [_moviePlayer play];
         else 
-            [_moviePlayer pause];
+            _moviePlayer.shouldAutoplay = NO;
     }
     else
     {
@@ -177,6 +171,7 @@
         
         [_moviePlayer.view removeFromSuperview];
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [_moviePlayer release], _moviePlayer = nil;
     }
 }
 
@@ -239,20 +234,20 @@
 
 -(void)videoHasChanged:(NSNotification *)paramNotification
 {
-    if (self.moviePlayer.loadState & MPMovieLoadStatePlayable)
+    if (_moviePlayer.loadState & MPMovieLoadStatePlayable)
     {
         NSLog(@"MPMovieLoadStatePlayable");
         [self hideHUD];
     }
-    if (self.moviePlayer.loadState & MPMovieLoadStateUnknown)
+    if (_moviePlayer.loadState & MPMovieLoadStateUnknown)
     {
         NSLog(@"MPMovieLoadStateUnknown");
     }
-    if (self.moviePlayer.loadState & MPMovieLoadStateStalled)
+    if (_moviePlayer.loadState & MPMovieLoadStateStalled)
     {
         NSLog(@"MPMovieLoadStateStalled");
     }
-    if (self.moviePlayer.loadState & MPMovieLoadStatePlaythroughOK)
+    if (_moviePlayer.loadState & MPMovieLoadStatePlaythroughOK)
     {
         NSLog(@"MPMovieLoadStatePlaythroughOK");
     }
@@ -260,8 +255,7 @@
 
 -(void)videoHasExitedFullScreen:(NSNotification *)paramNotification
 {
-    //[self stopPlayingVideo];
-    [self.moviePlayer play];
+    [_moviePlayer play];
 }
 
 @end
