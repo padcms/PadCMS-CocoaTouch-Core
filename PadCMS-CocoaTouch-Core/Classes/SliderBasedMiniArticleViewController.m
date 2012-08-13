@@ -114,7 +114,7 @@
 		self.bodyViewController.element = miniArticle;
 		self.selectedMiniArticle = miniArticle;
 		[self.view addSubview:self.bodyViewController.elementView];
-		[self.view sendSubviewToBack:self.bodyViewController.elementView];
+		[self.view insertSubview:self.bodyViewController.elementView belowSubview:self.thumbsScrollView];
 	}
 	
 
