@@ -1122,6 +1122,7 @@
         }
     } else {
         [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        [_hudView hideSummaryAnimated:YES];
     }
     
     if (self.revision.horizontalMode && horizontalPagesViewControllers.count != 0)
