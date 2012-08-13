@@ -57,6 +57,7 @@ NSString * PCButtonMarginXKey                   = @"PCButtonMarginX";
 NSString * PCButtonMarginYKey                   = @"PCButtonMarginY";
 NSString * PCButtonPositionKey                  = @"PCButtonPosition";
 NSString * PCButtonPositionTopRightCornerKey    = @"PCButtonPositionTopRightCorner";
+NSString * PCButtonPositionBottomRightCornerKey = @"PCButtonPositionBottomRightCorner";
 NSString * PCButtonParentViewFrameKey           = @"PCButtonParentViewFrame";
 
 @implementation PCStyler
@@ -215,6 +216,9 @@ NSString * PCButtonParentViewFrameKey           = @"PCButtonParentViewFrame";
                                     {
                                         frame = CGRectMake(parentFrame.size.width - (marginX + frame.size.width), marginY, frame.size.width, frame.size.height);
                                     }
+									else if ([position isEqualToString:PCButtonPositionBottomRightCornerKey]) {
+										 frame = CGRectMake(parentFrame.size.width - (marginX + frame.size.width), parentFrame.size.height - (marginY + frame.size.height),  frame.size.width, frame.size.height);
+									}
                                 }
                             }
                             [aElement setFrame:frame]; 

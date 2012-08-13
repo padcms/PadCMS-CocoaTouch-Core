@@ -56,6 +56,7 @@ PADCMS_EXTERN NSString * PCButtonMarginXKey;
 PADCMS_EXTERN NSString * PCButtonMarginYKey;
 PADCMS_EXTERN NSString * PCButtonPositionKey;
 PADCMS_EXTERN NSString * PCButtonPositionTopRightCornerKey;
+PADCMS_EXTERN NSString * PCButtonPositionBottomRightCornerKey;
 PADCMS_EXTERN NSString * PCButtonParentViewFrameKey;
 
 @interface PCStyler : NSObject
