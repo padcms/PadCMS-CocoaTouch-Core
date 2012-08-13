@@ -58,5 +58,6 @@
 - (void) showVideo:(NSString*) videoPath inRect:(CGRect) videoFrame;
 - (void) dismissVideo;
 - (BOOL) isVideoURL:(NSString*) URLString;
+- (BOOL) isVideoRectEqualToApplicationFrame:(CGRect) videoFrame;
 
 @end

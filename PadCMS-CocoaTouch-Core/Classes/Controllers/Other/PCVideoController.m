@@ -39,6 +39,7 @@
 #import "PCDownloadApiClient.h"
 #import "MBProgressHUD.h"
 #import "PCLocalizationManager.h"
+#import "PCVideoManager.h"
 
 @interface PCVideoController () 
 
@@ -130,11 +131,9 @@
     _moviePlayer.view.frame = videoRect;
     _moviePlayer.view.autoresizingMask = UIViewContentModeScaleAspectFill;
 
-    [self.moviePlayer prepareToPlay];
+    //[self.moviePlayer prepareToPlay];
     
-    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
-    if (CGRectEqualToRect(videoRect, appRect) || 
-        (videoRect.size.width == appRect.size.height && videoRect.size.height == appRect.size.width)) 
+    if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:videoRect])
     {
         [_moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
     }
@@ -157,7 +156,10 @@
     {
         NSLog(@"Successfully instantiated the movie player.");
         
-        [_moviePlayer play];
+        if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:_moviePlayer.view.frame])
+            [_moviePlayer play];
+        else 
+            [_moviePlayer pause];
     }
     else
     {
