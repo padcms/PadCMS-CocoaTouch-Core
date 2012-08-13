@@ -138,12 +138,12 @@
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
-		NSLog(@"HIT!!!!");
+//		NSLog(@"HIT!!!!");
 		return goodQualityImage;
 		
 	}
 	
-	NSLog(@"MISS!!!");
+//	NSLog(@"MISS!!!");
 //	[cache storeTileForElement:_element withIndex:index];
 //	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
