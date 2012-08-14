@@ -89,11 +89,11 @@
 	//NSLog(@"CGRECT - %@", NSStringFromCGRect(rect));
   CGContextRef ctx = UIGraphicsGetCurrentContext();
 	CGFloat scale = [UIScreen mainScreen].scale;//CGContextGetCTM(ctx).a / self.tiledLayer.contentsScale;
-
+	
   NSInteger col = (CGRectGetMinX(rect) * scale) / self.tileSize.width;
   NSInteger row = (CGRectGetMinY(rect) * scale) / self.tileSize.height;
 	//NSLog(@"col - %d, row - %d, scale - %f, size - %@",col,row,scale, NSStringFromCGSize(self.tileSize));
-
+//	NSLog(@"RECT - %@, col - %d, row - %d", NSStringFromCGRect(rect), col, row);
   UIImage *tile_image = [(id<JCTiledBitmapViewDelegate>)self.delegate tiledView:self imageForRow:row column:col scale:scale];
   [tile_image drawInRect:rect];
 

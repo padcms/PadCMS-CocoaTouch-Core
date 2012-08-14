@@ -107,37 +107,46 @@
 
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale
 {
-/*	ImageCache* cache = [ImageCache sharedImageCache];
+/*	NSLog(@"row - %d, column - %d", row, column);
+	ImageCache* cache = [ImageCache sharedImageCache];
 	NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
 	//UIImage* goodQualityImage = [cache.elementCache valueForKeyPath: [NSString stringWithFormat:@"%d.%d", _element.identifier, index]];
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
+		NSLog(@"drawn - %@", NSStringFromCGRect(CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)));
 		return goodQualityImage;
 
 	}	
 	UIImage* badQualityimage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/BQresource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		
+	NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
 		[cache storeTileForElement:_element withIndex:index];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
+			NSLog(@"rect - %@", NSStringFromCGRect(CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)));
 		});
-	});
-	return badQualityimage;*/
-	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
-	return image;
+	}];
+	[cache.queue addOperation:operation];
 	
-/*	ImageCache* cache = [ImageCache sharedImageCache];
+	return badQualityimage;*/
+	/*UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
+	return image;*/
+	
+		
+	ImageCache* cache = [ImageCache sharedImageCache];
 	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
+//		NSLog(@"HIT!!!!");
 		return goodQualityImage;
 		
 	}
-	[cache storeTileForElement:_element withIndex:index];
-	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];*/
+	
+//	NSLog(@"MISS!!!");
+//	[cache storeTileForElement:_element withIndex:index];
+//	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
 	
 	
 	//setNeedDisplay withoy badQualities

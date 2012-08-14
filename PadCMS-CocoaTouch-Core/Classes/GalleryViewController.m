@@ -22,9 +22,11 @@
 	BOOL _isHorizontal;
 }
 
+
 @property (nonatomic, retain) PageElementViewController* popupController;
 @end
 
+static int currentPopupTag = -1;
 @implementation GalleryViewController
 @synthesize galleryElements=_galleryElements;
 @synthesize page=_page;
@@ -77,7 +79,14 @@
 	_galleryScrollView.directionalLockEnabled = YES;
 	_galleryScrollView.delegate = self;
 	_galleryScrollView.bounces = NO;
-	_galleryScrollView.contentSize = CGSizeMake(self.view.bounds.size.width * [self.galleryElements count], self.view.bounds.size.height); 
+	if (_isHorizontal)
+	{
+		_galleryScrollView.contentSize = CGSizeMake(self.view.bounds.size.width, self.view.bounds.size.height * [self.galleryElements count]);
+	}
+	else {
+		_galleryScrollView.contentSize = CGSizeMake(self.view.bounds.size.width * [self.galleryElements count], self.view.bounds.size.height);	}
+
+	 
 //	_galleryScrollView.backgroundColor = [UIColor yellowColor];
 	
     [self.view addSubview:_galleryScrollView];
@@ -123,11 +132,22 @@
 {
     // Calculate which pages are visible
     CGRect visibleBounds = _galleryScrollView.bounds;
-    int firstNeededPageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
-    int lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
+	int firstNeededPageIndex = 0, lastNeededPageIndex = 0; 
+	if (_isHorizontal)
+	{
+		firstNeededPageIndex = floorf(CGRectGetMinY(visibleBounds) / CGRectGetHeight(visibleBounds));
+		lastNeededPageIndex  = floorf((CGRectGetMaxY(visibleBounds)) / CGRectGetHeight(visibleBounds));
+	}
+	else
+	{
+		firstNeededPageIndex = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
+		lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
+	}
+	
+    
     firstNeededPageIndex = MAX(firstNeededPageIndex, 0);
     lastNeededPageIndex  = MIN(lastNeededPageIndex, [self.galleryElements count] - 1);
-    NSLog(@"FIRST - %d, LAST - %d", firstNeededPageIndex, lastNeededPageIndex);
+//    NSLog(@"FIRST - %d, LAST - %d", firstNeededPageIndex, lastNeededPageIndex);
     //removing not visible images
 	NSMutableSet* pagesToRemove = [[NSMutableSet alloc] init];
 	for (PageElementViewController *controller in _visibleElementControllers) {
@@ -142,43 +162,68 @@
     // add missing images
     for (int index = firstNeededPageIndex; index <= lastNeededPageIndex; index++) {
         if (![self isDisplayingImageForIndex:index]) {
-			PCPageElement* galleryElement = [self.galleryElements objectAtIndex:index];
-			PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:galleryElement andFrame:CGRectOffset(self.view.bounds, _galleryScrollView.bounds.size.width * index, 0.0f)];
-		/*	if (_isHorizontal)
-			{
-				CGAffineTransform transform = CGAffineTransformMakeRotation(3.14159/2);
-				CGRect frame = CGRectMake(_galleryScrollView.bounds.size.width * index, 0.0f, self.view.bounds.size.width, self.view.bounds.size.height);
-				elementController.elementView.transform = transform;
-				elementController.elementView.frame = frame;
-				//	elementController.elementView.autoresizesSubviews = NO;
-				//	elementController.elementView.scrollView.frame = self.view.bounds;
-				elementController.elementView.scrollView.contentSize = CGSizeMake(1024, 0);
-				//	elementController.elementView.tiledView.frame = self.view.bounds;
-				//	elementController.elementView.backgroundColor = [UIColor greenColor];
-				//NSLog(@"FRAME - main %@, scrol - %@, tile - %@", NSStringFromCGSize(elementController.elementView.scrollView.contentSize), NSStringFromCGRect(elementController.elementView.scrollView.frame),NSStringFromCGRect([elementController.elementView.tiledView frame]));
-			}*/
-			
-			NSArray* popups = [[galleryElement.dataRects allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[c] %@",PCPDFActiveZonePopup]];
-			for (NSString* type in popups) {
-				NSLog(@"POPUP - %@", type);
-				CGRect rect = [galleryElement rectForElementType:type];
-				if (!CGRectEqualToRect(rect, CGRectZero))
-				{
-					CGSize pageSize = elementController.elementView.bounds.size;
-					float scale = pageSize.width/galleryElement.size.width;
-					rect.size.width *= scale;
-					rect.size.height *= scale;
-					rect.origin.x *= scale;
-					rect.origin.y *= scale;
-					rect.origin.y = galleryElement.size.height*scale - rect.origin.y - rect.size.height;
-					UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
-					[popup setFrame:rect];
-					popup.tag = 100 + [[type lastPathComponent] intValue];
-					[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
 					
-					[elementController.elementView addSubview:popup];			
+			PCPageElement* galleryElement = [self.galleryElements objectAtIndex:index];
+			NSLog(@"ELEMENT WEIGHT - %d - INDEX - %d", galleryElement.weight, index);
+
+			CGRect elementFrame = _isHorizontal?CGRectOffset(self.view.bounds,0.0f, _galleryScrollView.bounds.size.height * index):CGRectOffset(self.view.bounds, _galleryScrollView.bounds.size.width * index, 0.0f);
+			
+			PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:galleryElement andFrame:elementFrame];
+			
+			NSArray* popupElements = [self.page elementsForType:PCPageElementTypePopup];
+			if ([popupElements lastObject])
+			{
+				NSArray* popups = [[galleryElement.dataRects allKeys] filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"self BEGINSWITH[c] %@",PCPDFActiveZonePopup]];
+				
+				if ([popups lastObject])
+				{
+					
+					for (NSString* type in popups) {
+						NSLog(@"POPUP - %@", type);
+						CGRect rect = [galleryElement rectForElementType:type];
+						if (!CGRectEqualToRect(rect, CGRectZero))
+						{
+							CGSize pageSize = elementController.elementView.bounds.size;
+							float scale = pageSize.width/galleryElement.size.width;
+							rect.size.width *= scale;
+							rect.size.height *= scale;
+							rect.origin.x *= scale;
+							rect.origin.y *= scale;
+							rect.origin.y = galleryElement.size.height*scale - rect.origin.y - rect.size.height;
+							UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
+							[popup setFrame:rect];
+							popup.tag = 100 + [[type lastPathComponent] intValue];
+							[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
+							
+							[elementController.elementView addSubview:popup];			
+						}
+					}
 				}
+				else
+				{
+					//if there isn't any popup active zones, but we have popup elements on the page we use popup with weight which equil to gallery element weight
+					PCPageElement* popupElement = [[popupElements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"weight == %d", galleryElement.weight]] lastObject];
+					if (popupElement) 
+					{
+						NSLog(@"popup weight - %d", popupElement.weight);
+						UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
+						elementFrame.origin = CGPointMake(0.0, 0.0);
+						[popup setFrame:elementFrame];
+						popup.tag = 100 + popupElement.weight + 1;
+						[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
+						
+						[elementController.elementView addSubview:popup];
+					}
+					
+				}
+				
+				
+				
+				
+				
 			}
+					
+			
 			
 			[_galleryScrollView addSubview:elementController.elementView];
             [_visibleElementControllers addObject:elementController];
@@ -205,9 +250,16 @@
 	for (UIView* v in sender.superview.subviews) {
 		if ([v isKindOfClass:[JCTiledScrollView class]])
 		{
+			NSLog(@"superview tag1 - %d", v.tag);
 			[v removeFromSuperview];
+			NSLog(@"superview tag - %d", v.tag);
 			if (v.tag == sender.tag) return;
 		}
+	}
+	if (currentPopupTag == sender.tag)
+	{
+		currentPopupTag = -1;
+		return;
 	}
 	NSLog(@"POPUP tag - %d", sender.tag);
 	int index = sender.tag - 100 - 1;
@@ -220,11 +272,13 @@
 		
 	PageElementViewController* elementController = [[PageElementViewController alloc] initWithElement:popupElement andFrame:self.view.bounds];
 	self.popupController = elementController;
-	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+/*	UITapGestureRecognizer* tapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
 	tapGestureRecognizer.cancelsTouchesInView = NO;
-	//tapGestureRecognizer.delegate = self;
+//	tapGestureRecognizer.delegate = self;
     [elementController.elementView  addGestureRecognizer:tapGestureRecognizer];
 	[tapGestureRecognizer release];
+//	elementController.elementView.tag = sender.tag;*/
+	currentPopupTag = sender.tag;
 	[sender.superview addSubview:elementController.elementView ];
 //	[sender.superview sendSubviewToBack:elementController.elementView ];
 	for (UIView* v in sender.superview.subviews) {

@@ -198,4 +198,13 @@
     return NO;
 }
 
+- (BOOL)isVideoRectEqualToApplicationFrame:(CGRect)videoFrame
+{
+    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
+    if (CGRectEqualToRect(videoFrame, appRect) || 
+        (videoFrame.size.width == appRect.size.height && videoFrame.size.height == appRect.size.width)) 
+        return YES;
+    return NO;
+}
+
 @end

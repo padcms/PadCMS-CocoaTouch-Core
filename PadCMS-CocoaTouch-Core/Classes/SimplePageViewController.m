@@ -12,6 +12,7 @@
 #import "PCPageElementVideo.h"
 #import "PCScrollView.h"
 #import "PCPageActiveZone.h"
+#import "PCVideoManager.h"
 
 @interface SimplePageViewController ()
 
@@ -191,9 +192,7 @@
 {
     UIView *videoView = ((UIViewController*)videoControllerToShow).view;
     NSLog(@"videoView - %@", videoView);
-    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
-    if (CGRectEqualToRect(videoView.frame, appRect) || 
-        (videoView.frame.size.width == appRect.size.height && videoView.frame.size.height == appRect.size.width))
+    if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:videoView.frame])
     {
         [self showFullscreenVideo:videoView];
         return;
