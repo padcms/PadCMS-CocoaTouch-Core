@@ -8,9 +8,12 @@
 
 #import <UIKit/UIKit.h>
 #import "AbstractBasePageViewController.h"
+#import "PCEmailController.h"
 #import "PCHudView.h"
-#import "PCTopBarView.h"
 #import "PCSearchViewController.h"
+#import "PCShareView.h"
+#import "PCTopBarView.h"
+#import "PCTwitterNewController.h"
 
 @class PCRevision;
 @class PCVideoManager;
@@ -23,7 +26,8 @@
 @end
 
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
-UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate, PCSearchViewControllerDelegate>
+UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate,
+PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate, PCEmailControllerDelegate>
 {
 	IBOutlet UIView* topMenuView;
 }

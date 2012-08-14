@@ -9,8 +9,12 @@
 #import "RevisionViewController.h"
 
 #import "AbstractBasePageViewController.h"
+#import "EasyTableView.h"
 #import "GalleryViewController.h"
+#import "ImageCache.h"
+#import "PCFacebookViewController.h"
 #import "PCGridView.h"
+#import "PCLocalizationManager.h"
 #import "PCMagazineViewControllersFactory.h"
 #import "PCPage.h"
 #import "PCPageViewController.h"
@@ -19,12 +23,14 @@
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
-#import "ImageCache.h"
-#import "EasyTableView.h"
 
 @interface RevisionViewController ()
 {
     PCHudView *_hudView;
+    PCShareView *_shareView;
+    PCFacebookViewController *_facebookViewController;
+    PCTwitterNewController *_twitterController;
+    PCEmailController *_emailController;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -59,6 +65,10 @@
 
 		_initialPage = [initialPage retain];
 
+        _shareView = nil;
+        _facebookViewController = nil;
+        _twitterController = nil;
+        _emailController = nil;
     }
     
     return self;
@@ -141,6 +151,26 @@
 {	
     [super viewDidUnload];
 	self.contentScrollView = nil;
+    
+    if (_shareView != nil) {
+        [_shareView release];
+        _shareView = nil;
+    }
+    
+    if (_facebookViewController != nil) {
+        [_facebookViewController release];
+        _facebookViewController = nil;
+    }
+    
+    if (_twitterController != nil) {
+        [_twitterController release];
+        _twitterController = nil;
+    }
+    
+    if (_emailController != nil) {
+        [_emailController release];
+        _emailController = nil;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -401,8 +431,6 @@
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
-    NSLog(@"tapGesture:");
-    
     if (_hudView.topTocView != nil) {
         PCTocView *topTocView = _hudView.topTocView;
         
@@ -421,6 +449,10 @@
         } else if (bottomTocView.state == PCTocViewStateVisible) {
             [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
         }
+    }
+    
+    if (_shareView != nil) {
+        [_shareView dismiss];
     }
 }
 
@@ -607,6 +639,16 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button
 {
+    if (_shareView == nil) {
+        _shareView = [[PCShareView configuredShareView] retain];
+        _shareView.delegate = self;
+    }
+    
+    if (_shareView.presented) {
+        [_shareView dismiss];
+    } else {
+        [_shareView presentInView:self.view atPoint:button.center];
+    }
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button
@@ -656,6 +698,62 @@
 	[viewController release];
 }
 
+#pragma mark - PCShareViewDelegate
 
+- (void)shareViewFacebookShare:(PCShareView *)shareView
+{
+    if (_facebookViewController == nil) {
+        NSString *facebookMessage = [[_revision.issue.application.notifications objectForKey:PCFacebookNotificationType]objectForKey:PCApplicationNotificationMessageKey];
+        _facebookViewController = [[PCFacebookViewController alloc] initWithMessage:facebookMessage];
+    }
+    
+    [_facebookViewController initFacebookSharer];
+}
+
+- (void)shareViewTwitterShare:(PCShareView *)shareView
+{
+    if (_twitterController == nil) {
+        NSString *twitterMessage = [[self.revision.issue.application.notifications objectForKey:PCTwitterNotificationType]objectForKey:PCApplicationNotificationMessageKey];
+        _twitterController = [[PCTwitterNewController alloc] initWithMessage:twitterMessage];
+        _twitterController.delegate = self;
+    }
+    
+    [_twitterController showTwitterController];
+}
+
+- (void)shareViewMailShare:(PCShareView *)shareView
+{
+    if (_emailController == nil) {
+        NSDictionary *emailMessage = [self.revision.issue.application.notifications objectForKey:PCEmailNotificationType];
+        _emailController = [[PCEmailController alloc] initWithMessage:emailMessage];
+        _emailController.delegate = self;
+    }
+    
+    [_emailController emailShow];
+}
+
+#pragma mark - PCTwitterNewControllerDelegate
+
+- (void)dismissPCNewTwitterController:(TWTweetComposeViewController *)currentPCTwitterNewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showPCNewTwitterController:(TWTweetComposeViewController *)tweetController
+{
+    [self presentViewController:tweetController animated:YES completion:nil];
+}
+
+#pragma mark - PCEmailControllerDelegate
+
+- (void)dismissPCEmailController:(MFMailComposeViewController *)currentPCEmailController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showPCEmailController:(MFMailComposeViewController *)emailControllerToShow
+{
+    [self presentViewController:emailControllerToShow animated:YES completion:nil];
+}
 
 @end
