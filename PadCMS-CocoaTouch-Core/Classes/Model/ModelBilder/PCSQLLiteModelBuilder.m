@@ -262,6 +262,7 @@
 		[element setDataRects:[NSMutableDictionary dictionary]];
 		element.page = horizontalPage;
 		[horizontalPage.elements addObject:element];
+		[element release];
 		PCPage* previousPage = [revision.newHorizontalPages lastObject];
 		if (previousPage)
 		{

@@ -138,6 +138,8 @@
     for (PCPageActiveZone* action in activeZones)
         if ([self pdfActiveZoneAction:action])
             break;
+	
+	[activeZones release];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer
