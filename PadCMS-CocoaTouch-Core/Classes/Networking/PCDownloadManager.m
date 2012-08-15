@@ -693,7 +693,7 @@ NSString* secondaryKey   = @"secondaryKey";
     {
       dispatch_async(dispatch_get_main_queue(), ^{
 		  NSDictionary* dic = [NSDictionary dictionaryWithObject:element forKey:@"element"];
-        [[NSNotificationCenter defaultCenter] postNotificationName:PCGalleryElementDidDownloadNotification object:page userInfo:dic];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PCGalleryElementDidDownloadNotification object:element userInfo:dic];
       });
       
     }
