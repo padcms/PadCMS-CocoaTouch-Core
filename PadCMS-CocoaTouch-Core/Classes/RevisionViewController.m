@@ -31,6 +31,7 @@
     PCFacebookViewController *_facebookViewController;
     PCTwitterNewController *_twitterController;
     PCEmailController *_emailController;
+	UIInterfaceOrientation _currentInterfaceOrientation;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -58,10 +59,7 @@
     
     if (self) {
         _revision = [revision retain];
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(deviceOrientationDidChange)
-													 name:@"UIDeviceOrientationDidChangeNotification"
-												   object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self												 selector:@selector(deviceOrientationDidChange:)													 name:UIDeviceOrientationDidChangeNotification												   object:nil];
 
 		_initialPage = [initialPage retain];
 
@@ -69,6 +67,7 @@
         _facebookViewController = nil;
         _twitterController = nil;
         _emailController = nil;
+		_currentInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
     }
     
     return self;
@@ -76,7 +75,15 @@
 
 - (id)initWithRevision:(PCRevision *)revision
 {
+	if (revision.alternativeCoverPage)
+	{
+		if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+		{
+			return [self initWithRevision:revision withInitialPage:revision.alternativeCoverPage];
+		}
+	}
 	return [self initWithRevision:revision withInitialPage:revision.coverPage];
+	
 }
 
 
@@ -94,6 +101,7 @@
     _contentScrollView.showsVerticalScrollIndicator = NO;
     _contentScrollView.showsHorizontalScrollIndicator = NO;
 	_contentScrollView.directionalLockEnabled = YES;
+	_contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
 	[self configureContentScrollForPage:_nextPageViewController.page];
     _contentScrollView.delegate = self;
@@ -140,7 +148,7 @@
                                                     name:PCHorizontalTocDidDownloadNotification
                                                   object:nil];
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
 	[_initialPage release], _initialPage = nil;
@@ -182,7 +190,15 @@
 	}
 	else
 	{
-		return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+		if (self.revision.horizontalMode)
+		{
+			return YES;
+		}
+		else
+		{
+			return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+		}
+		
 
 	}
 }
@@ -239,6 +255,8 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+	NSLog(@"ORIENTATION - %@", UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)?@"PORTARIT":@"LANDSCAPE");
+	
 	if (scrollView.decelerating && !scrollView.dragging) return;
 	
 	CGFloat pageWidth = self.view.bounds.size.width;
@@ -317,14 +335,25 @@
 	}
 }
 
--(void) deviceOrientationDidChange
+-(void) deviceOrientationDidChange:(NSNotification*)notif
 {
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
+	
+	if (_currentInterfaceOrientation == (UIInterfaceOrientation)orientation) return;
+	_currentInterfaceOrientation = (UIInterfaceOrientation)orientation;
+		
+	if (_currentPageViewController.page.onRotatePage) {
+		[self gotoPage:_currentPageViewController.page.onRotatePage];
+		return;
+	}
+	
 	if (_contentScrollView.dragging || _contentScrollView.decelerating) return;
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_currentPageViewController.page firstElementForType:PCPageElementTypeBody];
 	
 	if (bodyElement && bodyElement.showGalleryOnRotate)
 	{
-		if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation))
+		if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
 		{
 			[self showGallery];
 		}
@@ -333,6 +362,11 @@
 		}
 	}
 }
+
+/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self deviceOrientationDidChange];
+}*/
 
 /*- (void)dismissVideo
 {

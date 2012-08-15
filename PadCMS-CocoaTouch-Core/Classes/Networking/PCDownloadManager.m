@@ -230,12 +230,12 @@ NSString* secondaryKey   = @"secondaryKey";
         [self launchHelpDownloading];
         [self launchPortraitPagesDownloading];
         [self launchHorizontalTocDownload];
-        [self launchHorizonalPagesDownload];
+       // [self launchHorizonalPagesDownload];
         
     }
     else {
         [self launchHorizontalTocDownload];
-        [self launchHorizonalPagesDownload];
+    //    [self launchHorizonalPagesDownload];
         [self launchCoverPageDownloading];
         [self launchTocDownloading];
         [self launchHelpDownloading];
@@ -628,7 +628,12 @@ NSString* secondaryKey   = @"secondaryKey";
 	}
     if ((element.page.pageTemplate.identifier == PCHorizontalScrollingPageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane])) type = HORIZONTAL_SCROLLING_PANE;
     
-    NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
+	 NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation?page.revision.horizontalOrientation : page.isHorizontal];
+	if (page.isHorizontal)
+	{
+		url = [[[url stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByAppendingPathComponent:[path lastPathComponent]];
+	}
+   
 	
    
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {

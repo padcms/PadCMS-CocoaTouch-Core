@@ -48,7 +48,7 @@
     {
         hasPhotoGalleryLink = NO;
         showTopLayer = NO;
-        top = -1;
+        top = 0;
         showGalleryOnRotate = NO;
     }
     return self;
