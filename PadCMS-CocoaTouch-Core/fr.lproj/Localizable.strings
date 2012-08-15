@@ -47,7 +47,7 @@
 "KIOSK_BUTTON_TITLE_CANCEL"="Annuler";
 "KIOSK_BUTTON_TITLE_DELETE"="Supprimer";
 "KIOSK_BUTTON_TITLE_PAY"="Acheter";
-"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="S'abonner";
+"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="Abonnement";
 "KIOSK_NAVIGATION_BAR_TITLE"="Kiosque";
 "ALERT_TITLE_CANT_LOAD_MAGAZINES_LIST"="La liste des numéros disponibles n'a pu être téléchargée";
 "ALERT_MAGAZINE_REMOVAL_CONFIRMATION_MESSAGE"="Etes-vous certain de vouloir supprimer ce numéro?";

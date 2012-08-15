@@ -66,6 +66,7 @@
     self.keyPhraseRegexp = nil;
     self.targetRevision = nil;
     self.searchingThread = nil;
+    self.result = nil;
     [super dealloc];
 }
 
@@ -92,6 +93,9 @@
 
 -(void) startSearch
 {
+    if(self.result)self.result = nil;
+    self.result = [[[PCSearchResult alloc] init] autorelease];
+    
     [NSThread detachNewThreadSelector:@selector(searchThread:)
                              toTarget:self
                            withObject:nil];

@@ -88,6 +88,16 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
+
+    self.searchProvider = [[[PCSearchProvider alloc] initWithKeyPhrase:self.searchKeyphrase
+                                                        andApplication:self.application] autorelease];
+    self.searchProvider.delegate = self;
+    [UIView beginAnimations:@"startSearch" context:nil];
+    [UIView setAnimationDuration:1];
+    searchResultsTableView.alpha = 0.5;
+    [UIView commitAnimations];
+    
+    [self.searchProvider searchInRevision:self.revision];
 }
 
 - (void)viewDidUnload
@@ -99,21 +109,6 @@
     [super viewDidUnload];
 }
 
-- (void)viewDidAppear:(BOOL)animated
-{
-    [super viewDidAppear:animated];
-    
-    
-    self.searchProvider = [[[PCSearchProvider alloc] initWithKeyPhrase:self.searchKeyphrase
-                                                       andApplication:self.application] autorelease];
-    [UIView beginAnimations:@"startSearch" context:nil];
-    [UIView setAnimationDuration:1];
-    searchResultsTableView.alpha = 0.5;
-    [UIView commitAnimations];
-    
-    [self.searchProvider searchInRevision:self.revision];
-}
-    
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     // Return YES for supported orientations
