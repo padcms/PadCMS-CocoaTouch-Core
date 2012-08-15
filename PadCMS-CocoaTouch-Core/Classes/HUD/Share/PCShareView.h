@@ -56,7 +56,7 @@
 /**
  @brief Tells the delegate to perform Email share.
  */
-- (void)shareViewMailShare:(PCShareView *)shareView;
+- (void)shareViewEmailShare:(PCShareView *)shareView;
 
 @end
 
@@ -75,6 +75,21 @@
  @brief The flag that indicates that the PCShareView is presented or not.
  */
 @property (readonly, nonatomic) BOOL presented;
+
+/**
+ @brief Facebook sharing button.
+ */
+@property (readonly, nonatomic) UIButton *facebookButton;
+
+/**
+ @brief Twitter sharing button.
+ */
+@property (readonly, nonatomic) UIButton *twitterButton;
+
+/**
+ @brief Email sharing button.
+ */
+@property (readonly, nonatomic) UIButton *emailButton;
 
 /**
  @brief Create configured share view object and return it to invoker.

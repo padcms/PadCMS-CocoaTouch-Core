@@ -38,22 +38,58 @@
 #import "PCLocalizationManager.h"
 
 @interface PCShareView ()
+{
+    UIButton *_facebookButton;
+    UIButton *_twitterButton;
+    UIButton *_emailButton;
+}
 
 - (void)shareFacebookButtonAction:(UIButton *)button;
 - (void)shareTwitterButtonAction:(UIButton *)button;
-- (void)shareMailButtonAction:(UIButton *)button;
+- (void)shareEmailButtonAction:(UIButton *)button;
 
 @end
+
 
 @implementation PCShareView
 @synthesize delegate;
 @synthesize presented = _presented;
+@synthesize facebookButton = _facebookButton;
+@synthesize twitterButton = _twitterButton;
+@synthesize emailButton = _emailButton;
+
+- (void)dealloc
+{
+    [_facebookButton release];
+    [_twitterButton release];
+    [_emailButton release];
+    
+    [super dealloc];
+}
 
 - (id)initWithFrame:(CGRect)frame
 {
     self = [super initWithFrame:frame];
     if (self != nil) {
         _presented = NO;
+        
+        _facebookButton = [[UIButton alloc] init];
+        [_facebookButton addTarget:self
+                            action:@selector(shareFacebookButtonAction:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_facebookButton];
+        
+        _twitterButton = [[UIButton alloc] init];
+        [_twitterButton addTarget:self
+                            action:@selector(shareTwitterButtonAction:)
+                  forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_twitterButton];
+        
+        _emailButton = [[UIButton alloc] init];
+        [_emailButton addTarget:self
+                           action:@selector(shareEmailButtonAction:)
+                 forControlEvents:UIControlEventTouchUpInside];
+        [self addSubview:_emailButton];
     }
     return self;
 }
@@ -76,10 +112,10 @@
     [self dismiss];
 }
 
-- (void)shareMailButtonAction:(UIButton *)button
+- (void)shareEmailButtonAction:(UIButton *)button
 {
-    if ([self.delegate respondsToSelector:@selector(shareViewMailShare:)]) {
-        [self.delegate shareViewMailShare:self];
+    if ([self.delegate respondsToSelector:@selector(shareViewEmailShare:)]) {
+        [self.delegate shareViewEmailShare:self];
     }
 
     [self dismiss];
@@ -109,15 +145,10 @@
     [shareView addSubview:titleLabel];
     
     // Facebook
-    UIButton *facebookButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    facebookButton.frame = CGRectMake(0, 0, 153, 45);
-    facebookButton.center = CGPointMake(85, 76);
-    [facebookButton addTarget:shareView
-                    action:@selector(shareFacebookButtonAction:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [facebookButton setImage:[UIImage imageNamed:@"btnFacebook.png"]
-                 forState:UIControlStateNormal];
-    [shareView addSubview:facebookButton];
+    shareView.facebookButton.frame = CGRectMake(0, 0, 153, 45);
+    shareView.facebookButton.center = CGPointMake(85, 76);
+    [shareView.facebookButton setImage:[UIImage imageNamed:@"btnFacebook.png"]
+                              forState:UIControlStateNormal];
     
     UILabel *facebookTitle = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 45)] autorelease];
     facebookTitle.font = [UIFont fontWithName:@"Arial" size:13];
@@ -128,38 +159,28 @@
     [shareView addSubview:facebookTitle];
 
     // Twitter
-    UIButton *twitterButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    twitterButton.frame = CGRectMake(0, 0, 153, 45);
-    twitterButton.center = CGPointMake(85, facebookButton.center.y + 45);
-    [twitterButton addTarget:shareView
-                      action:@selector(shareTwitterButtonAction:)
-            forControlEvents:UIControlEventTouchUpInside];
-    [twitterButton setImage:[UIImage imageNamed:@"btnTwitter.png"] forState:UIControlStateNormal];
-    [shareView addSubview:twitterButton];
+    shareView.twitterButton.frame = CGRectMake(0, 0, 153, 45);
+    shareView.twitterButton.center = CGPointMake(85, shareView.facebookButton.center.y + 45);
+    [shareView.twitterButton setImage:[UIImage imageNamed:@"btnTwitter.png"] forState:UIControlStateNormal];
     
     UILabel *twitterTitle = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 80, 45)] autorelease];
     twitterTitle.font = [UIFont fontWithName:@"Arial" size:13];
     twitterTitle.textColor = [UIColor whiteColor];
     twitterTitle.backgroundColor = [UIColor blackColor];
-    twitterTitle.center = CGPointMake(95, facebookButton.center.y + 45);
+    twitterTitle.center = CGPointMake(95, shareView.facebookButton.center.y + 45);
     twitterTitle.text = @"Twitter";
     [shareView addSubview:twitterTitle];
 
     // Email
-    UIButton *emailButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    emailButton.frame = CGRectMake(0, 0, 153, 45);
-    emailButton.center = CGPointMake(85, twitterButton.center.y + 45);
-    [emailButton addTarget:shareView
-                    action:@selector(shareMailButtonAction:)
-          forControlEvents:UIControlEventTouchUpInside];
-    [emailButton setImage:[UIImage imageNamed:@"btnEmail.png"] forState:UIControlStateNormal];
-    [shareView addSubview:emailButton];
+    shareView.emailButton.frame = CGRectMake(0, 0, 153, 45);
+    shareView.emailButton.center = CGPointMake(85, shareView.twitterButton.center.y + 45);
+    [shareView.emailButton setImage:[UIImage imageNamed:@"btnEmail.png"] forState:UIControlStateNormal];
     
     UILabel *emailTitle = [[[UILabel alloc] initWithFrame:CGRectMake(0, 0, 102, 45)] autorelease];
     emailTitle.font = [UIFont fontWithName:@"Arial" size:13];
     emailTitle.textColor = [UIColor whiteColor];
     emailTitle.backgroundColor = [UIColor blackColor];
-    emailTitle.center = CGPointMake(95 + 11, twitterButton.center.y + 45);
+    emailTitle.center = CGPointMake(95 + 11, shareView.twitterButton.center.y + 45);
     emailTitle.text = [PCLocalizationManager localizedStringForKey:@"SHARING_MENU_TITLE_EMAIL"
                                                              value:@"Send Email"];
     [shareView addSubview:emailTitle];

@@ -721,7 +721,7 @@
     [_twitterController showTwitterController];
 }
 
-- (void)shareViewMailShare:(PCShareView *)shareView
+- (void)shareViewEmailShare:(PCShareView *)shareView
 {
     if (_emailController == nil) {
         NSDictionary *emailMessage = [self.revision.issue.application.notifications objectForKey:PCEmailNotificationType];

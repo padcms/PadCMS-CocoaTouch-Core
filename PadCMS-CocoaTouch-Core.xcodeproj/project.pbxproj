@@ -1156,6 +1156,10 @@
 		C5792E0215D1176C00716781 /* PCTopBarView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		C58C16A215B3FE7400665295 /* PCHudView.m in Sources */ = {isa = PBXBuildFile; fileRef = C58C169E15B3FE7400665295 /* PCHudView.m */; };
 		C59692EB15D8FF16002137BA /* PCTestFrameworksTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C59692EA15D8FF16002137BA /* PCTestFrameworksTest.m */; };
+		C5A7693015DB715C00092FDA /* PCShareViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A7692F15DB715C00092FDA /* PCShareViewTest.m */; };
+		C5A7693215DB734600092FDA /* PCShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABCA6D15DA5F1800B405EA /* PCShareView.m */; };
+		C5A7693315DB735C00092FDA /* PCLocalizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 600ACDA315B6E9C900F0233C /* PCLocalizationManager.m */; };
+		C5A7693415DB737100092FDA /* PCConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EF71588CF820097D960 /* PCConfig.m */; };
 		C5A784DC15C950A600370829 /* PCGridView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5A784D615C950A600370829 /* PCGridView.h */; };
 		C5A784DD15C950A600370829 /* PCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A784D715C950A600370829 /* PCGridView.m */; };
 		C5A784DE15C950A600370829 /* PCGridView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5A784D715C950A600370829 /* PCGridView.m */; };
@@ -2360,6 +2364,7 @@
 		C58C169D15B3FE7400665295 /* PCHudView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCHudView.h; sourceTree = "<group>"; };
 		C58C169E15B3FE7400665295 /* PCHudView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCHudView.m; sourceTree = "<group>"; };
 		C59692EA15D8FF16002137BA /* PCTestFrameworksTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTestFrameworksTest.m; sourceTree = "<group>"; };
+		C5A7692F15DB715C00092FDA /* PCShareViewTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCShareViewTest.m; sourceTree = "<group>"; };
 		C5A784D615C950A600370829 /* PCGridView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridView.h; sourceTree = "<group>"; };
 		C5A784D715C950A600370829 /* PCGridView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCGridView.m; sourceTree = "<group>"; };
 		C5A784D815C950A600370829 /* PCGridViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCGridViewCell.h; sourceTree = "<group>"; };
@@ -3742,6 +3747,7 @@
 				C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */,
 				600E45F415C7FB45008ACADC /* PCSearchingTest.m */,
 				C59692EA15D8FF16002137BA /* PCTestFrameworksTest.m */,
+				C5A7692F15DB715C00092FDA /* PCShareViewTest.m */,
 			);
 			path = "PadCMS-CocoaTouch-Core-Tests";
 			sourceTree = "<group>";
@@ -4764,6 +4770,10 @@
 				600E45F515C7FB45008ACADC /* PCSearchingTest.m in Sources */,
 				60E3445015D2B9AD004A6131 /* PCSearchBaseProvider.m in Sources */,
 				C59692EB15D8FF16002137BA /* PCTestFrameworksTest.m in Sources */,
+				C5A7693015DB715C00092FDA /* PCShareViewTest.m in Sources */,
+				C5A7693215DB734600092FDA /* PCShareView.m in Sources */,
+				C5A7693315DB735C00092FDA /* PCLocalizationManager.m in Sources */,
+				C5A7693415DB737100092FDA /* PCConfig.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
