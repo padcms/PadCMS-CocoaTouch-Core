@@ -23,6 +23,7 @@
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
+#import "PCSubscriptionMenuViewController.h"
 
 @interface RevisionViewController ()
 {
@@ -31,6 +32,8 @@
     PCFacebookViewController *_facebookViewController;
     PCTwitterNewController *_twitterController;
     PCEmailController *_emailController;
+    PCSubscriptionMenuViewController *_subscriptionsMenuController;
+    UIPopoverController *_popoverController;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -69,6 +72,8 @@
         _facebookViewController = nil;
         _twitterController = nil;
         _emailController = nil;
+        _subscriptionsMenuController = nil;
+        _popoverController = nil;
     }
     
     return self;
@@ -170,6 +175,16 @@
     if (_emailController != nil) {
         [_emailController release];
         _emailController = nil;
+    }
+    
+    if (_subscriptionsMenuController != nil) {
+        [_subscriptionsMenuController release];
+        _subscriptionsMenuController = nil;
+    }
+    
+    if (_popoverController != nil) {
+        [_popoverController release];
+        _popoverController = nil;
     }
 }
 
@@ -635,6 +650,11 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
 {
+    if (!_subscriptionsMenuController)
+        _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+    if (!_popoverController)
+        _popoverController = [[UIPopoverController alloc] initWithContentViewController:_subscriptionsMenuController];   
+    [_popoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button

@@ -279,14 +279,6 @@ static InAppPurchases *singleton = nil;
 	}
 }
 
-#pragma mark PCSubscriptionMenuViewDelegate methods
-
-- (void) newSubscription
-{
-    NSLog(@"newSubscription");
-    [self subscribe];
-}
-
 - (void) renewSubscription:(BOOL) needRenewIssues
 {
     NSLog(@"renewSubscription");
