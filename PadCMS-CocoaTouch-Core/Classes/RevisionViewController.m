@@ -23,6 +23,7 @@
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
+#import "PCSubscriptionMenuViewController.h"
 
 @interface RevisionViewController ()
 {
@@ -32,6 +33,8 @@
     PCTwitterNewController *_twitterController;
     PCEmailController *_emailController;
 	UIInterfaceOrientation _currentInterfaceOrientation;
+    PCSubscriptionMenuViewController *_subscriptionsMenuController;
+    UIPopoverController *_popoverController;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -68,6 +71,8 @@
         _twitterController = nil;
         _emailController = nil;
 		_currentInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        _subscriptionsMenuController = nil;
+        _popoverController = nil;
     }
     
     return self;
@@ -179,6 +184,16 @@
         [_emailController release];
         _emailController = nil;
     }
+    
+    if (_subscriptionsMenuController != nil) {
+        [_subscriptionsMenuController release];
+        _subscriptionsMenuController = nil;
+    }
+    
+    if (_popoverController != nil) {
+        [_popoverController release];
+        _popoverController = nil;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -255,8 +270,6 @@
 
 -(void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
-	NSLog(@"ORIENTATION - %@", UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)?@"PORTARIT":@"LANDSCAPE");
-	
 	if (scrollView.decelerating && !scrollView.dragging) return;
 	
 	CGFloat pageWidth = self.view.bounds.size.width;
@@ -669,6 +682,11 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
 {
+    if (!_subscriptionsMenuController)
+        _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+    if (!_popoverController)
+        _popoverController = [[UIPopoverController alloc] initWithContentViewController:_subscriptionsMenuController];   
+    [_popoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button
@@ -755,7 +773,7 @@
     [_twitterController showTwitterController];
 }
 
-- (void)shareViewMailShare:(PCShareView *)shareView
+- (void)shareViewEmailShare:(PCShareView *)shareView
 {
     if (_emailController == nil) {
         NSDictionary *emailMessage = [self.revision.issue.application.notifications objectForKey:PCEmailNotificationType];

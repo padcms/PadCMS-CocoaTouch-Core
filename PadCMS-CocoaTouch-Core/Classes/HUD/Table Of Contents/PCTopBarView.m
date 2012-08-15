@@ -197,7 +197,7 @@
             _subscriptionsButton = [[UIButton alloc] initWithFrame:subscriptionsButtonFrame];
             _subscriptionsButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
             
-            [_subscriptionsButton setTitle:[PCLocalizationManager localizedStringForKey:@"Subscription" value:@"Subscription"] forState:UIControlStateNormal];
+            [_subscriptionsButton setTitle:[PCLocalizationManager localizedStringForKey:@"SUBSCRIPTION_MENU_BUTTON_TITLE" value:@"Subscription"] forState:UIControlStateNormal];
             _subscriptionsButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
             
             UIImage *subscriptionsButtonImage = [UIImage imageNamed:[subscriptionsButtonConfig objectForKey:TopBarViewSubscriptionsButtonImage]];

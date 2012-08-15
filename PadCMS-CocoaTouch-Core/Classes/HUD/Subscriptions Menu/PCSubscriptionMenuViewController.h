@@ -1,8 +1,8 @@
 //
-//  InAppPurchases.h
-//  the_reader
+//  PCSubscriptionMenuViewController.h
+//  Pad CMS
 //
-//  Created by User on 18.03.11.
+//  Created by Igor Getmanenko on 15.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,34 +33,10 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <Foundation/Foundation.h>
-#import <StoreKit/StoreKit.h>
+#import <UIKit/UIKit.h>
 
-#define kInAppPurchaseManagerProductsFetchedNotification @"kInAppPurchaseManagerProductsFetchedNotification"
-#define kInAppPurchaseManagerTransactionFinished @"kInAppPurchaseManagerTransactionFinished"
-#define kInAppPurchaseManagerTransactionSucceededNotification @"kInAppPurchaseManagerTransactionSucceededNotification"
+@interface PCSubscriptionMenuViewController : UITableViewController
 
-
-
-@interface InAppPurchases : NSObject <SKProductsRequestDelegate, SKPaymentTransactionObserver>
-{
-	NSMutableSet *dataQueue;
-}
-
-@property (retain) NSMutableSet *dataQueue;
-@property BOOL isSubscribed;
-
-+ (InAppPurchases *)sharedInstance;
-
-- (void)requestProductDataWithProductId:(NSString *)productId;
-- (void)requestProductDataWithProductIds:(NSSet *)productIds;
-
-- (BOOL)canMakePurchases;
-- (BOOL)queueIsEmpty;
-- (void)purchaseForProductId:(NSString *)productId;
-
-- (void)subscribe;
-- (void)repurchase;
-- (void)renewSubscription:(BOOL)needRenewIssues;
+- (id)initWithSubscriptionFlag:(BOOL) isIssuesToRestore;
 
 @end

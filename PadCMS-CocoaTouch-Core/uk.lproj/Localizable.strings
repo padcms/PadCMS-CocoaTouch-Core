@@ -41,6 +41,9 @@
 "MSG_EMAIL_CLIENT_IS_NOT_CONFIGURED"="Клієнт електронної пошти не налаштований.";
 "SHARING_MENU_CAPTION"="ПОДІЛИТИСЯ";
 "SHARING_MENU_TITLE_EMAIL"="Відправити Email";
+"SUBSCRIPTION_MENU_BUTTON_TITLE"="Підписка";
+"SUBSCRIPTION_MENU_TITLE_SUBSCRIBE"="Підписатися";
+"SUBSCRIPTION_MENU_TITLE_RENEW"="Відновити підписку";
 "LABEL_LOADING"="Завантаження";
 "KIOSK_BUTTON_TITLE_DOWNLOAD"="Скачати";
 "KIOSK_BUTTON_TITLE_READ"="Читати";
