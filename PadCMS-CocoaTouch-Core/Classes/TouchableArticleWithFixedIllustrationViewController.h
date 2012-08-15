@@ -11,6 +11,6 @@
 
 @interface TouchableArticleWithFixedIllustrationViewController : SimplePageViewController
 
-@property (nonatomic, retain) UITapGestureRecognizer* tapGestureRecognizer;
+@property (nonatomic, retain) UITapGestureRecognizer *tapGestureRecognizer;
 
 @end

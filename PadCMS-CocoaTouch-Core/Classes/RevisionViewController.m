@@ -9,19 +9,32 @@
 #import "RevisionViewController.h"
 
 #import "AbstractBasePageViewController.h"
+#import "EasyTableView.h"
 #import "GalleryViewController.h"
+#import "ImageCache.h"
+#import "PCFacebookViewController.h"
 #import "PCGridView.h"
+#import "PCLocalizationManager.h"
 #import "PCMagazineViewControllersFactory.h"
 #import "PCPage.h"
 #import "PCPageViewController.h"
 #import "PCResourceCache.h"
 #import "PCScrollView.h"
+#import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
+#import "PCSubscriptionMenuViewController.h"
 
 @interface RevisionViewController ()
 {
     PCHudView *_hudView;
+    PCShareView *_shareView;
+    PCFacebookViewController *_facebookViewController;
+    PCTwitterNewController *_twitterController;
+    PCEmailController *_emailController;
+	UIInterfaceOrientation _currentInterfaceOrientation;
+    PCSubscriptionMenuViewController *_subscriptionsMenuController;
+    UIPopoverController *_popoverController;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -49,13 +62,17 @@
     
     if (self) {
         _revision = [revision retain];
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(deviceOrientationDidChange)
-													 name:@"UIDeviceOrientationDidChangeNotification"
-												   object:nil];
+		[[NSNotificationCenter defaultCenter] addObserver:self												 selector:@selector(deviceOrientationDidChange:)													 name:UIDeviceOrientationDidChangeNotification												   object:nil];
 
 		_initialPage = [initialPage retain];
 
+        _shareView = nil;
+        _facebookViewController = nil;
+        _twitterController = nil;
+        _emailController = nil;
+		_currentInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        _subscriptionsMenuController = nil;
+        _popoverController = nil;
     }
     
     return self;
@@ -63,7 +80,15 @@
 
 - (id)initWithRevision:(PCRevision *)revision
 {
+	if (revision.alternativeCoverPage)
+	{
+		if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+		{
+			return [self initWithRevision:revision withInitialPage:revision.alternativeCoverPage];
+		}
+	}
 	return [self initWithRevision:revision withInitialPage:revision.coverPage];
+	
 }
 
 
@@ -81,6 +106,7 @@
     _contentScrollView.showsVerticalScrollIndicator = NO;
     _contentScrollView.showsHorizontalScrollIndicator = NO;
 	_contentScrollView.directionalLockEnabled = YES;
+	_contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
 	[self configureContentScrollForPage:_nextPageViewController.page];
     _contentScrollView.delegate = self;
@@ -127,7 +153,7 @@
                                                     name:PCHorizontalTocDidDownloadNotification
                                                   object:nil];
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
 	[_initialPage release], _initialPage = nil;
@@ -138,6 +164,36 @@
 {	
     [super viewDidUnload];
 	self.contentScrollView = nil;
+    
+    if (_shareView != nil) {
+        [_shareView release];
+        _shareView = nil;
+    }
+    
+    if (_facebookViewController != nil) {
+        [_facebookViewController release];
+        _facebookViewController = nil;
+    }
+    
+    if (_twitterController != nil) {
+        [_twitterController release];
+        _twitterController = nil;
+    }
+    
+    if (_emailController != nil) {
+        [_emailController release];
+        _emailController = nil;
+    }
+    
+    if (_subscriptionsMenuController != nil) {
+        [_subscriptionsMenuController release];
+        _subscriptionsMenuController = nil;
+    }
+    
+    if (_popoverController != nil) {
+        [_popoverController release];
+        _popoverController = nil;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -149,7 +205,15 @@
 	}
 	else
 	{
-		return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+		if (self.revision.horizontalMode)
+		{
+			return YES;
+		}
+		else
+		{
+			return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+		}
+		
 
 	}
 }
@@ -161,6 +225,7 @@
 	//After every page changing we need to recalculate content size of the revision scroll view depending on links of current page. Content size must allow scrolling to neighbour pages, and at the same time block scroll in direction where page links are empty (nil).
 	
 	if (!page) return;
+	if (page.isComplete) [[ImageCache sharedImageCache] loadPrimaryImagesForPage:page]; 
 	CGFloat pageWidth = self.view.bounds.size.width;
 	CGFloat pageHeight = self.view.bounds.size.height;
 	int widthMultiplier = 1;
@@ -283,14 +348,25 @@
 	}
 }
 
--(void) deviceOrientationDidChange
+-(void) deviceOrientationDidChange:(NSNotification*)notif
 {
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
+	
+	if (_currentInterfaceOrientation == (UIInterfaceOrientation)orientation) return;
+	_currentInterfaceOrientation = (UIInterfaceOrientation)orientation;
+		
+	if (_currentPageViewController.page.onRotatePage) {
+		[self gotoPage:_currentPageViewController.page.onRotatePage];
+		return;
+	}
+	
 	if (_contentScrollView.dragging || _contentScrollView.decelerating) return;
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_currentPageViewController.page firstElementForType:PCPageElementTypeBody];
 	
 	if (bodyElement && bodyElement.showGalleryOnRotate)
 	{
-		if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation))
+		if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
 		{
 			[self showGallery];
 		}
@@ -299,6 +375,11 @@
 		}
 	}
 }
+
+/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self deviceOrientationDidChange];
+}*/
 
 /*- (void)dismissVideo
 {
@@ -416,6 +497,10 @@
             [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
         }
     }
+    
+    if (_shareView != nil) {
+        [_shareView dismiss];
+    }
 }
 
 - (void)verticalTocDownloaded:(NSNotification *)notification
@@ -432,7 +517,8 @@
 
 - (BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *)touch
 {
-    if ([touch.view isKindOfClass:UIButton.class]) {
+    if ([touch.view isKindOfClass:UIButton.class] ||
+        touch.view.tag == CELL_CONTENT_TAG) {
         return NO;
     }
     
@@ -451,10 +537,46 @@
         } else {
             return CGSizeMake(250, 192 /*viewSize.height / 4*/);
         }
+    } else if (tocView == hudView.summaryView.gridView) {
+        return CGSizeMake(314, 100);
     }
     
     return CGSizeZero;
 }
+
+- (UIImage *)hudView:(PCHudView *)hudView summaryImageForIndex:(NSUInteger)index
+{
+    NSArray *tocItems = _revision.validVerticalTocItems;
+    
+    if (tocItems != nil && tocItems.count > index) {
+        PCTocItem *tocItem = [tocItems objectAtIndex:index];
+        
+        PCResourceCache *cache = [PCResourceCache defaultResourceCache];
+        NSString *imagePath = [_revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
+        UIImage *image = [cache objectForKey:imagePath];
+        if (image == nil) {
+            image = [UIImage imageWithContentsOfFile:imagePath];
+            [cache setObject:image forKey:imagePath];
+        }
+        
+        return image;
+    }
+    
+    return nil;
+}
+
+- (NSString *)hudView:(PCHudView *)hudView summaryTextForIndex:(NSUInteger)index
+{
+    NSArray *tocItems = _revision.validVerticalTocItems;
+    
+    if (tocItems != nil && tocItems.count > index) {
+        PCTocItem *tocItem = [tocItems objectAtIndex:index];
+        return tocItem.title;
+    }
+    
+    return nil;
+}
+
 
 - (UIImage *)hudView:(PCHudView *)hudView tocImageForIndex:(NSUInteger)index
 {
@@ -514,11 +636,8 @@
             return;
         }
         
-//        [horizontalScrollView scrollRectToVisible:CGRectMake(1024 * index, 0, 1024, 768) animated:YES];
-        
     } else {
         PCTocItem *tocItem = [_revision.validVerticalTocItems objectAtIndex:index];
-//        NSInteger pageIndex = -1;
         NSArray *revisionPages = _revision.pages;
         for (PCPage *page in revisionPages) {
             if (page.identifier == tocItem.firstPageIdentifier) {
@@ -526,8 +645,6 @@
                 break;
             }
         }
-        
-//        [self showPageWithIndex:pageIndex];
     }
 }
 
@@ -536,11 +653,14 @@
     if (tocView == hudView.topTocView) {
         [hudView.topBarView hideKeyboard];
     }
+    
+    if (tocView == hudView.bottomTocView && state == PCTocViewStateHidden) {
+        [_hudView hideSummaryAnimated:YES];
+    }
 }
 
 - (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
 {
-    
 }
 
 #pragma makr - PCTopBarViewDelegate
@@ -553,14 +673,34 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
 {
+    if (_hudView.summaryView.hidden) {
+        [_hudView showSummaryInView:self.view atPoint:button.center animated:YES];
+    } else {
+        [_hudView hideSummaryAnimated:YES];
+    }
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
 {
+    if (!_subscriptionsMenuController)
+        _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+    if (!_popoverController)
+        _popoverController = [[UIPopoverController alloc] initWithContentViewController:_subscriptionsMenuController];   
+    [_popoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button
 {
+    if (_shareView == nil) {
+        _shareView = [[PCShareView configuredShareView] retain];
+        _shareView.delegate = self;
+    }
+    
+    if (_shareView.presented) {
+        [_shareView dismiss];
+    } else {
+        [_shareView presentInView:self.view atPoint:button.center];
+    }
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button
@@ -610,6 +750,62 @@
 	[viewController release];
 }
 
+#pragma mark - PCShareViewDelegate
 
+- (void)shareViewFacebookShare:(PCShareView *)shareView
+{
+    if (_facebookViewController == nil) {
+        NSString *facebookMessage = [[_revision.issue.application.notifications objectForKey:PCFacebookNotificationType]objectForKey:PCApplicationNotificationMessageKey];
+        _facebookViewController = [[PCFacebookViewController alloc] initWithMessage:facebookMessage];
+    }
+    
+    [_facebookViewController initFacebookSharer];
+}
+
+- (void)shareViewTwitterShare:(PCShareView *)shareView
+{
+    if (_twitterController == nil) {
+        NSString *twitterMessage = [[self.revision.issue.application.notifications objectForKey:PCTwitterNotificationType]objectForKey:PCApplicationNotificationMessageKey];
+        _twitterController = [[PCTwitterNewController alloc] initWithMessage:twitterMessage];
+        _twitterController.delegate = self;
+    }
+    
+    [_twitterController showTwitterController];
+}
+
+- (void)shareViewEmailShare:(PCShareView *)shareView
+{
+    if (_emailController == nil) {
+        NSDictionary *emailMessage = [self.revision.issue.application.notifications objectForKey:PCEmailNotificationType];
+        _emailController = [[PCEmailController alloc] initWithMessage:emailMessage];
+        _emailController.delegate = self;
+    }
+    
+    [_emailController emailShow];
+}
+
+#pragma mark - PCTwitterNewControllerDelegate
+
+- (void)dismissPCNewTwitterController:(TWTweetComposeViewController *)currentPCTwitterNewController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showPCNewTwitterController:(TWTweetComposeViewController *)tweetController
+{
+    [self presentViewController:tweetController animated:YES completion:nil];
+}
+
+#pragma mark - PCEmailControllerDelegate
+
+- (void)dismissPCEmailController:(MFMailComposeViewController *)currentPCEmailController
+{
+    [self dismissViewControllerAnimated:YES completion:nil];
+}
+
+- (void)showPCEmailController:(MFMailComposeViewController *)emailControllerToShow
+{
+    [self presentViewController:emailControllerToShow animated:YES completion:nil];
+}
 
 @end

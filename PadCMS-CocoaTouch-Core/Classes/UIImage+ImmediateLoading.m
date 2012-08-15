@@ -63,10 +63,10 @@
     CGImageRef decompressedImageRef = CGBitmapContextCreateImage(context);
     CGContextRelease(context);
     
-    UIImage *decompressedImage = [[UIImage alloc] initWithCGImage:decompressedImageRef];
+    UIImage *decompressedImage = [[[UIImage alloc] initWithCGImage:decompressedImageRef] autorelease];
     CGImageRelease(decompressedImageRef);
 	
-    return [decompressedImage autorelease];
+    return decompressedImage;
 }
 
 @end

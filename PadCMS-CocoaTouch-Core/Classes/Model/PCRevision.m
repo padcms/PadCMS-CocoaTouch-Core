@@ -98,6 +98,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 @synthesize startVideo = _startVideo;
 @synthesize downloadStartVideoOperation = _downloadStartVideoOperation;
 @synthesize newHorizontalPages=_newHorizontalPages;
+@synthesize alternativeCoverPage=_alternativeCoverPage;
 @dynamic verticalTocLoaded;
 @dynamic horizontalTocLoaded;
 @dynamic validVerticalTocItems;
@@ -121,6 +122,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     self.color = nil;
     self.startVideo = nil;
 	self.newHorizontalPages = nil;
+	self.alternativeCoverPage = nil;
     [super dealloc];
 }
 

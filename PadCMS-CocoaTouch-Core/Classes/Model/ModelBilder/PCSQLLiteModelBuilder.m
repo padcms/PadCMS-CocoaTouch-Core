@@ -129,11 +129,16 @@
 				
 			}
         }
+		
         [revision.pages addObject:page];
         page.revision = revision;
-        
+/*        for (PCPageElement* element in page.elements)
+		{
+			[element calculateSize];
+		}*/
         [page release];
     }
+	
 	
 	for (PCPage* page in wrongPages) {
 		[revision.pages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -243,11 +248,11 @@
 		
         horizontalPage.pageTemplate = [[PCPageTemplatesPool templatesPool] templateForId:PCSimplePageTemplate];
         
-        horizontalPage.title = [pages stringForColumn:PCSQLiteHorizontalTitleColumnName];
-        horizontalPage.horisontalPageIdentifier = [pages intForColumn:PCSQLiteHorisontalPageIDColumnName];
+        horizontalPage.title = [horisontalPages stringForColumn:PCSQLiteHorizontalTitleColumnName];
+     //   horizontalPage.horisontalPageIdentifier = [pages intForColumn:PCSQLiteHorisontalPageIDColumnName];
 		horizontalPage.isHorizontal = YES;
 		horizontalPage.revision = revision;
-		PCPageElement* element = [[PCPageElement alloc] init];
+		PCPageElementBody* element = [[PCPageElementBody alloc] init];
 		element.fieldTypeName = @"body";
 #warning need element identifier in db
 		element.identifier = NSIntegerMax - horisontalPageId;
@@ -256,7 +261,12 @@
 		[element pushElementData:elementDatas];
 		[element setDataRects:[NSMutableDictionary dictionary]];
 		element.page = horizontalPage;
+		element.isCropped = YES;
+		NSString* lastPathComponent = [element.resource lastPathComponent];
+		element.resource = [[[element.resource stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", horizontalPage.identifier]] stringByAppendingPathComponent:lastPathComponent];
+		element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
 		[horizontalPage.elements addObject:element];
+		[element release];
 		PCPage* previousPage = [revision.newHorizontalPages lastObject];
 		if (previousPage)
 		{
@@ -265,7 +275,8 @@
 		}
 		
 		[revision.newHorizontalPages addObject:horizontalPage];
-#define OLD_HORIZONTAL_PAGE_STYLE_SUPPORT		
+		horizontalPage.revision = revision;
+//#define OLD_HORIZONTAL_PAGE_STYLE_SUPPORT		
 #ifdef OLD_HORIZONTAL_PAGE_STYLE_SUPPORT
 #warning old code support is enabled
 		PCHorizontalPage* horPage = [[PCHorizontalPage alloc] init];
@@ -287,6 +298,30 @@
     }
 	
 	
+	
+	//Creating onRotate links
+	if (revision.horizontalMode)
+	{
+		for (PCPage* page in revision.pages) {
+			if (page.horisontalPageIdentifier)
+			{
+				PCPage* horizontalPage = [[revision.newHorizontalPages filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"identifier == %d", page.horisontalPageIdentifier]] lastObject];
+				page.onRotatePage = horizontalPage;
+				if (!horizontalPage.onRotatePage)
+					horizontalPage.onRotatePage = page;
+				
+			}
+		}
+		revision.alternativeCoverPage = [revision.newHorizontalPages objectAtIndex:0];
+		[revision.pages addObjectsFromArray:revision.newHorizontalPages];
+	}
+	
+	for (PCPage* horPage in revision.newHorizontalPages) {
+		if (!horPage.onRotatePage)
+		{
+			horPage.onRotatePage = horPage.leftPage.onRotatePage;
+		}
+	}
 	
     
     NSString* menusQuery = [NSString stringWithFormat:@"select * from %@",PCSQLiteMenuTableName];
@@ -440,7 +475,7 @@
     [pageElement pushElementData:elementDatas];
     [pageElement setDataRects:elementDataRects];
     [pageElement.activeZones addObjectsFromArray:elementActiveZones];
-    [elementDatas release];
+	[elementDatas release];
     [elementDataRects release];
     [elementActiveZones release];
     return [pageElement autorelease];

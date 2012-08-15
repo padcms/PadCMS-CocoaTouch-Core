@@ -14,6 +14,7 @@
 #import "PCVideoController.h"
 #import "MBProgressHUD.h"
 #import "PCVideoManager.h"
+#import "PCStyler.h"
 
 @interface AbstractBasePageViewController ()
 
@@ -173,12 +174,30 @@
 		
 	}
 	
-	NSAssert([galleryActiveZones lastObject],@"No active zones for gallery");
-	
-	CGRect frame = [self activeZoneRectForType:[(PCPageActiveZone*)[galleryActiveZones lastObject] URL]];
-	
+	//NSAssert([galleryActiveZones lastObject],@"No active zones for gallery");
 	UIButton* galleryButton = [UIButton buttonWithType:UIButtonTypeCustom];
-	galleryButton.frame = frame;
+	if ([galleryActiveZones lastObject])
+	{
+		CGRect frame = [self activeZoneRectForType:[(PCPageActiveZone*)[galleryActiveZones lastObject] URL]];
+		galleryButton.frame = frame;
+	}
+	else
+	{
+		NSMutableDictionary* buttonOption = [NSMutableDictionary dictionary];
+	
+        if (self.page.color)
+           [buttonOption setObject:self.page.color forKey:PCButtonTintColorOptionKey];
+		[buttonOption setObject:[NSValue valueWithCGRect:self.view.bounds] forKey:PCButtonParentViewFrameKey];
+        [[PCStyler defaultStyler] stylizeElement:galleryButton withStyleName:PCGalleryEnterButtonKey withOptions:buttonOption];
+        [galleryButton setFrame:CGRectMake(self.view.frame.size.width - galleryButton.frame.size.width, 0, galleryButton.frame.size.width, galleryButton.frame.size.height)];
+        [[PCStyler defaultStyler] stylizeElement:galleryButton withStyleName:PCGalleryEnterButtonKey withOptions:buttonOption];
+		NSLog(@"Gallery Button frame = %@", NSStringFromCGRect(galleryButton.frame));
+	}
+	
+	
+	
+	[galleryActiveZones release];
+	
 //	galleryButton.backgroundColor = [UIColor redColor];
 	[galleryButton addTarget:self.delegate action:@selector(showGallery) forControlEvents:UIControlEventTouchUpInside];
 	[self.actionButtons addObject:galleryButton];

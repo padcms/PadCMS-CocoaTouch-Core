@@ -84,6 +84,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
         activeZones = [[NSMutableArray alloc] init];
         isComplete = YES;
 		_isCropped = NO;
+		
     }
     return self;
 }
@@ -164,6 +165,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 
 -(CGSize)realImageSize
 {
+	
 	if (CGSizeEqualToSize(realSize, CGSizeZero))
 	{
 		NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
@@ -173,6 +175,18 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 	}
 	
 	return realSize;
+}
+
+-(void)calculateSize
+{
+	NSString *path = self.fullPathToContent;
+	NSLog(@"FULL PATH - %@", path);
+	NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
+	CGFloat height = [[information objectForKey:@"height"] floatValue];
+	CGFloat width = [[information objectForKey:@"width"] floatValue];
+	
+	realSize = CGSizeMake(width, height); 
+	NSLog(@"yyy %d -- %@",self.identifier, information);
 }
 
 -(NSUInteger)tileIndexForResource:(NSString *)aResource
@@ -190,6 +204,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 - (NSString *)resourcePathForTileIndex:(NSUInteger)index
 {
 	NSInteger maxColumn = ceilf(self.realImageSize.width / kDefaultTileSize);
+	if (!maxColumn) return nil;
 	NSInteger row = ceilf((index - 1) / maxColumn) + 1;
 	NSInteger column = index%maxColumn?index%maxColumn:maxColumn;
 	return [NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row, column]; 

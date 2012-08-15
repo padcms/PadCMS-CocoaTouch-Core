@@ -14,8 +14,12 @@
 #import "ImageCache.h"
 #import "JCTiledView.h"
 #import "PCVideoManager.h"
+#import "MBProgressHUD.h"
 
 @interface PageElementViewController ()
+{
+	MBProgressHUD* HUD;
+}
 @property (readonly) float scale;
 @property (nonatomic, readonly) NSString* fullPathToContent;
 @property (nonatomic, readonly) CGRect elementFrame;
@@ -34,17 +38,21 @@
         _element = [element retain];
 		_scale = [UIScreen mainScreen].scale;
 		_elementFrame = elementFrame;
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCGalleryElementDidDownloadNotification object:self.element];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCMiniArticleElementDidDownloadNotification object:self.element];
     }
     return self;
 }
 
 -(void)dealloc
 {
+	[self hideHud];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.element];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.element];
 	[_elementView removeFromSuperview];
 	NSLog(@"element dealloc");
 	[_element release], _element = nil;
 	[_elementView release], _elementView = nil;
-    [[PCVideoManager sharedVideoManager] dismissVideo];
 	[super dealloc];
 }
 
@@ -61,7 +69,13 @@
     }
     [_element release];
     _element = [element retain];
+	
 	[self releaseViews];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.element];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.element];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCGalleryElementDidDownloadNotification object:element];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCMiniArticleElementDidDownloadNotification object:element];
+	
 }
 
 -(NSString *)fullPathToContent
@@ -74,11 +88,19 @@
 	if (!self.element) return nil;
 	if (!_elementView)
 	{
-		if (!self.element.isComplete) return nil;
+		BOOL isShowHud = NO;
+		if (!self.element.isComplete) 
+		{
+			
+			if ([self.element.fieldTypeName isEqualToString:PCPageElementTypeGallery] || [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle])
+			{
+				isShowHud = YES;
+			}
+			else {
+				return nil;
+			}
+		}
 		CGRect elementView_frame = _elementFrame;
-		/*NSDictionary* information = [NSDictionary dictionaryWithContentsOfFile:[[self.fullPathToContent stringByDeletingLastPathComponent] stringByAppendingPathComponent:@"information.plist"]];
-		CGFloat height = [[information objectForKey:@"height"] floatValue];
-		CGFloat width = [[information objectForKey:@"width"] floatValue];*/
 		CGSize scrollContentSize = [self.element realImageSize]; 
 		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
 		_elementView.dataSource = self;
@@ -89,17 +111,42 @@
 		_elementView.levelsOfZoom = 1;
 		_elementView.levelsOfDetail = 2;
 		_elementView.scrollView.maximumZoomScale = 1.0;
-	/*	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-			UIImage* image = [[UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/BQresource.png", [self.fullPathToContent stringByDeletingLastPathComponent]]] resizedImage:scrollContentSize interpolationQuality:kCGInterpolationLow];
-			
-			dispatch_async(dispatch_get_main_queue(), ^{
-				_elementView.scrollView.backgroundColor = [UIColor colorWithPatternImage:image];
-			});
-			
-
-		});*/
+		if (isShowHud) [self showHUD];
+		
+	
 	}
 	return _elementView;
+}
+
+-(void)showHUD
+{
+	NSAssert(!self.element.isComplete,@"Invalid show hud");
+	if (self.element.isComplete) return;
+	if (HUD)
+    {
+        return;
+        _element.progressDelegate = nil;
+        [HUD removeFromSuperview];
+        [HUD release];
+        HUD = nil;
+    }
+    HUD = [[MBProgressHUD alloc] initWithView:_elementView];
+    [_elementView addSubview:HUD];
+    HUD.mode = MBProgressHUDModeAnnularDeterminate;
+    _element.progressDelegate = HUD;
+    [HUD show:YES];
+}
+
+-(void)hideHud
+{
+	if (HUD)
+	{
+		[HUD hide:YES];
+		_element.progressDelegate = nil;
+		[HUD removeFromSuperview];
+		[HUD release];
+		HUD = nil;
+	}
 }
 
 
@@ -108,37 +155,47 @@
 
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale
 {
-/*	ImageCache* cache = [ImageCache sharedImageCache];
+	if (!self.element.isComplete) return nil;
+/*	NSLog(@"row - %d, column - %d", row, column);
+	ImageCache* cache = [ImageCache sharedImageCache];
 	NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
 	//UIImage* goodQualityImage = [cache.elementCache valueForKeyPath: [NSString stringWithFormat:@"%d.%d", _element.identifier, index]];
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
+		NSLog(@"drawn - %@", NSStringFromCGRect(CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)));
 		return goodQualityImage;
 
 	}	
 	UIImage* badQualityimage = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/BQresource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
-	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		
+	NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
 		[cache storeTileForElement:_element withIndex:index];
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
+			NSLog(@"rect - %@", NSStringFromCGRect(CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)));
 		});
-	});
-	return badQualityimage;*/
-	UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
-	return image;
+	}];
+	[cache.queue addOperation:operation];
 	
-/*	ImageCache* cache = [ImageCache sharedImageCache];
+	return badQualityimage;*/
+	/*UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
+	return image;*/
+	
+		
+	ImageCache* cache = [ImageCache sharedImageCache];
 	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
+//		NSLog(@"HIT!!!!");
 		return goodQualityImage;
 		
 	}
-	[cache storeTileForElement:_element withIndex:index];
-	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];*/
+	
+//	NSLog(@"MISS!!!");
+//	[cache storeTileForElement:_element withIndex:index];
+//	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
 	
 	
 	//setNeedDisplay withoy badQualities
@@ -162,6 +219,31 @@
 	
 }
 
+-(void)updateElement:(NSNotification*)notif
+{
+	[self hideHud];
+//	_elementView.tiledView.layer.contents = nil;
+//	[_elementView.tiledView.layer setNeedsDisplayInRect:_elementView.tiledView.layer.bounds];
+//	[_elementView.tiledView.layer setNeedsDisplay];
+	
+	
+	CGSize scrollContentSize = [self.element realImageSize];
+	
+	_elementView.tiledView.frame = CGRectMake(0.0, 0.0, scrollContentSize.width, scrollContentSize.height);
+	
+	[_elementView.tiledView setNeedsDisplay];
+	
+/*	NSLog(@"TILED VIEW - %@", _elementView.tiledView);
+	
+	NSInteger maxColumn = ceilf(_elementFrame.size.width / kDefaultTileSize);
+	NSInteger maxRaw = ceilf(_elementFrame.size.height / kDefaultTileSize);
+	for (int column = 1; column <=maxColumn; ++column) {
+		for (int row = 1; row <=maxRaw; ++row) {
+			[self.elementView.tiledView setNeedsDisplayInRect:CGRectMake(column * kDefaultTileSize, row * kDefaultTileSize, kDefaultTileSize, kDefaultTileSize)];
+		}
+	}*/
+	
+}
 
 
 

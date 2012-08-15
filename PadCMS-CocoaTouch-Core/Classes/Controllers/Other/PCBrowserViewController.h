@@ -50,5 +50,6 @@
 
 - (void)presentURL:(NSString *)url;
 - (void)stopShowingBrowserVideo;
+- (void)showBrowserVideo:(NSString *)url inRect:(CGRect)frame;
 
 @end

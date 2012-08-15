@@ -61,5 +61,6 @@
 
 - (void)subscribe;
 - (void)repurchase;
+- (void)renewSubscription:(BOOL)needRenewIssues;
 
 @end

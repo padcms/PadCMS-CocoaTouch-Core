@@ -22,7 +22,6 @@
     BOOL _graphicsLoaded;
     
     UIPinchGestureRecognizer *_pinchGestureRecognizer;
-    UIPanGestureRecognizer *_panGestureRecognizer;
 }
 
 - (void)setUpGraphics;
@@ -175,6 +174,8 @@
     CCDirector* director = [CCDirector sharedDirector];
     [director pause];
     [director stopAnimation];
+    
+    [PCScrollView removeViewFromIgnoreTouches:_glView];
     
 	EAGLView *openGLView = [director openGLView];
     [openGLView removeFromSuperview];

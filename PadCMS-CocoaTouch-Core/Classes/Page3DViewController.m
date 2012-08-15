@@ -66,9 +66,6 @@
 
     [self.view addSubview:_3dView];
     [self loadModel];
-//    dispatch_async(dispatch_queue_create("model-loading", NULL), ^{
-//        [self loadModel];
-//    });
 }
 
 - (void)unloadFullView

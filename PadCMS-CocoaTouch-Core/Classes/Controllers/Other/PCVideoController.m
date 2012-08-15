@@ -39,6 +39,7 @@
 #import "PCDownloadApiClient.h"
 #import "MBProgressHUD.h"
 #import "PCLocalizationManager.h"
+#import "PCVideoManager.h"
 
 @interface PCVideoController () 
 
@@ -115,10 +116,6 @@
 - (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect
 {
     NSLog(@"url - %@", videoURL);
-    if (_isVideoPlaying)
-    {
-        return;
-    }
     
     if (_moviePlayer != nil)
     {
@@ -129,12 +126,8 @@
     
     _moviePlayer.view.frame = videoRect;
     _moviePlayer.view.autoresizingMask = UIViewContentModeScaleAspectFill;
-
-    [self.moviePlayer prepareToPlay];
     
-    CGRect appRect = [[UIScreen mainScreen] applicationFrame];
-    if (CGRectEqualToRect(videoRect, appRect) || 
-        (videoRect.size.width == appRect.size.height && videoRect.size.height == appRect.size.width)) 
+    if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:videoRect])
     {
         [_moviePlayer setControlStyle:MPMovieControlStyleFullscreen];
     }
@@ -157,7 +150,10 @@
     {
         NSLog(@"Successfully instantiated the movie player.");
         
-        [_moviePlayer play];
+        if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:_moviePlayer.view.frame])
+            [_moviePlayer play];
+        else 
+            _moviePlayer.shouldAutoplay = NO;
     }
     else
     {
@@ -175,6 +171,7 @@
         
         [_moviePlayer.view removeFromSuperview];
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
+        [_moviePlayer release], _moviePlayer = nil;
     }
 }
 
@@ -237,20 +234,20 @@
 
 -(void)videoHasChanged:(NSNotification *)paramNotification
 {
-    if (self.moviePlayer.loadState & MPMovieLoadStatePlayable)
+    if (_moviePlayer.loadState & MPMovieLoadStatePlayable)
     {
         NSLog(@"MPMovieLoadStatePlayable");
         [self hideHUD];
     }
-    if (self.moviePlayer.loadState & MPMovieLoadStateUnknown)
+    if (_moviePlayer.loadState & MPMovieLoadStateUnknown)
     {
         NSLog(@"MPMovieLoadStateUnknown");
     }
-    if (self.moviePlayer.loadState & MPMovieLoadStateStalled)
+    if (_moviePlayer.loadState & MPMovieLoadStateStalled)
     {
         NSLog(@"MPMovieLoadStateStalled");
     }
-    if (self.moviePlayer.loadState & MPMovieLoadStatePlaythroughOK)
+    if (_moviePlayer.loadState & MPMovieLoadStatePlaythroughOK)
     {
         NSLog(@"MPMovieLoadStatePlaythroughOK");
     }
@@ -258,8 +255,7 @@
 
 -(void)videoHasExitedFullScreen:(NSNotification *)paramNotification
 {
-    //[self stopPlayingVideo];
-    [self.moviePlayer play];
+    [_moviePlayer play];
 }
 
 @end

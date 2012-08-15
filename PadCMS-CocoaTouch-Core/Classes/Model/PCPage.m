@@ -66,6 +66,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
 @synthesize isUpdateProgress=_isUpdateProgress;
 @synthesize isHorizontal=_isHorizontal;
 @synthesize backgroundColor=_backgroundColor;
+@synthesize onRotatePage=_onRotatePage;
 
 - (void)dealloc
 {
@@ -80,6 +81,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
     [_primaryElements release], _primaryElements = nil;
     [_secondaryElements release], _secondaryElements = nil;
 	[_backgroundColor release], _backgroundColor = nil;
+	_onRotatePage = nil;
     [super dealloc];
 }
 
@@ -96,6 +98,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
         isComplete = YES;
 		_isUpdateProgress = NO;
 		_isSecondaryElementComplete = NO;
+		_isHorizontal = NO;
 
     }
     return self;

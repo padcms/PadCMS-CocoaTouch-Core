@@ -52,7 +52,7 @@
 #import "PCRemouteNotificationCenter.h"
 #import "PCGoogleAnalytics.h"
 #import "PCLocalizationManager.h"
-
+#import "PCVideoManager.h"
 
 NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
@@ -399,6 +399,9 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	revisionController.delegate = self;
 	[self.rootViewController.navigationController pushViewController:revisionController animated:NO];
 	[revisionController release];
+	
+    if (!aRevison.startVideo || [aRevison.startVideo isEqualToString:@""])
+		[[PCVideoManager sharedVideoManager] setIsStartVideoShown:YES];
 }
 
 - (void) deleteRevisionDataWithIndex:(NSInteger)index

@@ -93,4 +93,6 @@ PADCMS_EXTERN NSString * const PCGalleryElementDidDownloadNotification;
 
 - (NSString*)resourcePathForTileIndex:(NSUInteger)index;
 
+-(void)calculateSize;
+
 @end
