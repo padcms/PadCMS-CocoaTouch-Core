@@ -48,7 +48,7 @@
 		}
 		else if (self.page.pageTemplate.identifier == PCSlidersBasedMiniArticlesVerticalPageTemplate)
 		{
-			frameRect	= CGRectMake(0, self.view.bounds.size.width - thumbSize.width, self.view.bounds.size.height, thumbSize.width);
+			frameRect	= CGRectMake(self.view.bounds.size.width - thumbSize.width, 0, thumbSize.width, self.view.bounds.size.height);
 			thumbsView	= [[EasyTableView alloc] initWithFrame:frameRect numberOfRows:[_miniArticles count] ofHeight:thumbSize.height];
 		}
 		

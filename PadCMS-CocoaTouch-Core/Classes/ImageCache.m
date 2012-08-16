@@ -134,6 +134,10 @@
 	for (PCPageElement* pageElement in page.primaryElements) {
 		[self.elementCache removeObjectForKey:[NSNumber numberWithInt:pageElement.identifier]];
 	}
+	
+	/*for (PCPageElement* pageElement in page.secondaryElements) {
+		[self.elementCache removeObjectForKey:[NSNumber numberWithInt:pageElement.identifier]];
+	}*/
 }
 
 
@@ -199,11 +203,13 @@
 			}
 			
 			
+/*			
 			
-			
-		/*	for (PCPageElement* element in page.primaryElements) {
+			for (PCPageElement* element in page.primaryElements) {
 				if ([self.elementCache objectForKey:[NSNumber numberWithInt:element.identifier]]) continue;
 				if (![element.fieldTypeName isEqualToString:PCPageElementTypeBody] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeBackground] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane] &&
 					![element.fieldTypeName isEqualToString:PCPageElementTypeVideo] &&
 					![element.fieldTypeName isEqualToString:PCPageElementTypeSound] &&
 					![element.fieldTypeName isEqualToString:PCPageElementTypeHtml] &&
@@ -219,7 +225,30 @@
 				}
 				
 				
-			}*/
+			}
+			
+			for (PCPageElement* element in page.secondaryElements) {
+				if ([self.elementCache objectForKey:[NSNumber numberWithInt:element.identifier]]) continue;
+				if (![element.fieldTypeName isEqualToString:PCPageElementTypeBody] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeBackground] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeVideo] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeSound] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeHtml] &&
+					![element.fieldTypeName isEqualToString:PCPageElementTypeHtml5] &&
+					![element.fieldTypeName isEqualToString:PCPageElementType3D])
+				{
+					for (int i = 1; i <=maxIndex; ++i) {
+						NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+							[self storeTileForElement:element withIndex:i];
+						}];
+						[self.queue addOperation:operation];
+					}
+				}
+				
+				
+			}
+ */
 		}
 		
 		
