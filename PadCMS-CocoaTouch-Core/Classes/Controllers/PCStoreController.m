@@ -57,6 +57,10 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 
 @interface PCStoreController()
+{
+	BOOL _previewMode;
+}
+
 @property (nonatomic, readwrite, retain) PCApplication* application;
 @property (nonatomic, retain) PCRevisionViewController* revisionViewController;
 
@@ -74,6 +78,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   self = [super init];
   if (self)
   {
+	_previewMode = NO;
     _rootViewController = [viewController retain];
     [_rootViewController setStoreController:self];
     [PCGoogleAnalytics start];
@@ -143,7 +148,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [tmpJsonWriter release];
     NSString* stringWithoutNull = [temp stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
 		NSDictionary* theDict = [stringWithoutNull JSONValue];
-    NSLog(@"RESPONSE - %@", theDict);
+//    NSLog(@"RESPONSE - %@", theDict);
     [[theDict objectForKey:@"result"] writeToFile:[[Helper getHomeDirectory] stringByAppendingPathComponent:@"server.plist"] atomically:YES];
     [self loadApplicationFromPlist];
   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
@@ -356,6 +361,17 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   return revision.issue.productIdentifier;
 }
 
+- (BOOL)previewAvailableForRevisionWithIndex:(NSInteger)index
+{
+	PCRevision *revision = [self revisionWithIndex:index];
+	NSUInteger previewColumnsNumber = revision.issue.application.previewColumnsNumber;
+	
+	if (previewColumnsNumber == 0) {
+		return NO;
+	}
+	
+	return YES;
+}
 
 #pragma mark - PCKioskViewControllerDelegateProtocol
 
@@ -368,11 +384,12 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 - (void) readRevisionWithIndex:(NSInteger)index
 {
 	PCRevision *currentRevision = [self revisionWithIndex:index];
-   [self launchRevison:currentRevision withInitialPage:nil];
-   
+   [self launchRevison:currentRevision withInitialPage:nil previewMode:NO];
 }
 	 
-- (void) launchRevison:(PCRevision*)aRevison withInitialPage:(PCPage*)aPage
+- (void) launchRevison:(PCRevision*)aRevison
+	   withInitialPage:(PCPage*)aPage
+		   previewMode:(BOOL)previewMode
 {
 #ifdef DEBUG
 	NSAssert(aRevison, @"revision is nil");
@@ -384,13 +401,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	[[PCDownloadManager sharedManager] startDownloading];
     RevisionViewController *revisionController = nil;
 		
-	if (aPage)
-	{
-		revisionController = [[RevisionViewController alloc] initWithRevision:aRevison withInitialPage:aPage];
-	}
-	else {
-		revisionController = [[RevisionViewController alloc] initWithRevision:aRevison];
-	}
+	revisionController = [[RevisionViewController alloc] initWithRevision:aRevison withInitialPage:aPage previewMode:previewMode];
 	
 	revisionController.delegate = self;
 	[self.rootViewController.navigationController pushViewController:revisionController animated:NO];
@@ -530,6 +541,10 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
   [self.rootViewController downloadFinishedWithRevisionIndex:[index integerValue]];
   
+	if (_previewMode) {
+		PCRevision *revision = [self revisionWithIndex:[index integerValue]];
+		[self launchRevison:revision withInitialPage:nil previewMode:YES];
+	}
 }
 
 - (void)downloadRevisionFailedWithIndex:(NSNumber*)index
@@ -552,6 +567,8 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [revision deleteContent];
     [self.rootViewController updateRevisionWithIndex:[index integerValue]];
   }
+	
+	_previewMode = NO;
 }
 
 - (void)downloadingRevisionProgressUpdate:(NSDictionary*)info
@@ -563,7 +580,11 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
                                                              andProgess:[progress floatValue]];
 }
 
-
+- (void)previewRevisionWithIndex:(NSInteger)index
+{
+	_previewMode = YES;
+	[self downloadRevisionWithIndex:index];
+}
 
 #pragma mark - UIAlertViewDelegate
 - (void) alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
@@ -726,6 +747,11 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 - (void)revisionViewControllerDidDismiss:(RevisionViewController *)revisionViewController
 {
+	if (_previewMode) {
+		[revisionViewController.revision deleteContent];
+		_previewMode = NO;
+	}
+	
   [self.rootViewController.navigationController popViewControllerAnimated:NO];
 }
 

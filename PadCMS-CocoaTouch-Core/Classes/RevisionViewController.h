@@ -38,7 +38,8 @@ PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDeleg
 @property (retain) AbstractBasePageViewController* nextPageViewController;
 @property (nonatomic, retain) IBOutlet UIView* topSummaryView;
 
-- (id)initWithRevision:(PCRevision *)revision;
-- (id)initWithRevision:(PCRevision *)revision withInitialPage:(PCPage*)initialPage;
+- (id)initWithRevision:(PCRevision *)revision
+       withInitialPage:(PCPage*)initialPage
+           previewMode:(BOOL)previewMode;
 
 @end

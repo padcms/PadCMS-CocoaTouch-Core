@@ -26,6 +26,8 @@
 
 @interface RevisionViewController ()
 {
+    BOOL _previewMode;
+    NSUInteger _horizontalPageIndex;
     PCHudView *_hudView;
     PCShareView *_shareView;
     PCFacebookViewController *_facebookViewController;
@@ -52,18 +54,25 @@
 @synthesize initialPage = _initialPage;
 @synthesize topSummaryView;
 
-- (id)initWithRevision:(PCRevision *)revision withInitialPage:(PCPage*)initialPage
+- (id)initWithRevision:(PCRevision *)revision
+       withInitialPage:(PCPage*)initialPage
+           previewMode:(BOOL)previewMode
 {
 	self = [super init];
     
     if (self) {
         _revision = [revision retain];
+        _horizontalPageIndex = 0;
+        _previewMode = previewMode;
 		[[NSNotificationCenter defaultCenter] addObserver:self
 												 selector:@selector(deviceOrientationDidChange)
 													 name:@"UIDeviceOrientationDidChangeNotification"
 												   object:nil];
-
-		_initialPage = [initialPage retain];
+        if (initialPage == nil) {
+            _initialPage = [_revision.coverPage retain];
+        } else {
+            _initialPage = [initialPage retain];
+        }
 
         _shareView = nil;
         _facebookViewController = nil;
@@ -73,13 +82,6 @@
     
     return self;
 }
-
-- (id)initWithRevision:(PCRevision *)revision
-{
-	return [self initWithRevision:revision withInitialPage:revision.coverPage];
-}
-
-
 
 - (void)viewDidLoad
 {
@@ -118,7 +120,11 @@
     [self.view addSubview:_hudView];
     
     if (_hudView.topTocView != nil) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+        if (_previewMode) {
+            [_hudView.topTocView transitToState:PCTocViewStateHidden animated:NO];
+        } else {
+            [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+        }
     }
     
     [[NSNotificationCenter defaultCenter] addObserver:self
@@ -199,7 +205,15 @@
 	CGFloat pageHeight = self.view.bounds.size.height;
 	int widthMultiplier = 1;
 	if (page.leftPage) widthMultiplier++;
-	if (page.rightPage) widthMultiplier++;
+	if (page.rightPage) {
+        if (!_previewMode) {
+            widthMultiplier++;
+        } else {
+            if (_horizontalPageIndex < _revision.issue.application.previewColumnsNumber) {
+                widthMultiplier++;
+            }
+        }
+    }
 	int heightMultiplier = 1;
 	if (page.topPage) heightMultiplier++;
 	if (page.bottomPage) heightMultiplier++;
@@ -257,12 +271,10 @@
 		
 		//here we determin the direction of horizontal scroll (right or left)
 		if (scrollView.contentOffset.x > dx ) {
-	//		NSLog(@"right");
 			nextPage = _currentPageViewController.page.rightPage;
 			nextPageViewFrame.origin = CGPointMake(dx + pageWidth, dy);
 		}
 		else {
-	//		NSLog(@"left");
 			nextPage = _currentPageViewController.page.leftPage;
 			nextPageViewFrame.origin = CGPointMake(dx - pageWidth, dy);
 		}
@@ -276,12 +288,10 @@
 		
 		//Here we determin the direction of vertical scrll (top or bottom)
 		if (scrollView.contentOffset.y > dy ) {
-	//		NSLog(@"bottom");
 			nextPage = _currentPageViewController.page.bottomPage;
 			nextPageViewFrame.origin = CGPointMake(dx, dy + pageHeight);
 		}
 		else {
-	//		NSLog(@"top");
 			nextPage = _currentPageViewController.page.topPage;
 			nextPageViewFrame.origin = CGPointMake(dx, dy - pageHeight);
 		}
@@ -292,7 +302,11 @@
 //	NSLog(@"NEXT PAGE - %d", nextPage.identifier);
 	if (_nextPageViewController.page != nextPage)
 	{
-		
+        if (nextPage == _currentPageViewController.page.rightPage) {
+            ++_horizontalPageIndex;
+        } else if (nextPage == _currentPageViewController.page.leftPage) {
+            --_horizontalPageIndex;
+        }
 		[_nextPageViewController.view removeFromSuperview], self.nextPageViewController = nil;
 		self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:nextPage];
 		self.nextPageViewController.view.frame = nextPageViewFrame;
@@ -620,7 +634,6 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
 {
-//    [self.navigationController popViewControllerAnimated:NO];
     [self dismiss];
 }
 
@@ -657,7 +670,6 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
 {
-    NSLog(@"search: %@", searchText);
 	NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
 	PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
 	searchViewController.searchKeyphrase = searchText;

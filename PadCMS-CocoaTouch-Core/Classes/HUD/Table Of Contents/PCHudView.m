@@ -440,13 +440,20 @@ NSString *EnabledKey = @"Enabled";
                 _topBarView.center = CGPointMake(topBarViewSize.width / 2,
                                                  topBarViewSize.height / 2);
 
-            } else {
+            } else if (state == PCTocViewStateVisible) {
                 activeFrame = CGRectMake(0,
                                          0,
                                          selfBounds.size.width,
                                          selfBounds.size.height);
                 _topBarView.center = CGPointMake(topBarViewSize.width / 2,
                                                  -(topBarViewSize.height / 2));
+            } else {
+                activeFrame = CGRectMake(0,
+                                         0,
+                                         selfBounds.size.width,
+                                         selfBounds.size.height);
+                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
+                                                 topBarViewSize.height / 2);
             }
             
             tocView.center = [tocView centerForState:state containerBounds:activeFrame];
