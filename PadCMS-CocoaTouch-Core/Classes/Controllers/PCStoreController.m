@@ -382,7 +382,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	NSAssert(aRevison, @"revision is nil");
 #endif
 	if (!aRevison) return;
-	[self rotateInterfaceIfNeedWithRevision:aRevison];
+//	[self rotateInterfaceIfNeedWithRevision:aRevison];
     
 	[PCDownloadManager sharedManager].revision = aRevison;
 	[[PCDownloadManager sharedManager] startDownloading];
@@ -615,7 +615,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 }
 
 #pragma mark - misc
-
+/*
 - (void)rotateInterfaceIfNeedWithRevision:(PCRevision*) revision
 {
   if(revision.horizontalOrientation)
@@ -641,7 +641,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     }
   } 
 }
-
+*/
 - (void)animationDidStop:(NSString *)animationID finished:(NSNumber *)finished context:(void *)context
 {
 	if([animationID isEqualToString:@"View Flip"])
