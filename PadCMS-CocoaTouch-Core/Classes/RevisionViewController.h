@@ -27,7 +27,8 @@
 
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
 UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate,
-PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate, PCEmailControllerDelegate>
+PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate,
+PCEmailControllerDelegate, UIAlertViewDelegate>
 {
 	IBOutlet UIView* topMenuView;
 }
