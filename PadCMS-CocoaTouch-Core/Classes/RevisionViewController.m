@@ -70,14 +70,11 @@
         _previewMode = previewMode;
 
         if (initialPage == nil) {
-            if (revision.alternativeCoverPage) {
-                if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
-                    _initialPage = [_revision.alternativeCoverPage retain];
-                }
+            if (_revision.alternativeCoverPage && UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+                _initialPage = [_revision.alternativeCoverPage retain];
             } else {
                 _initialPage = [_revision.coverPage retain];
             }
-            
         } else {
             _initialPage = [initialPage retain];
         }
@@ -368,6 +365,8 @@
 
 -(void) deviceOrientationDidChange:(NSNotification*)notif
 {
+    [_hudView reloadData];
+
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
 	
@@ -649,11 +648,14 @@
     if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
         [_revision supportsInterfaceOrientation:currentOrientation] &&
         _revision.horizontalMode) {
-        
-        if (index >= [self.revision.horizontalPages count]) {
-            return;
+        PCTocItem *tocItem = [_revision.validHorizontalTocItems objectAtIndex:index];
+        NSArray *revisionPages = _revision.pages;
+        for (PCPage *page in revisionPages) {
+            if (page.identifier == tocItem.firstPageIdentifier) {
+                [self gotoPage:page];
+                break;
+            }
         }
-        
     } else {
         PCTocItem *tocItem = [_revision.validVerticalTocItems objectAtIndex:index];
         NSArray *revisionPages = _revision.pages;
