@@ -176,7 +176,7 @@ static NSString* PCFacebookDefaultPictureURL = @"http://www.appleinsider.ru/wp-c
 {
     NSLog(@"dialogCompleteWithUrl - %@", url);
     
-    if ([[url absoluteString] hasPrefix:@"fbconnect://success"])
+    if ([[url absoluteString] hasPrefix:@"fbconnect://success?"])
     {
         [_facebook release], _facebook = nil;
     }
