@@ -1,8 +1,8 @@
 //
-//  PCPageElementBody.m
+//  PCSubscriptionMenuViewController.h
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 03.02.12.
+//  Created by Igor Getmanenko on 15.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,47 +33,10 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCPageElementBody.h"
+#import <UIKit/UIKit.h>
 
-@implementation PCPageElementBody
+@interface PCSubscriptionMenuViewController : UITableViewController
 
-@synthesize hasPhotoGalleryLink;
-@synthesize showTopLayer;
-@synthesize top;
-@synthesize showGalleryOnRotate;
-
-- (id)init
-{
-    if (self = [super init])
-    {
-        hasPhotoGalleryLink = NO;
-        showTopLayer = NO;
-        top = 0;
-        showGalleryOnRotate = NO;
-    }
-    return self;
-}
-
-- (void)pushElementData:(NSDictionary*)data
-{
-    [super pushElementData:data];
-    
-    if ([data objectForKey:PCSQLiteElementShowTopLayerAttributeName])
-        self.showTopLayer = [[data objectForKey:PCSQLiteElementShowTopLayerAttributeName] boolValue];
-    
-    if ([data objectForKey:PCSQLiteElementHasPhotoGalleryLinkAttributeName])
-        self.hasPhotoGalleryLink = [[data objectForKey:PCSQLiteElementHasPhotoGalleryLinkAttributeName] boolValue];   
-   
-    if ([data objectForKey:PCSQLiteElementTopAttributeName])
-        self.top = [[data objectForKey:PCSQLiteElementTopAttributeName] integerValue];
-
-    if ([data objectForKey:PCSQLiteElementShowGalleryOnRotateAttributeName])
-        self.showGalleryOnRotate = [[data objectForKey:PCSQLiteElementShowGalleryOnRotateAttributeName] boolValue];
-}
-
--(NSString*)description
-{
-    return [[super description] stringByAppendingFormat:@"\rshowTopLayer=%d\rhasPhotoGalleryLink=%d\rtop=%d\r",self.showTopLayer,self.hasPhotoGalleryLink,self.top];
-}
+- (id)initWithSubscriptionFlag:(BOOL) isIssuesToRestore;
 
 @end

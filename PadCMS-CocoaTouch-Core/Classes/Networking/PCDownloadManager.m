@@ -230,12 +230,12 @@ NSString* secondaryKey   = @"secondaryKey";
         [self launchHelpDownloading];
         [self launchPortraitPagesDownloading];
         [self launchHorizontalTocDownload];
-        [self launchHorizonalPagesDownload];
+       // [self launchHorizonalPagesDownload];
         
     }
     else {
         [self launchHorizontalTocDownload];
-        [self launchHorizonalPagesDownload];
+    //    [self launchHorizonalPagesDownload];
         [self launchCoverPageDownloading];
         [self launchTocDownloading];
         [self launchHelpDownloading];
@@ -628,7 +628,12 @@ NSString* secondaryKey   = @"secondaryKey";
 	}
     if ((element.page.pageTemplate.identifier == PCHorizontalScrollingPageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeScrollingPane])) type = HORIZONTAL_SCROLLING_PANE;
     
-    NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
+	 NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation?page.revision.horizontalOrientation : page.isHorizontal];
+	if (page.isHorizontal)
+	{
+		url = [[[url stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByAppendingPathComponent:[path lastPathComponent]];
+	}
+   
 	
    
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -697,7 +702,7 @@ NSString* secondaryKey   = @"secondaryKey";
       });
       
     }
-    if (!isPrimary && ( [element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle] ||  [element.fieldTypeName isEqualToString:PCPageElementTypeSlide]))
+    if (!isPrimary &&  [element.fieldTypeName isEqualToString:PCPageElementTypeSlide])
     {
       dispatch_async(dispatch_get_main_queue(), ^{
 		NSDictionary* dic = [NSDictionary dictionaryWithObject:element forKey:@"element"];
@@ -705,6 +710,15 @@ NSString* secondaryKey   = @"secondaryKey";
       });
       
     }
+		
+	if (!isPrimary && [element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle])
+	{
+		dispatch_async(dispatch_get_main_queue(), ^{
+			NSDictionary* dic = [NSDictionary dictionaryWithObject:element forKey:@"element"];
+			[[NSNotificationCenter defaultCenter] postNotificationName:PCMiniArticleElementDidDownloadNotification object:element userInfo:dic];
+		});
+			
+	}
     
   } progressBlock:^(NSInteger bytesRead, long long totalBytesRead, long long totalBytesExpectedToRead) {
     dispatch_queue_t progressQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_LOW, 0);

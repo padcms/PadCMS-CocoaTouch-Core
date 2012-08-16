@@ -196,7 +196,7 @@
 	
 	
 	
-	
+	[galleryActiveZones release];
 	
 //	galleryButton.backgroundColor = [UIColor redColor];
 	[galleryButton addTarget:self.delegate action:@selector(showGallery) forControlEvents:UIControlEventTouchUpInside];

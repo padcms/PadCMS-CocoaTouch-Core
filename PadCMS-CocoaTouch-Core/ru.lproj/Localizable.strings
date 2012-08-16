@@ -41,13 +41,16 @@
 "MSG_EMAIL_CLIENT_IS_NOT_CONFIGURED"="Клиент электронной почты не настроен.";
 "SHARING_MENU_CAPTION"="ПОДЕЛИТЬСЯ";
 "SHARING_MENU_TITLE_EMAIL"="Отправить Email";
+"SUBSCRIPTION_MENU_BUTTON_TITLE"="Подписка";
+"SUBSCRIPTION_MENU_TITLE_SUBSCRIBE"="Подписаться";
+"SUBSCRIPTION_MENU_TITLE_RENEW"="Возобновить подписку";
 "LABEL_LOADING"="Загрузка";
 "KIOSK_BUTTON_TITLE_DOWNLOAD"="Скачать";
 "KIOSK_BUTTON_TITLE_READ"="Читать";
 "KIOSK_BUTTON_TITLE_CANCEL"="Отмена";
 "KIOSK_BUTTON_TITLE_DELETE"="Удалить";
 "KIOSK_BUTTON_TITLE_PAY"="Купить";
-"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="Подписаться";
+"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="Подписка";
 "KIOSK_NAVIGATION_BAR_TITLE"="Киоск";
 "ALERT_TITLE_CANT_LOAD_MAGAZINES_LIST"="Список журналов не может быть загружен";
 "ALERT_MAGAZINE_REMOVAL_CONFIRMATION_MESSAGE"="Вы дейстительно хотите удалить этот журнал?";

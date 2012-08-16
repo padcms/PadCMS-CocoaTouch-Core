@@ -145,6 +145,8 @@ PADCMS_EXTERN NSString * const PCMiniArticleElementDidDownloadNotification;
 
 @property (nonatomic, readonly) PCPage* topPage;
 
+@property (nonatomic, assign) PCPage* onRotatePage;
+
 - (id)init;
 
 /**

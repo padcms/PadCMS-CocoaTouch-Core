@@ -113,7 +113,7 @@
         if (CGRectEqualToRect(videoRect, CGRectZero))
         {
             videoRect = self.view.frame;
-            if ((videoRect.size.width < videoRect.size.height) && (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation])))
+            if ((videoRect.size.width < videoRect.size.height) && (UIDeviceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])))
             {
                 videoRect = CGRectMake(videoRect.origin.y, videoRect.origin.x, videoRect.size.height, videoRect.size.width);
             }

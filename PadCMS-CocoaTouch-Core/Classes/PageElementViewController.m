@@ -39,6 +39,7 @@
 		_scale = [UIScreen mainScreen].scale;
 		_elementFrame = elementFrame;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCGalleryElementDidDownloadNotification object:self.element];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCMiniArticleElementDidDownloadNotification object:self.element];
     }
     return self;
 }
@@ -47,6 +48,7 @@
 {
 	[self hideHud];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.element];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.element];
 	[_elementView removeFromSuperview];
 	NSLog(@"element dealloc");
 	[_element release], _element = nil;
@@ -67,7 +69,13 @@
     }
     [_element release];
     _element = [element retain];
+	
 	[self releaseViews];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.element];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.element];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCGalleryElementDidDownloadNotification object:element];
+	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCMiniArticleElementDidDownloadNotification object:element];
+	
 }
 
 -(NSString *)fullPathToContent
@@ -84,7 +92,7 @@
 		if (!self.element.isComplete) 
 		{
 			
-			if ([self.element.fieldTypeName isEqualToString:PCPageElementTypeGallery])
+			if ([self.element.fieldTypeName isEqualToString:PCPageElementTypeGallery] || [self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle])
 			{
 				isShowHud = YES;
 			}

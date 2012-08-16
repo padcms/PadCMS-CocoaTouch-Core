@@ -113,6 +113,8 @@
 		[self.bodyViewController.elementView removeFromSuperview];
 		self.bodyViewController.element = miniArticle;
 		self.selectedMiniArticle = miniArticle;
+		if (!miniArticle.isComplete)
+			[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:miniArticle];
 		[self.view addSubview:self.bodyViewController.elementView];
 		[self.view insertSubview:self.bodyViewController.elementView belowSubview:self.thumbsScrollView];
 	}

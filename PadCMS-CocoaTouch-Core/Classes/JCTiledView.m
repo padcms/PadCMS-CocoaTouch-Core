@@ -87,7 +87,7 @@
 - (void)drawRect:(CGRect)rect
 {
 	//NSLog(@"CGRECT - %@", NSStringFromCGRect(rect));
-  CGContextRef ctx = UIGraphicsGetCurrentContext();
+ // CGContextRef ctx = UIGraphicsGetCurrentContext();
 	CGFloat scale = [UIScreen mainScreen].scale;//CGContextGetCTM(ctx).a / self.tiledLayer.contentsScale;
 	
   NSInteger col = (CGRectGetMinX(rect) * scale) / self.tileSize.width;

@@ -96,6 +96,8 @@
 	{
 		
 		[self.bodyViewController.elementView removeFromSuperview];
+		if (!_selectedMiniArticle.isComplete)
+			[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:_selectedMiniArticle];
 		self.bodyViewController.element = _selectedMiniArticle;
 		[self.view addSubview:self.bodyViewController.elementView];
 		for (UIView* view in self.view.subviews) {
@@ -138,6 +140,8 @@
     for (PCPageActiveZone* action in activeZones)
         if ([self pdfActiveZoneAction:action])
             break;
+	
+	[activeZones release];
 }
 
 -(BOOL)gestureRecognizerShouldBegin:(UIGestureRecognizer *)gestureRecognizer

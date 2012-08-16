@@ -23,6 +23,7 @@
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
+#import "PCSubscriptionMenuViewController.h"
 
 @interface RevisionViewController ()
 {
@@ -33,6 +34,9 @@
     PCFacebookViewController *_facebookViewController;
     PCTwitterNewController *_twitterController;
     PCEmailController *_emailController;
+	UIInterfaceOrientation _currentInterfaceOrientation;
+    PCSubscriptionMenuViewController *_subscriptionsMenuController;
+    UIPopoverController *_popoverController;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -64,20 +68,34 @@
         _revision = [revision retain];
         _horizontalPageIndex = 0;
         _previewMode = previewMode;
-		[[NSNotificationCenter defaultCenter] addObserver:self
-												 selector:@selector(deviceOrientationDidChange)
-													 name:@"UIDeviceOrientationDidChangeNotification"
-												   object:nil];
+
         if (initialPage == nil) {
-            _initialPage = [_revision.coverPage retain];
+            if (revision.alternativeCoverPage)
+            {
+                if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
+                {
+                    _initialPage = [revision.alternativeCoverPage retain];
+                } else {
+                    _initialPage = [_revision.coverPage retain];
+                }
+            }
+            
         } else {
             _initialPage = [initialPage retain];
         }
-
+        
+		[[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(deviceOrientationDidChange:)
+                                                     name:UIDeviceOrientationDidChangeNotification
+                                                   object:nil];
+        
         _shareView = nil;
         _facebookViewController = nil;
         _twitterController = nil;
         _emailController = nil;
+		_currentInterfaceOrientation = [[UIApplication sharedApplication] statusBarOrientation];
+        _subscriptionsMenuController = nil;
+        _popoverController = nil;
     }
     
     return self;
@@ -96,6 +114,7 @@
     _contentScrollView.showsVerticalScrollIndicator = NO;
     _contentScrollView.showsHorizontalScrollIndicator = NO;
 	_contentScrollView.directionalLockEnabled = YES;
+	_contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
 	[self configureContentScrollForPage:_nextPageViewController.page];
     _contentScrollView.delegate = self;
@@ -146,7 +165,7 @@
                                                     name:PCHorizontalTocDidDownloadNotification
                                                   object:nil];
 
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:@"UIDeviceOrientationDidChangeNotification" object:nil];
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	[topSummaryView release];
 	[_contentScrollView release], _contentScrollView = nil;
 	[_initialPage release], _initialPage = nil;
@@ -177,6 +196,16 @@
         [_emailController release];
         _emailController = nil;
     }
+    
+    if (_subscriptionsMenuController != nil) {
+        [_subscriptionsMenuController release];
+        _subscriptionsMenuController = nil;
+    }
+    
+    if (_popoverController != nil) {
+        [_popoverController release];
+        _popoverController = nil;
+    }
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
@@ -188,7 +217,15 @@
 	}
 	else
 	{
-		return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+		if (self.revision.horizontalMode)
+		{
+			return YES;
+		}
+		else
+		{
+			return UIInterfaceOrientationIsPortrait(interfaceOrientation);
+		}
+		
 
 	}
 }
@@ -331,14 +368,25 @@
 	}
 }
 
--(void) deviceOrientationDidChange
+-(void) deviceOrientationDidChange:(NSNotification*)notif
 {
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
+	
+	if (_currentInterfaceOrientation == (UIInterfaceOrientation)orientation) return;
+	_currentInterfaceOrientation = (UIInterfaceOrientation)orientation;
+		
+	if (_currentPageViewController.page.onRotatePage) {
+		[self gotoPage:_currentPageViewController.page.onRotatePage];
+		return;
+	}
+	
 	if (_contentScrollView.dragging || _contentScrollView.decelerating) return;
 	PCPageElementBody* bodyElement = (PCPageElementBody*)[_currentPageViewController.page firstElementForType:PCPageElementTypeBody];
 	
 	if (bodyElement && bodyElement.showGalleryOnRotate)
 	{
-		if (UIInterfaceOrientationIsLandscape([UIDevice currentDevice].orientation))
+		if (UIDeviceOrientationIsLandscape([[UIDevice currentDevice] orientation]))
 		{
 			[self showGallery];
 		}
@@ -347,6 +395,11 @@
 		}
 	}
 }
+
+/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
+{
+	[self deviceOrientationDidChange];
+}*/
 
 /*- (void)dismissVideo
 {
@@ -648,6 +701,11 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
 {
+    if (!_subscriptionsMenuController)
+        _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+    if (!_popoverController)
+        _popoverController = [[UIPopoverController alloc] initWithContentViewController:_subscriptionsMenuController];   
+    [_popoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
 }
 
 - (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button

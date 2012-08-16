@@ -38,7 +38,7 @@
 #import "PCSearchResultItem.h"
 
 @interface PCSearchProvider ()
-- (void) searchInRevision:(PCRevision *)_revision;
+- (void) doSearchInRevision:(PCRevision *)_revision;
 - (BOOL) isPageContainsRegexp:(PCPage*)page;
 - (BOOL) isPageElementContainsRegexp:(PCPageElement*)element;
 @end
@@ -67,7 +67,7 @@
 {
     if(self.targetRevision)
     {
-        [self searchInRevision:self.targetRevision];
+        [self doSearchInRevision:self.targetRevision];
         
         if ([self.searchingThread isCancelled])
         {
@@ -85,7 +85,7 @@
         
         for(PCRevision *currentRevision in allRevisions)
         {
-            [self searchInRevision:currentRevision];
+            [self doSearchInRevision:currentRevision];
             
             if([self.searchingThread isCancelled])
             {
@@ -100,7 +100,7 @@
 
 #pragma mark --- Private ---
 
-- (void)searchInRevision:(PCRevision *)_revision
+- (void) doSearchInRevision:(PCRevision *)_revision;
 {
     if(_revision == nil || _revision.pages == nil) return;
     

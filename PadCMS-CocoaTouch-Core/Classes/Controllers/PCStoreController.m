@@ -51,6 +51,7 @@
 #import "InAppPurchases.h"
 #import "PCRemouteNotificationCenter.h"
 #import "PCGoogleAnalytics.h"
+#import "PCLocalizationManager.h"
 #import "PCVideoManager.h"
 
 NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
@@ -152,7 +153,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     [[theDict objectForKey:@"result"] writeToFile:[[Helper getHomeDirectory] stringByAppendingPathComponent:@"server.plist"] atomically:YES];
     [self loadApplicationFromPlist];
   } failure:^(NSURLRequest *request, NSHTTPURLResponse *response, NSError *error, id JSON) {
-      [self showAlertWithTitle:@"You must be connected to the Internet."];
+      [self showAlertWithTitle:[PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION" value:@"You must be connected to the Internet."]];
       [self loadApplicationFromPlist];
   }];
   operation.successCallbackQueue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0);
@@ -162,39 +163,39 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 -(void)loadApplicationFromPlist
 {
-  NSString *plistPath = [[PCPathHelper pathForPrivateDocuments] stringByAppendingPathComponent:@"server.plist"];
-  NSDictionary *plistContent = [NSDictionary dictionaryWithContentsOfFile:plistPath];
-  if(plistContent == nil)
-  {
-      [self showAlertWithTitle:@"The list of available magazines could not be downloaded"];
-  }
-  else if([plistContent count]==0)
-  {
-    [self showAlertWithTitle:@"The list of available magazines could not be downloaded"];
-  }
-  else {
-      NSDictionary *applicationsList = [plistContent objectForKey:PCJSONApplicationsKey];
-      NSArray *keys = [applicationsList allKeys];
+    NSString *plistPath = [[PCPathHelper pathForPrivateDocuments] stringByAppendingPathComponent:@"server.plist"];
+    NSDictionary *plistContent = [NSDictionary dictionaryWithContentsOfFile:plistPath];
+	NSString *alertTitle = [PCLocalizationManager localizedStringForKey:@"ALERT_TITLE_CANT_LOAD_MAGAZINES_LIST" value:@"The list of available magazines could not be downloaded"];
+	
+	
+    if(plistContent == nil)
+	{
+		[self showAlertWithTitle:alertTitle];
+	}
+	else if([plistContent count]==0)
+	{
+		[self showAlertWithTitle:alertTitle];
+	}
+	else {
+		NSDictionary *applicationsList = [plistContent objectForKey:PCJSONApplicationsKey];
+		NSArray *keys = [applicationsList allKeys];
       
-      if ([keys count] > 0)
-      {
-        NSDictionary *applicationParameters = [applicationsList objectForKey:[keys objectAtIndex:0]];
+		if ([keys count] > 0)
+		{
+			NSDictionary *applicationParameters = [applicationsList objectForKey:[keys objectAtIndex:0]];
         
-        self.application = [[[PCApplication alloc] initWithParameters:applicationParameters
-                                                         rootDirectory:[PCPathHelper pathForPrivateDocuments]] autorelease];
-      } else 
-      {
-        [self showAlertWithTitle:@"The list of available magazines could not be downloaded"];
-      }
-    }
-  [self hideActivity];
-  if (!self.application) return;
-  dispatch_async(dispatch_get_main_queue(), ^{
-    [self.rootViewController displayIssues];
-  });
-
-  
-
+			self.application = [[[PCApplication alloc] initWithParameters:applicationParameters
+															rootDirectory:[PCPathHelper pathForPrivateDocuments]] autorelease];
+		} else 
+		{
+			[self showAlertWithTitle:alertTitle];
+		}
+	}
+	[self hideActivity];
+	if (!self.application) return;
+	dispatch_async(dispatch_get_main_queue(), ^{
+		[self.rootViewController displayIssues];
+	});
 }
 
 -(void)showActivity
@@ -221,7 +222,10 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 -(void)showAlertWithTitle:(NSString*)title
 {
   dispatch_async(dispatch_get_main_queue(), ^{
-    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+    UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title message:nil
+												   delegate:nil
+										  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK" value:@"OK"]
+										  otherButtonTitles:nil];
     [alert show];
     [alert release];
   });
@@ -413,17 +417,22 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
 - (void) deleteRevisionDataWithIndex:(NSInteger)index
 {
-  PCRevision *revision = [self revisionWithIndex:index];
+	PCRevision *revision = [self revisionWithIndex:index];
+	NSString    *messageLocalized = [PCLocalizationManager localizedStringForKey:@"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_MESSAGE"
+                                                                           value:@"Are you sure you want to remove this issue?"];
+    
+    NSString    *message = [NSString stringWithFormat:@"%@ (%@)", messageLocalized, revision.issue.title];
   
-  NSString    *message = [NSString stringWithFormat:@"Etes-vous certain de vouloir supprimer ce numéro ? (%@)", revision.issue.title];
-  
-  UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
-                                                  message:message
-                                                 delegate:self
-                                        cancelButtonTitle:@"Annuler"
-                                        otherButtonTitles:@"Oui", nil];
+	UIAlertView *alert = [[UIAlertView alloc] initWithTitle:nil
+													message:message
+												   delegate:self
+										  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_BUTTON_TITLE_CANCEL"
+                                                                                                   value:@"Cancel"]
+										  otherButtonTitles:[PCLocalizationManager localizedStringForKey:@"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_BUTTON_TITLE_YES"
+                                                                                                   value:@"Yes"],
+						  nil];
 	alert.delegate = self;
-  alert.tag = index;
+	alert.tag = index;
 	[alert show];
 	[alert release];
 }
@@ -438,7 +447,13 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 		AFNetworkReachabilityStatus remoteHostStatus = [PCDownloadApiClient sharedClient].networkReachabilityStatus;
     if(remoteHostStatus == AFNetworkReachabilityStatusNotReachable) 
 		{
-			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous devez être connecté à Internet." message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
+                                                                                                           value:@"You must be connected to the Internet."]
+															message:nil
+														   delegate:nil
+												  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                           value:@"OK"]
+												  otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 			return;
@@ -476,7 +491,13 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 		}
 		else
 		{
-			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:@"Vous ne pouvez procéder à l'achat" message:nil delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
+			UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"ALERT_TITLE_CANT_MAKE_PURCHASE"
+                                                                                                           value:@"You can't make the purchase"]
+															message:nil
+														   delegate:nil
+												  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                           value:@"OK"]
+												  otherButtonTitles:nil];
 			[alert show];
 			[alert release];
 		}
@@ -551,12 +572,15 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
   [self.rootViewController downloadFailedWithRevisionIndex:[index integerValue]];
   
-  UIAlertView *errorAllert = [[UIAlertView alloc] 
-                              initWithTitle:NSLocalizedString(@"Error downloading issue!", nil) 
-                              message:NSLocalizedString(@"Try again later", nil) 
-                              delegate:nil
-                              cancelButtonTitle:@"OK" 
-                              otherButtonTitles:nil];
+	UIAlertView *errorAllert = [[UIAlertView alloc] 
+                                initWithTitle:[PCLocalizationManager localizedStringForKey:@"ALERT_MAGAZINE_DOWNLOADING_FAILED_TITLE"
+                                                                                     value:@"Error downloading issue!"]
+                                message:[PCLocalizationManager localizedStringForKey:@"ALERT_MAGAZINE_DOWNLOADING_FAILED_MESSAGE"
+                                                                               value:@"Try again later"] 
+                                delegate:nil
+                                cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                         value:@"OK"]
+                                otherButtonTitles:nil];
   
   [errorAllert show];
   [errorAllert release];
@@ -683,7 +707,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	NSAssert(pageIndex >= 0 && pageIndex < [currentRevision.pages count], @"pageIndex not within range");
 	PCPage* page = [currentRevision.pages objectAtIndex:pageIndex];
 	[self launchRevison:currentRevision withInitialPage:page];
-
 }
 
 -(void)dismissPCSearchViewController:(PCSearchViewController *)currentPCSearchViewController

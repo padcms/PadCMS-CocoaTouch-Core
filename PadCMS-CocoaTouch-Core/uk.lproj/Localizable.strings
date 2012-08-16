@@ -41,13 +41,16 @@
 "MSG_EMAIL_CLIENT_IS_NOT_CONFIGURED"="Клієнт електронної пошти не налаштований.";
 "SHARING_MENU_CAPTION"="ПОДІЛИТИСЯ";
 "SHARING_MENU_TITLE_EMAIL"="Відправити Email";
+"SUBSCRIPTION_MENU_BUTTON_TITLE"="Підписка";
+"SUBSCRIPTION_MENU_TITLE_SUBSCRIBE"="Підписатися";
+"SUBSCRIPTION_MENU_TITLE_RENEW"="Відновити підписку";
 "LABEL_LOADING"="Завантаження";
 "KIOSK_BUTTON_TITLE_DOWNLOAD"="Скачати";
 "KIOSK_BUTTON_TITLE_READ"="Читати";
 "KIOSK_BUTTON_TITLE_CANCEL"="Скасувати";
 "KIOSK_BUTTON_TITLE_DELETE"="Видалити";
 "KIOSK_BUTTON_TITLE_PAY"="Придбати";
-"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="Підписатися";
+"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="Підписка";
 "KIOSK_NAVIGATION_BAR_TITLE"="Кіоск";
 "ALERT_TITLE_CANT_LOAD_MAGAZINES_LIST"="Не вдалося завантажити список журналів";
 "ALERT_MAGAZINE_REMOVAL_CONFIRMATION_MESSAGE"="Ви дійсно бажаєте видалити цей журнал?";
