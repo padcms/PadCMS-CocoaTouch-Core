@@ -367,6 +367,17 @@
 {
     [_hudView reloadData];
 
+    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+        if (_revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        }
+    } else {
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
+        [_hudView hideSummaryAnimated:YES];
+    }
+    
 	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
 	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
 	
