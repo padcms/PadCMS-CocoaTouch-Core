@@ -312,8 +312,10 @@
 				
 			}
 		}
-		revision.alternativeCoverPage = [revision.newHorizontalPages objectAtIndex:0];
-		[revision.pages addObjectsFromArray:revision.newHorizontalPages];
+        if (revision.newHorizontalPages.count > 0) {
+            revision.alternativeCoverPage = [revision.newHorizontalPages objectAtIndex:0];
+            [revision.pages addObjectsFromArray:revision.newHorizontalPages];
+        }
 	}
 	
 	for (PCPage* horPage in revision.newHorizontalPages) {

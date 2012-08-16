@@ -70,14 +70,12 @@
         _previewMode = previewMode;
 
         if (initialPage == nil) {
-            if (revision.alternativeCoverPage)
-            {
-                if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation]))
-                {
-                    _initialPage = [revision.alternativeCoverPage retain];
-                } else {
-                    _initialPage = [_revision.coverPage retain];
+            if (revision.alternativeCoverPage) {
+                if (UIInterfaceOrientationIsLandscape([[UIApplication sharedApplication] statusBarOrientation])) {
+                    _initialPage = [_revision.alternativeCoverPage retain];
                 }
+            } else {
+                _initialPage = [_revision.coverPage retain];
             }
             
         } else {
