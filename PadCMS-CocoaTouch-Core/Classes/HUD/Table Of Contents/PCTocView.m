@@ -44,6 +44,9 @@
 
 #define TocViewStyle @"PCTocViewStyle"
 #define TocViewButtonStyle @"PCTocViewButtonStyle"
+#define TocViewButtonStylePosition @"PCTocViewButtonStylePosition"
+#define TocViewButtonStylePositionLeft @"PCTocViewButtonStylePositionLeft"
+#define TocViewButtonStylePositionRight @"PCTocViewButtonStylePositionRight"
 #define TocViewButtonStyleColor @"PCTocViewButtonStyleColor"
 #define TocViewButtonStyleImageName @"PCTocViewButtonStyleImageName"
 #define TocViewButtonStyleBackgroundImageName @"PCTocViewButtonStyleBackgroundImageName"
@@ -281,11 +284,11 @@ typedef enum _PCTocViewPosition {
     [tocView implementStyle:styleDictionary];
     
     CGSize tocSize = frame.size;
-    CGSize buttonSize = tocView.button.bounds.size;
-    tocView.button.center = CGPointMake(tocSize.width - (buttonSize.width / 2),
-                                        tocSize.height - (buttonSize.height / 2));
-    
-    tocView.button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+//    CGSize buttonSize = tocView.button.bounds.size;
+//    tocView.button.center = CGPointMake(tocSize.width - (buttonSize.width / 2),
+//                                        tocSize.height - (buttonSize.height / 2));
+//    
+//    tocView.button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
 
     CGRect gridViewFrame = CGRectMake(0,
                                       0,
@@ -310,6 +313,7 @@ typedef enum _PCTocViewPosition {
     
     NSDictionary *buttonStyle = [style objectForKey:TocViewButtonStyle];
     if (buttonStyle != nil) {
+        
         // background color
         UIColor *tempButtonColor = nil;
         NSString *buttonColorString = [buttonStyle objectForKey:TocViewButtonStyleColor];
@@ -358,8 +362,24 @@ typedef enum _PCTocViewPosition {
     }
     
     _button.backgroundColor = buttonColor;
-    
-    
+
+    // adjust button position
+    if (buttonStyle != nil) {
+        NSString *buttonPositionString = [buttonStyle objectForKey:TocViewButtonStylePosition];
+        
+        CGSize tocSize = self.frame.size;
+        CGSize buttonSize = _button.bounds.size;
+        if ([buttonPositionString isEqualToString:TocViewButtonStylePositionLeft]) {
+            _button.center = CGPointMake(buttonSize.width/* / 2*/,
+                                         tocSize.height - (buttonSize.height / 2));
+            _button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
+        } else {
+            _button.center = CGPointMake(tocSize.width - (buttonSize.width / 2),
+                                         tocSize.height - (buttonSize.height / 2));
+            _button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+        }
+    }
+
     // background style
     UIColor *backgroundColor = [UIColor blackColor];
     NSDictionary *backgroundStyle = [style objectForKey:TocViewBackgroundStyle];
