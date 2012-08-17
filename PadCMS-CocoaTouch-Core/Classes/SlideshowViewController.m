@@ -236,7 +236,7 @@
 - (void)slideDownloaded:(NSNotification*)notif
 {
 	PCPageElement* downloadedElement = [[notif userInfo] objectForKey:@"element"];
-	PCPageElement* currentElement = [self.slideElements objectAtIndex:self.pageControll.currentPage];
+	//PCPageElement* currentElement = [self.slideElements objectAtIndex:self.pageControll.currentPage];
 	if (slideHUD)
 	{
 		if (slideHUD.tag == 100 + self.pageControll.currentPage)
@@ -244,17 +244,21 @@
 			[self hideSlideHUD];
 		}
 	}
-	if (currentElement == downloadedElement)
-	{
-		for (PageElementViewController* elementController in self.visibleElementControllers) {
-			if (elementController.element == currentElement)
-			{
-				[elementController.elementView removeFromSuperview];
-				elementController.elementView = nil;
-				[_slideScrollView addSubview:elementController.elementView];
-			}
+	
+	for (PageElementViewController* elementController in self.visibleElementControllers) {
+		if (elementController.element == downloadedElement)
+		{
+			[elementController.elementView removeFromSuperview];
+			elementController.elementView = nil;
+			[_slideScrollView addSubview:elementController.elementView];
+			elementController.elementView.scrollView.bounds = _slideScrollView.frame;
+			
 		}
 	}
+	/*if (currentElement == downloadedElement)
+	{
+		
+	}*/
 }
 
 

@@ -249,11 +249,11 @@
 {
 	CGRect visibleBounds = scrollView.scrollView.bounds;
 	
-	int firstNeededRow = floorf(CGRectGetMinY(visibleBounds) / CGRectGetHeight(visibleBounds));
-	int lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / CGRectGetHeight(visibleBounds));
+	int firstNeededRow = floorf(CGRectGetMinY(visibleBounds) / kDefaultTileSize) + 1;
+	int lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / kDefaultTileSize) + 1;
 
-	int firstNeededCol = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
-	int lastNeededCol  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
+	int firstNeededCol = floorf(CGRectGetMinX(visibleBounds) / kDefaultTileSize) + 1;
+	int lastNeededCol  = floorf((CGRectGetMaxX(visibleBounds)) / kDefaultTileSize) + 1;
 	
 	NSLog(@"Colums - %d ... %d, Rows - %d ... %d", firstNeededCol, lastNeededCol, firstNeededRow, lastNeededRow);
 }
