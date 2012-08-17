@@ -431,15 +431,26 @@
     }
 }*/
 
+#pragma mark - GalleryViewControllerDelegate
+
+- (void)galleryViewControllerWillDismiss:(GalleryViewController *)galleryViewController
+{
+    if ([self.delegate respondsToSelector:@selector(revisionViewController:willDismissGalleryViewController:)]) {
+        [self.delegate revisionViewController:self willDismissGalleryViewController:galleryViewController];
+    }
+}
+
 #pragma mark PCActionDelegate methods
 
 -(void)showGallery
 {
-	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
-	{
-		[self.navigationController pushViewController:[[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease]  animated:NO];
-	}
-	 
+    if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
+        GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
+        galleryViewController.delegate = self;
+        [self.delegate revisionViewController:self
+             willPresentGalleryViewController:galleryViewController];
+    }
+    
 }
 
 -(void)gotoPage:(PCPage *)page
@@ -760,7 +771,11 @@
 	[self.navigationController pushViewController:searchViewController animated:NO];
 	
 	[searchViewController release];
-
+    
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive)
+    {
+        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
 }
 
 #pragma mark - delegate methods
