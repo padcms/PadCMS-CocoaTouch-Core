@@ -85,6 +85,7 @@
                                                      name:UIDeviceOrientationDidChangeNotification
                                                    object:nil];
         
+        _contentScrollView = nil;
         _shareView = nil;
         _facebookViewController = nil;
         _twitterController = nil;
@@ -97,25 +98,60 @@
     return self;
 }
 
+-(void)dealloc
+{
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:endOfDownloadingTocNotification
+                                                  object:nil];
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PCHorizontalTocDidDownloadNotification
+                                                  object:nil];
+    
+	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
+	[topSummaryView release];
+
+    if (_contentScrollView != nil) {
+        [_contentScrollView release], _contentScrollView = nil;
+    }
+
+	[_initialPage release], _initialPage = nil;
+	[super dealloc];
+}
+
+
+- (void)viewWillAppear:(BOOL)animated
+{
+    if (_contentScrollView == nil) {
+        _contentScrollView = [[PCScrollView alloc] initWithFrame:self.view.bounds];
+        _contentScrollView.pagingEnabled = YES;
+        _contentScrollView.backgroundColor = [UIColor whiteColor];
+        _contentScrollView.showsVerticalScrollIndicator = NO;
+        _contentScrollView.showsHorizontalScrollIndicator = NO;
+        _contentScrollView.directionalLockEnabled = YES;
+        _contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+        _contentScrollView.delegate = self;
+        _contentScrollView.bounces = NO;
+        [self.view addSubview:_contentScrollView];
+    
+        if (_hudView != nil) {
+            [self.view bringSubviewToFront:_hudView];
+            
+            if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
+                [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
+            }
+        }
+    }
+
+    self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
+    [self configureContentScrollForPage:_nextPageViewController.page];
+    
+    [super viewWillAppear:animated];
+}
+
 - (void)viewDidLoad
 {
-	UIViewController *viewController = [[UIViewController alloc] init];
-	[self presentModalViewController:viewController animated:NO];
-	[self dismissModalViewControllerAnimated:NO];
-	[viewController release];
     [super viewDidLoad];
-	_contentScrollView = [[PCScrollView alloc] initWithFrame:self.view.bounds];
-    _contentScrollView.pagingEnabled = YES;
-    _contentScrollView.backgroundColor = [UIColor whiteColor];
-    _contentScrollView.showsVerticalScrollIndicator = NO;
-    _contentScrollView.showsHorizontalScrollIndicator = NO;
-	_contentScrollView.directionalLockEnabled = YES;
-	_contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
-	[self configureContentScrollForPage:_nextPageViewController.page];
-    _contentScrollView.delegate = self;
-	_contentScrollView.bounces = NO;
-    [self.view addSubview:_contentScrollView];
+
 	[self initTopMenu];
     
 
@@ -142,6 +178,10 @@
         }
     }
     
+    if (_hudView.bottomTocView != nil) {
+        [_hudView.bottomTocView transitToState:PCTocViewStateHidden animated:NO];
+    }
+    
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(verticalTocDownloaded:)
                                                  name:endOfDownloadingTocNotification
@@ -150,22 +190,6 @@
                                              selector:@selector(horizontalTocDownloaded:)
                                                  name:PCHorizontalTocDidDownloadNotification
                                                object:nil];
-}
-
--(void)dealloc
-{
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:endOfDownloadingTocNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:PCHorizontalTocDidDownloadNotification
-                                                  object:nil];
-
-	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
-	[topSummaryView release];
-	[_contentScrollView release], _contentScrollView = nil;
-	[_initialPage release], _initialPage = nil;
-	[super dealloc];
 }
 
 - (void)viewDidUnload
@@ -340,8 +364,10 @@
 	
 	
 	if (!nextPage) return;
+
 //	if (nextPage.isComplete) [[ImageCache sharedImageCache] loadPrimaryImagesForPage:nextPage]; 
 //	NSLog(@"NEXT PAGE - %d", nextPage.identifier);
+
 	if (_nextPageViewController.page != nextPage)
 	{
         if (nextPage == _currentPageViewController.page.rightPage) {
@@ -771,9 +797,8 @@
 	[self.navigationController pushViewController:searchViewController animated:NO];
 	
 	[searchViewController release];
-    
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive)
-    {
+
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
         [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
     }
 }
@@ -870,8 +895,6 @@
 - (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
 {
     NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
-    
-//    NSLog(@"Revision : %@", buttonTitle);
     
     if ([buttonTitle isEqualToString:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_YES"
                                                                             value:@"Yes"]]) {
