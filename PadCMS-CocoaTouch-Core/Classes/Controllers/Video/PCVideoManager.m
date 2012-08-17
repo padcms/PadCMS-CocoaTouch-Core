@@ -79,7 +79,6 @@
     return sharedManager;
 }
 
-
 - (id)init
 {
     self = [super init];
