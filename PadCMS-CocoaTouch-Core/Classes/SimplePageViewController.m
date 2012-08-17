@@ -201,7 +201,7 @@
     {
         for (PCPageActiveZone *activeZone in _backgroundViewController.element.activeZones)
         {
-            if ([[PCVideoManager sharedVideoManager] isVideoURL:activeZone.URL] || [activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo])
+            if ([[PCVideoManager sharedVideoManager] isVideoURL:activeZone.URL] || [activeZone.URL hasPrefix:PCPDFActiveZoneActionVideo]|| [activeZone.URL hasPrefix:PCPDFActiveZoneVideo])
             {
                 [_backgroundViewController.elementView.scrollView addSubview:videoView];
                 [_backgroundViewController.elementView.scrollView bringSubviewToFront:videoView];
