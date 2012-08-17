@@ -778,4 +778,20 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
   [self.rootViewController.navigationController popViewControllerAnimated:NO];
 }
 
+- (void)revisionViewController:(RevisionViewController *)revisionViewController
+willPresentGalleryViewController:(GalleryViewController *)galleryViewController
+{
+    [revisionViewController presentViewController:galleryViewController
+										 animated:NO
+									   completion:nil];
+}
+
+- (void)revisionViewController:(RevisionViewController *)revisionViewController
+willDismissGalleryViewController:(GalleryViewController *)galleryViewController
+{
+    [revisionViewController dismissViewControllerAnimated:NO
+											   completion:nil];
+}
+
+
 @end
