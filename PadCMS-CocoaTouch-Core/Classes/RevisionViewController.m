@@ -150,6 +150,11 @@
 
 - (void)viewDidLoad
 {
+    UIViewController *viewController = [[UIViewController alloc] init];
+    [self presentModalViewController:viewController animated:NO];
+    [self dismissModalViewControllerAnimated:NO];
+    [viewController release];
+    
     [super viewDidLoad];
 
 	[self initTopMenu];
