@@ -50,7 +50,6 @@
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.element];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.element];
 	[_elementView removeFromSuperview];
-	NSLog(@"element dealloc");
 	[_element release], _element = nil;
 	[_elementView release], _elementView = nil;
 	[super dealloc];
@@ -187,12 +186,12 @@
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
-//		NSLog(@"HIT!!!!");
+		NSLog(@"HIT!!!!");
 		return goodQualityImage;
 		
 	}
 	
-//	NSLog(@"MISS!!!");
+	NSLog(@"MISS!!!");
 //	[cache storeTileForElement:_element withIndex:index];
 //	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];

@@ -374,8 +374,16 @@
 
 -(void) deviceOrientationDidChange:(NSNotification*)notif
 {
-    [_hudView reloadData];
-
+        
+	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
+	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
+	
+	if (_currentInterfaceOrientation == (UIInterfaceOrientation)orientation) return;
+	_currentInterfaceOrientation = (UIInterfaceOrientation)orientation;
+	
+	
+	[_hudView reloadData];
+	
     if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
         if (_revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
             [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
@@ -386,12 +394,7 @@
         [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
         [_hudView hideSummaryAnimated:YES];
     }
-    
-	UIDeviceOrientation orientation = [[UIDevice currentDevice] orientation];
-	if (!UIDeviceOrientationIsValidInterfaceOrientation(orientation)) return;
-	
-	if (_currentInterfaceOrientation == (UIInterfaceOrientation)orientation) return;
-	_currentInterfaceOrientation = (UIInterfaceOrientation)orientation;
+
 		
 	if (_currentPageViewController.page.onRotatePage) {
 		[self gotoPage:_currentPageViewController.page.onRotatePage];

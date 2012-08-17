@@ -115,7 +115,7 @@
 
 - (void) createVideoPlayer: (NSURL*)videoURL inRect:(CGRect)videoRect
 {
-    NSLog(@"url - %@", videoURL);
+  //  NSLog(@"url - %@", videoURL);
     
     if (_moviePlayer != nil)
     {

@@ -102,7 +102,7 @@
 	NSNumber* elementIdentifier = [NSNumber numberWithInt:element.identifier];
 	if ([[self.elementCache objectForKey:elementIdentifier] objectForKey:[NSNumber numberWithInteger:index]])
 	{
-		NSLog(@"HaHaHa");
+		//NSLog(@"HaHaHa");
 		return;
 	}
 	UIImage* image = [[[UIImage alloc] initImmediateLoadWithContentsOfFile:path] retain];

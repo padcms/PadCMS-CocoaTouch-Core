@@ -91,18 +91,23 @@ static int currentPopupTag = -1;
 //	_galleryScrollView.backgroundColor = [UIColor yellowColor];
 	
     [self.view addSubview:_galleryScrollView];
+	if (!_isHorizontal)
+	{
+		UIButton* btnReturn = [UIButton buttonWithType:UIButtonTypeCustom];
+		NSDictionary *buttonOption = [NSDictionary dictionaryWithObject:[NSValue valueWithCGRect:self.view.frame] forKey:PCButtonParentViewFrameKey];
+		if (self.page.color)
+		{
+			buttonOption = [NSDictionary dictionaryWithObjectsAndKeys:self.page.color, PCButtonTintColorOptionKey, [NSValue valueWithCGRect:self.view.frame], PCButtonParentViewFrameKey,  nil];
+		}
+		[[PCStyler defaultStyler] stylizeElement:btnReturn withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
+		[btnReturn setFrame:CGRectMake(0, 0, btnReturn.frame.size.width, btnReturn.frame.size.height)];
+		[[PCStyler defaultStyler] stylizeElement:btnReturn withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
+		[btnReturn addTarget:self action:@selector(btnReturnTap:) forControlEvents:UIControlEventTouchUpInside];
+		[self.view addSubview:btnReturn];
+	}
+		
 	
-	UIButton* btnReturn = [UIButton buttonWithType:UIButtonTypeCustom];
-    NSDictionary *buttonOption = [NSDictionary dictionaryWithObject:[NSValue valueWithCGRect:self.view.frame] forKey:PCButtonParentViewFrameKey];
-    if (self.page.color)
-    {
-        buttonOption = [NSDictionary dictionaryWithObjectsAndKeys:self.page.color, PCButtonTintColorOptionKey, [NSValue valueWithCGRect:self.view.frame], PCButtonParentViewFrameKey,  nil];
-    }
-    [[PCStyler defaultStyler] stylizeElement:btnReturn withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
-    [btnReturn setFrame:CGRectMake(0, 0, btnReturn.frame.size.width, btnReturn.frame.size.height)];
-	[[PCStyler defaultStyler] stylizeElement:btnReturn withStyleName:PCGallaryReturnButtonKey withOptions:buttonOption];
-	[btnReturn addTarget:self action:@selector(btnReturnTap:) forControlEvents:UIControlEventTouchUpInside];
-	[self.view addSubview:btnReturn];
+	
 	
 //	[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateGallery:) name:PCGalleryElementDidDownloadNotification object:self.page];
 	PCPageElement* currentElement = [self.galleryElements objectAtIndex:0];
@@ -170,7 +175,7 @@ static int currentPopupTag = -1;
         if (![self isDisplayingImageForIndex:index]) {
 					
 			PCPageElement* galleryElement = [self.galleryElements objectAtIndex:index];
-			NSLog(@"ELEMENT WEIGHT - %d - INDEX - %d", galleryElement.weight, index);
+		//	NSLog(@"ELEMENT WEIGHT - %d - INDEX - %d", galleryElement.weight, index);
 
 			CGRect elementFrame = _isHorizontal?CGRectOffset(self.view.bounds,0.0f, _galleryScrollView.bounds.size.height * index):CGRectOffset(self.view.bounds, _galleryScrollView.bounds.size.width * index, 0.0f);
 			
@@ -185,7 +190,7 @@ static int currentPopupTag = -1;
 				{
 					
 					for (NSString* type in popups) {
-						NSLog(@"POPUP - %@", type);
+					//	NSLog(@"POPUP - %@", type);
 						CGRect rect = [galleryElement rectForElementType:type];
 						if (!CGRectEqualToRect(rect, CGRectZero))
 						{
@@ -211,7 +216,7 @@ static int currentPopupTag = -1;
 					PCPageElement* popupElement = [[popupElements filteredArrayUsingPredicate:[NSPredicate predicateWithFormat:@"weight == %d", galleryElement.weight]] lastObject];
 					if (popupElement) 
 					{
-						NSLog(@"popup weight - %d", popupElement.weight);
+					//	NSLog(@"popup weight - %d", popupElement.weight);
 						UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
 						elementFrame.origin = CGPointMake(0.0, 0.0);
 						[popup setFrame:elementFrame];
@@ -267,7 +272,7 @@ static int currentPopupTag = -1;
 		currentPopupTag = -1;
 		return;
 	}
-	NSLog(@"POPUP tag - %d", sender.tag);
+//	NSLog(@"POPUP tag - %d", sender.tag);
 	int index = sender.tag - 100 - 1;
 	NSArray* popupsElements = [self.page elementsForType:PCPageElementTypePopup];
 	PCPageElement* popupElement = [popupsElements objectAtIndex:index];

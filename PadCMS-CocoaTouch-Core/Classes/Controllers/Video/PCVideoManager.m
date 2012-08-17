@@ -96,7 +96,7 @@
 
 - (void)showVideo:(NSString *)videoPath inRect:(CGRect)videoFrame
 {
-    NSLog(@"url - %@, frame - %@", videoPath, NSStringFromCGRect(videoFrame));
+ //   NSLog(@"url - %@, frame - %@", videoPath, NSStringFromCGRect(videoFrame));
     
     if (![videoPath hasPrefix:@"file://"] && ![self isConnectionEstablished] )
     {

@@ -109,7 +109,7 @@
     int lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
     firstNeededPageIndex = MAX(firstNeededPageIndex, 0);
     lastNeededPageIndex  = MIN(lastNeededPageIndex, [self.slideElements count] - 1);
-    NSLog(@"FIRST - %d, LAST - %d", firstNeededPageIndex, lastNeededPageIndex);
+ //   NSLog(@"FIRST - %d, LAST - %d", firstNeededPageIndex, lastNeededPageIndex);
     //removing not visible images
 	NSMutableSet* pagesToRemove = [[NSMutableSet alloc] init];
 	for (PageElementViewController *controller in _visibleElementControllers) {
@@ -212,7 +212,7 @@
 	slideHUD.userInteractionEnabled = YES;
 	CGRect frame = [self activeZoneRectForType:PCPDFActiveZoneScroller];
 	slideHUD.center = CGPointMake(/*index*sliderRect.size.width +*/ frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height/2);
-	NSLog(@"FRAme HUD - %@", NSStringFromCGRect(slideHUD.frame));
+//	NSLog(@"FRAme HUD - %@", NSStringFromCGRect(slideHUD.frame));
 	[self.view addSubview:slideHUD];
 	[self.view insertSubview:slideHUD belowSubview:_slideScrollView];
 	slideHUD.mode = MBProgressHUDModeAnnularDeterminate;
