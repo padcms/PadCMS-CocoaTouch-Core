@@ -12,6 +12,7 @@
 #import "EasyTableView.h"
 #import "GalleryViewController.h"
 #import "ImageCache.h"
+#import "InAppPurchases.h"
 #import "PCFacebookViewController.h"
 #import "PCGridView.h"
 #import "PCLocalizationManager.h"
@@ -20,10 +21,10 @@
 #import "PCPageViewController.h"
 #import "PCResourceCache.h"
 #import "PCScrollView.h"
+#import "PCSubscriptionMenuViewController.h"
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
-#import "PCSubscriptionMenuViewController.h"
 
 @interface RevisionViewController ()
 {
@@ -243,6 +244,14 @@
         } else {
             if (_horizontalPageIndex < _revision.issue.application.previewColumnsNumber) {
                 widthMultiplier++;
+            } else {
+                UIAlertView *alertView = [[[UIAlertView alloc] initWithTitle:_revision.title
+                                                                     message:[PCLocalizationManager localizedStringForKey:@"ALERT_MESSAGE_BUY_FULL_VERSION" value:@"Do you want to buy full version?"]
+                                                                    delegate:self
+                                                           cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_NO" value:@"No"]
+                                                           otherButtonTitles:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_YES" value:@"Yes"], nil]
+                                          autorelease];
+                [alertView show];
             }
         }
     }
@@ -418,15 +427,26 @@
     }
 }*/
 
+#pragma mark - GalleryViewControllerDelegate
+
+- (void)galleryViewControllerWillDismiss:(GalleryViewController *)galleryViewController
+{
+    if ([self.delegate respondsToSelector:@selector(revisionViewController:willDismissGalleryViewController:)]) {
+        [self.delegate revisionViewController:self willDismissGalleryViewController:galleryViewController];
+    }
+}
+
 #pragma mark PCActionDelegate methods
 
 -(void)showGallery
 {
-	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
-	{
-		[self.navigationController pushViewController:[[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease]  animated:NO];
-	}
-	 
+    if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
+        GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
+        galleryViewController.delegate = self;
+        [self.delegate revisionViewController:self
+             willPresentGalleryViewController:galleryViewController];
+    }
+    
 }
 
 -(void)gotoPage:(PCPage *)page
@@ -835,6 +855,31 @@
 - (void)showPCEmailController:(MFMailComposeViewController *)emailControllerToShow
 {
     [self presentViewController:emailControllerToShow animated:YES completion:nil];
+}
+
+#pragma mark - UIAlertViewDelegate
+
+- (void)alertView:(UIAlertView *)alertView clickedButtonAtIndex:(NSInteger)buttonIndex
+{
+    NSString *buttonTitle = [alertView buttonTitleAtIndex:buttonIndex];
+    
+//    NSLog(@"Revision : %@", buttonTitle);
+    
+    if ([buttonTitle isEqualToString:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_YES"
+                                                                            value:@"Yes"]]) {
+        if ([[InAppPurchases sharedInstance] canMakePurchases]) {
+            [[InAppPurchases sharedInstance] purchaseForProductId:_revision.issue.productIdentifier];
+        } else {
+			UIAlertView *alert = [[[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"ALERT_TITLE_CANT_MAKE_PURCHASE"
+                                                                                                           value:@"You can't make the purchase"]
+                                                            message:nil
+                                                           delegate:nil
+                                                  cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                                                           value:@"OK"]
+                                                  otherButtonTitles:nil] autorelease];
+			[alert show];
+        }
+    }
 }
 
 @end

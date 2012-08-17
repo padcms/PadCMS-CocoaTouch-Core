@@ -14,6 +14,7 @@
 #import "PCShareView.h"
 #import "PCTopBarView.h"
 #import "PCTwitterNewController.h"
+#import "GalleryViewController.h"
 
 @class PCRevision;
 @class PCVideoManager;
@@ -22,12 +23,15 @@
 @protocol RevisionViewControllerDelegate <NSObject>
 
 - (void)revisionViewControllerDidDismiss:(RevisionViewController *)revisionViewController;
+- (void)revisionViewController:(RevisionViewController *)revisionViewController willPresentGalleryViewController:(GalleryViewController *)galleryViewController;
+- (void)revisionViewController:(RevisionViewController *)revisionViewController willDismissGalleryViewController:(GalleryViewController *)galleryViewController;
 
 @end
 
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
 UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate,
-PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate, PCEmailControllerDelegate>
+PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate,
+PCEmailControllerDelegate, UIAlertViewDelegate, GalleryViewControllerDelegate>
 {
 	IBOutlet UIView* topMenuView;
 }

@@ -28,6 +28,7 @@
 
 static int currentPopupTag = -1;
 @implementation GalleryViewController
+@synthesize delegate;
 @synthesize galleryElements=_galleryElements;
 @synthesize page=_page;
 @synthesize galleryScrollView=_galleryScrollView;
@@ -306,7 +307,9 @@ static int currentPopupTag = -1;
 
 - (void)btnReturnTap:(id)sender
 {
-	[self.navigationController popViewControllerAnimated:NO];
+    if ([self.delegate respondsToSelector:@selector(galleryViewControllerWillDismiss:)]) {
+        [self.delegate galleryViewControllerWillDismiss:self];
+    }
 }
 
 
