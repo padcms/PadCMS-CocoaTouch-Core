@@ -103,6 +103,7 @@
 		CGSize scrollContentSize = [self.element realImageSize]; 
 		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
 		_elementView.dataSource = self;
+		//_elementView.tiledScrollViewDelegate = self;
 		
 		_elementView.zoomScale = 1.0f;
 		
@@ -186,12 +187,12 @@
 	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (goodQualityImage)
 	{
-		NSLog(@"HIT!!!!");
+//		NSLog(@"HIT!!!!");
 		return goodQualityImage;
 		
 	}
 	
-	NSLog(@"MISS!!!");
+//	NSLog(@"MISS!!!");
 //	[cache storeTileForElement:_element withIndex:index];
 //	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
@@ -244,7 +245,18 @@
 	
 }
 
+-(void)tiledScrollViewDidScroll:(JCTiledScrollView *)scrollView
+{
+	CGRect visibleBounds = scrollView.scrollView.bounds;
+	
+	int firstNeededRow = floorf(CGRectGetMinY(visibleBounds) / CGRectGetHeight(visibleBounds));
+	int lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / CGRectGetHeight(visibleBounds));
 
+	int firstNeededCol = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
+	int lastNeededCol  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
+	
+	NSLog(@"Colums - %d ... %d, Rows - %d ... %d", firstNeededCol, lastNeededCol, firstNeededRow, lastNeededRow);
+}
 
 
 @end

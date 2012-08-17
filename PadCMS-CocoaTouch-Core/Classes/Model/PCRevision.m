@@ -61,6 +61,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 @interface PCRevision ()
 
+
 - (void)clearData; // << clear pages, horizontalPages, etc.
 - (void)initFromDatabase;
 - (void)downloadStartVideo:(PCRevisionDownloadSuccessBlock)successCallback failed:(PCRevisionDownloadFailedBlock) failedCallback canceled:(PCRevisionDownloadCanceledBlock) canceledCallback progress:(PCRevisionDownloadProgressBlock) progressCallback;
@@ -99,6 +100,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 @synthesize downloadStartVideoOperation = _downloadStartVideoOperation;
 @synthesize newHorizontalPages=_newHorizontalPages;
 @synthesize alternativeCoverPage=_alternativeCoverPage;
+@synthesize pageDictionary=_pageDictionary;
 @dynamic verticalTocLoaded;
 @dynamic horizontalTocLoaded;
 @dynamic validVerticalTocItems;
@@ -123,6 +125,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     self.startVideo = nil;
 	self.newHorizontalPages = nil;
 	self.alternativeCoverPage = nil;
+	self.pageDictionary = nil;
     [super dealloc];
 }
 
@@ -228,6 +231,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 		_isVerticalHelpComplete = YES;
         
         [self initFromDatabase];
+		
     }
     
     return self;
@@ -578,7 +582,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 {
     if (identifier <= 0) return nil;
     
-    NSArray *findedPages = [self.pages filteredArrayUsingPredicate:
+    /*NSArray *findedPages = [self.pages filteredArrayUsingPredicate:
                             [NSPredicate predicateWithFormat:@"identifier = %d", identifier]];
     
     if ([findedPages count] > 0)
@@ -586,7 +590,8 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         return [findedPages objectAtIndex:0];
     }
     
-    return nil;
+    return nil;*/
+	return [_pageDictionary objectForKey:[NSNumber numberWithInteger:identifier]];
 }
 
 - (PCPage *)pageForLink:(id)link

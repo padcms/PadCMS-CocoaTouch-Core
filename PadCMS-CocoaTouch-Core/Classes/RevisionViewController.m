@@ -340,6 +340,7 @@
 	
 	
 	if (!nextPage) return;
+//	if (nextPage.isComplete) [[ImageCache sharedImageCache] loadPrimaryImagesForPage:nextPage]; 
 //	NSLog(@"NEXT PAGE - %d", nextPage.identifier);
 	if (_nextPageViewController.page != nextPage)
 	{
@@ -359,7 +360,7 @@
 
 -(void)scrollViewDidEndDecelerating:(UIScrollView *)scrollView
 {
-	
+//	if (_nextPageViewController.page.isComplete) [[ImageCache sharedImageCache] loadPrimaryImagesForPage:_nextPageViewController.page]; 
 	BOOL isVerticalOffset = scrollView.contentOffset.x == CGRectGetMinX(_nextPageViewController.view.frame);
 	BOOL isHorizontalOffset = scrollView.contentOffset.y == CGRectGetMinY(_nextPageViewController.view.frame);
 	

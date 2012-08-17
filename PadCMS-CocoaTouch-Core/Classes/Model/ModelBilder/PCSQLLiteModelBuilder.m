@@ -54,9 +54,13 @@
 
 + (void)addPagesFromSQLiteBaseWithPath:(NSString*)path toRevision:(PCRevision*)revision
 {
+	
     FMDatabase* base = [[FMDatabase alloc] initWithPath:path];
     [base open];
     [base setShouldCacheStatements:YES];
+	
+	NSMutableDictionary* dic = [[NSMutableDictionary alloc] init];
+		
     NSString* pagesQuery = [NSString stringWithFormat:@"select * from %@",PCSQLitePageTableName];
 	NSMutableArray* wrongPages = [NSMutableArray array];
     FMResultSet* pages = [base executeQuery:pagesQuery];
@@ -131,6 +135,7 @@
         }
 		
         [revision.pages addObject:page];
+		[dic setObject:page forKey:[NSNumber numberWithInteger:page.identifier]];
         page.revision = revision;
 /*        for (PCPageElement* element in page.elements)
 		{
@@ -139,6 +144,8 @@
         [page release];
     }
 	
+	revision.pageDictionary = [[[NSDictionary alloc] initWithDictionary:dic] autorelease];
+	[dic release];
 	
 	for (PCPage* page in wrongPages) {
 		[revision.pages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {

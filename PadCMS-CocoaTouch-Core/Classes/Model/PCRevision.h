@@ -96,6 +96,7 @@ typedef enum
 @property (readonly, nonatomic) NSArray *validVerticalTocItems;
 @property (readonly, nonatomic) NSArray *validHorizontalTocItems;
 @property (nonatomic, retain) PCPage* alternativeCoverPage;
+@property (nonatomic, retain) NSDictionary* pageDictionary;
 
 /**
  @brief Designated initializer.
