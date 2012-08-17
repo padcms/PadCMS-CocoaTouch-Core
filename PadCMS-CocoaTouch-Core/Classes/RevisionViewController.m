@@ -727,6 +727,16 @@
             }
         }
     }
+    
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
+        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
+    
+    if (_hudView.bottomTocView != nil && _hudView.bottomTocView.state == PCTocViewStateActive) {
+        [_hudView.bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
+
+    [_hudView hideSummaryAnimated:YES];
 }
 
 - (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
