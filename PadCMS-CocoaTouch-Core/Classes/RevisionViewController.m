@@ -756,7 +756,11 @@
 	[self.navigationController pushViewController:searchViewController animated:NO];
 	
 	[searchViewController release];
-
+    
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive)
+    {
+        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+    }
 }
 
 #pragma mark - delegate methods

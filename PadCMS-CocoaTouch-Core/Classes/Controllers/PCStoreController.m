@@ -706,7 +706,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	PCRevision *currentRevision = [self revisionWithIdentifier:revisionIdentifier];
 	NSAssert(pageIndex >= 0 && pageIndex < [currentRevision.pages count], @"pageIndex not within range");
 	PCPage* page = [currentRevision.pages objectAtIndex:pageIndex];
-	[self launchRevison:currentRevision withInitialPage:page];
+	[self launchRevison:currentRevision withInitialPage:page previewMode:FALSE];
 }
 
 -(void)dismissPCSearchViewController:(PCSearchViewController *)currentPCSearchViewController
