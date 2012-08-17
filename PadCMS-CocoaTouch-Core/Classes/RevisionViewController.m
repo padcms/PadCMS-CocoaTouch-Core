@@ -122,16 +122,7 @@
 - (void)viewWillAppear:(BOOL)animated
 {
     if (_contentScrollView == nil) {
-        _contentScrollView = [[PCScrollView alloc] initWithFrame:self.view.bounds];
-        _contentScrollView.pagingEnabled = YES;
-        _contentScrollView.backgroundColor = [UIColor whiteColor];
-        _contentScrollView.showsVerticalScrollIndicator = NO;
-        _contentScrollView.showsHorizontalScrollIndicator = NO;
-        _contentScrollView.directionalLockEnabled = YES;
-        _contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
-        _contentScrollView.delegate = self;
-        _contentScrollView.bounces = NO;
-        [self.view addSubview:_contentScrollView];
+        
     
         if (_hudView != nil) {
             [self.view bringSubviewToFront:_hudView];
@@ -142,8 +133,7 @@
         }
     }
 
-    self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
-    [self configureContentScrollForPage:_nextPageViewController.page];
+    
     
     [super viewWillAppear:animated];
 }
@@ -156,6 +146,18 @@
     [viewController release];
     
     [super viewDidLoad];
+	_contentScrollView = [[PCScrollView alloc] initWithFrame:self.view.bounds];
+	_contentScrollView.pagingEnabled = YES;
+	_contentScrollView.backgroundColor = [UIColor whiteColor];
+	_contentScrollView.showsVerticalScrollIndicator = NO;
+	_contentScrollView.showsHorizontalScrollIndicator = NO;
+	_contentScrollView.directionalLockEnabled = YES;
+	_contentScrollView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
+	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:_initialPage];
+    [self configureContentScrollForPage:_nextPageViewController.page];
+	_contentScrollView.delegate = self;
+	_contentScrollView.bounces = NO;
+	[self.view addSubview:_contentScrollView];
 
 	[self initTopMenu];
     
@@ -469,12 +471,19 @@
     if ([self.delegate respondsToSelector:@selector(revisionViewController:willDismissGalleryViewController:)]) {
         [self.delegate revisionViewController:self willDismissGalleryViewController:galleryViewController];
     }
+	//[self.navigationController popToViewController:self animated:NO];
 }
 
 #pragma mark PCActionDelegate methods
 
 -(void)showGallery
 {
+	/*if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
+	{
+		GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
+        galleryViewController.delegate = self;
+		[self.navigationController pushViewController:galleryViewController  animated:NO];
+	}*/
     if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
         GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
         galleryViewController.delegate = self;
