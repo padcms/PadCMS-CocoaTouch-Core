@@ -21,7 +21,6 @@
 #import "PCPageViewController.h"
 #import "PCResourceCache.h"
 #import "PCScrollView.h"
-#import "PCSubscriptionMenuViewController.h"
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
@@ -787,7 +786,10 @@
 - (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
 {
     if (!_subscriptionsMenuController)
+    {
         _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
+        _subscriptionsMenuController.delegate = self;
+    }
     if (!_popoverController)
         _popoverController = [[UIPopoverController alloc] initWithContentViewController:_subscriptionsMenuController];   
     [_popoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
@@ -935,6 +937,13 @@
 			[alert show];
         }
     }
+}
+
+#pragma mark - PCSubscriptionMenuViewControllerDelegate methods
+
+- (void)subscriptionsMenuButtonWillPressed
+{
+    [_popoverController dismissPopoverAnimated:NO];
 }
 
 @end
