@@ -1129,6 +1129,7 @@
 		C5457EE815C280B500439BB5 /* PCTopBarView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5457EE615C280B500439BB5 /* PCTopBarView.m */; };
 		C550057C15C8000B002A5F75 /* UIImage+CombinedImage.h in Headers */ = {isa = PBXBuildFile; fileRef = C550057A15C8000B002A5F75 /* UIImage+CombinedImage.h */; };
 		C550057D15C8000B002A5F75 /* UIImage+CombinedImage.m in Sources */ = {isa = PBXBuildFile; fileRef = C550057B15C8000B002A5F75 /* UIImage+CombinedImage.m */; };
+		C556713315E210A900C2CD33 /* PCSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EA71588CE5F0097D960 /* PCSearchResult.m */; };
 		C55A914015C68BD4002020DB /* PCTocView.h in Headers */ = {isa = PBXBuildFile; fileRef = C55A913E15C68BD3002020DB /* PCTocView.h */; };
 		C55A914115C68BD4002020DB /* PCTocView.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A913F15C68BD3002020DB /* PCTocView.m */; };
 		C55A914515C69066002020DB /* PCTocViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C55A914415C69066002020DB /* PCTocViewTest.m */; };
@@ -4796,6 +4797,7 @@
 				C5A7693215DB734600092FDA /* PCShareView.m in Sources */,
 				C5A7693315DB735C00092FDA /* PCLocalizationManager.m in Sources */,
 				C5A7693415DB737100092FDA /* PCConfig.m in Sources */,
+				C556713315E210A900C2CD33 /* PCSearchResult.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

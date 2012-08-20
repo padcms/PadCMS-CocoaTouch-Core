@@ -44,6 +44,7 @@
 
 #define TocViewStyle @"PCTocViewStyle"
 #define TocViewButtonStyle @"PCTocViewButtonStyle"
+#define TocViewButtonStyleOffset @"PCTocViewButtonStyleOffset"
 #define TocViewButtonStylePosition @"PCTocViewButtonStylePosition"
 #define TocViewButtonStylePositionLeft @"PCTocViewButtonStylePositionLeft"
 #define TocViewButtonStylePositionRight @"PCTocViewButtonStylePositionRight"
@@ -284,11 +285,6 @@ typedef enum _PCTocViewPosition {
     [tocView implementStyle:styleDictionary];
     
     CGSize tocSize = frame.size;
-//    CGSize buttonSize = tocView.button.bounds.size;
-//    tocView.button.center = CGPointMake(tocSize.width - (buttonSize.width / 2),
-//                                        tocSize.height - (buttonSize.height / 2));
-//    
-//    tocView.button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
 
     CGRect gridViewFrame = CGRectMake(0,
                                       0,
@@ -307,81 +303,99 @@ typedef enum _PCTocViewPosition {
 - (void)implementStyle:(NSDictionary *)style
 {
     // button style
+    
     // default values
+    UIColor *buttonColor = [UIColor clearColor];
+    UIImage *buttonImage = nil;
     UIImage *buttonBackgroundImage = nil;
-    UIColor *buttonColor = [UIColor blackColor];
+    CGFloat buttonOffset = 0;
+    BOOL buttonPositionLeft = NO;
     
     NSDictionary *buttonStyle = [style objectForKey:TocViewButtonStyle];
     if (buttonStyle != nil) {
-        
-        // background color
-        UIColor *tempButtonColor = nil;
+        // color
         NSString *buttonColorString = [buttonStyle objectForKey:TocViewButtonStyleColor];
-        if (buttonColorString != nil) {
-            tempButtonColor = [UIColor colorWithHexString:buttonColorString];
-            if (tempButtonColor != nil) {
-                buttonColor = tempButtonColor;
-            }
+        if (buttonColorString != nil && ![buttonColorString isEqualToString:@""]) {
+            buttonColor = [UIColor colorWithHexString:buttonColorString];
         }
         
         // image
-        NSString *buttonImageName = [buttonStyle objectForKey:TocViewButtonStyleImageName];
-        UIImage *buttonImage = nil;
-        if (buttonImageName != nil) {
-            buttonImage = [UIImage imageNamed:buttonImageName];
+        NSString *buttonImageNameString = [buttonStyle objectForKey:TocViewButtonStyleImageName];
+        buttonImage = [UIImage imageNamed:buttonImageNameString];
+        
+        // background image
+        NSString *buttonBackgroundImageNameString = [buttonStyle objectForKey:TocViewButtonStyleBackgroundImageName];
+        buttonBackgroundImage = [UIImage imageNamed:buttonBackgroundImageNameString];
+        
+        // offset
+        NSNumber *buttonOffsetNumber = [buttonStyle objectForKey:TocViewButtonStyleOffset];
+        if (buttonOffsetNumber != nil) {
+            buttonOffset = buttonOffsetNumber.floatValue;
         }
         
-        // backgound image
-        NSString *buttonBackgroundImageName = [buttonStyle objectForKey:TocViewButtonStyleBackgroundImageName];
-        UIImage *tempButtonBackgroundImage = nil;
-        if (buttonBackgroundImageName != nil) {
-            tempButtonBackgroundImage = [UIImage imageNamed:buttonBackgroundImageName];
-        }
-        
-        if (tempButtonColor != nil && buttonImage != nil && tempButtonBackgroundImage != nil) {
-            buttonBackgroundImage = [UIImage combinedImage:tempButtonBackgroundImage
-                                              overlayImage:buttonImage
-                                                     color:tempButtonColor];
-            CGSize imageSize = buttonBackgroundImage.size;
-            _button.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
-            [_button setImage:buttonBackgroundImage forState:UIControlStateNormal];
-            
-            buttonColor = [UIColor clearColor];
-
-        } else if (tempButtonBackgroundImage != nil) {
-            buttonBackgroundImage = tempButtonBackgroundImage;
-        }
-    }
-    
-    if (buttonBackgroundImage != nil) {
-        CGSize imageSize = buttonBackgroundImage.size;
-        _button.bounds = CGRectMake(0, 0, imageSize.width, imageSize.height);
-        [_button setImage:buttonBackgroundImage forState:UIControlStateNormal];
-    } else {
-        _button.bounds = CGRectMake(0, 0, TocViewButtonDefaultWidth, TocViewButtonDefaultHeight);
-    }
-    
-    _button.backgroundColor = buttonColor;
-
-    // adjust button position
-    if (buttonStyle != nil) {
+        // position
         NSString *buttonPositionString = [buttonStyle objectForKey:TocViewButtonStylePosition];
-        
-        CGSize tocSize = self.frame.size;
-        CGSize buttonSize = _button.bounds.size;
         if ([buttonPositionString isEqualToString:TocViewButtonStylePositionLeft]) {
-            _button.center = CGPointMake(buttonSize.width/* / 2*/,
-                                         tocSize.height - (buttonSize.height / 2));
-            _button.autoresizingMask = UIViewAutoresizingFlexibleRightMargin | UIViewAutoresizingFlexibleTopMargin;
-        } else {
-            _button.center = CGPointMake(tocSize.width - (buttonSize.width / 2),
-                                         tocSize.height - (buttonSize.height / 2));
-            _button.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin | UIViewAutoresizingFlexibleTopMargin;
+            buttonPositionLeft = YES;
         }
     }
+    
+    CGFloat buttonWidth = 0;
+    CGFloat buttonHeight = 0;
 
+    if (buttonColor != nil && buttonImage != nil && buttonBackgroundImage != nil) {
+        // create combined button image
+        UIImage *buttonCombinedImage = [UIImage combinedImage:buttonBackgroundImage
+                                                 overlayImage:buttonImage
+                                                        color:buttonColor];
+        [_button setImage:buttonCombinedImage forState:UIControlStateNormal];
+        _button.backgroundColor = [UIColor clearColor];
+        
+        CGSize imageSize = buttonCombinedImage.size;
+        buttonWidth = imageSize.width;
+        buttonHeight = imageSize.height;
+    } else {
+        _button.backgroundColor = buttonColor;
+        
+        if (buttonImage != nil) {
+            CGSize imageSize = buttonImage.size;
+            buttonWidth = imageSize.width;
+            buttonHeight = imageSize.height;
+            [_button setImage:buttonImage forState:UIControlStateNormal];
+        }
+        
+        if (buttonBackgroundImage != nil) {
+            CGSize backgroundImageSize = buttonBackgroundImage.size;
+            buttonWidth = MAX(buttonWidth, backgroundImageSize.width);
+            buttonHeight = MAX(buttonHeight, backgroundImageSize.height);
+            [_button setBackgroundImage:buttonBackgroundImage forState:UIControlStateNormal];
+        }
+    }
+    
+    if (buttonWidth == 0) {
+        buttonWidth = TocViewButtonDefaultWidth;
+    }
+    
+    if (buttonHeight == 0) {
+        buttonHeight = TocViewButtonDefaultHeight;
+    }
+    
+    _button.bounds = CGRectMake(0, 0, buttonWidth, buttonHeight);
+    
+    CGSize boundsSize = self.bounds.size;
+    
+    if (buttonPositionLeft) {
+        _button.center = CGPointMake(buttonWidth / 2 + buttonOffset,
+                                     boundsSize.height - buttonHeight / 2);
+        _button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleRightMargin;
+    } else {
+        _button.center = CGPointMake(boundsSize.width - buttonWidth / 2 - buttonOffset,
+                                     boundsSize.height - buttonHeight / 2);
+        _button.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleLeftMargin;
+    }
+    
     // background style
-    UIColor *backgroundColor = [UIColor blackColor];
+    UIColor *backgroundColor = [UIColor clearColor];
     NSDictionary *backgroundStyle = [style objectForKey:TocViewBackgroundStyle];
     if (backgroundStyle != nil) {
         NSString *backgroundColorString = [backgroundStyle objectForKey:TocViewBackgroundStyleColor];

@@ -66,15 +66,15 @@
 
 - (void)testTopTocViewInitialLayout
 {
-    GHAssertEquals(_givenFrame, _topTocView.frame, @"");
+    GHAssertEquals(_givenFrame, _topTocView.frame, nil);
     
     CGRect tocFrame = _topTocView.frame;
     CGRect buttonFrame = _topTocView.button.frame;
     CGRect gridViewFrame = _topTocView.gridView.frame;
     
-    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, @"");
-    GHAssertEquals(gridViewFrame.origin, tocFrame.origin, @"");
-    GHAssertEquals(buttonFrame.origin.y, gridViewFrame.size.height, @"");
+    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, nil);
+    GHAssertEquals(gridViewFrame.origin, tocFrame.origin, nil);
+    GHAssertEquals(buttonFrame.origin.y, gridViewFrame.size.height, nil);
 }
 
 - (void)testTopTocViewResizing
@@ -85,10 +85,10 @@
     CGRect buttonFrame = _topTocView.button.frame;
     CGRect gridViewFrame = _topTocView.gridView.frame;
     
-    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, @"");
-    GHAssertEquals(gridViewFrame.origin, tocFrame.origin, @"");
-    GHAssertEquals(gridViewFrame.size.width, tocFrame.size.width, @"");
-    GHAssertEquals(buttonFrame.origin.y, gridViewFrame.size.height, @"");
+    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, nil);
+    GHAssertEquals(gridViewFrame.origin, tocFrame.origin, nil);
+    GHAssertEquals(gridViewFrame.size.width, tocFrame.size.width, nil);
+    GHAssertEquals(buttonFrame.origin.y, gridViewFrame.size.height, nil);
 }
 
 - (void)testTopTocViewStates
@@ -127,15 +127,15 @@
 
 - (void)testBottomTocViewInitialLayout
 {
-    GHAssertEquals(_givenFrame, _bottomTocView.frame, @"");
+    GHAssertEquals(_givenFrame, _bottomTocView.frame, nil);
     
     CGRect tocFrame = _bottomTocView.frame;
     CGRect buttonFrame = _bottomTocView.button.frame;
     CGRect gridViewFrame = _bottomTocView.gridView.frame;
     
-    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, @"");
-    GHAssertEquals(buttonFrame.origin, tocFrame.origin, @"");
-    GHAssertEquals(gridViewFrame.origin.y, buttonFrame.size.height, @"");
+    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, nil);
+    GHAssertEquals(buttonFrame.origin, tocFrame.origin, nil);
+    GHAssertEquals(gridViewFrame.origin.y, buttonFrame.size.height, nil);
 }
 
 - (void)testBottomTocViewResizing
@@ -146,10 +146,10 @@
     CGRect buttonFrame = _bottomTocView.button.frame;
     CGRect gridViewFrame = _bottomTocView.gridView.frame;
     
-    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, @"");
-    GHAssertEquals(buttonFrame.origin, tocFrame.origin, @"");
-    GHAssertEquals(gridViewFrame.size.width, tocFrame.size.width, @"");
-    GHAssertEquals(gridViewFrame.origin.y, buttonFrame.size.height, @"");
+    GHAssertEquals(tocFrame.size.height, buttonFrame.size.height + gridViewFrame.size.height, nil);
+    GHAssertEquals(buttonFrame.origin, tocFrame.origin, nil);
+    GHAssertEquals(gridViewFrame.size.width, tocFrame.size.width, nil);
+    GHAssertEquals(gridViewFrame.origin.y, buttonFrame.size.height, nil);
 }
 
 - (void)testBottomTocViewStates
