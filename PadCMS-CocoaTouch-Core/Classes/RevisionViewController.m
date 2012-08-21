@@ -484,13 +484,17 @@
         galleryViewController.delegate = self;
 		[self.navigationController pushViewController:galleryViewController  animated:NO];
 	}*/
-    if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
-        GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
-        galleryViewController.delegate = self;
-        [self.delegate revisionViewController:self
-             willPresentGalleryViewController:galleryViewController];
-    }
-    
+	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
+	{
+		if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
+			GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
+			galleryViewController.delegate = self;
+			[self.delegate revisionViewController:self
+				 willPresentGalleryViewController:galleryViewController];
+		}
+
+	}
+        
 }
 
 -(void)gotoPage:(PCPage *)page
