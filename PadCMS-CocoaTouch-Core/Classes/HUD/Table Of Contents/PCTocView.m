@@ -65,7 +65,6 @@ typedef enum _PCTocViewPosition {
 @interface PCTocView ()
 {
     PCTocViewPosition _position;
-    PCTocViewState _state;
 }
 
 - (void)buttonTapped:(UIButton *)button;
@@ -78,11 +77,9 @@ typedef enum _PCTocViewPosition {
 @end
 
 @implementation PCTocView
-@synthesize state = _state;
 @synthesize backgroundView = _backgroundView;
 @synthesize button = _button;
 @synthesize gridView = _gridView;
-@synthesize delegate = _delegate;
 
 - (void)dealloc
 {
@@ -98,7 +95,6 @@ typedef enum _PCTocViewPosition {
     if (self != nil) {
         
         _position = PCTocViewPositionInvalid;
-        _state = PCTocViewStateInvalid;
         
         self.backgroundColor = [UIColor clearColor];
         
@@ -118,7 +114,7 @@ typedef enum _PCTocViewPosition {
 }
 
 #pragma mark - public methods
-
+/*
 - (void)transitToState:(PCTocViewState)state animated:(BOOL)animated
 {
     if ([self.delegate respondsToSelector:@selector(tocView:transitToState:animated:)]) {
@@ -153,19 +149,19 @@ typedef enum _PCTocViewPosition {
     
     return CGPointZero;
 }
-
+*/
 #pragma mark - private methods
 
 - (void)buttonTapped:(UIButton *)button
 {
-    if (_state == PCTocViewStateInvalid || _state == PCTocViewStateHidden) {
+    if (self.state == RRViewStateInvalid || self.state == RRViewStateHidden) {
         return;
     }
     
-    if (_state == PCTocViewStateActive) {
-        [self transitToState:PCTocViewStateVisible animated:YES];
+    if (self.state == RRViewStateActive) {
+        [self transitToState:RRViewStateVisible animated:YES];
     } else {
-        [self transitToState:PCTocViewStateActive animated:YES];
+        [self transitToState:RRViewStateActive animated:YES];
     }
 }
 

@@ -35,53 +35,16 @@
 
 #import <UIKit/UIKit.h>
 
+#import "RRView.h"
+
 @class PCTocView;
 @class PCGridView;
-
-/**
- @enum PCTocViewState.
- @brief The state of the PCTocView object.
- */
-typedef enum _PCTocViewState {
-    PCTocViewStateInvalid = -1, /// Invalid state. Used at initialization step.
-    PCTocViewStateHidden = 0, /// Toc view fully hidden. Button and grid view is not visible.
-    PCTocViewStateVisible = 1, /// Button is visible, grid view is hidden.
-    PCTocViewStateActive = 2 /// Both button and grid view is visible.
-} PCTocViewState;
-
-/**
- @protocol PCTocViewDelegate.
- @brief Methods of the PCTocViewDelegate protocol allow the delegate to execute actions when the state of the toc is changed.
- */
-@protocol PCTocViewDelegate <NSObject>
-
-@optional
-/**
- @brief Asks the delegate if the receiving toc view should transit to given state.
- @param The toc view object that making this request.
- @param The state of the toc view.
- @param Animation flag.
- @return YES if the toc view should transit to the state and NO otherwise. Default value is NO.
- */
-- (BOOL)tocView:(PCTocView *)tocView transitToState:(PCTocViewState)state animated:(BOOL)animated;
-
-@end
 
 /**
  @class PCTocView.
  @brief An instance of PCTocView is a view that represents table of contents or summary.
  */
-@interface PCTocView : UIView
-
-/**
- @brief The object that acts as the delegate of the receiving toc view.
- */
-@property (assign) id<PCTocViewDelegate> delegate;
-
-/**
- @brief Current state of the toc view.
- */
-@property (readonly, nonatomic) PCTocViewState state;
+@interface PCTocView : RRView
 
 /**
  @brief An instance of the UIView that placed behind all other subviews.
@@ -98,20 +61,13 @@ typedef enum _PCTocViewState {
  */
 @property (readonly, nonatomic) PCGridView *gridView;
 
-/**
- @brief Change the receiver state.
- @param The state that should be applied.
- @param The flag indicates that the new state should be applied with or without animation.
- */
-- (void)transitToState:(PCTocViewState)state animated:(BOOL)animated;
-
-/**
- @brief Returns the center of the view for the specified state and containing view bounds.
- @param The state of the toc view object.
- @param The bounds of the container view.
- @return The CGPoint structure that specifies the center of the toc view object.
- */
-- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
+///**
+// @brief Returns the center of the view for the specified state and containing view bounds.
+// @param The state of the toc view object.
+// @param The bounds of the container view.
+// @return The CGPoint structure that specifies the center of the toc view object.
+// */
+//- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
 
 /**
  @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.

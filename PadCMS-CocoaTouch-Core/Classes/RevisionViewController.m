@@ -25,6 +25,7 @@
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
+#import "RRView.h"
 
 @interface RevisionViewController ()
 {
@@ -43,6 +44,8 @@
 @property (nonatomic, retain) PCScrollView* contentScrollView;
 @property (nonatomic, readonly) PCPage* initialPage;
 
+- (void)createHud;
+- (void)updateHud;
 - (void)tapGesture:(UIGestureRecognizer *)recognizer;
 - (void)verticalTocDownloaded:(NSNotification *)notification;
 - (void)horizontalTocDownloaded:(NSNotification *)notification;
@@ -118,6 +121,54 @@
 	[super dealloc];
 }
 
+- (void)createHud
+{
+    _hudView = [[PCHudView alloc] initWithFrame:self.view.bounds];
+    _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _hudView.dataSource = self;
+    _hudView.delegate = self;
+    _hudView.topBarView.delegate = self;
+    [self.view addSubview:_hudView];
+    [self updateHud];
+}
+
+- (void)updateHud
+{
+    if (_hudView == nil) {
+        return;
+    }
+    
+    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
+        
+        if (_hudView.topTocView != nil && (_hudView.topTocView.state == RRViewStateHidden ||
+                                           _hudView.topTocView.state == RRViewStateInvalid)) {
+            [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+        }
+        
+        if (_hudView.bottomTocView != nil) {
+            
+            if (_hudView.topBarView.state == RRViewStateVisible) {
+                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
+            }
+        }
+        
+        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
+            [_hudView.topBarView setSummaryButtonHidden:NO animated:NO];
+        } else {
+            [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
+        }
+        
+    } else {
+        
+        if (_hudView.bottomTocView != nil) {
+            [_hudView.bottomTocView transitToState:RRViewStateHidden animated:NO];
+        }
+        [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
+    }
+    
+    [_hudView reloadData];
+
+}
 
 - (void)viewWillAppear:(BOOL)animated
 {
@@ -169,25 +220,7 @@
     tapGestureRecognizer.numberOfTouchesRequired = 1;
     [self.view addGestureRecognizer:tapGestureRecognizer];
 
-    _hudView = [[PCHudView alloc] initWithFrame:self.view.bounds];
-    _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-    _hudView.dataSource = self;
-    _hudView.delegate = self;
-    _hudView.topBarView.delegate = self;
-    [_hudView reloadData];
-    [self.view addSubview:_hudView];
-    
-    if (_hudView.topTocView != nil) {
-        if (_previewMode) {
-            [_hudView.topTocView transitToState:PCTocViewStateHidden animated:NO];
-        } else {
-            [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
-        }
-    }
-    
-    if (_hudView.bottomTocView != nil) {
-        [_hudView.bottomTocView transitToState:PCTocViewStateHidden animated:NO];
-    }
+    [self createHud];
     
     [[NSNotificationCenter defaultCenter] addObserver:self
                                              selector:@selector(verticalTocDownloaded:)
@@ -570,39 +603,48 @@
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
-    if (_hudView.topTocView != nil) {
-        PCTocView *topTocView = _hudView.topTocView;
+    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
+
+        if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
+            [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+        }
         
-        if (topTocView.state == PCTocViewStateActive) {
-            [topTocView transitToState:PCTocViewStateVisible animated:YES];
+        if (_hudView.bottomTocView != nil) {
+            if (_hudView.bottomTocView.state == RRViewStateVisible) {
+                [_hudView.bottomTocView transitToState:RRViewStateHidden animated:YES];
+                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
+            } else {
+                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
+                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+            }
+        }
+    } else {
+        
+        if (_hudView.topBarView.state == RRViewStateHidden) {
+            [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+        } else {
+            [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
         }
     }
     
-    if (_hudView.bottomTocView != nil) {
-        PCTocView *bottomTocView = _hudView.bottomTocView;
-        
-        if (bottomTocView.state == PCTocViewStateActive) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-        } else if (bottomTocView.state == PCTocViewStateHidden) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-        } else if (bottomTocView.state == PCTocViewStateVisible) {
-            [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
-        }
-    }
     
     if (_shareView != nil) {
         [_shareView dismiss];
+    }
+    
+    if (_hudView.summaryView != nil) {
+        [_hudView hideSummaryAnimated:YES];
     }
 }
 
 - (void)verticalTocDownloaded:(NSNotification *)notification
 {
-    [_hudView reloadData];
+    [self updateHud];
 }
 
 - (void)horizontalTocDownloaded:(NSNotification *)notification
 {
-    [_hudView reloadData];
+    [self updateHud];
 }
 
 #pragma mark - UIGestureRecognizerDelegate
@@ -742,30 +784,15 @@
         }
     }
     
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
+        [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
     }
     
-    if (_hudView.bottomTocView != nil && _hudView.bottomTocView.state == PCTocViewStateActive) {
-        [_hudView.bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+    if (_hudView.bottomTocView != nil && _hudView.bottomTocView.state == RRViewStateActive) {
+        [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
     }
 
     [_hudView hideSummaryAnimated:YES];
-}
-
-- (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
-{
-    if (tocView == hudView.topTocView) {
-        [hudView.topBarView hideKeyboard];
-    }
-    
-    if (tocView == hudView.bottomTocView && state == PCTocViewStateHidden) {
-        [_hudView hideSummaryAnimated:YES];
-    }
-}
-
-- (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
-{
 }
 
 #pragma makr - PCTopBarViewDelegate
@@ -822,8 +849,8 @@
 	
 	[searchViewController release];
 
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
+        [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
     }
 }
 
