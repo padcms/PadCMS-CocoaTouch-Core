@@ -137,13 +137,17 @@
     if (_hudView == nil) {
         return;
     }
-    
-    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
-        
-        if (_hudView.topTocView != nil && (_hudView.topTocView.state == RRViewStateHidden ||
-                                           _hudView.topTocView.state == RRViewStateInvalid)) {
+
+    if (_hudView.topTocView != nil) {
+        if (_previewMode) {
+            [_hudView.topTocView transitToState:RRViewStateHidden animated:NO];
+            [_hudView.topBarView transitToState:RRViewStateHidden animated:NO];
+        } else {
             [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
         }
+    }
+    
+    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
         
         if (_hudView.bottomTocView != nil) {
             
@@ -603,11 +607,41 @@
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
+    if (_shareView != nil) {
+        [_shareView dismiss];
+    }
+    
+    if (_hudView.summaryView != nil) {
+        [_hudView hideSummaryAnimated:YES];
+    }
+    
+    if (_hudView.topTocView != nil) {
+        
+        if (_previewMode) {
+            
+            if (_hudView.topBarView.state == RRViewStateVisible) {
+                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
+            } else {
+                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+            }
+        } else {
+            if (_hudView.bottomTocView.state == RRViewStateVisible) {
+                [_hudView.topTocView transitToState:RRViewStateActive animated:YES];
+//                [_hudView.topBarView transitToState:RRViewStateActive animated:YES];
+            } else {
+                [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+//                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+            }
+        }
+        
+        return;
+    }
+    
     if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
 
-        if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
-            [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
-        }
+//        if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
+//            [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+//        }
         
         if (_hudView.bottomTocView != nil) {
             if (_hudView.bottomTocView.state == RRViewStateVisible) {
@@ -625,15 +659,6 @@
         } else {
             [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
         }
-    }
-    
-    
-    if (_shareView != nil) {
-        [_shareView dismiss];
-    }
-    
-    if (_hudView.summaryView != nil) {
-        [_hudView hideSummaryAnimated:YES];
     }
 }
 
