@@ -659,7 +659,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		}
 		
 		[zipArchive release];
-		[self archiveCroppedImageSizeToDirectory:outputDirectory];
+		[self archiveCroppedImageSizeToDirectory:outputDirectory andImageExtansion:element.resourceExtension];
 	//	[element calculateSize];
 		
 	/*	NSString* resourceFullPath = [self.revision.contentDirectory stringByAppendingPathComponent:path];
@@ -1204,7 +1204,7 @@ NSString* secondaryKey   = @"secondaryKey";
     }    
 }
 
--(void)archiveCroppedImageSizeToDirectory:(NSString*)directoryPath
+-(void)archiveCroppedImageSizeToDirectory:(NSString*)directoryPath andImageExtansion:(NSString*)extansion
 {
 	NSArray* fileNames = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:directoryPath error:nil];
 	NSMutableArray* rowNumbers = [NSMutableArray array];
@@ -1222,7 +1222,7 @@ NSString* secondaryKey   = @"secondaryKey";
 	[columnNumbers sortUsingSelector:@selector(compare:)];
 	NSString* lastRowNumber = [NSString stringWithFormat:@"%@",[rowNumbers lastObject]];
 	NSString* lastColumnNumber = [NSString stringWithFormat:@"%@",[columnNumbers lastObject]];
-	NSString* lastRowPNGname = [NSString stringWithFormat:@"resource_%@_%@.png",lastRowNumber,lastColumnNumber];
+	NSString* lastRowPNGname = [[NSString stringWithFormat:@"resource_%@_%@",lastRowNumber,lastColumnNumber] stringByAppendingPathExtension:extansion];
 
 	UIImage* image = [UIImage imageWithContentsOfFile:[directoryPath stringByAppendingPathComponent:lastRowPNGname]];
 	float height = kDefaultTileSize * ([lastRowNumber intValue] - 1) + image.size.height/[UIScreen mainScreen].scale;

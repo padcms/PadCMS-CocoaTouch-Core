@@ -445,7 +445,8 @@
 			[self showGallery];
 		}
 		else {
-			[self.navigationController popToViewController:self animated:NO];
+			//[self.navigationController popToViewController:self animated:NO];
+			[self galleryViewControllerWillDismiss:nil];
 		}
 	}
 }

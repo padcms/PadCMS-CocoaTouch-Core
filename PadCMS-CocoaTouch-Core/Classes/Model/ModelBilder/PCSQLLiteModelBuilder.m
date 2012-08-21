@@ -124,6 +124,7 @@
 					![element.fieldTypeName isEqualToString:PCPageElementTypeVideo])
 				{
 					element.isCropped = YES;
+					element.resourceExtension = [element.resource pathExtension];
 					element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
 				}
 				/*	if ((element.page.pageTemplate.identifier == PCBasicArticlePageTemplate) && ([element.fieldTypeName isEqualToString:PCPageElementTypeBody])) 
@@ -145,7 +146,7 @@
     }
 	
 	revision.pageDictionary = [[[NSDictionary alloc] initWithDictionary:dic] autorelease];
-	[dic release];
+//	[dic release], dic = nil;
 	
 	for (PCPage* page in wrongPages) {
 		[revision.pages enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
@@ -271,6 +272,7 @@
 		element.isCropped = YES;
 		NSString* lastPathComponent = [element.resource lastPathComponent];
 		element.resource = [[[element.resource stringByDeletingLastPathComponent] stringByAppendingPathComponent:[NSString stringWithFormat:@"%d", horizontalPage.identifier]] stringByAppendingPathComponent:lastPathComponent];
+		element.resourceExtension = [element.resource pathExtension];
 		element.resource = [[element.resource stringByDeletingPathExtension] stringByAppendingPathExtension:@"zip"];
 		[horizontalPage.elements addObject:element];
 		[element release];
@@ -282,6 +284,7 @@
 		}
 		
 		[revision.newHorizontalPages addObject:horizontalPage];
+		[dic setObject:horizontalPage forKey:[NSNumber numberWithInteger:horizontalPage.identifier]];
 		horizontalPage.revision = revision;
 //#define OLD_HORIZONTAL_PAGE_STYLE_SUPPORT		
 #ifdef OLD_HORIZONTAL_PAGE_STYLE_SUPPORT
@@ -322,8 +325,11 @@
         if (revision.newHorizontalPages.count > 0) {
             revision.alternativeCoverPage = [revision.newHorizontalPages objectAtIndex:0];
             [revision.pages addObjectsFromArray:revision.newHorizontalPages];
+			revision.pageDictionary = [[[NSDictionary alloc] initWithDictionary:dic] autorelease];
         }
 	}
+	
+	[dic release], dic = nil;
 	
 	for (PCPage* horPage in revision.newHorizontalPages) {
 		if (!horPage.onRotatePage)
