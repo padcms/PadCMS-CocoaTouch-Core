@@ -15,6 +15,7 @@
 #import "PCTopBarView.h"
 #import "PCTwitterNewController.h"
 #import "GalleryViewController.h"
+#import "PCSubscriptionMenuViewController.h"
 
 @class PCRevision;
 @class PCVideoManager;
@@ -31,7 +32,7 @@
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
 UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate,
 PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate,
-PCEmailControllerDelegate, UIAlertViewDelegate, GalleryViewControllerDelegate>
+PCEmailControllerDelegate, UIAlertViewDelegate, GalleryViewControllerDelegate, PCSubscriptionMenuViewControllerDelegate>
 {
 	IBOutlet UIView* topMenuView;
 }
