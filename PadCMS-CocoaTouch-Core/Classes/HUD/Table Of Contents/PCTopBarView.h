@@ -45,46 +45,46 @@
  */
 @protocol PCTopBarViewDelegate <NSObject>
 
-@optional
-/**
- @brief Tells the delegate that the back button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the summary button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the subscriptions button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the share button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the help button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button;
-
+//@optional
+///**
+// @brief Tells the delegate that the back button have been tapped.
+// @param topBarView - the PCTopBarView object that making this notification.
+// @param button - the button that have been tapped.
+// */
+//- (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button;
+//
+//@optional
+///**
+// @brief Tells the delegate that the summary button have been tapped.
+// @param topBarView - the PCTopBarView object that making this notification.
+// @param button - the button that have been tapped.
+// */
+//- (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button;
+//
+//@optional
+///**
+// @brief Tells the delegate that the subscriptions button have been tapped.
+// @param topBarView - the PCTopBarView object that making this notification.
+// @param button - the button that have been tapped.
+// */
+//- (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button;
+//
+//@optional
+///**
+// @brief Tells the delegate that the share button have been tapped.
+// @param topBarView - the PCTopBarView object that making this notification.
+// @param button - the button that have been tapped.
+// */
+//- (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button;
+//
+//@optional
+///**
+// @brief Tells the delegate that the help button have been tapped.
+// @param topBarView - the PCTopBarView object that making this notification.
+// @param button - the button that have been tapped.
+// */
+//- (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button;
+//
 @optional
 /**
  @brief Tells the delegate that the search have been started.
@@ -92,6 +92,10 @@
  @param searchText - NSString object that contains search pattern.
  */
 - (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText;
+
+@optional
+
+- (void)topBarView:(PCTopBarView *)topBarView buttonTapped:(UIButton *)button;
 
 @end
 
@@ -105,6 +109,12 @@
  @brief The object that conforms PCTopBarViewDelegate protocol and acts like delegate.
  */
 @property (assign) id<PCTopBarViewDelegate> delegate;
+
+@property (readonly, nonatomic) UIButton *backButton;
+@property (readonly, nonatomic) UIButton *summaryButton;
+@property (readonly, nonatomic) UIButton *subscriptionsButton;
+@property (readonly, nonatomic) UIButton *shareButton;
+@property (readonly, nonatomic) UIButton *helpButton;
 
 /**
  @brief Hides or shows summary button.

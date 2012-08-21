@@ -12,15 +12,29 @@
 #import "PCTopBarView.h"
 
 @class PCRevision;
+@class PCTocItem;
+@class PCTopBarView;
+@class RRHudController;
+
+@protocol RRHudControllerDelegate <NSObject>
+
+- (void)hudControllerDismissAllPopups:(RRHudController *)hudController;
+- (void)hudController:(RRHudController *)hudController selectedTocItem:(PCTocItem *)tocItem;
+- (void)hudController:(RRHudController *)hudController
+           topBarView:(PCTopBarView *)topBarView
+         buttonTapped:(UIButton *)button;
+
+@end
+
 
 @interface RRHudController : NSObject <PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate>
 
+@property (assign) id<RRHudControllerDelegate> delegate;
 @property (retain, nonatomic) PCRevision *revision;
 @property (assign) BOOL previewMode;
 @property (readonly, nonatomic) PCHudView *hudView;
 
 - (void)update;
 - (void)handleTap;
-- (void)handleRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
 @end

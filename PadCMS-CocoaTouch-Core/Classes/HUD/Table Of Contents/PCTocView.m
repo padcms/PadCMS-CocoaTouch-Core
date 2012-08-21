@@ -257,11 +257,33 @@ typedef enum _PCTocViewPosition {
     
     return CGPointZero;
 }
-
+/*
+- (void)layoutSubviews
+{
+    [super layoutSubviews];
+    
+    if (_position == PCTocViewPositionTop) {
+    
+        CGSize selfSize = self.bounds.size;
+        CGSize buttonSize = _button.bounds.size;
+        _gridView.frame = CGRectMake(0, 0, selfSize.width, selfSize.height - buttonSize.height);
+        _backgroundView.frame = _gridView.frame;
+        _button.center = CGPointMake(selfSize.width - (buttonSize.width / 2),
+                                     selfSize.height - (buttonSize.height / 2));
+        
+    } else if (_position == PCTocViewPositionBottom) {
+    
+    }
+}
+*/
 #pragma mark - public class methods
 
 + (PCTocView *)topTocViewWithFrame:(CGRect)frame
 {
+    if (frame.size.width == 0 && frame.size.height == 0) {
+        frame = CGRectMake(0, 0, 500, 500);
+    }
+    
     PCTocView *tocView = [[PCTocView alloc] initWithFrame:frame];
     
     [tocView setPosition:PCTocViewPositionTop];
@@ -405,6 +427,10 @@ typedef enum _PCTocViewPosition {
 
 + (PCTocView *)bottomTocViewWithFrame:(CGRect)frame
 {
+    if (frame.size.width == 0 && frame.size.height == 0) {
+        frame = CGRectMake(0, 0, 500, 500);
+    }
+
     PCTocView *tocView = [[PCTocView alloc] initWithFrame:frame];
     
     [tocView setPosition:PCTocViewPositionBottom];

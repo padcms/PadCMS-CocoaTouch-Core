@@ -1197,6 +1197,7 @@
 		C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5A784DA15C950A600370829 /* PCGridViewIndex.h */; };
 		C5ABCA6E15DA5F1800B405EA /* PCShareView.h in Headers */ = {isa = PBXBuildFile; fileRef = C5ABCA6C15DA5F1800B405EA /* PCShareView.h */; };
 		C5ABCA6F15DA5F1800B405EA /* PCShareView.m in Sources */ = {isa = PBXBuildFile; fileRef = C5ABCA6D15DA5F1800B405EA /* PCShareView.m */; };
+		C5AFD8E315E3B01B00779A4E /* RRHudController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C538AB2E15E38E4E00BDD7FD /* RRHudController.h */; };
 		C5CC2F5F15CBB4E8004DF863 /* PCGridViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C5CC2F5E15CBB4E8004DF863 /* PCGridViewTest.m */; };
 		C5CF6D2815D9038A00E92162 /* GHUnitIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CF6D1F15D9038A00E92162 /* GHUnitIOS.framework */; };
 		C5CF6D2915D9038A00E92162 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CF6D2015D9038A00E92162 /* libOCMock.a */; };
@@ -1218,6 +1219,7 @@
 				601B823615D170A200A7C3DC /* PCSearchProviderDelegate.h in CopyFiles */,
 				84127DA915C190A1007BDCE7 /* PCVideoManager.h in CopyFiles */,
 				84D5E39615BE811A00BEF5D6 /* PCSubscriptionsMenuViewController.h in CopyFiles */,
+				C5AFD8E315E3B01B00779A4E /* RRHudController.h in CopyFiles */,
 				C5792DF015D1172300716781 /* ImageCache.h in CopyFiles */,
 				C5792DEE15D1170300716781 /* RevisionViewController.h in CopyFiles */,
 				C5792DF415D1173B00716781 /* JCTiledScrollView.h in CopyFiles */,
