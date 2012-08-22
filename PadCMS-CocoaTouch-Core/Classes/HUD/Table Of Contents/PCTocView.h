@@ -69,6 +69,8 @@
 // */
 //- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
 
+- (void)tapButton;
+
 /**
  @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.
  @param The frame of the toc view.

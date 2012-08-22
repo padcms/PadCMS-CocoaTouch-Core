@@ -77,7 +77,7 @@ NSString *EnabledKey = @"Enabled";
 {
     self = [super initWithFrame:frame];
     
-    if (self) {
+    if (self != nil) {
         
         self.backgroundColor = [UIColor clearColor];
         
@@ -93,6 +93,7 @@ NSString *EnabledKey = @"Enabled";
         _topBarView.alpha = 0.75f;
         _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         _topBarView.statesDelegate = self;
+        [_topBarView transitToState:RRViewStateHidden animated:NO];
         [self addSubview:_topBarView];
         
         // configure summary
@@ -109,12 +110,16 @@ NSString *EnabledKey = @"Enabled";
             showTopTableOfContents = [[topTableOfContentsConfig valueForKey:EnabledKey] boolValue];
         }
         
+#ifdef TEST
+        if (YES) {
+#else
         if (showTopTableOfContents) {
-
+#endif
             _topTocView = [[PCTocView topTocViewWithFrame:self.bounds] retain];
             _topTocView.statesDelegate = self;
             _topTocView.gridView.dataSource = self;
             _topTocView.gridView.delegate = self;
+            _topTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
             [self addSubview:_topTocView];
             [_topTocView transitToState:RRViewStateHidden animated:NO];
             [_topTocView.gridView reloadData];
@@ -127,18 +132,22 @@ NSString *EnabledKey = @"Enabled";
             showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:EnabledKey] boolValue];
         }
         
-        if (showBottomTableOfContents) {
-
-            _bottomTocView = [[PCTocView bottomTocViewWithFrame:self.bounds] retain];
-            _bottomTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-            _bottomTocView.statesDelegate = self;
-            _bottomTocView.gridView.dataSource = self;
-            _bottomTocView.gridView.delegate = self;
-            [self addSubview:_bottomTocView];
-            [_bottomTocView transitToState:RRViewStateHidden animated:NO];
-            [_bottomTocView.gridView reloadData];
+            
+#ifdef TEST
+            if (YES) {
+#else
+            if (showBottomTableOfContents) {
+#endif
+                _bottomTocView = [[PCTocView bottomTocViewWithFrame:self.bounds] retain];
+                _bottomTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+                _bottomTocView.statesDelegate = self;
+                _bottomTocView.gridView.dataSource = self;
+                _bottomTocView.gridView.delegate = self;
+                [self addSubview:_bottomTocView];
+                [_bottomTocView transitToState:RRViewStateHidden animated:NO];
+                [_bottomTocView.gridView reloadData];
+            }
         }
-    }
     
     return self;
 }
@@ -255,7 +264,23 @@ NSString *EnabledKey = @"Enabled";
     
     return NO;
 }
+        
+- (void)setTopTocView:(PCTocView *)topTocView
+{
+    if (_topTocView != topTocView) {
+        [_topTocView release];
+        _topTocView = [topTocView retain];
+    }
+}
 
+- (void)setBottomTocView:(PCTocView *)bottomTocView
+{
+    if (_bottomTocView != bottomTocView) {
+        [_bottomTocView release];
+        _bottomTocView = [bottomTocView retain];
+    }
+}
+        
 #pragma mark - PCGridViewDelegate
 
 - (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index;
@@ -678,12 +703,12 @@ NSString *EnabledKey = @"Enabled";
     } else if (view == _topTocView) {
         switch (state) {
             case RRViewStateActive:
-                [self setTopBarViewVisibleAnimated:YES];
+                [_topBarView transitToState:RRViewStateVisible animated:YES];
                 [self setTopTocViewActiveAnimated:YES];
                 break;
                 
             case RRViewStateVisible:
-                [self setTopBarViewHiddenAnimated:YES];
+                [_topBarView transitToState:RRViewStateHidden animated:YES];
                 [self setTopTocViewVisibleAnimated:YES];
                 break;
                 

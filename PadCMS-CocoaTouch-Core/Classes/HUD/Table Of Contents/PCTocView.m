@@ -150,6 +150,12 @@ typedef enum _PCTocViewPosition {
     return CGPointZero;
 }
 */
+
+- (void)tapButton
+{
+    [self buttonTapped:_button];
+}
+
 #pragma mark - private methods
 
 - (void)buttonTapped:(UIButton *)button

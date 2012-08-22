@@ -35,6 +35,6 @@
 @property (readonly, nonatomic) PCHudView *hudView;
 
 - (void)update;
-- (void)handleTap;
+- (void)tap;
 
 @end

@@ -15,6 +15,9 @@
 #import "PCTocItem.h"
 #import "PCTopBarView.h"
 
+#define VerticalTocDownloadedNotification @"endOfDownloadingTocNotification"
+#define HorizontalTocDownloadedNotification @"PCHorizontalTocDidDownloadNotification"
+
 @interface RRHudController ()
 {
     PCRevision *_revision;
@@ -39,11 +42,11 @@
 - (void)dealloc
 {
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:endOfDownloadingTocNotification
+                                                    name:VerticalTocDownloadedNotification
                                                   object:nil];
     
     [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:PCHorizontalTocDidDownloadNotification
+                                                    name:HorizontalTocDownloadedNotification
                                                   object:nil];
     
     [super dealloc];
@@ -62,11 +65,11 @@
         
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(tocDownloaded:)
-                                                     name:endOfDownloadingTocNotification
+                                                     name:VerticalTocDownloadedNotification
                                                    object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(tocDownloaded:)
-                                                     name:PCHorizontalTocDidDownloadNotification
+                                                     name:HorizontalTocDownloadedNotification
                                                    object:nil];
 
     }
@@ -124,15 +127,11 @@
     [_hudView reloadData];
 }
 
-- (void)handleTap
+- (void)tap
 {
     if (_revision == nil) {
         return;
     }
-    
-//    if (_shareView != nil) {
-//        [_shareView dismiss];
-//    }
     
     if (_hudView.summaryView != nil) {
         [_hudView hideSummaryAnimated:YES];

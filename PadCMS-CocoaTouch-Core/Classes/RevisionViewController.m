@@ -627,7 +627,7 @@
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
-    [_hudController handleTap];
+    [_hudController tap];
     /*
     if (_shareView != nil) {
         [_shareView dismiss];
