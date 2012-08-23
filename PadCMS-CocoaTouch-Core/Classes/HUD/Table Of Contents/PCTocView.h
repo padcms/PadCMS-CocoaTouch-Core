@@ -61,14 +61,9 @@
  */
 @property (readonly, nonatomic) PCGridView *gridView;
 
-///**
-// @brief Returns the center of the view for the specified state and containing view bounds.
-// @param The state of the toc view object.
-// @param The bounds of the container view.
-// @return The CGPoint structure that specifies the center of the toc view object.
-// */
-//- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
-
+/**
+ @brief Tap button to change current toc view state.
+ */
 - (void)tapButton;
 
 /**

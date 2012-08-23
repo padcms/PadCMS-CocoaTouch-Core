@@ -208,39 +208,8 @@
             [self delegateDismissAllPopups];
         }
     }
+}
 
-    /*
-    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
-        
-        if (_hudView.bottomTocView != nil) {
-            if (_hudView.bottomTocView.state == RRViewStateVisible) {
-                [_hudView.bottomTocView transitToState:RRViewStateHidden animated:YES];
-                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
-            } else {
-                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
-                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
-            }
-        }
-    } else {
-        
-        if (_hudView.topBarView.state == RRViewStateHidden) {
-            [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
-        } else {
-            [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
-        }
-    }
-    
-    if (_hudView.summaryView != nil) {
-        [_hudView hideSummaryAnimated:YES];
-    }
-    */
-}
-/*
-- (void)handleRotationToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
-{
-    [self updateHud];
-}
-*/
 #pragma mark - PCHudViewDataSource
 
 - (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView

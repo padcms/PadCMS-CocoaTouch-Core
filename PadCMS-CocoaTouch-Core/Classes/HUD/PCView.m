@@ -61,7 +61,6 @@
 {
     if (_state != state) {
         _state = state;
-//        [self viewTransitToState:_state animated:animated];
     }
     [self viewTransitToState:_state animated:animated];
 }
