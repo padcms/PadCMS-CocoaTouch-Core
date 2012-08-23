@@ -248,8 +248,8 @@
 	for (PageElementViewController* elementController in self.visibleElementControllers) {
 		if (elementController.element == downloadedElement)
 		{
-			[elementController.elementView removeFromSuperview];
-			elementController.elementView = nil;
+//			[elementController.elementView removeFromSuperview];
+//			elementController.elementView = nil;
 			[_slideScrollView addSubview:elementController.elementView];
 			elementController.elementView.scrollView.bounds = _slideScrollView.frame;
 			
