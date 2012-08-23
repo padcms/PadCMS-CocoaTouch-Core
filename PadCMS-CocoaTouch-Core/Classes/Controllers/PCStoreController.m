@@ -781,16 +781,19 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 - (void)revisionViewController:(RevisionViewController *)revisionViewController
 willPresentGalleryViewController:(GalleryViewController *)galleryViewController
 {
-    [revisionViewController presentViewController:galleryViewController
-										 animated:NO
-									   completion:nil];
+    //[revisionViewController presentViewController:galleryViewController 										 animated:NO completion:nil];
+	[revisionViewController.navigationController pushViewController:galleryViewController animated:NO];
 }
 
 - (void)revisionViewController:(RevisionViewController *)revisionViewController
 willDismissGalleryViewController:(GalleryViewController *)galleryViewController
 {
-    [revisionViewController dismissViewControllerAnimated:NO
-											   completion:nil];
+    //[revisionViewController dismissViewControllerAnimated:NO completion:nil];
+	if ([revisionViewController.navigationController.topViewController isKindOfClass:[GalleryViewController class]])
+	{
+		[revisionViewController.navigationController popViewControllerAnimated:NO];
+	}
+	
 }
 
 

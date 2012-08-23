@@ -21,7 +21,6 @@
 #import "PCPageViewController.h"
 #import "PCResourceCache.h"
 #import "PCScrollView.h"
-#import "PCSubscriptionMenuViewController.h"
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
@@ -391,7 +390,8 @@
 			[self showGallery];
 		}
 		else {
-			[self.navigationController popToViewController:self animated:NO];
+			//[self.navigationController popToViewController:self animated:NO];
+			[self galleryViewControllerWillDismiss:nil];
 		}
 	}
 }
@@ -416,13 +416,17 @@
         galleryViewController.delegate = self;
 		[self.navigationController pushViewController:galleryViewController  animated:NO];
 	}*/
-    if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
-        GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
-        galleryViewController.delegate = self;
-        [self.delegate revisionViewController:self
-             willPresentGalleryViewController:galleryViewController];
-    }
-    
+	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
+	{
+		if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
+			GalleryViewController* galleryViewController = [[[GalleryViewController alloc] initWithPage:_currentPageViewController.page] autorelease];
+			galleryViewController.delegate = self;
+			[self.delegate revisionViewController:self
+				 willPresentGalleryViewController:galleryViewController];
+		}
+
+	}
+        
 }
 
 -(void)gotoPage:(PCPage *)page
@@ -683,6 +687,13 @@
 			[alert show];
         }
     }
+}
+
+#pragma mark - PCSubscriptionMenuViewControllerDelegate methods
+
+- (void)subscriptionsMenuButtonWillPressed
+{
+    [_popoverController dismissPopoverAnimated:NO];
 }
 
 @end

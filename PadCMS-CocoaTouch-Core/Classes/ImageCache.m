@@ -77,7 +77,7 @@
         _operations = [[NSMutableDictionary alloc] init];
 		_elementCache = [[NSMutableDictionary alloc] init];
 		_queue = [[NSOperationQueue alloc] init];
-		//_queue.maxConcurrentOperationCount = 1;
+		_queue.maxConcurrentOperationCount = 1;
 		
 		self.callbackQueue = dispatch_queue_create("com.padcms.image.load", NULL);
         		
@@ -124,6 +124,8 @@
 	[[self.elementCache objectForKey:elementIdentifier] setObject:image forKey:[NSNumber numberWithInteger:index]];
 	[image release];
 	
+	
+	
 	NSLog(@"CACHED");
 	
 	
@@ -140,9 +142,12 @@
 		[self.elementCache removeObjectForKey:[NSNumber numberWithInt:pageElement.identifier]];
 	}
 	
-	/*for (PCPageElement* pageElement in page.secondaryElements) {
+	if ([UIScreen mainScreen].scale < 2.0) {
+		return;
+	}
+	for (PCPageElement* pageElement in page.secondaryElements) {
 		[self.elementCache removeObjectForKey:[NSNumber numberWithInt:pageElement.identifier]];
-	}*/
+	}
 }
 
 
@@ -194,7 +199,7 @@
 		for (PCPage* page in self.currentPages) {
 			
 			PCPageElement* backgroundElement = [page firstElementForType:PCPageElementTypeBackground];
-			if (![self.elementCache objectForKey:[NSNumber numberWithInt:backgroundElement.identifier]] && backgroundElement )
+			if (![self.elementCache objectForKey:[NSNumber numberWithInt:backgroundElement.identifier]] && backgroundElement && [backgroundElement.resourceExtension isEqualToString:@"png"] )
 			{
 				NSInteger maxColumn = ceilf(backgroundElement.realImageSize.width / kDefaultTileSize);
 				for (int col = 1; col <=2; ++col) {
@@ -211,7 +216,7 @@
 			
 			
 			PCPageElement* bodyElement = [page firstElementForType:PCPageElementTypeBody];
-			if (![self.elementCache objectForKey:[NSNumber numberWithInt:bodyElement.identifier]] && bodyElement)
+			if (![self.elementCache objectForKey:[NSNumber numberWithInt:bodyElement.identifier]] && bodyElement && [bodyElement.resourceExtension isEqualToString:@"png"])
 			{
 				NSInteger maxColumn = ceilf(bodyElement.realImageSize.width / kDefaultTileSize);
 				for (int col = 1; col <=2; ++col) {
@@ -227,7 +232,7 @@
 			}
 			
 			PCPageElement* scrollElement = [page firstElementForType:PCPageElementTypeScrollingPane];
-			if (![self.elementCache objectForKey:[NSNumber numberWithInt:scrollElement.identifier]] && scrollElement)
+			if (![self.elementCache objectForKey:[NSNumber numberWithInt:scrollElement.identifier]] && scrollElement && [scrollElement.resourceExtension isEqualToString:@"png"])
 			{
 				
 				
@@ -244,6 +249,31 @@
 				}
 				
 			}
+			
+			if ([UIScreen mainScreen].scale < 2.0) {
+				continue;
+			}
+			NSArray* slideElements = [page elementsForType:PCPageElementTypeSlide];
+			for (PCPageElement* element in slideElements) {
+				if (![self.elementCache objectForKey:[NSNumber numberWithInt:element.identifier]] && element  && [element.resourceExtension isEqualToString:@"png"])
+				{
+					
+					
+					NSInteger maxColumn = ceilf(element.realImageSize.width / kDefaultTileSize);
+					for (int col = 1; col <=2; ++col) {
+						for (int row = 1; row <=2; ++row) {
+							NSInteger index = (row - 1) * maxColumn + col;
+							NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+								[self storeTileForElement:element withIndex:index];
+							}];
+							[self.queue addOperation:operation];
+						}
+						
+					}
+					
+				}
+			}
+			
 			
 			
 /*			
@@ -302,7 +332,8 @@
 
 -(void)clearMemoryForElement:(PCPageElement *)element withIndex:(NSUInteger)index
 {
-	
+	NSNumber* elementIdentifier = [NSNumber numberWithInt:element.identifier];
+	[[self.elementCache objectForKey:elementIdentifier] removeObjectForKey:[NSNumber numberWithInteger:index]];
 }
 
 @end

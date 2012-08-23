@@ -16,13 +16,21 @@
 #import "PCVideoManager.h"
 #import "MBProgressHUD.h"
 
+#define kDefaultCacheDeepness 2;
+
 @interface PageElementViewController ()
 {
 	MBProgressHUD* HUD;
+	NSInteger _firstNeededRow;
+	NSInteger _lastNeededRow;
+	NSInteger _firstNeededCol;
+	NSInteger _lastNeededCol;
+	
 }
 @property (readonly) float scale;
 @property (nonatomic, readonly) NSString* fullPathToContent;
 @property (nonatomic, readonly) CGRect elementFrame;
+
 @end
 
 @implementation PageElementViewController
@@ -30,6 +38,7 @@
 @synthesize scale=_scale;
 @synthesize element=_element;
 @synthesize elementFrame=_elementFrame;
+@synthesize cachedTiles=_cachedTiles;
 
 -(id)initWithElement:(PCPageElement *)element andFrame:(CGRect)elementFrame
 {
@@ -38,6 +47,11 @@
         _element = [element retain];
 		_scale = [UIScreen mainScreen].scale;
 		_elementFrame = elementFrame;
+		_cachedTiles = [[NSMutableSet alloc] init];
+		_firstNeededCol = 0;
+		_lastNeededCol = 0;
+		_firstNeededRow = 0;
+		_lastNeededRow = 0;
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCGalleryElementDidDownloadNotification object:self.element];
 		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateElement:) name:PCMiniArticleElementDidDownloadNotification object:self.element];
     }
@@ -52,6 +66,7 @@
 	[_elementView removeFromSuperview];
 	[_element release], _element = nil;
 	[_elementView release], _elementView = nil;
+	[_cachedTiles release], _cachedTiles = nil;
 	[super dealloc];
 }
 
@@ -103,7 +118,11 @@
 		CGSize scrollContentSize = [self.element realImageSize]; 
 		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
 		_elementView.dataSource = self;
-		//_elementView.tiledScrollViewDelegate = self;
+		if ([_element.resourceExtension isEqualToString:@"png"])
+		{
+			_elementView.tiledScrollViewDelegate = self;
+		}
+		
 		
 		_elementView.zoomScale = 1.0f;
 		
@@ -111,6 +130,27 @@
 		_elementView.levelsOfZoom = 1;
 		_elementView.levelsOfDetail = 2;
 		_elementView.scrollView.maximumZoomScale = 1.0;
+		if (_element.isComplete && [_element.resourceExtension isEqualToString:@"png"])
+		{
+			NSInteger maxColumn = ceilf(_element.realImageSize.width / kDefaultTileSize);
+			for (int col = 1; col <=2; ++col) {
+				for (int row = 1; row <=2; ++row) {
+					NSInteger index = (row - 1) * maxColumn + col;
+					[_cachedTiles addObject:[NSNumber numberWithInt:index]];
+				}
+			}
+			
+			[self cacheTilesForBounds:_elementView.scrollView.bounds];
+			
+			
+			
+		}
+		if ([_element.resourceExtension isEqualToString:@"jpg"])
+		{
+			_elementView.opaque = YES;
+			_elementView.tiledView.opaque = YES;
+			_elementView.scrollView.opaque = YES;
+		}
 		if (isShowHud) [self showHUD];
 		
 	
@@ -180,23 +220,28 @@
 	return badQualityimage;*/
 	/*UIImage* image = [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
 	return image;*/
+//---------------------------------------------------------------------------------------------	
 	
-		
-	ImageCache* cache = [ImageCache sharedImageCache];
-	 NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
-	UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
-	if (goodQualityImage)
+	if ([_element.resourceExtension isEqualToString:@"png"])
 	{
-//		NSLog(@"HIT!!!!");
-		return goodQualityImage;
+		ImageCache* cache = [ImageCache sharedImageCache];
+		NSInteger index = [_element tileIndexForResource:[NSString stringWithFormat:@"resource_%d_%d", row + 1, column + 1]];
+		UIImage* goodQualityImage = [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+		if (goodQualityImage)
+		{
+			NSLog(@"HIT!!!!");
+			
+			return goodQualityImage;
+			
+		}
 		
+		NSLog(@"MISS!!!");
 	}
 	
-//	NSLog(@"MISS!!!");
 //	[cache storeTileForElement:_element withIndex:index];
 //	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
-	return [UIImage imageWithContentsOfFile:[NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1]];
-	
+	return [UIImage imageWithContentsOfFile:[[NSString stringWithFormat:@"%@/resource_%d_%d", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1] stringByAppendingPathExtension:_element.resourceExtension]];
+//---------------------------------------------------------------------------------------------		
 	
 	//setNeedDisplay withoy badQualities
 /*	ImageCache* cache = [ImageCache sharedImageCache];
@@ -247,15 +292,79 @@
 
 -(void)tiledScrollViewDidScroll:(JCTiledScrollView *)scrollView
 {
-	CGRect visibleBounds = scrollView.scrollView.bounds;
-	
-	int firstNeededRow = floorf(CGRectGetMinY(visibleBounds) / CGRectGetHeight(visibleBounds));
-	int lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / CGRectGetHeight(visibleBounds));
+	if ([UIScreen mainScreen].scale < 2.0) {
+		return;
+	}
+	[self cacheTilesForBounds:scrollView.scrollView.bounds];
+}
 
-	int firstNeededCol = floorf(CGRectGetMinX(visibleBounds) / CGRectGetWidth(visibleBounds));
-	int lastNeededCol  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
+-(void)cacheTilesForBounds:(CGRect)bounds
+{
+	if ([UIScreen mainScreen].scale < 2.0) {
+		return;
+	}
+	CGRect visibleBounds = bounds;
+	NSInteger maxColumn = ceilf(self.element.realImageSize.width / kDefaultTileSize);
+	NSInteger maxRow = ceilf(self.element.realImageSize.height / kDefaultTileSize);
 	
-	NSLog(@"Colums - %d ... %d, Rows - %d ... %d", firstNeededCol, lastNeededCol, firstNeededRow, lastNeededRow);
+	int firstNeededRow = floorf(CGRectGetMinY(visibleBounds) / kDefaultTileSize) + 1;
+	firstNeededRow-=kDefaultCacheDeepness;
+	firstNeededRow = MAX(firstNeededRow, 1);
+	int lastNeededRow  = floorf((CGRectGetMaxY(visibleBounds)) / kDefaultTileSize) + 1;
+	lastNeededRow+=kDefaultCacheDeepness;
+	lastNeededRow = MIN(lastNeededRow, maxRow);
+	int firstNeededCol = floorf(CGRectGetMinX(visibleBounds) / kDefaultTileSize) + 1;
+	firstNeededCol-=kDefaultCacheDeepness;
+	firstNeededCol = MAX(firstNeededCol, 1);
+	int lastNeededCol  = floorf((CGRectGetMaxX(visibleBounds)) / kDefaultTileSize) + 1;
+	lastNeededCol+=kDefaultCacheDeepness;
+	lastNeededCol = MIN(lastNeededCol, maxColumn);
+	if (firstNeededCol != _firstNeededCol || lastNeededCol != _lastNeededCol || firstNeededRow != _firstNeededRow || lastNeededRow != _lastNeededRow)
+	{
+		_firstNeededRow = firstNeededRow;
+		_lastNeededRow = lastNeededRow;
+		_firstNeededCol = firstNeededCol;
+		_lastNeededCol = lastNeededCol;
+	}
+	else {
+		return;
+	}
+	NSLog(@"Colums - %d ... %d, Rows - %d ... %d, maxc - %d, maxr - %d", firstNeededCol, lastNeededCol, firstNeededRow, lastNeededRow, maxColumn, maxRow);
+	//	NSLog(@"CURRENT - %@", _cachedTiles);
+	NSMutableSet* newSet = [[NSMutableSet alloc] init];
+	NSMutableSet* oldSet = [[NSMutableSet alloc] initWithSet:_cachedTiles copyItems:YES];
+	for (int row = firstNeededRow; row <= lastNeededRow; ++row) {
+		for (int col = firstNeededCol; col <= lastNeededCol; ++col) {
+			NSUInteger index = (row - 1) * maxColumn + col;
+			[newSet addObject:[NSNumber numberWithInteger:index]];
+			
+		}
+	}
+	//	NSLog(@"NEW - %@", newSet);
+	self.cachedTiles = [[newSet copy] autorelease];;
+	
+	ImageCache* cache = [ImageCache sharedImageCache];
+	[newSet minusSet:oldSet];
+	
+	//	NSLog(@"ADD - %@", newSet);
+	for (NSNumber* index in newSet) {
+		NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+			[cache storeTileForElement:self.element withIndex:[index integerValue]];
+		}];
+		[cache.queue addOperation:operation];
+	}
+	
+	
+	[oldSet minusSet:_cachedTiles];
+	//NSLog(@"DELETE - %@", oldSet);
+	for (NSNumber* index in oldSet)
+	{
+		[cache clearMemoryForElement:self.element withIndex:[index integerValue]];
+	}
+	[newSet release];
+	[oldSet release];
+	
+	//
 }
 
 
