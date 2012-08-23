@@ -25,14 +25,13 @@
 #import "PCSummaryView.h"
 #import "PCTocView.h"
 #import "PCVideoManager.h"
-#import "RRView.h"
+#import "PCView.h"
 
 @interface RevisionViewController ()
 {
     BOOL _previewMode;
     NSUInteger _horizontalPageIndex;
-    PCHudView *_hudView;
-    RRHudController *_hudController;
+    PCHudController *_hudController;
     PCShareView *_shareView;
     PCFacebookViewController *_facebookViewController;
     PCTwitterNewController *_twitterController;
@@ -46,12 +45,7 @@
 @property (nonatomic, readonly) PCPage* initialPage;
 
 - (void)createHud;
-- (void)updateHud;
 - (void)tapGesture:(UIGestureRecognizer *)recognizer;
-/*
-- (void)verticalTocDownloaded:(NSNotification *)notification;
-- (void)horizontalTocDownloaded:(NSNotification *)notification;
-*/
 - (void)dismiss;
 
 @end
@@ -106,14 +100,6 @@
 
 -(void)dealloc
 {
-    /*
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:endOfDownloadingTocNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:PCHorizontalTocDidDownloadNotification
-                                                  object:nil];
-    */
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:UIDeviceOrientationDidChangeNotification object:nil];
 	[topSummaryView release];
 
@@ -127,88 +113,15 @@
 
 - (void)createHud
 {
-//    _hudView = [[PCHudView alloc] initWithFrame:self.view.bounds];
-//    _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-//    _hudView.dataSource = self;
-//    _hudView.delegate = self;
-//    _hudView.topBarView.delegate = self;
-//    [self.view addSubview:_hudView];
-//    [self updateHud];
-    
-    _hudController = [[RRHudController alloc] init];
+    _hudController = [[PCHudController alloc] init];
     _hudController.revision = _revision;
+    _hudController.previewMode = _previewMode;
     _hudController.delegate = self;
-//    _hudController.hudView.dataSource = self;
-//    _hudController.hudView.delegate = self;
-//    _hudController.hudView.topBarView.delegate = self;
     _hudController.hudView.frame = self.view.bounds;
     _hudController.hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth |
     UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_hudController.hudView];
     [_hudController update];
-}
-
-- (void)updateHud
-{
-    [_hudController update];
-    /*
-    if (_hudView == nil) {
-        return;
-    }
-
-    if (_hudView.topTocView != nil) {
-        if (_previewMode) {
-            [_hudView.topTocView transitToState:RRViewStateHidden animated:NO];
-            [_hudView.topBarView transitToState:RRViewStateHidden animated:NO];
-        } else {
-            [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
-        }
-    }
-    
-    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
-        
-        if (_hudView.bottomTocView != nil) {
-            
-            if (_hudView.topBarView.state == RRViewStateVisible) {
-                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
-            }
-        }
-        
-        if (UIInterfaceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            [_hudView.topBarView setSummaryButtonHidden:NO animated:NO];
-        } else {
-            [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
-        }
-        
-    } else {
-        
-        if (_hudView.bottomTocView != nil) {
-            [_hudView.bottomTocView transitToState:RRViewStateHidden animated:NO];
-        }
-        [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
-    }
-    
-    [_hudView reloadData];
-*/
-}
-
-- (void)viewWillAppear:(BOOL)animated
-{
-    if (_contentScrollView == nil) {
-        
-    
-        if (_hudView != nil) {
-            [self.view bringSubviewToFront:_hudView];
-            
-            if (UIDeviceOrientationIsLandscape([UIApplication sharedApplication].statusBarOrientation)) {
-                [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
-            }
-        }
-    }
-
-    
-    
-    [super viewWillAppear:animated];
 }
 
 - (void)viewDidLoad
@@ -243,16 +156,6 @@
     [self.view addGestureRecognizer:tapGestureRecognizer];
 
     [self createHud];
-    /*
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(verticalTocDownloaded:)
-                                                 name:endOfDownloadingTocNotification
-                                               object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(horizontalTocDownloaded:)
-                                                 name:PCHorizontalTocDidDownloadNotification
-                                               object:nil];
-    */
 }
 
 - (void)viewDidUnload
@@ -471,21 +374,7 @@
 	if (_currentInterfaceOrientation == (UIInterfaceOrientation)orientation) return;
 	_currentInterfaceOrientation = (UIInterfaceOrientation)orientation;
 	
-	
-//	[_hudView reloadData];
     [_hudController update];
-	
-    if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-        if (_revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
-            [_hudView.topBarView setSummaryButtonHidden:NO animated:YES];
-        } else {
-            [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
-        }
-    } else {
-        [_hudView.topBarView setSummaryButtonHidden:YES animated:YES];
-        [_hudView hideSummaryAnimated:YES];
-    }
-
 		
 	if (_currentPageViewController.page.onRotatePage) {
 		[self gotoPage:_currentPageViewController.page.onRotatePage];
@@ -506,20 +395,6 @@
 		}
 	}
 }
-
-/*-(void)didRotateFromInterfaceOrientation:(UIInterfaceOrientation)fromInterfaceOrientation
-{
-	[self deviceOrientationDidChange];
-}*/
-
-/*- (void)dismissVideo
-{
-    if (_videoManager)
-    {
-        [_videoManager dismissVideo];
-        [_videoManager release], _videoManager = nil;
-    }
-}*/
 
 #pragma mark - GalleryViewControllerDelegate
 
@@ -628,67 +503,7 @@
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
     [_hudController tap];
-    /*
-    if (_shareView != nil) {
-        [_shareView dismiss];
-    }
-    
-    if (_hudView.summaryView != nil) {
-        [_hudView hideSummaryAnimated:YES];
-    }
-    
-    if (_hudView.topTocView != nil) {
-        
-        if (_previewMode) {
-            
-            if (_hudView.topBarView.state == RRViewStateVisible) {
-                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
-            } else {
-                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
-            }
-        } else {
-            if (_hudView.bottomTocView.state == RRViewStateVisible) {
-                [_hudView.topTocView transitToState:RRViewStateActive animated:YES];
-            } else {
-                [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
-            }
-        }
-        
-        return;
-    }
-    
-    if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
-
-        if (_hudView.bottomTocView != nil) {
-            if (_hudView.bottomTocView.state == RRViewStateVisible) {
-                [_hudView.bottomTocView transitToState:RRViewStateHidden animated:YES];
-                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
-            } else {
-                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
-                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
-            }
-        }
-    } else {
-        
-        if (_hudView.topBarView.state == RRViewStateHidden) {
-            [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
-        } else {
-            [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
-        }
-    }
-    */
 }
-/*
-- (void)verticalTocDownloaded:(NSNotification *)notification
-{
-    [self updateHud];
-}
-
- - (void)horizontalTocDownloaded:(NSNotification *)notification
-{
-    [self updateHud];
-}
- */
 
 #pragma mark - UIGestureRecognizerDelegate
 
@@ -701,155 +516,16 @@
     
     return YES;
 }
-/*
-#pragma mark - PCHudViewDataSource
-
-- (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView
-{
-    if (tocView == hudView.topTocView.gridView) {
-        return CGSizeMake(150, self.view.bounds.size.height / 2);
-    } else if (tocView == hudView.bottomTocView.gridView) {
-        if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
-            return CGSizeMake(150, 340);
-        } else {
-            return CGSizeMake(250, 192);
-        }
-    } else if (tocView == hudView.summaryView.gridView) {
-        return CGSizeMake(314, 100);
-    }
-    
-    return CGSizeZero;
-}
-
-- (UIImage *)hudView:(PCHudView *)hudView summaryImageForIndex:(NSUInteger)index
-{
-    NSArray *tocItems = _revision.validVerticalTocItems;
-    
-    if (tocItems != nil && tocItems.count > index) {
-        PCTocItem *tocItem = [tocItems objectAtIndex:index];
-        
-        PCResourceCache *cache = [PCResourceCache defaultResourceCache];
-        NSString *imagePath = [_revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbSummary];
-        UIImage *image = [cache objectForKey:imagePath];
-        if (image == nil) {
-            image = [UIImage imageWithContentsOfFile:imagePath];
-            [cache setObject:image forKey:imagePath];
-        }
-        
-        return image;
-    }
-    
-    return nil;
-}
-
-- (NSString *)hudView:(PCHudView *)hudView summaryTextForIndex:(NSUInteger)index
-{
-    NSArray *tocItems = _revision.validVerticalTocItems;
-    
-    if (tocItems != nil && tocItems.count > index) {
-        PCTocItem *tocItem = [tocItems objectAtIndex:index];
-        return tocItem.title;
-    }
-    
-    return nil;
-}
-
-
-- (UIImage *)hudView:(PCHudView *)hudView tocImageForIndex:(NSUInteger)index
-{
-    PCTocItem *tocItem = nil;
-    
-    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
-        [_revision supportsInterfaceOrientation:currentOrientation] &&
-        _revision.horizontalMode) {
-        tocItem = [_revision.validHorizontalTocItems objectAtIndex:index];
-    } else {
-        tocItem = [_revision.validVerticalTocItems objectAtIndex:index];
-    }
-    
-    PCResourceCache *cache = [PCResourceCache defaultResourceCache];
-    
-    NSString *imagePath = [_revision.contentDirectory stringByAppendingPathComponent:tocItem.thumbStripe];
-    
-    UIImage *image = [cache objectForKey:imagePath];
-    
-    if (image == nil) {
-        image = [UIImage imageWithContentsOfFile:imagePath];
-        [cache setObject:image forKey:imagePath];
-    }
-    
-    return image;
-}
-
-- (NSUInteger)hudViewTocItemsCount:(PCHudView *)hudView
-{
-    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
-        [_revision supportsInterfaceOrientation:currentOrientation] &&
-        _revision.horizontalMode) {
-        if (_revision.horizontalTocLoaded) {
-            return _revision.validHorizontalTocItems.count;
-        }
-    } else {
-        if (_revision.verticalTocLoaded) {
-            return _revision.validVerticalTocItems.count;
-        }
-    }
-    
-    return 0;
-}
-*/
-/*
-#pragma mark - PCHudViewDelegate
-
-- (void)hudView:(PCHudView *)hudView didSelectIndex:(NSUInteger)index
-{
-    UIInterfaceOrientation currentOrientation = [UIApplication sharedApplication].statusBarOrientation;
-    if (UIInterfaceOrientationIsLandscape(currentOrientation) &&
-        [_revision supportsInterfaceOrientation:currentOrientation] &&
-        _revision.horizontalMode) {
-        PCTocItem *tocItem = [_revision.validHorizontalTocItems objectAtIndex:index];
-        NSArray *revisionPages = _revision.pages;
-        for (PCPage *page in revisionPages) {
-            if (page.identifier == tocItem.firstPageIdentifier) {
-                [self gotoPage:page];
-                break;
-            }
-        }
-    } else {
-        PCTocItem *tocItem = [_revision.validVerticalTocItems objectAtIndex:index];
-        NSArray *revisionPages = _revision.pages;
-        for (PCPage *page in revisionPages) {
-            if (page.identifier == tocItem.firstPageIdentifier) {
-                [self gotoPage:page];
-                break;
-            }
-        }
-    }
-    
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
-        [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
-    }
-    
-    if (_hudView.bottomTocView != nil && _hudView.bottomTocView.state == RRViewStateActive) {
-        [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
-    }
-
-    [_hudView hideSummaryAnimated:YES];
-}
-*/
-
 #pragma mark - RRHudControllerDelegate
 
-- (void)hudControllerDismissAllPopups:(RRHudController *)hudController
+- (void)hudControllerDismissAllPopups:(PCHudController *)hudController
 {
     if (_shareView != nil && _shareView.presented) {
         [_shareView dismiss];
     }
 }
 
-- (void)hudController:(RRHudController *)hudController selectedTocItem:(PCTocItem *)tocItem
+- (void)hudController:(PCHudController *)hudController selectedTocItem:(PCTocItem *)tocItem
 {
     NSArray *revisionPages = _revision.pages;
     for (PCPage *page in revisionPages) {
@@ -860,17 +536,13 @@
     }
 }
 
-- (void)hudController:(RRHudController *)hudController topBarView:(PCTopBarView *)topBarView
+- (void)hudController:(PCHudController *)hudController topBarView:(PCTopBarView *)topBarView
          buttonTapped:(UIButton *)button
 {
     if (button == topBarView.backButton) {
         [self dismiss];
     } else if (button == topBarView.summaryButton) {
-        if (_hudView.summaryView.hidden) {
-            [_hudView showSummaryInView:self.view atPoint:button.center animated:YES];
-        } else {
-            [_hudView hideSummaryAnimated:YES];
-        }
+        // nothing
     } else if (button == topBarView.subscriptionsButton) {
         if (!_subscriptionsMenuController)
             _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
@@ -891,51 +563,7 @@
     }
 }
 
-/*
-#pragma makr - PCTopBarViewDelegate
-
-- (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
-{
-    [self dismiss];
-}
-
-- (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button
-{
-    if (_hudView.summaryView.hidden) {
-        [_hudView showSummaryInView:self.view atPoint:button.center animated:YES];
-    } else {
-        [_hudView hideSummaryAnimated:YES];
-    }
-}
-
-- (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button
-{
-    if (!_subscriptionsMenuController)
-        _subscriptionsMenuController = [[PCSubscriptionMenuViewController alloc] initWithSubscriptionFlag:[self.revision.issue.application hasIssuesProductID]];
-    if (!_popoverController)
-        _popoverController = [[UIPopoverController alloc] initWithContentViewController:_subscriptionsMenuController];   
-    [_popoverController presentPopoverFromRect:button.frame inView:self.view permittedArrowDirections:UIPopoverArrowDirectionUp animated:YES];
-}
-
-- (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button
-{
-    if (_shareView == nil) {
-        _shareView = [[PCShareView configuredShareView] retain];
-        _shareView.delegate = self;
-    }
-    
-    if (_shareView.presented) {
-        [_shareView dismiss];
-    } else {
-        [_shareView presentInView:self.view atPoint:button.center];
-    }
-}
-
-- (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button
-{
-}
-
-- (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
+- (void)hudController:(PCHudController *)hudController topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
 {
 	NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
 	PCSearchViewController* searchViewController = [[PCSearchViewController alloc] initWithNibName:@"PCSearchViewController" bundle:bundle];
@@ -945,12 +573,8 @@
 	[self.navigationController pushViewController:searchViewController animated:NO];
 	
 	[searchViewController release];
-
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
-        [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
-    }
 }
-*/
+
 #pragma mark - delegate methods
 - (void)dismiss
 {

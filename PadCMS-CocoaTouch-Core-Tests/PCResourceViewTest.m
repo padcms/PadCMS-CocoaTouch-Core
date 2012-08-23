@@ -1,6 +1,6 @@
 //
 //  PCResourceViewTest.m
-//  PadCMS-CocoaTouch-Core
+//  Pad CMS
 //
 //  Created by Maxim Pervushin on 7/30/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)

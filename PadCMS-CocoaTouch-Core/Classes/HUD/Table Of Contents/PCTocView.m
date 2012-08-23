@@ -160,14 +160,14 @@ typedef enum _PCTocViewPosition {
 
 - (void)buttonTapped:(UIButton *)button
 {
-    if (self.state == RRViewStateInvalid || self.state == RRViewStateHidden) {
+    if (self.state == PCViewStateInvalid || self.state == PCViewStateHidden) {
         return;
     }
     
-    if (self.state == RRViewStateActive) {
-        [self transitToState:RRViewStateVisible animated:YES];
+    if (self.state == PCViewStateActive) {
+        [self transitToState:PCViewStateVisible animated:YES];
     } else {
-        [self transitToState:RRViewStateActive animated:YES];
+        [self transitToState:PCViewStateActive animated:YES];
     }
 }
 

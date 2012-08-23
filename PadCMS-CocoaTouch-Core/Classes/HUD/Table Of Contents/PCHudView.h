@@ -37,7 +37,7 @@
 
 #import "PCGridView.h"
 #import "PCTocView.h"
-#import "RRView.h"
+#import "PCView.h"
 
 @class PCHudView;
 @class PCTopBarView;
@@ -124,7 +124,7 @@
 /**
  @brief PCGridView cell for displaying table of contents element.
  */ 
-@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, /*PCTocViewDelegate, */RRViewDelegate>
+@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, /*PCTocViewDelegate, */PCViewDelegate>
 
 /**
  @brief The object that acts as the delegate of the receiving HUD view.

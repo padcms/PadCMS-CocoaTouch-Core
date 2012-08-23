@@ -36,40 +36,18 @@
 #import <GHUnitIOS/GHUnit.h>
 #import "OCMock.h"
 
-#import "RRHudController.h"
+#import "PCHudController.h"
+#import "PCHudView+Test.h"
+#import "PCRevisionMock.h"
+
 
 #define VerticalTocDownloadedNotification @"endOfDownloadingTocNotification"
 #define HorizontalTocDownloadedNotification @"PCHorizontalTocDidDownloadNotification"
 
-@interface PCHudView (Test)
 
-- (void)setTopTocView:(PCTocView *)topTocView;
-- (void)setBottomTocView:(PCTocView *)bottomTocView;
-
-@end
-
-
-@interface PCRevisionMock : NSObject
-
-@property (readonly, nonatomic) BOOL verticalTocLoaded;
-@property (readonly, nonatomic) BOOL horizontalTocLoaded;
-@property (readonly, nonatomic) NSArray *validVerticalTocItems;
-@property (readonly, nonatomic) NSArray *validHorizontalTocItems;
-
-@end
-
-@implementation PCRevisionMock
-@synthesize verticalTocLoaded;
-@synthesize horizontalTocLoaded;
-@synthesize validVerticalTocItems;
-@synthesize validHorizontalTocItems;
-
-@end
-
-
-@interface RRHudControllerTest : GHTestCase
+@interface PCHudControllerTest : GHTestCase
 {
-    RRHudController *_hudController;
+    PCHudController *_hudController;
     PCTocView *_topTocView;
     PCTocView *_bottomTocView;
     id _revisionMock;
@@ -80,11 +58,11 @@
 @end
 
 
-@implementation RRHudControllerTest
+@implementation PCHudControllerTest
 
 - (void)setUp
 {
-    _hudController = [[RRHudController alloc] init];
+    _hudController = [[PCHudController alloc] init];
     _topTocView = [_hudController.hudView.topTocView retain];
     _bottomTocView = [_hudController.hudView.bottomTocView retain];
     _revisionMock = [[OCMockObject mockForClass:PCRevisionMock.class] retain];
@@ -129,9 +107,9 @@
      3. Bottom toc view should be initially hidden.
      */
     
-    GHAssertEquals(_hudController.hudView.topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(_hudController.hudView.topTocView.state, RRViewStateHidden, nil);
-    GHAssertEquals(_hudController.hudView.bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(_hudController.hudView.topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(_hudController.hudView.topTocView.state, PCViewStateHidden, nil);
+    GHAssertEquals(_hudController.hudView.bottomTocView.state, PCViewStateHidden, nil);
 }
 
 - (void)testBehaviorInPreviewMode
@@ -148,14 +126,14 @@
     [[[_revisionMock stub] andReturnValue:OCMOCK_VALUE(no)] horizontalTocLoaded];
     
     [_hudController tap];
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(topTocView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(topTocView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
     
     [_hudController tap];
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(topTocView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(topTocView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
 
     // In preview mode hud controller should show/hide top bar and should not show top and bottom tocs if the vertical and horizontal tocs of the related revision is loaded.
     BOOL yes = YES;
@@ -163,14 +141,14 @@
     [[[_revisionMock stub] andReturnValue:OCMOCK_VALUE(yes)] horizontalTocLoaded];
     
     [_hudController tap];
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(topTocView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(topTocView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
     
     [_hudController tap];
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(topTocView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(topTocView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
 }
 
 - (void)testTopTocViewBehavior
@@ -179,30 +157,30 @@
     PCTocView *topTocView = _hudController.hudView.topTocView;
     
     _hudController.previewMode = NO;
-    [topTocView transitToState:RRViewStateVisible animated:NO];
+    [topTocView transitToState:PCViewStateVisible animated:NO];
 
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(topTocView.state, RRViewStateVisible, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(topTocView.state, PCViewStateVisible, nil);
     
     [topTocView tapButton];
 
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(topTocView.state, RRViewStateActive, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(topTocView.state, PCViewStateActive, nil);
     
     [topTocView tapButton];
     
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(topTocView.state, RRViewStateVisible, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(topTocView.state, PCViewStateVisible, nil);
 
     [topTocView tapButton];
     
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(topTocView.state, RRViewStateActive, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(topTocView.state, PCViewStateActive, nil);
 
     [_hudController tap];
     
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(topTocView.state, RRViewStateVisible, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(topTocView.state, PCViewStateVisible, nil);
 }
 
 - (void)testBottomTocViewBehavior
@@ -212,30 +190,30 @@
     PCTopBarView *topBarView = _hudController.hudView.topBarView;
     PCTocView *bottomTocView = _hudController.hudView.bottomTocView;
 
-    [topBarView transitToState:RRViewStateHidden animated:NO];
-    [bottomTocView transitToState:RRViewStateHidden animated:NO];
+    [topBarView transitToState:PCViewStateHidden animated:NO];
+    [bottomTocView transitToState:PCViewStateHidden animated:NO];
     
     BOOL no = NO;
     [[[_revisionMock stub] andReturnValue:OCMOCK_VALUE(no)] verticalTocLoaded];
     [[[_revisionMock stub] andReturnValue:OCMOCK_VALUE(no)] horizontalTocLoaded];
 
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
     
     [_hudController tap];
     
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
     
     [_hudController tap];
     
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
 
     [_hudController tap];
     
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
 
     
     id revisionMock = [[OCMockObject niceMockForClass:PCRevisionMock.class] retain];
@@ -250,23 +228,23 @@
     [[NSNotificationCenter defaultCenter] postNotificationName:VerticalTocDownloadedNotification
                                                         object:nil];
     
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateVisible, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateVisible, nil);
     
     [_hudController tap];
     
-    GHAssertEquals(topBarView.state, RRViewStateHidden, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateHidden, nil);
+    GHAssertEquals(topBarView.state, PCViewStateHidden, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateHidden, nil);
     
     [_hudController tap];
     
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateVisible, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateVisible, nil);
     
     [bottomTocView tapButton];
     
-    GHAssertEquals(topBarView.state, RRViewStateVisible, nil);
-    GHAssertEquals(bottomTocView.state, RRViewStateActive, nil);
+    GHAssertEquals(topBarView.state, PCViewStateVisible, nil);
+    GHAssertEquals(bottomTocView.state, PCViewStateActive, nil);
 }
 
 - (void)testPopupsDismission

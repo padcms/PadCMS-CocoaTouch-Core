@@ -35,7 +35,7 @@
 
 #import <UIKit/UIKit.h>
 
-#import "RRView.h"
+#import "PCView.h"
 
 @class PCTopBarView;
 
@@ -103,7 +103,7 @@
  @class PCTopBarView
  @brief An instance of PCTopBarView is a means for top bar view with buttons, search field, and logo.
  */
-@interface PCTopBarView : RRView <UITextFieldDelegate>
+@interface PCTopBarView : PCView <UITextFieldDelegate>
 
 /**
  @brief The object that conforms PCTopBarViewDelegate protocol and acts like delegate.

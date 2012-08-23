@@ -1,8 +1,8 @@
 //
-//  PCTocView.h
-//  PCTocView
+//  PCHudController.h
+//  Pad CMS
 //
-//  Created by Maxim Pervushin on 7/30/12.
+//  Created by Maxim Pervushin on 8/21/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,56 +33,38 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <UIKit/UIKit.h>
+#import <Foundation/Foundation.h>
 
-#import "PCView.h"
+#import "PCHudView.h"
+#import "PCTopBarView.h"
 
-@class PCTocView;
-@class PCGridView;
+@class PCRevision;
+@class PCTocItem;
+@class PCTopBarView;
+@class PCHudController;
 
-/**
- @class PCTocView.
- @brief An instance of PCTocView is a view that represents table of contents or summary.
- */
-@interface PCTocView : PCView
+@protocol RRHudControllerDelegate <NSObject>
 
-/**
- @brief An instance of the UIView that placed behind all other subviews.
- */
-@property (readonly, nonatomic) UIView *backgroundView;
+- (void)hudControllerDismissAllPopups:(PCHudController *)hudController;
+- (void)hudController:(PCHudController *)hudController selectedTocItem:(PCTocItem *)tocItem;
+- (void)hudController:(PCHudController *)hudController
+           topBarView:(PCTopBarView *)topBarView
+         buttonTapped:(UIButton *)button;
+- (void)hudController:(PCHudController *)hudController
+           topBarView:(PCTopBarView *)topBarView
+           searchText:(NSString *)searchText;
 
-/**
- @brief Button that changes toc view state.
- */
-@property (readonly, nonatomic) UIButton *button;
+@end
 
-/**
- @brief preconfigured PCGridView instance that shows toc images and responds to the touches.
- */
-@property (readonly, nonatomic) PCGridView *gridView;
 
-///**
-// @brief Returns the center of the view for the specified state and containing view bounds.
-// @param The state of the toc view object.
-// @param The bounds of the container view.
-// @return The CGPoint structure that specifies the center of the toc view object.
-// */
-//- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
+@interface PCHudController : NSObject <PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate>
 
-- (void)tapButton;
+@property (assign) id<RRHudControllerDelegate> delegate;
+@property (retain, nonatomic) PCRevision *revision;
+@property (assign) BOOL previewMode;
+@property (readonly, nonatomic) PCHudView *hudView;
 
-/**
- @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)topTocViewWithFrame:(CGRect)frame;
-
-/**
- @brief Creates and returns a new toc view object configured to be used as the bottom edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)bottomTocViewWithFrame:(CGRect)frame;
+- (void)update;
+- (void)tap;
 
 @end

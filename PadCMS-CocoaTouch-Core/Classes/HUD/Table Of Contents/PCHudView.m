@@ -93,7 +93,7 @@ NSString *EnabledKey = @"Enabled";
         _topBarView.alpha = 0.75f;
         _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
         _topBarView.statesDelegate = self;
-        [_topBarView transitToState:RRViewStateHidden animated:NO];
+        [_topBarView transitToState:PCViewStateHidden animated:NO];
         [self addSubview:_topBarView];
         
         // configure summary
@@ -121,7 +121,7 @@ NSString *EnabledKey = @"Enabled";
             _topTocView.gridView.delegate = self;
             _topTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
             [self addSubview:_topTocView];
-            [_topTocView transitToState:RRViewStateHidden animated:NO];
+            [_topTocView transitToState:PCViewStateHidden animated:NO];
             [_topTocView.gridView reloadData];
         }
         
@@ -144,7 +144,7 @@ NSString *EnabledKey = @"Enabled";
                 _bottomTocView.gridView.dataSource = self;
                 _bottomTocView.gridView.delegate = self;
                 [self addSubview:_bottomTocView];
-                [_bottomTocView transitToState:RRViewStateHidden animated:NO];
+                [_bottomTocView transitToState:PCViewStateHidden animated:NO];
                 [_bottomTocView.gridView reloadData];
             }
         }
@@ -692,50 +692,50 @@ NSString *EnabledKey = @"Enabled";
 
 #pragma mark - RRViewDelegate
 
-- (void)view:(RRView *)view transitToState:(RRViewState)state animated:(BOOL)animated
+- (void)view:(PCView *)view transitToState:(PCViewState)state animated:(BOOL)animated
 {
     if (view == _topBarView) {
-        if (state == RRViewStateVisible || state == RRViewStateActive) {
+        if (state == PCViewStateVisible || state == PCViewStateActive) {
             [self setTopBarViewVisibleAnimated:animated];
         } else {
             [self setTopBarViewHiddenAnimated:animated];
         }
     } else if (view == _topTocView) {
         switch (state) {
-            case RRViewStateActive:
-                [_topBarView transitToState:RRViewStateVisible animated:YES];
+            case PCViewStateActive:
+                [_topBarView transitToState:PCViewStateVisible animated:YES];
                 [self setTopTocViewActiveAnimated:YES];
                 break;
                 
-            case RRViewStateVisible:
-                [_topBarView transitToState:RRViewStateHidden animated:YES];
+            case PCViewStateVisible:
+                [_topBarView transitToState:PCViewStateHidden animated:YES];
                 [self setTopTocViewVisibleAnimated:YES];
                 break;
                 
-            case RRViewStateHidden:
+            case PCViewStateHidden:
                 [self setTopTocViewHiddenAnimated:YES];
                 break;
                 
-            case RRViewStateInvalid:
+            case PCViewStateInvalid:
             default:
                 [self setTopTocViewHiddenAnimated:NO];
                 break;
         }
     } else if (view == _bottomTocView) {
         switch (state) {
-            case RRViewStateActive:
+            case PCViewStateActive:
                 [self setBottomTocViewActiveAnimated:YES];
                 break;
                 
-            case RRViewStateVisible:
+            case PCViewStateVisible:
                 [self setBottomTocViewVisibleAnimated:YES];
                 break;
                 
-            case RRViewStateHidden:
+            case PCViewStateHidden:
                 [self setBottomTocViewHiddenAnimated:YES];
                 break;
                 
-            case RRViewStateInvalid:
+            case PCViewStateInvalid:
             default:
                 [self setBottomTocViewHiddenAnimated:NO];
                 break;

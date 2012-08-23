@@ -1,8 +1,8 @@
 //
-//  PCTocView.h
-//  PCTocView
+//  PCHudView+Test.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by Maxim Pervushin on 7/30/12.
+//  Created by Maxim Pervushin on 8/22/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,56 +33,10 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <UIKit/UIKit.h>
 
-#import "PCView.h"
+@interface PCHudView (Test)
 
-@class PCTocView;
-@class PCGridView;
-
-/**
- @class PCTocView.
- @brief An instance of PCTocView is a view that represents table of contents or summary.
- */
-@interface PCTocView : PCView
-
-/**
- @brief An instance of the UIView that placed behind all other subviews.
- */
-@property (readonly, nonatomic) UIView *backgroundView;
-
-/**
- @brief Button that changes toc view state.
- */
-@property (readonly, nonatomic) UIButton *button;
-
-/**
- @brief preconfigured PCGridView instance that shows toc images and responds to the touches.
- */
-@property (readonly, nonatomic) PCGridView *gridView;
-
-///**
-// @brief Returns the center of the view for the specified state and containing view bounds.
-// @param The state of the toc view object.
-// @param The bounds of the container view.
-// @return The CGPoint structure that specifies the center of the toc view object.
-// */
-//- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
-
-- (void)tapButton;
-
-/**
- @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)topTocViewWithFrame:(CGRect)frame;
-
-/**
- @brief Creates and returns a new toc view object configured to be used as the bottom edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)bottomTocViewWithFrame:(CGRect)frame;
+- (void)setTopTocView:(PCTocView *)topTocView;
+- (void)setBottomTocView:(PCTocView *)bottomTocView;
 
 @end

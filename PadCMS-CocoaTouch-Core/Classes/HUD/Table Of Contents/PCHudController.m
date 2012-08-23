@@ -1,12 +1,39 @@
 //
-//  RRHudController.m
-//  PadCMS-CocoaTouch-Core
+//  PCHudController.m
+//  Pad CMS
 //
 //  Created by Maxim Pervushin on 8/21/12.
-//  Copyright (c) 2012 Adyax. All rights reserved.
+//  Copyright (c) PadCMS (http://www.padcms.net)
+//
+//
+//  This software is governed by the CeCILL-C  license under French law and
+//  abiding by the rules of distribution of free software.  You can  use,
+//  modify and/ or redistribute the software under the terms of the CeCILL-C
+//  license as circulated by CEA, CNRS and INRIA at the following URL
+//  "http://www.cecill.info".
+//
+//  As a counterpart to the access to the source code and  rights to copy,
+//  modify and redistribute granted by the license, users are provided only
+//  with a limited warranty  and the software's author,  the holder of the
+//  economic rights,  and the successive licensors  have only  limited
+//  liability.
+//
+//  In this respect, the user's attention is drawn to the risks associated
+//  with loading,  using,  modifying and/or developing or reproducing the
+//  software by the user in light of its specific status of free software,
+//  that may mean  that it is complicated to manipulate,  and  that  also
+//  therefore means  that it is reserved for developers  and  experienced
+//  professionals having in-depth computer knowledge. Users are therefore
+//  encouraged to load and test the software's suitability as regards their
+//  requirements in conditions enabling the security of their systems and/or
+//  data to be ensured and,  more generally, to use and operate it in the
+//  same conditions as regards security.
+//
+//  The fact that you are presently reading this means that you have had
+//  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "RRHudController.h"
+#import "PCHudController.h"
 
 #import "PCGridView.h"
 #import "PCResourceCache.h"
@@ -18,7 +45,7 @@
 #define VerticalTocDownloadedNotification @"endOfDownloadingTocNotification"
 #define HorizontalTocDownloadedNotification @"PCHorizontalTocDidDownloadNotification"
 
-@interface RRHudController ()
+@interface PCHudController ()
 {
     PCRevision *_revision;
     BOOL _previewMode;
@@ -30,10 +57,11 @@
 - (void)delegateDismissAllPopups;
 - (void)delegateSelectedTocItem:(PCTocItem *)tocItem;
 - (void)delegateTopBarView:(PCTopBarView *)topBarView buttonTapped:(UIButton *)button;
+- (void)delegateTopBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText;
 
 @end
 
-@implementation RRHudController
+@implementation PCHudController
 @synthesize delegate;
 @synthesize revision = _revision;
 @synthesize previewMode = _previewMode;
@@ -93,10 +121,10 @@
     
     if (_hudView.topTocView != nil) {
         if (_previewMode) {
-            [_hudView.topTocView transitToState:RRViewStateHidden animated:NO];
-            [_hudView.topBarView transitToState:RRViewStateHidden animated:NO];
+            [_hudView.topTocView transitToState:PCViewStateHidden animated:NO];
+            [_hudView.topBarView transitToState:PCViewStateHidden animated:NO];
         } else {
-            [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+            [_hudView.topTocView transitToState:PCViewStateVisible animated:YES];
         }
     }
     
@@ -104,8 +132,8 @@
         
         if (_hudView.bottomTocView != nil) {
             
-            if (_hudView.topBarView.state == RRViewStateVisible) {
-                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
+            if (_hudView.topBarView.state == PCViewStateVisible) {
+                [_hudView.bottomTocView transitToState:PCViewStateVisible animated:YES];
             }
         }
         
@@ -119,7 +147,7 @@
     } else {
         
         if (_hudView.bottomTocView != nil) {
-            [_hudView.bottomTocView transitToState:RRViewStateHidden animated:NO];
+            [_hudView.bottomTocView transitToState:PCViewStateHidden animated:NO];
         }
         [_hudView.topBarView setSummaryButtonHidden:YES animated:NO];
     }
@@ -141,17 +169,18 @@
         
         if (_previewMode) {
             
-            if (_hudView.topBarView.state == RRViewStateVisible) {
-                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
+            if (_hudView.topBarView.state == PCViewStateVisible) {
+                [_hudView.topBarView transitToState:PCViewStateHidden animated:YES];
                 [self delegateDismissAllPopups];
             } else {
-                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+                [_hudView.topBarView transitToState:PCViewStateVisible animated:YES];
             }
         } else {
-            if (_hudView.bottomTocView.state == RRViewStateVisible) {
-                [_hudView.topTocView transitToState:RRViewStateActive animated:YES];
+            if (_hudView.bottomTocView.state == PCViewStateVisible) {
+                [_hudView.topTocView transitToState:PCViewStateActive animated:YES];
             } else {
-                [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+                [_hudView.topTocView transitToState:PCViewStateVisible animated:YES];
+                [self delegateDismissAllPopups];
             }
         }
         
@@ -161,21 +190,21 @@
     if (!_previewMode && _revision.verticalTocLoaded && _revision.horizontalTocLoaded) {
         
         if (_hudView.bottomTocView != nil) {
-            if (_hudView.bottomTocView.state == RRViewStateVisible) {
-                [_hudView.bottomTocView transitToState:RRViewStateHidden animated:YES];
-                [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
+            if (_hudView.bottomTocView.state == PCViewStateVisible) {
+                [_hudView.bottomTocView transitToState:PCViewStateHidden animated:YES];
+                [_hudView.topBarView transitToState:PCViewStateHidden animated:YES];
                 [self delegateDismissAllPopups];
             } else {
-                [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
-                [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+                [_hudView.bottomTocView transitToState:PCViewStateVisible animated:YES];
+                [_hudView.topBarView transitToState:PCViewStateVisible animated:YES];
             }
         }
     } else {
         
-        if (_hudView.topBarView.state == RRViewStateHidden) {
-            [_hudView.topBarView transitToState:RRViewStateVisible animated:YES];
+        if (_hudView.topBarView.state == PCViewStateHidden) {
+            [_hudView.topBarView transitToState:PCViewStateVisible animated:YES];
         } else {
-            [_hudView.topBarView transitToState:RRViewStateHidden animated:YES];
+            [_hudView.topBarView transitToState:PCViewStateHidden animated:YES];
             [self delegateDismissAllPopups];
         }
     }
@@ -330,12 +359,12 @@
         [self delegateSelectedTocItem:tocItem];
     }
     
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == RRViewStateActive) {
-        [_hudView.topTocView transitToState:RRViewStateVisible animated:YES];
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCViewStateActive) {
+        [_hudView.topTocView transitToState:PCViewStateVisible animated:YES];
     }
     
-    if (_hudView.bottomTocView != nil && _hudView.bottomTocView.state == RRViewStateActive) {
-        [_hudView.bottomTocView transitToState:RRViewStateVisible animated:YES];
+    if (_hudView.bottomTocView != nil && _hudView.bottomTocView.state == PCViewStateActive) {
+        [_hudView.bottomTocView transitToState:PCViewStateVisible animated:YES];
     }
     
     [_hudView hideSummaryAnimated:YES];
@@ -354,6 +383,11 @@
     }
     
     [self delegateTopBarView:topBarView buttonTapped:button];
+}
+
+- (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
+{
+    [self delegateTopBarView:topBarView searchText:searchText];
 }
 
 #pragma mark - delegate methods
@@ -380,6 +414,17 @@
 {
     if ([self.delegate respondsToSelector:@selector(hudController:topBarView:buttonTapped:)]) {
         [self.delegate hudController:self topBarView:topBarView buttonTapped:button];
+    }
+}
+
+- (void)delegateTopBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText
+{
+    if ([self.delegate respondsToSelector:@selector(hudController:topBarView:searchText:)]) {
+        [self.delegate hudController:self topBarView:topBarView searchText:searchText];
+    }
+    
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCViewStateActive) {
+        [_hudView.topTocView transitToState:PCViewStateVisible animated:YES];
     }
 }
 

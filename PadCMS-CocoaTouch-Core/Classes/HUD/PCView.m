@@ -1,8 +1,8 @@
 //
-//  PCTocView.h
-//  PCTocView
+//  PCView.m
+//  Pad CMS
 //
-//  Created by Maxim Pervushin on 7/30/12.
+//  Created by Maxim Pervushin on 8/20/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,56 +33,46 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <UIKit/UIKit.h>
-
 #import "PCView.h"
 
-@class PCTocView;
-@class PCGridView;
+@interface PCView ()
+{
+    PCViewState _state;
+}
 
-/**
- @class PCTocView.
- @brief An instance of PCTocView is a view that represents table of contents or summary.
- */
-@interface PCTocView : PCView
+- (void)transitToState:(PCViewState)state animated:(BOOL)animated;
 
-/**
- @brief An instance of the UIView that placed behind all other subviews.
- */
-@property (readonly, nonatomic) UIView *backgroundView;
+@end
 
-/**
- @brief Button that changes toc view state.
- */
-@property (readonly, nonatomic) UIButton *button;
+@implementation PCView
+@synthesize statesDelegate;
+@synthesize state = _state;
 
-/**
- @brief preconfigured PCGridView instance that shows toc images and responds to the touches.
- */
-@property (readonly, nonatomic) PCGridView *gridView;
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self != nil) {
+        _state = PCViewStateInvalid;
+    }
+    return self;
+}
 
-///**
-// @brief Returns the center of the view for the specified state and containing view bounds.
-// @param The state of the toc view object.
-// @param The bounds of the container view.
-// @return The CGPoint structure that specifies the center of the toc view object.
-// */
-//- (CGPoint)centerForState:(PCTocViewState)state containerBounds:(CGRect)containerBounds;
+- (void)transitToState:(PCViewState)state animated:(BOOL)animated
+{
+    if (_state != state) {
+        _state = state;
+//        [self viewTransitToState:_state animated:animated];
+    }
+    [self viewTransitToState:_state animated:animated];
+}
 
-- (void)tapButton;
+#pragma mark - states delegate methods
 
-/**
- @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)topTocViewWithFrame:(CGRect)frame;
-
-/**
- @brief Creates and returns a new toc view object configured to be used as the bottom edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)bottomTocViewWithFrame:(CGRect)frame;
+- (void)viewTransitToState:(PCViewState)state animated:(BOOL)animated
+{
+    if ([self.statesDelegate respondsToSelector:@selector(view:transitToState:animated:)]) {
+        [self.statesDelegate view:self transitToState:state animated:animated];
+    }
+}
 
 @end

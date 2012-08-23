@@ -15,7 +15,7 @@
 #import "PCTopBarView.h"
 #import "PCTwitterNewController.h"
 #import "GalleryViewController.h"
-#import "RRHudController.h"
+#import "PCHudController.h"
 
 @class PCRevision;
 @class PCVideoManager;
