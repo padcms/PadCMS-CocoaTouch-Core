@@ -679,8 +679,6 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 - (BOOL)verticalTocLoaded
 {
-    NSLog(@"[PCRevision verticalTocLoaded]");
-
     NSFileManager *defaultFileManager = [NSFileManager defaultManager];
     NSArray *verticalToc = [[_toc copy] autorelease];
     for (PCTocItem* tocItem in verticalToc) {
@@ -699,8 +697,6 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 - (BOOL)horizontalTocLoaded
 {
-    NSLog(@"[PCRevision horizontalTocLoaded]");
-    
     NSFileManager *defaultFileManager = [NSFileManager defaultManager];
     NSArray *horizontalToc = [[_horizontalToc copy] autorelease];
     for (PCTocItem* tocItem in horizontalToc) {
