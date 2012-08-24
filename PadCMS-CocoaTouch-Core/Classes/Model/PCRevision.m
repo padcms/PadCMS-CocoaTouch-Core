@@ -45,6 +45,7 @@
 #import "UIColor+HexString.h"
 #import "PCGoogleAnalytics.h"
 #import "PCConfig.h"
+#import "PCDownloadManager.h"
 
 #define PCRevisionExportPath @"export/revision/id/"
 #define PCRevisionDirectoryPrefix @"revision"
@@ -60,6 +61,10 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 
 
 @interface PCRevision ()
+{
+	PCRevisionDownloadSuccessBlock _successBlock;
+	PCRevisionDownloadProgressBlock _progressBlock;
+}
 
 
 - (void)clearData; // << clear pages, horizontalPages, etc.
@@ -126,6 +131,8 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	self.newHorizontalPages = nil;
 	self.alternativeCoverPage = nil;
 	self.pageDictionary = nil;
+	[_successBlock release];
+	[_progressBlock release];
     [super dealloc];
 }
 
@@ -440,7 +447,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
             
             if(total>0)
             {
-                float progress = 0.1+((float)totalBytesRead)*0.9 / total;
+                float progress = 0.1+((float)totalBytesRead)*0.6 / total;
                 if(progressCallback)progressCallback(progress);
             }
         }];
@@ -456,11 +463,28 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
                 } else {
                     
                     [self initFromDatabase];
-
-                    [PCGoogleAnalytics trackAction:[NSString stringWithFormat:@"Revision %d has been downloaded", self.identifier] 
-                                          category:@"ContentLoading"];
-                    
-                    if(successCallback)successCallback();
+					
+					if (self.coverPage)
+					{
+						[PCDownloadManager sharedManager].revision = self;
+						if ([[PCDownloadManager sharedManager] prepareForDownloading])
+						{
+							[self.coverPage addObserver:self forKeyPath:@"isComplete" options:NSKeyValueObservingOptionNew context:NULL];
+							_successBlock = [successCallback retain];
+							_progressBlock = [progressCallback retain];
+							PCPageElement* element = [self.coverPage firstElementForType:PCPageElementTypeBody];
+							element.progressDelegate = self;
+							[[PCDownloadManager sharedManager] launchCoverPageDownloading];
+						}
+					//	[PCDownloadManager sharedManager].revision = nil;
+						
+					}
+					else {
+						[PCGoogleAnalytics trackAction:[NSString stringWithFormat:@"Revision %d has been downloaded", self.identifier] 
+											  category:@"ContentLoading"];
+						
+						if(successCallback)successCallback();
+					}
                 }
             }
             self.downloadStartVideoOperation = nil;
@@ -472,12 +496,63 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     {
         [self initFromDatabase];
         
-        [PCGoogleAnalytics trackAction:[NSString stringWithFormat:@"Revision %d has been downloaded", self.identifier] 
-                              category:@"ContentLoading"];
+		if (self.coverPage)
+		{
+			[PCDownloadManager sharedManager].revision = self;
+			if ([[PCDownloadManager sharedManager] prepareForDownloading])
+			{
+				[self.coverPage addObserver:self forKeyPath:@"isComplete" options:NSKeyValueObservingOptionNew context:NULL];
+				_successBlock = [successCallback retain];
+				_progressBlock = [progressCallback retain];
+				PCPageElement* element = [self.coverPage firstElementForType:PCPageElementTypeBody];
+				element.progressDelegate = self;
+				[[PCDownloadManager sharedManager] launchCoverPageDownloading];
+			}
+			
+
+		}
+		else {
+			[PCGoogleAnalytics trackAction:[NSString stringWithFormat:@"Revision %d has been downloaded", self.identifier] 
+								  category:@"ContentLoading"];
+			
+			if(successCallback)successCallback();
+		}
+		
         
-        if(successCallback)successCallback();
     }
 }
+
+
+
+-(void) observeValueForKeyPath: (NSString *)keyPath ofObject: (id) object
+                        change: (NSDictionary *) change context: (void *) context
+{
+	if([change objectForKey:NSKeyValueChangeNewKey] != [NSNull null]) 
+	{
+		BOOL newValue = [[change objectForKey: NSKeyValueChangeNewKey] boolValue];
+		if (newValue)
+		{
+			[PCGoogleAnalytics trackAction:[NSString stringWithFormat:@"Revision %d has been downloaded", self.identifier] 
+								  category:@"ContentLoading"];
+			
+			if(_successBlock)
+			{
+				_successBlock();
+			}
+			[self.coverPage removeObserver:self forKeyPath:@"isComplete"];
+			PCPageElement* element = [self.coverPage firstElementForType:PCPageElementTypeBody];
+			element.progressDelegate = nil;
+			[PCDownloadManager sharedManager].revision = nil;
+		}
+	}
+}
+
+-(void)setProgress:(float)progress
+{
+	//NSLog(@"progress");
+	if(_progressBlock)_progressBlock(0.7 + progress * 0.3);
+}
+
 
 - (void)cancelDownloading
 {

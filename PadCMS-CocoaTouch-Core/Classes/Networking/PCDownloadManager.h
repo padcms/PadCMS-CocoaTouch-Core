@@ -70,4 +70,9 @@ typedef enum _ItemType {
 
 -(void)cancelAllOperations;
 
+-(BOOL)prepareForDownloading;
+
+-(void)launchCoverPageDownloading;
+
+
 @end

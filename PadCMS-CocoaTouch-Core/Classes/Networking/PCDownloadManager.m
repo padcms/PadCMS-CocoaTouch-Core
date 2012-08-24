@@ -137,13 +137,19 @@ NSString* secondaryKey   = @"secondaryKey";
         if (_httpClient != nil) {
             [_httpClient removeObserver:self forKeyPath:@"networkReachabilityStatus"];
             [_httpClient release];
+			_httpClient = nil;
         }
-        _httpClient = [[AFHTTPClient alloc] initWithBaseURL:_revision.backEndURL];
-        _httpClient.operationQueue.maxConcurrentOperationCount = 1;
-        [_httpClient addObserver:self 
-                      forKeyPath:@"networkReachabilityStatus" 
-                         options:NSKeyValueObservingOptionNew 
-                         context:NULL];
+		if (_revision)
+		{
+			_httpClient = [[AFHTTPClient alloc] initWithBaseURL:_revision.backEndURL];
+			_httpClient.operationQueue.maxConcurrentOperationCount = 1;
+			[_httpClient addObserver:self 
+						  forKeyPath:@"networkReachabilityStatus" 
+							 options:NSKeyValueObservingOptionNew 
+							 context:NULL];
+		}
+			
+        
     }
 }
 
@@ -189,43 +195,20 @@ NSString* secondaryKey   = @"secondaryKey";
 		else if ((oldStatus == AFNetworkReachabilityStatusNotReachable) && ((newStatus == AFNetworkReachabilityStatusReachableViaWiFi) || (newStatus == AFNetworkReachabilityStatusReachableViaWWAN)) )
 		{
 			NSLog(@"Network now available!");
-			[self startDownloading];
+//			[self startDownloading];
 		}
 	}
 }
 
 -(void)startDownloading
 {
-    if (!self.revision) return;
-    if (_httpClient.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
-    {
-        NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
-                                                                   value:@"You must be connected to the Internet."];
-        
-        NSString    *title = [PCLocalizationManager localizedStringForKey:@"TITLE_WARNING"
-                                                                    value:@"Warning!"];
-
-        NSString    *buttonTitle = [PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
-                                                                          value:@"OK"];
-        
-        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
-                                                        message:message
-                                                       delegate:nil
-                                              cancelButtonTitle:buttonTitle
-                                              otherButtonTitles:nil];
-        [alert show];
-        [alert release];
-        return;
-        
-    }
-    [self clearData];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boost:) name:PCBoostPageNotification object:nil];
-    self.operationsDic = [NSMutableDictionary dictionary];
-	self.callbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
+	if (![self prepareForDownloading]) {
+		return;
+	}
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
     if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
     {
-        [self launchCoverPageDownloading];
+      //  [self launchCoverPageDownloading];
         [self launchTocDownloading];
         [self launchHelpDownloading];
         [self launchPortraitPagesDownloading];
@@ -236,13 +219,44 @@ NSString* secondaryKey   = @"secondaryKey";
     else {
         [self launchHorizontalTocDownload];
     //    [self launchHorizonalPagesDownload];
-        [self launchCoverPageDownloading];
+     //   [self launchCoverPageDownloading];
         [self launchTocDownloading];
         [self launchHelpDownloading];
         [self launchPortraitPagesDownloading];
         
     }
     self.isReady = YES;
+}
+
+-(BOOL)prepareForDownloading
+{
+	if (!self.revision) return NO;
+    if (_httpClient.networkReachabilityStatus == AFNetworkReachabilityStatusNotReachable) 
+    {
+        NSString* message = [PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
+                                                                   value:@"You must be connected to the Internet."];
+        
+        NSString    *title = [PCLocalizationManager localizedStringForKey:@"TITLE_WARNING"
+                                                                    value:@"Warning!"];
+		
+        NSString    *buttonTitle = [PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+                                                                          value:@"OK"];
+        
+        UIAlertView* alert = [[UIAlertView alloc] initWithTitle:title
+                                                        message:message
+                                                       delegate:nil
+                                              cancelButtonTitle:buttonTitle
+                                              otherButtonTitles:nil];
+        [alert show];
+        [alert release];
+        return NO;
+        
+    }
+    [self clearData];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(boost:) name:PCBoostPageNotification object:nil];
+    self.operationsDic = [NSMutableDictionary dictionary];
+	self.callbackQueue = dispatch_queue_create("com.adyax.mag.success", NULL);
+	return YES;
 }
 
 -(void)launchCoverPageDownloading
