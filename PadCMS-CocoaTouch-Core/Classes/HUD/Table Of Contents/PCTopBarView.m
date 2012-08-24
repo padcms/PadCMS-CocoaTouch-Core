@@ -74,16 +74,22 @@
     UIButton *_helpButton;
 }
 
-- (void)backButtonTapped:(UIButton *)button;
-- (void)summaryButtonTapped:(UIButton *)button;
-- (void)subscriptionsButtonTapped:(UIButton *)button;
-- (void)shareButtonTapped:(UIButton *)button;
-- (void)helpButtonTapped:(UIButton *)button;
+- (void)buttonTapped:(UIButton *)sender;
+//- (void)backButtonTapped:(UIButton *)button;
+//- (void)summaryButtonTapped:(UIButton *)button;
+//- (void)subscriptionsButtonTapped:(UIButton *)button;
+//- (void)shareButtonTapped:(UIButton *)button;
+//- (void)helpButtonTapped:(UIButton *)button;
 
 @end
 
 @implementation PCTopBarView
 @synthesize delegate;
+@synthesize backButton = _backButton;
+@synthesize summaryButton = _summaryButton;
+@synthesize subscriptionsButton = _subscriptionsButton;
+@synthesize shareButton = _shareButton;
+@synthesize helpButton = _helpButton;
 
 - (void)dealloc
 {
@@ -132,7 +138,7 @@
                 _backButton.backgroundColor = [UIColor orangeColor];
             }
             
-            [_backButton addTarget:self action:@selector(backButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [_backButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_backButton];
         }
@@ -152,7 +158,7 @@
                 _summaryButton.backgroundColor = [UIColor orangeColor];
             }
             
-            [_summaryButton addTarget:self action:@selector(summaryButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [_summaryButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_summaryButton];
         }
@@ -205,7 +211,7 @@
                 [_subscriptionsButton setImage:subscriptionsButtonImage forState:UIControlStateNormal];
             }
             
-            [_subscriptionsButton addTarget:self action:@selector(subscriptionsButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [_subscriptionsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_subscriptionsButton];
         }
@@ -227,7 +233,7 @@
                 _shareButton.backgroundColor = [UIColor orangeColor];
             }
             
-            [_shareButton addTarget:self action:@selector(shareButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [_shareButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_shareButton];
         }
@@ -249,7 +255,7 @@
                 _helpButton.backgroundColor = [UIColor orangeColor];
             }
             
-            [_helpButton addTarget:self action:@selector(helpButtonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [_helpButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_helpButton];
         }
@@ -258,6 +264,13 @@
     return self;
 }
 
+- (void)buttonTapped:(UIButton *)sender
+{
+    if ([self.delegate respondsToSelector:@selector(topBarView:buttonTapped:)]) {
+        [self.delegate topBarView:self buttonTapped:sender];
+    }
+}
+/*
 - (void)backButtonTapped:(UIButton *)button
 {
     if ([self.delegate respondsToSelector:@selector(topBarView:backButtonTapped:)]) {
@@ -292,7 +305,7 @@
         [self.delegate topBarView:self helpButtonTapped:button];
     }
 }
-
+*/
 #pragma mark - public methods
 
 - (void)setSummaryButtonHidden:(BOOL)hidden animated:(BOOL)animated

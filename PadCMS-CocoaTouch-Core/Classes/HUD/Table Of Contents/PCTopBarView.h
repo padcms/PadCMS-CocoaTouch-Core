@@ -35,6 +35,8 @@
 
 #import <UIKit/UIKit.h>
 
+#import "PCView.h"
+
 @class PCTopBarView;
 
 /**
@@ -45,51 +47,19 @@
 
 @optional
 /**
- @brief Tells the delegate that the back button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the summary button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView summaryButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the subscriptions button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView subscriptionsButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the share button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView shareButtonTapped:(UIButton *)button;
-
-@optional
-/**
- @brief Tells the delegate that the help button have been tapped.
- @param topBarView - the PCTopBarView object that making this notification.
- @param button - the button that have been tapped.
- */
-- (void)topBarView:(PCTopBarView *)topBarView helpButtonTapped:(UIButton *)button;
-
-@optional
-/**
  @brief Tells the delegate that the search have been started.
  @param topBarView - the PCTopBarView object that making this notification.
  @param searchText - NSString object that contains search pattern.
  */
 - (void)topBarView:(PCTopBarView *)topBarView searchText:(NSString *)searchText;
+
+@optional
+/**
+ @brief Tells the delegate that the user tapped.
+ @param The PCTopBarView object informing delegate of this event.
+ @param The button that was tapped.
+ */
+- (void)topBarView:(PCTopBarView *)topBarView buttonTapped:(UIButton *)button;
 
 @end
 
@@ -97,7 +67,7 @@
  @class PCTopBarView
  @brief An instance of PCTopBarView is a means for top bar view with buttons, search field, and logo.
  */
-@interface PCTopBarView : UIView <UITextFieldDelegate>
+@interface PCTopBarView : PCView <UITextFieldDelegate>
 
 /**
  @brief The object that conforms PCTopBarViewDelegate protocol and acts like delegate.
@@ -105,11 +75,40 @@
 @property (assign) id<PCTopBarViewDelegate> delegate;
 
 /**
+ @brief The button that allow user to return to the previous UI state.
+ */
+@property (readonly, nonatomic) UIButton *backButton;
+
+/**
+ @brief The button that allow user to show or hide summary view.
+ */
+@property (readonly, nonatomic) UIButton *summaryButton;
+
+/**
+ @brief The button that allow user to start subscriptions management.
+ */
+@property (readonly, nonatomic) UIButton *subscriptionsButton;
+
+/**
+ @brief The button that allow user to show or hide sharing menu.
+ */
+@property (readonly, nonatomic) UIButton *shareButton;
+
+/**
+ @brief The button that allow user to view help page.
+ */
+@property (readonly, nonatomic) UIButton *helpButton;
+
+/**
  @brief Hides or shows summary button.
  @param hidden - YES if summary button should be hidden, NO in other case.
  @param animated - YES if current change should be animated and NO in other case.
  */
 - (void)setSummaryButtonHidden:(BOOL)hidden animated:(BOOL)animated;
+
+/**
+ @brief Hides keyboard.
+ */
 - (void)hideKeyboard;
 
 @end

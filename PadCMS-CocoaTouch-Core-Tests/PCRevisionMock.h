@@ -1,8 +1,8 @@
 //
-//  PCTocView.h
-//  PCTocView
+//  PCRevisionMock.h
+//  Pad CMS
 //
-//  Created by Maxim Pervushin on 7/30/12.
+//  Created by Maxim Pervushin on 8/22/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,51 +33,20 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <UIKit/UIKit.h>
 
-#import "PCView.h"
+@interface PCRevisionMock : NSObject
 
-@class PCTocView;
-@class PCGridView;
+@property (readonly, nonatomic) BOOL verticalTocLoaded;
+@property (readonly, nonatomic) BOOL horizontalTocLoaded;
+@property (readonly, nonatomic) NSArray *validVerticalTocItems;
+@property (readonly, nonatomic) NSArray *validHorizontalTocItems;
 
-/**
- @class PCTocView.
- @brief An instance of PCTocView is a view that represents table of contents or summary.
- */
-@interface PCTocView : PCView
+@end
 
-/**
- @brief An instance of the UIView that placed behind all other subviews.
- */
-@property (readonly, nonatomic) UIView *backgroundView;
-
-/**
- @brief Button that changes toc view state.
- */
-@property (readonly, nonatomic) UIButton *button;
-
-/**
- @brief preconfigured PCGridView instance that shows toc images and responds to the touches.
- */
-@property (readonly, nonatomic) PCGridView *gridView;
-
-/**
- @brief Tap button to change current toc view state.
- */
-- (void)tapButton;
-
-/**
- @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)topTocViewWithFrame:(CGRect)frame;
-
-/**
- @brief Creates and returns a new toc view object configured to be used as the bottom edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
- */
-+ (PCTocView *)bottomTocViewWithFrame:(CGRect)frame;
+@implementation PCRevisionMock
+@synthesize verticalTocLoaded;
+@synthesize horizontalTocLoaded;
+@synthesize validVerticalTocItems;
+@synthesize validHorizontalTocItems;
 
 @end

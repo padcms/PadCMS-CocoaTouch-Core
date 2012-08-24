@@ -1,8 +1,8 @@
 //
-//  PCTocView.h
-//  PCTocView
+//  PCView.h
+//  Pad CMS
 //
-//  Created by Maxim Pervushin on 7/30/12.
+//  Created by Maxim Pervushin on 8/20/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -35,49 +35,54 @@
 
 #import <UIKit/UIKit.h>
 
-#import "PCView.h"
+typedef enum _PCViewState {
+    PCViewStateInvalid = -1,
+    PCViewStateHidden = 0,
+    PCViewStateVisible = 1,
+    PCViewStateActive = 2
+} PCViewState;
 
-@class PCTocView;
-@class PCGridView;
 
-/**
- @class PCTocView.
- @brief An instance of PCTocView is a view that represents table of contents or summary.
- */
-@interface PCTocView : PCView
-
-/**
- @brief An instance of the UIView that placed behind all other subviews.
- */
-@property (readonly, nonatomic) UIView *backgroundView;
+@class PCView;
 
 /**
- @brief Button that changes toc view state.
+ @protocol PCViewDelegate
+ @brief PCViewDelegate protocol defines the optional method that allows delegate to respond on view state change. 
  */
-@property (readonly, nonatomic) UIButton *button;
+@protocol PCViewDelegate <NSObject>
+
+@optional
+/**
+ @brief Tells the delegate that receiving view should transit to the state.
+ @param The PCView object informing the delegate of this event.
+ @param New state of the receiver.
+ @param Animation flag.
+ */
+- (void)view:(PCView *)view transitToState:(PCViewState)state animated:(BOOL)animated;
+
+@end
 
 /**
- @brief preconfigured PCGridView instance that shows toc images and responds to the touches.
+ @class PCView
+ @brief An instance of PCView is able to change states and inform delegate about this changes. 
  */
-@property (readonly, nonatomic) PCGridView *gridView;
+@interface PCView : UIView
 
 /**
- @brief Tap button to change current toc view state.
+ @brief The object that acts as the delegate of the receiving view.
  */
-- (void)tapButton;
+@property (assign, nonatomic) id<PCViewDelegate> statesDelegate;
 
 /**
- @brief Creates and returns a new toc view object configured to be used at the top edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
+ @brief Current state of the view.
  */
-+ (PCTocView *)topTocViewWithFrame:(CGRect)frame;
+@property (readonly, nonatomic) PCViewState state;
 
 /**
- @brief Creates and returns a new toc view object configured to be used as the bottom edge of the container view.
- @param The frame of the toc view.
- @return The new toc view object.
+ @brief Tells receiving view to change state.
+ @param State that should be implemented.
+ @param Animation flag.
  */
-+ (PCTocView *)bottomTocViewWithFrame:(CGRect)frame;
+- (void)transitToState:(PCViewState)state animated:(BOOL)animated;
 
 @end
