@@ -181,6 +181,16 @@
         }
         return YES;
     }
+    
+    if ([activeZone.URL hasPrefix:PCPDFActiveZoneGameCrossword])
+    {
+        NSString *url = activeZone.URL;
+        NSInteger crosswordID = [[url lastPathComponent] integerValue];
+        if (crosswordID != 0)
+            crosswordID--;
+        [self.delegate showCrossword:crosswordID];
+        return YES;
+    }
   
     return NO;
 }
@@ -191,7 +201,6 @@
 - (void)videoControllerWillShow:(id)videoControllerToShow
 {
     UIView *videoView = ((UIViewController*)videoControllerToShow).view;
-   // NSLog(@"videoView - %@", videoView);
     if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:videoView.frame])
     {
         [self showFullscreenVideo:videoView];

@@ -44,6 +44,8 @@ PADCMS_EXTERN NSString* PCSQLiteElementDataTableName;
 PADCMS_EXTERN NSString* PCSQLiteElementDataPositionTableName;
 PADCMS_EXTERN NSString* PCSQLiteMenuTableName;
 PADCMS_EXTERN NSString* PCSQLitePageHorisontalTableName;
+PADCMS_EXTERN NSString* PCSQLiteCrosswordsTableName;
+PADCMS_EXTERN NSString* PCSQLiteCrosswordsContentTableName;
 
 PADCMS_EXTERN NSString* PCSQLiteIDColumnName;
 PADCMS_EXTERN NSString* PCSQLiteTitleColumnName;
@@ -72,6 +74,14 @@ PADCMS_EXTERN NSString* PCSQLiteThumbSummaryColumnName;
 PADCMS_EXTERN NSString* PCSQLiteColorColumnName;
 PADCMS_EXTERN NSString* PCSQLiteNameColumnName;
 PADCMS_EXTERN NSString* PCSQLiteResourceColumnName;
+PADCMS_EXTERN NSString* PCSQLiteCrosswordWidthColumnName;
+PADCMS_EXTERN NSString* PCSQLiteCrosswordHeightColumnName;
+PADCMS_EXTERN NSString* PCSQLiteCrosswordIDColumnName;
+PADCMS_EXTERN NSString* PCSQLiteAnswerColumnName;
+PADCMS_EXTERN NSString* PCSQLiteQuestionColumnName;
+PADCMS_EXTERN NSString* PCSQLiteLengthColumnName;
+PADCMS_EXTERN NSString* PCSQLiteDirectionColumnName;
+PADCMS_EXTERN NSString* PCSQLiteStartFromColumnName;
 
 PADCMS_EXTERN NSString* PCSQLitePositionLeftTypeValue;
 PADCMS_EXTERN NSString* PCSQLitePositionRightTypeValue;

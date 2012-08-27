@@ -1,8 +1,8 @@
 //
-//  Header.h
+//  PCCrosswordCell.h
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 03.02.12.
+//  Created by Igor Getmanenko on 27.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,30 +33,12 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCApplication.h"
-#import "PCIssue.h"
-#import "PCTocItem.h"
-#import "PCColumn.h"
-#import "PCPage.h"
-#import "PCHorizontalPage.h"
-#import "PCCrossword.h"
+#import <Foundation/Foundation.h>
 
-#import "PCPageElement.h"
-#import "PCPageElementAdvert.h"
-#import "PCPageElementBody.h"
-#import "PCPageElementDragAndDrop.h"
-#import "PCPageElementGallery.h"
-#import "PCPageElementHtml.h"
-#import "PCPageElementHtml5.h"
-#import "PCPageElementMiniArticle.h"
-#import "PCPageElementScrollingPane.h"
-#import "PCPageElementSlide.h"
-#import "PCPageElementVideo.h"
+@interface PCCrosswordCell : NSObject
 
-#import "PCPageTemplate.h"
+@property (nonatomic, assign) NSInteger cellID;
+@property (nonatomic, retain) NSString *cellCurrentContent;
+@property (nonatomic, retain) NSString *cellRightAnswerContent;
 
-#import "PCPageTemplatesPool.h"
-
-#import "PCPageActiveZone.h"
-#import "PCDataHelper.h"
-
+@end

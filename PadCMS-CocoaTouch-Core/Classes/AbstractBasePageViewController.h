@@ -44,5 +44,6 @@
 - (void)showGallery;
 - (void)gotoPage:(PCPage*)page;
 - (void)showVideo:(UIView *)videoView;
+- (void)showCrossword:(NSInteger)crosswordID;
 
 @end

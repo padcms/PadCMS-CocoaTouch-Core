@@ -380,6 +380,58 @@
         [revision.toc addObject:tocItem];
     }
     
+    NSString* crosswordsQuery = [NSString stringWithFormat:@"select * from %@", PCSQLiteCrosswordsTableName];
+    FMResultSet* crosswords = [base executeQuery:crosswordsQuery];
+    [revision.crosswords removeAllObjects];
+    while ([crosswords next])
+    {
+        PCCrossword *crossword = [[PCCrossword alloc] init];
+                    
+        NSInteger crosswordID = [crosswords intForColumn:PCSQLiteIDColumnName];
+        crossword.crosswordID = crosswordID;
+                    
+        NSString *title = [crosswords stringForColumn:PCSQLiteTitleColumnName];
+        crossword.title = title;
+                    
+        NSInteger width = [crosswords intForColumn:PCSQLiteCrosswordWidthColumnName];
+        crossword.width = width;
+                    
+        NSInteger height = [crosswords intForColumn:PCSQLiteCrosswordHeightColumnName];
+        crossword.height = height;
+                            
+        NSString* crosswrodQuestionsQuery = [NSString stringWithFormat:@"select * from %@ where %@=%d", PCSQLiteCrosswordsContentTableName, PCSQLiteCrosswordIDColumnName, crosswordID];        
+        FMResultSet* questions = [base executeQuery:crosswrodQuestionsQuery];
+        while ([questions next])
+        {
+            PCCrosswordQuestion *questionObject = [[PCCrosswordQuestion alloc] init];
+                                
+            NSInteger questionID = [questions intForColumn:PCSQLiteIDColumnName];
+            questionObject.questionID = questionID;
+                                
+            NSString *answer = [questions stringForColumn:PCSQLiteAnswerColumnName];
+            questionObject.answer = answer;
+                                
+            NSString *question = [questions stringForColumn:PCSQLiteQuestionColumnName];
+            questionObject.question = question;
+                                
+            NSInteger length = [questions intForColumn:PCSQLiteLengthColumnName];
+            questionObject.length = length;
+                                
+            NSString *directionString = [questions stringForColumn:PCSQLiteDirectionColumnName];
+            questionObject.direction = directionString;
+                                
+            NSInteger startingCellID = [questions intForColumn:PCSQLiteStartFromColumnName];
+            questionObject.startingSellID = startingCellID;
+                                
+            [crossword.questions addObject:questionObject];
+            [questionObject release];
+        }
+                    
+        [revision.crosswords addObject:crossword];
+        [crossword release];
+    }
+        
+    
     [revision updateColumns]; 
     [base release];
 	

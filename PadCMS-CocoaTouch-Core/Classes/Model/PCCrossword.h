@@ -1,8 +1,8 @@
 //
-//  Header.h
+//  PCCrossword.h
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 03.02.12.
+//  Created by Igor Getmanenko on 27.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,30 +33,21 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCApplication.h"
-#import "PCIssue.h"
-#import "PCTocItem.h"
-#import "PCColumn.h"
-#import "PCPage.h"
-#import "PCHorizontalPage.h"
-#import "PCCrossword.h"
+#import <Foundation/Foundation.h>
+#import "PCCrosswordCell.h"
+#import "PCCrosswordQuestion.h"
 
-#import "PCPageElement.h"
-#import "PCPageElementAdvert.h"
-#import "PCPageElementBody.h"
-#import "PCPageElementDragAndDrop.h"
-#import "PCPageElementGallery.h"
-#import "PCPageElementHtml.h"
-#import "PCPageElementHtml5.h"
-#import "PCPageElementMiniArticle.h"
-#import "PCPageElementScrollingPane.h"
-#import "PCPageElementSlide.h"
-#import "PCPageElementVideo.h"
+@interface PCCrossword : NSObject
 
-#import "PCPageTemplate.h"
+@property (nonatomic, assign) NSInteger crosswordID;
+@property (nonatomic, retain) NSString *title;
+@property (nonatomic, assign) NSInteger width;
+@property (nonatomic, assign) NSInteger height;
+@property (nonatomic, retain) NSMutableArray *cells;
+@property (nonatomic, retain) NSMutableArray *questions;
 
-#import "PCPageTemplatesPool.h"
+- (void)createCrosswordGrid;
+- (PCCrosswordCell*)cellForIndex:(NSInteger)index;
+- (CGPoint)positionOfCellForIndex:(NSInteger)index;
 
-#import "PCPageActiveZone.h"
-#import "PCDataHelper.h"
-
+@end

@@ -1065,6 +1065,12 @@
 		60FBA79C15E3D62A00EB1C50 /* PCKioskGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E2A1588C3580097D960 /* PCKioskGalleryItem.m */; };
 		60FBA79D15E3D63E00EB1C50 /* PDColoredProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E681588C9D70097D960 /* PDColoredProgressView.m */; };
 		60FBA79E15E3D84300EB1C50 /* PCKioskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E2D1588C3580097D960 /* PCKioskViewController.m */; };
+		840DF7E415EBE5BF00B1F8B9 /* PCCrossword.h in Headers */ = {isa = PBXBuildFile; fileRef = 840DF7DE15EBE5BF00B1F8B9 /* PCCrossword.h */; };
+		840DF7E515EBE5BF00B1F8B9 /* PCCrossword.m in Sources */ = {isa = PBXBuildFile; fileRef = 840DF7DF15EBE5BF00B1F8B9 /* PCCrossword.m */; };
+		840DF7E615EBE5BF00B1F8B9 /* PCCrosswordCell.h in Headers */ = {isa = PBXBuildFile; fileRef = 840DF7E015EBE5BF00B1F8B9 /* PCCrosswordCell.h */; };
+		840DF7E715EBE5BF00B1F8B9 /* PCCrosswordCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 840DF7E115EBE5BF00B1F8B9 /* PCCrosswordCell.m */; };
+		840DF7E815EBE5BF00B1F8B9 /* PCCrosswordQuestion.h in Headers */ = {isa = PBXBuildFile; fileRef = 840DF7E215EBE5BF00B1F8B9 /* PCCrosswordQuestion.h */; };
+		840DF7E915EBE5BF00B1F8B9 /* PCCrosswordQuestion.m in Sources */ = {isa = PBXBuildFile; fileRef = 840DF7E315EBE5BF00B1F8B9 /* PCCrosswordQuestion.m */; };
 		84127DA715C18739007BDCE7 /* PCVideoManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 84127DA515C18739007BDCE7 /* PCVideoManager.h */; };
 		84127DA815C18739007BDCE7 /* PCVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84127DA615C18739007BDCE7 /* PCVideoManager.m */; };
 		84127DA915C190A1007BDCE7 /* PCVideoManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 84127DA515C18739007BDCE7 /* PCVideoManager.h */; };
@@ -2352,6 +2358,12 @@
 		60FBA78C15E3D1B900EB1C50 /* PCTKioskControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskControlElement.m; path = Kiosk/PCTKioskControlElement.m; sourceTree = "<group>"; };
 		60FBA78F15E3D1F800EB1C50 /* PCTKioskGalleryControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCTKioskGalleryControlElement.h; path = Kiosk/PCTKioskGalleryControlElement.h; sourceTree = "<group>"; };
 		60FBA79015E3D1F800EB1C50 /* PCTKioskGalleryControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskGalleryControlElement.m; path = Kiosk/PCTKioskGalleryControlElement.m; sourceTree = "<group>"; };
+		840DF7DE15EBE5BF00B1F8B9 /* PCCrossword.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCrossword.h; sourceTree = "<group>"; };
+		840DF7DF15EBE5BF00B1F8B9 /* PCCrossword.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCrossword.m; sourceTree = "<group>"; };
+		840DF7E015EBE5BF00B1F8B9 /* PCCrosswordCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCrosswordCell.h; sourceTree = "<group>"; };
+		840DF7E115EBE5BF00B1F8B9 /* PCCrosswordCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCrosswordCell.m; sourceTree = "<group>"; };
+		840DF7E215EBE5BF00B1F8B9 /* PCCrosswordQuestion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCCrosswordQuestion.h; sourceTree = "<group>"; };
+		840DF7E315EBE5BF00B1F8B9 /* PCCrosswordQuestion.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCCrosswordQuestion.m; sourceTree = "<group>"; };
 		84127DA515C18739007BDCE7 /* PCVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCVideoManager.h; path = Video/PCVideoManager.h; sourceTree = "<group>"; };
 		84127DA615C18739007BDCE7 /* PCVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCVideoManager.m; path = Video/PCVideoManager.m; sourceTree = "<group>"; };
 		84D5E39115BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuViewController.h; sourceTree = "<group>"; };
@@ -2607,6 +2619,7 @@
 		607F3E711588CE5F0097D960 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				840DF7DC15EBE5A200B1F8B9 /* Crossword */,
 				ABC7E1CF15A9B2B800B06A38 /* Search */,
 				607F3E721588CE5F0097D960 /* ModelBuilder */,
 				607F3E851588CE5F0097D960 /* PCPageElements */,
@@ -3697,6 +3710,19 @@
 			name = Kiosk;
 			sourceTree = "<group>";
 		};
+		840DF7DC15EBE5A200B1F8B9 /* Crossword */ = {
+			isa = PBXGroup;
+			children = (
+				840DF7DE15EBE5BF00B1F8B9 /* PCCrossword.h */,
+				840DF7DF15EBE5BF00B1F8B9 /* PCCrossword.m */,
+				840DF7E015EBE5BF00B1F8B9 /* PCCrosswordCell.h */,
+				840DF7E115EBE5BF00B1F8B9 /* PCCrosswordCell.m */,
+				840DF7E215EBE5BF00B1F8B9 /* PCCrosswordQuestion.h */,
+				840DF7E315EBE5BF00B1F8B9 /* PCCrosswordQuestion.m */,
+			);
+			name = Crossword;
+			sourceTree = "<group>";
+		};
 		84127DA315C186E4007BDCE7 /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -4421,6 +4447,9 @@
 				C51F275015D3C13700BCDB85 /* PCSummaryGridViewCell.h in Headers */,
 				84DAED0615DBA1640038581F /* PCSubscriptionMenuViewController.h in Headers */,
 				C538AB3015E38E4E00BDD7FD /* PCHudController.h in Headers */,
+				840DF7E415EBE5BF00B1F8B9 /* PCCrossword.h in Headers */,
+				840DF7E615EBE5BF00B1F8B9 /* PCCrosswordCell.h in Headers */,
+				840DF7E815EBE5BF00B1F8B9 /* PCCrosswordQuestion.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4925,6 +4954,9 @@
 				84DAED0715DBA1640038581F /* PCSubscriptionMenuViewController.m in Sources */,
 				C556713815E24C6800C2CD33 /* PCView.m in Sources */,
 				C538AB3115E38E4E00BDD7FD /* PCHudController.m in Sources */,
+				840DF7E515EBE5BF00B1F8B9 /* PCCrossword.m in Sources */,
+				840DF7E715EBE5BF00B1F8B9 /* PCCrosswordCell.m in Sources */,
+				840DF7E915EBE5BF00B1F8B9 /* PCCrosswordQuestion.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
