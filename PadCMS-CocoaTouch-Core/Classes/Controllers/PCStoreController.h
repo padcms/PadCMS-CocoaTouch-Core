@@ -40,13 +40,14 @@
 #import "RevisionViewController.h"
 
 @class PCApplication;
+@class PCKioskViewController;
 @protocol PCStoreControllerDelegate;
 @interface PCStoreController : NSObject <PCKioskDataSourceProtocol,PCKioskViewControllerDelegateProtocol, PCSearchViewControllerDelegate, RevisionViewControllerDelegate>
 
 @property (nonatomic, readonly, retain) UIViewController<PCStoreControllerDelegate>* rootViewController;
 //@property (nonatomic, readonly, retain) UINavigationController* navigationController;
 @property (nonatomic, readonly, retain) PCApplication* application;
-
+@property (retain, nonatomic) PCKioskViewController *kioskViewController;
 
 - (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController;
 - (void)launch;
