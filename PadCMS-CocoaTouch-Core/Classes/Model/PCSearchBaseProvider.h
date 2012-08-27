@@ -40,7 +40,7 @@
 
 /**
  @class PCSearchBaseProvider
- @brief Class that provides and manage searching
+ @brief Base class that provides and manage searching. For using search in PadCMS, subclass it
  */
 @interface PCSearchBaseProvider : NSObject
 
@@ -61,7 +61,7 @@
 @property (nonatomic, assign) BOOL searchInPorgress;
 
 /**
- @brief Searching result (array)
+ @brief Searching result
  */ 
 @property (atomic, retain) PCSearchResult *result;
 
@@ -78,58 +78,61 @@
 
 
 /**
- @brief
+ @brief Returns new instance of PCSearchBaseProvider class
+ @param keyPhrase - searching keyphrase entered by user
  */ 
 -(id) initWithKeyPhrase:(NSString*) keyPhrase;
 
 /**
- @brief
+ @brief Returns searching regexp string generated from users keyphrase
+ @param keyphrase - searching keyphrase entered by user
  */ 
 -(NSString*) searchingRegexpFromKeyPhrase:(NSString*) keyphrase;
 
 /**
- @brief
+ @brief Returns TRUE if string contains searching regexp
+ @param string - string inside which will we search
  */ 
 -(BOOL) isStringContainsRegexp:(NSString*) string;
 
 /**
- @brief
+ @brief Start searching process in specified revision
+ @param revision - revision inside which will we search, if nil - search in all revisions
  */ 
 -(void) searchInRevision:(PCRevision*) revision;
 
 /**
- @brief
+ @brief Cancel searching process
  */ 
 -(void) cancelSearch;
 
 /**
- @brief
+ @brief Searching thread
  */ 
-
 - (void) searchThread:(id)someObject;
-/**
- @brief
- */ 
 
+/**
+ @brief Tell to delegate that the search process is started
+ */ 
 - (void) callDelegateTaskStarted;
-/**
- @brief
- */ 
 
+/**
+ @brief Tell to delegate that the search process is finished
+ */ 
 - (void) callDelegateTaskFinished;
-/**
- @brief
- */ 
 
+/**
+ @brief Tell to delegate that the search process is canceled
+ */ 
 - (void) callDelegateTaskCanceled;
-/**
- @brief
- */ 
 
+/**
+ @brief Tell to delegate that the search process updated result with new element
+ */ 
 - (void) callDelegateTaskUpdated;
 
 /**
- @brief
+ @brief Search stub method, must be overrided in subclasses
  */ 
 - (void) search;
 

@@ -1038,6 +1038,34 @@
 		60A5DCFE158F45EE00E3E98A /* topNav_m.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFB158F45EE00E3E98A /* topNav_m.png */; };
 		60A5DCFF158F45EE00E3E98A /* topNav_t.png in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCFC158F45EE00E3E98A /* topNav_t.png */; };
 		60E3445015D2B9AD004A6131 /* PCSearchBaseProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 60A2502D15C9322B00E60821 /* PCSearchBaseProvider.m */; };
+		60FBA77315E27B0400EB1C50 /* NSNotificationCenter+OCMAdditions.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA76C15E27ABE00EB1C50 /* NSNotificationCenter+OCMAdditions.h */; };
+		60FBA77415E27B0400EB1C50 /* OCMArg.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA76D15E27ABE00EB1C50 /* OCMArg.h */; };
+		60FBA77515E27B0400EB1C50 /* OCMConstraint.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA76E15E27ABE00EB1C50 /* OCMConstraint.h */; };
+		60FBA77615E27B0400EB1C50 /* OCMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA76F15E27ABE00EB1C50 /* OCMock.h */; };
+		60FBA77715E27B0400EB1C50 /* OCMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA77015E27ABE00EB1C50 /* OCMockObject.h */; };
+		60FBA77815E27B0400EB1C50 /* OCMockRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA77115E27ABE00EB1C50 /* OCMockRecorder.h */; };
+		60FBA77915E27B3E00EB1C50 /* PCSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EA71588CE5F0097D960 /* PCSearchResult.m */; };
+		60FBA77D15E375AB00EB1C50 /* PCKioskTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA77B15E375AB00EB1C50 /* PCKioskTest.m */; };
+		60FBA78115E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA77F15E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h */; };
+		60FBA78215E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA78015E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m */; };
+		60FBA78515E3D15D00EB1C50 /* PCTKioskGalleryView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA78315E3D15D00EB1C50 /* PCTKioskGalleryView.h */; };
+		60FBA78615E3D15D00EB1C50 /* PCTKioskGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA78415E3D15D00EB1C50 /* PCTKioskGalleryView.m */; };
+		60FBA78915E3D18800EB1C50 /* PCTKioskShelfView.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA78715E3D18800EB1C50 /* PCTKioskShelfView.h */; };
+		60FBA78A15E3D18800EB1C50 /* PCTKioskShelfView.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA78815E3D18800EB1C50 /* PCTKioskShelfView.m */; };
+		60FBA78D15E3D1B900EB1C50 /* PCTKioskControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA78B15E3D1B900EB1C50 /* PCTKioskControlElement.h */; };
+		60FBA78E15E3D1B900EB1C50 /* PCTKioskControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA78C15E3D1B900EB1C50 /* PCTKioskControlElement.m */; };
+		60FBA79115E3D1F800EB1C50 /* PCTKioskGalleryControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA78F15E3D1F800EB1C50 /* PCTKioskGalleryControlElement.h */; };
+		60FBA79215E3D1F800EB1C50 /* PCTKioskGalleryControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA79015E3D1F800EB1C50 /* PCTKioskGalleryControlElement.m */; };
+		60FBA79515E3D40900EB1C50 /* PCKioskBaseControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E241588C3580097D960 /* PCKioskBaseControlElement.m */; };
+		60FBA79615E3D42100EB1C50 /* PCKioskAbstractControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */; };
+		60FBA79715E3D42B00EB1C50 /* PCKioskAbstractSubviewsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1F1588C3580097D960 /* PCKioskAbstractSubviewsFactory.m */; };
+		60FBA79815E3D44B00EB1C50 /* PCKioskBaseGalleryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E261588C3580097D960 /* PCKioskBaseGalleryView.m */; };
+		60FBA79915E3D44B00EB1C50 /* PCKioskBaseShelfView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E281588C3580097D960 /* PCKioskBaseShelfView.m */; };
+		60FBA79A15E3D46000EB1C50 /* QuartzCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 607F469C1589FE4A0097D960 /* QuartzCore.framework */; };
+		60FBA79B15E3D5FB00EB1C50 /* PCKioskSubview.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E211588C3580097D960 /* PCKioskSubview.m */; };
+		60FBA79C15E3D62A00EB1C50 /* PCKioskGalleryItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E2A1588C3580097D960 /* PCKioskGalleryItem.m */; };
+		60FBA79D15E3D63E00EB1C50 /* PDColoredProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E681588C9D70097D960 /* PDColoredProgressView.m */; };
+		60FBA79E15E3D84300EB1C50 /* PCKioskViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E2D1588C3580097D960 /* PCKioskViewController.m */; };
 		84127DA715C18739007BDCE7 /* PCVideoManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 84127DA515C18739007BDCE7 /* PCVideoManager.h */; };
 		84127DA815C18739007BDCE7 /* PCVideoManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 84127DA615C18739007BDCE7 /* PCVideoManager.m */; };
 		84127DA915C190A1007BDCE7 /* PCVideoManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 84127DA515C18739007BDCE7 /* PCVideoManager.h */; };
@@ -2288,6 +2316,23 @@
 		60A5DCFA158F45EE00E3E98A /* topNav_b.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_b.png; sourceTree = "<group>"; };
 		60A5DCFB158F45EE00E3E98A /* topNav_m.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_m.png; sourceTree = "<group>"; };
 		60A5DCFC158F45EE00E3E98A /* topNav_t.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = topNav_t.png; sourceTree = "<group>"; };
+		60FBA76C15E27ABE00EB1C50 /* NSNotificationCenter+OCMAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSNotificationCenter+OCMAdditions.h"; sourceTree = "<group>"; };
+		60FBA76D15E27ABE00EB1C50 /* OCMArg.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMArg.h; sourceTree = "<group>"; };
+		60FBA76E15E27ABE00EB1C50 /* OCMConstraint.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMConstraint.h; sourceTree = "<group>"; };
+		60FBA76F15E27ABE00EB1C50 /* OCMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMock.h; sourceTree = "<group>"; };
+		60FBA77015E27ABE00EB1C50 /* OCMockObject.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockObject.h; sourceTree = "<group>"; };
+		60FBA77115E27ABE00EB1C50 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
+		60FBA77B15E375AB00EB1C50 /* PCKioskTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCKioskTest.m; sourceTree = "<group>"; };
+		60FBA77F15E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCTKioskSubviewsFactory.h; path = Kiosk/PCTKioskSubviewsFactory.h; sourceTree = "<group>"; };
+		60FBA78015E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskSubviewsFactory.m; path = Kiosk/PCTKioskSubviewsFactory.m; sourceTree = "<group>"; };
+		60FBA78315E3D15D00EB1C50 /* PCTKioskGalleryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCTKioskGalleryView.h; path = Kiosk/PCTKioskGalleryView.h; sourceTree = "<group>"; };
+		60FBA78415E3D15D00EB1C50 /* PCTKioskGalleryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskGalleryView.m; path = Kiosk/PCTKioskGalleryView.m; sourceTree = "<group>"; };
+		60FBA78715E3D18800EB1C50 /* PCTKioskShelfView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCTKioskShelfView.h; path = Kiosk/PCTKioskShelfView.h; sourceTree = "<group>"; };
+		60FBA78815E3D18800EB1C50 /* PCTKioskShelfView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskShelfView.m; path = Kiosk/PCTKioskShelfView.m; sourceTree = "<group>"; };
+		60FBA78B15E3D1B900EB1C50 /* PCTKioskControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCTKioskControlElement.h; path = Kiosk/PCTKioskControlElement.h; sourceTree = "<group>"; };
+		60FBA78C15E3D1B900EB1C50 /* PCTKioskControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskControlElement.m; path = Kiosk/PCTKioskControlElement.m; sourceTree = "<group>"; };
+		60FBA78F15E3D1F800EB1C50 /* PCTKioskGalleryControlElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCTKioskGalleryControlElement.h; path = Kiosk/PCTKioskGalleryControlElement.h; sourceTree = "<group>"; };
+		60FBA79015E3D1F800EB1C50 /* PCTKioskGalleryControlElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCTKioskGalleryControlElement.m; path = Kiosk/PCTKioskGalleryControlElement.m; sourceTree = "<group>"; };
 		84127DA515C18739007BDCE7 /* PCVideoManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PCVideoManager.h; path = Video/PCVideoManager.h; sourceTree = "<group>"; };
 		84127DA615C18739007BDCE7 /* PCVideoManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCVideoManager.m; path = Video/PCVideoManager.m; sourceTree = "<group>"; };
 		84D5E39115BE80F900BEF5D6 /* PCSubscriptionsMenuViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCSubscriptionsMenuViewController.h; sourceTree = "<group>"; };
@@ -2422,6 +2467,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60FBA79A15E3D46000EB1C50 /* QuartzCore.framework in Frameworks */,
 				C50E498615AEA20E00222413 /* UIKit.framework in Frameworks */,
 				C50E498715AEA20E00222413 /* Foundation.framework in Frameworks */,
 				C50E498815AEA20E00222413 /* CoreGraphics.framework in Frameworks */,
@@ -3594,6 +3640,37 @@
 			path = "PadCMS-CocoaTouch-Core/Resource/Magazine";
 			sourceTree = SOURCE_ROOT;
 		};
+		60FBA76B15E27ABE00EB1C50 /* OCMock */ = {
+			isa = PBXGroup;
+			children = (
+				60FBA76C15E27ABE00EB1C50 /* NSNotificationCenter+OCMAdditions.h */,
+				60FBA76D15E27ABE00EB1C50 /* OCMArg.h */,
+				60FBA76E15E27ABE00EB1C50 /* OCMConstraint.h */,
+				60FBA76F15E27ABE00EB1C50 /* OCMock.h */,
+				60FBA77015E27ABE00EB1C50 /* OCMockObject.h */,
+				60FBA77115E27ABE00EB1C50 /* OCMockRecorder.h */,
+			);
+			name = OCMock;
+			path = Frameworks/OCMock;
+			sourceTree = "<group>";
+		};
+		60FBA77E15E3D08300EB1C50 /* Kiosk */ = {
+			isa = PBXGroup;
+			children = (
+				60FBA77F15E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h */,
+				60FBA78015E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m */,
+				60FBA78315E3D15D00EB1C50 /* PCTKioskGalleryView.h */,
+				60FBA78415E3D15D00EB1C50 /* PCTKioskGalleryView.m */,
+				60FBA78715E3D18800EB1C50 /* PCTKioskShelfView.h */,
+				60FBA78815E3D18800EB1C50 /* PCTKioskShelfView.m */,
+				60FBA78B15E3D1B900EB1C50 /* PCTKioskControlElement.h */,
+				60FBA78C15E3D1B900EB1C50 /* PCTKioskControlElement.m */,
+				60FBA78F15E3D1F800EB1C50 /* PCTKioskGalleryControlElement.h */,
+				60FBA79015E3D1F800EB1C50 /* PCTKioskGalleryControlElement.m */,
+			);
+			name = Kiosk;
+			sourceTree = "<group>";
+		};
 		84127DA315C186E4007BDCE7 /* Video */ = {
 			isa = PBXGroup;
 			children = (
@@ -3758,6 +3835,8 @@
 		C50E498915AEA20E00222413 /* PadCMS-CocoaTouch-Core-Tests */ = {
 			isa = PBXGroup;
 			children = (
+				60FBA77E15E3D08300EB1C50 /* Kiosk */,
+				60FBA76B15E27ABE00EB1C50 /* OCMock */,
 				C50E498A15AEA20E00222413 /* Supporting Files */,
 				C50E499B15AEA43200222413 /* PCResourceViewTest.m */,
 				C50E49A315AEE36A00222413 /* PCResourceCacheTest.m */,
@@ -3766,6 +3845,7 @@
 				600E45F415C7FB45008ACADC /* PCSearchingTest.m */,
 				C59692EA15D8FF16002137BA /* PCTestFrameworksTest.m */,
 				C5A7692F15DB715C00092FDA /* PCShareViewTest.m */,
+				60FBA77B15E375AB00EB1C50 /* PCKioskTest.m */,
 			);
 			path = "PadCMS-CocoaTouch-Core-Tests";
 			sourceTree = "<group>";
@@ -4285,6 +4365,24 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		60FBA77215E27AEF00EB1C50 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				60FBA77315E27B0400EB1C50 /* NSNotificationCenter+OCMAdditions.h in Headers */,
+				60FBA77415E27B0400EB1C50 /* OCMArg.h in Headers */,
+				60FBA77515E27B0400EB1C50 /* OCMConstraint.h in Headers */,
+				60FBA77615E27B0400EB1C50 /* OCMock.h in Headers */,
+				60FBA77715E27B0400EB1C50 /* OCMockObject.h in Headers */,
+				60FBA77815E27B0400EB1C50 /* OCMockRecorder.h in Headers */,
+				60FBA78115E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h in Headers */,
+				60FBA78515E3D15D00EB1C50 /* PCTKioskGalleryView.h in Headers */,
+				60FBA78915E3D18800EB1C50 /* PCTKioskShelfView.h in Headers */,
+				60FBA78D15E3D1B900EB1C50 /* PCTKioskControlElement.h in Headers */,
+				60FBA79115E3D1F800EB1C50 /* PCTKioskGalleryControlElement.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -4330,6 +4428,7 @@
 				C50E498015AEA20E00222413 /* Sources */,
 				C50E498115AEA20E00222413 /* Frameworks */,
 				C50E498215AEA20E00222413 /* Resources */,
+				60FBA77215E27AEF00EB1C50 /* Headers */,
 			);
 			buildRules = (
 			);
@@ -4778,6 +4877,16 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60FBA79E15E3D84300EB1C50 /* PCKioskViewController.m in Sources */,
+				60FBA79D15E3D63E00EB1C50 /* PDColoredProgressView.m in Sources */,
+				60FBA79C15E3D62A00EB1C50 /* PCKioskGalleryItem.m in Sources */,
+				60FBA79B15E3D5FB00EB1C50 /* PCKioskSubview.m in Sources */,
+				60FBA79815E3D44B00EB1C50 /* PCKioskBaseGalleryView.m in Sources */,
+				60FBA79915E3D44B00EB1C50 /* PCKioskBaseShelfView.m in Sources */,
+				60FBA79715E3D42B00EB1C50 /* PCKioskAbstractSubviewsFactory.m in Sources */,
+				60FBA79615E3D42100EB1C50 /* PCKioskAbstractControlElement.m in Sources */,
+				60FBA79515E3D40900EB1C50 /* PCKioskBaseControlElement.m in Sources */,
+				60FBA77915E27B3E00EB1C50 /* PCSearchResult.m in Sources */,
 				C50E499015AEA20E00222413 /* main.m in Sources */,
 				C50E499C15AEA43200222413 /* PCResourceViewTest.m in Sources */,
 				C50E499D15AEA4D500222413 /* PCResourceView.m in Sources */,
@@ -4796,6 +4905,12 @@
 				C5A7693215DB734600092FDA /* PCShareView.m in Sources */,
 				C5A7693315DB735C00092FDA /* PCLocalizationManager.m in Sources */,
 				C5A7693415DB737100092FDA /* PCConfig.m in Sources */,
+				60FBA77D15E375AB00EB1C50 /* PCKioskTest.m in Sources */,
+				60FBA78215E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m in Sources */,
+				60FBA78615E3D15D00EB1C50 /* PCTKioskGalleryView.m in Sources */,
+				60FBA78A15E3D18800EB1C50 /* PCTKioskShelfView.m in Sources */,
+				60FBA78E15E3D1B900EB1C50 /* PCTKioskControlElement.m in Sources */,
+				60FBA79215E3D1F800EB1C50 /* PCTKioskGalleryControlElement.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

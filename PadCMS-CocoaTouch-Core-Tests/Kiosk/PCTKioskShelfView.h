@@ -1,8 +1,8 @@
 //
-//  PCSearchProvider.h
-//  Pad CMS
+//  PCTKioskShelfView.h
+//  PadCMS-CocoaTouch-Core
 //
-//  Created by Oleg Zhitnik on 01.03.12.
+//  Created by Oleg Zhitnik on 17.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -11,13 +11,13 @@
 //  modify and/ or redistribute the software under the terms of the CeCILL-C
 //  license as circulated by CEA, CNRS and INRIA at the following URL
 //  "http://www.cecill.info".
-//  
+//
 //  As a counterpart to the access to the source code and  rights to copy,
 //  modify and redistribute granted by the license, users are provided only
 //  with a limited warranty  and the software's author,  the holder of the
 //  economic rights,  and the successive licensors  have only  limited
 //  liability.
-//  
+//
 //  In this respect, the user's attention is drawn to the risks associated
 //  with loading,  using,  modifying and/or developing or reproducing the
 //  software by the user in light of its specific status of free software,
@@ -28,34 +28,13 @@
 //  requirements in conditions enabling the security of their systems and/or
 //  data to be ensured and,  more generally, to use and operate it in the
 //  same conditions as regards security.
-//  
+//
 //  The fact that you are presently reading this means that you have had
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <Foundation/Foundation.h>
-#import "PCApplication.h"
-#import "PCSearchBaseProvider.h"
+#import "PCKioskBaseShelfView.h"
 
-@class PCRevision;
-@class PCSearchTask;
-
-/**
- @class PCSearchProvider
- @brief Class that provides search in revisions
- */
-@interface PCSearchProvider : PCSearchBaseProvider
-
-/**
- @brief Main application object, for revisions enumeration
- */ 
-@property (atomic, assign) PCApplication *application;
-
-/**
- @brief Returns new instance of PCSearchProvider class
- @param keyPhrase - searching keyphrase entered by user
- @param _application - main application object for querying info about revisions
- */ 
--(id) initWithKeyPhrase:(NSString*) keyPhrase andApplication:(PCApplication*)_application;
+@interface PCTKioskShelfView : PCKioskBaseShelfView
 
 @end
