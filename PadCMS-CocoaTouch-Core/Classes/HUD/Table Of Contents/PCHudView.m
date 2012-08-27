@@ -60,8 +60,8 @@ NSString *EnabledKey = @"Enabled";
     PCTocView *_bottomTocView;
 }
 
-- (void)willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
-- (void)didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
+//- (void)willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
+//- (void)didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @end
 
@@ -77,7 +77,7 @@ NSString *EnabledKey = @"Enabled";
 {
     self = [super initWithFrame:frame];
     
-    if (self) {
+    if (self != nil) {
         
         self.backgroundColor = [UIColor clearColor];
         
@@ -92,6 +92,8 @@ NSString *EnabledKey = @"Enabled";
         _topBarView = [[PCTopBarView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
         _topBarView.alpha = 0.75f;
         _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+        _topBarView.statesDelegate = self;
+        [_topBarView transitToState:PCViewStateHidden animated:NO];
         [self addSubview:_topBarView];
         
         // configure summary
@@ -108,15 +110,18 @@ NSString *EnabledKey = @"Enabled";
             showTopTableOfContents = [[topTableOfContentsConfig valueForKey:EnabledKey] boolValue];
         }
         
+#ifdef TEST
+        if (YES) {
+#else
         if (showTopTableOfContents) {
-
+#endif
             _topTocView = [[PCTocView topTocViewWithFrame:self.bounds] retain];
-            _topTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-            _topTocView.delegate = self;
+            _topTocView.statesDelegate = self;
             _topTocView.gridView.dataSource = self;
             _topTocView.gridView.delegate = self;
+            _topTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
             [self addSubview:_topTocView];
-            [_topTocView transitToState:PCTocViewStateHidden animated:NO];
+            [_topTocView transitToState:PCViewStateHidden animated:NO];
             [_topTocView.gridView reloadData];
         }
         
@@ -127,18 +132,22 @@ NSString *EnabledKey = @"Enabled";
             showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:EnabledKey] boolValue];
         }
         
-        if (showBottomTableOfContents) {
-
-            _bottomTocView = [[PCTocView bottomTocViewWithFrame:self.bounds] retain];
-            _bottomTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-            _bottomTocView.delegate = self;
-            _bottomTocView.gridView.dataSource = self;
-            _bottomTocView.gridView.delegate = self;
-            [self addSubview:_bottomTocView];
-            [_bottomTocView transitToState:PCTocViewStateHidden animated:NO];
-            [_bottomTocView.gridView reloadData];
+            
+#ifdef TEST
+            if (YES) {
+#else
+            if (showBottomTableOfContents) {
+#endif
+                _bottomTocView = [[PCTocView bottomTocViewWithFrame:self.bounds] retain];
+                _bottomTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+                _bottomTocView.statesDelegate = self;
+                _bottomTocView.gridView.dataSource = self;
+                _bottomTocView.gridView.delegate = self;
+                [self addSubview:_bottomTocView];
+                [_bottomTocView transitToState:PCViewStateHidden animated:NO];
+                [_bottomTocView.gridView reloadData];
+            }
         }
-    }
     
     return self;
 }
@@ -150,10 +159,10 @@ NSString *EnabledKey = @"Enabled";
     if (_topTocView != nil) {
         CGSize topTocItemSize = [self topItemSize];
         _topTocView.bounds = CGRectMake(0,
-                                           0,
-                                           self.bounds.size.width,
-                                           topTocItemSize.height + _topTocView.button.bounds.size.height);
-        [_topTocView transitToState:_topTocView.state animated:YES];
+                                        0,
+                                        self.bounds.size.width,
+                                        topTocItemSize.height + _topTocView.button.bounds.size.height);
+        [_topTocView transitToState:_topTocView.state animated:NO];
     }
     
     if (_bottomTocView != nil) {
@@ -162,7 +171,7 @@ NSString *EnabledKey = @"Enabled";
                                            0,
                                            self.bounds.size.width,
                                            bottomTocItemSize.height + _bottomTocView.button.bounds.size.height);
-        [_bottomTocView transitToState:_bottomTocView.state animated:YES];
+        [_bottomTocView transitToState:_bottomTocView.state animated:NO];
     }
 }
 
@@ -255,7 +264,23 @@ NSString *EnabledKey = @"Enabled";
     
     return NO;
 }
+        
+- (void)setTopTocView:(PCTocView *)topTocView
+{
+    if (_topTocView != topTocView) {
+        [_topTocView release];
+        _topTocView = [topTocView retain];
+    }
+}
 
+- (void)setBottomTocView:(PCTocView *)bottomTocView
+{
+    if (_bottomTocView != bottomTocView) {
+        [_bottomTocView release];
+        _bottomTocView = [bottomTocView retain];
+    }
+}
+        
 #pragma mark - PCGridViewDelegate
 
 - (void)gridView:(PCGridView *)gridView didSelectCellAtIndex:(PCGridViewIndex *)index;
@@ -338,7 +363,7 @@ NSString *EnabledKey = @"Enabled";
         [self.delegate hudView:self didSelectIndex:index];
     }
 }
-
+/*
 - (void)willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
 {
     if ([self.delegate respondsToSelector:@selector(hudView:willTransitToc:toState:)]) {
@@ -352,7 +377,7 @@ NSString *EnabledKey = @"Enabled";
         [self.delegate hudView:self didTransitToc:tocView toState:state];
     }
 }
-
+*/
 #pragma mark - data source
 
 - (CGSize)summaryItemSize
@@ -419,7 +444,7 @@ NSString *EnabledKey = @"Enabled";
 }
 
 #pragma mark - PCTocViewDelegate
-
+/*
 - (BOOL)tocView:(PCTocView *)tocView transitToState:(PCTocViewState)state animated:(BOOL)animated
 {
     if (tocView == _topTocView) {
@@ -437,23 +462,23 @@ NSString *EnabledKey = @"Enabled";
                                          topBarViewSize.height,
                                          selfBounds.size.width,
                                          selfBounds.size.height - topBarViewSize.height);
-                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
-                                                 topBarViewSize.height / 2);
+//                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
+//                                                 topBarViewSize.height / 2);
 
             } else if (state == PCTocViewStateVisible) {
                 activeFrame = CGRectMake(0,
                                          0,
                                          selfBounds.size.width,
                                          selfBounds.size.height);
-                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
-                                                 -(topBarViewSize.height / 2));
+//                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
+//                                                 -(topBarViewSize.height / 2));
             } else {
                 activeFrame = CGRectMake(0,
                                          0,
                                          selfBounds.size.width,
                                          selfBounds.size.height);
-                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
-                                                 topBarViewSize.height / 2);
+//                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
+//                                                 topBarViewSize.height / 2);
             }
             
             tocView.center = [tocView centerForState:state containerBounds:activeFrame];
@@ -493,15 +518,15 @@ NSString *EnabledKey = @"Enabled";
                                          topBarViewSize.height,
                                          selfBounds.size.width,
                                          selfBounds.size.height - topBarViewSize.height);
-                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
-                                                 topBarViewSize.height / 2);
+//                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
+//                                                 topBarViewSize.height / 2);
             } else {
                 activeFrame = CGRectMake(0,
                                          0,
                                          selfBounds.size.width,
                                          selfBounds.size.height);
-                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
-                                                 -(topBarViewSize.height / 2));
+//                _topBarView.center = CGPointMake(topBarViewSize.width / 2,
+//                                                 -(topBarViewSize.height / 2));
             }
             
             // do not show empty toc
@@ -529,6 +554,193 @@ NSString *EnabledKey = @"Enabled";
     }
     
     return NO;
+}
+*/
+- (void)setTopBarViewVisibleAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize topBarSize = _topBarView.bounds.size;
+        _topBarView.center = CGPointMake(topBarSize.width / 2,
+                                         topBarSize.height / 2);
+    };
+    
+    if (animated) {
+    [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                     animations:transition];
+    } else {
+        transition();
+    }
+}
+
+- (void)setTopBarViewHiddenAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize topBarSize = _topBarView.bounds.size;
+        _topBarView.center = CGPointMake(topBarSize.width / 2,
+                                         - (topBarSize.height / 2));
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+}
+
+- (void)setTopTocViewActiveAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize topTocViewSize = _topTocView.bounds.size;
+        _topTocView.center = CGPointMake(topTocViewSize.width / 2,
+                                         topTocViewSize.height / 2 + TopBarHeight);
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+}
+
+- (void)setTopTocViewVisibleAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize topTocViewSize = _topTocView.bounds.size;
+        CGSize topTocViewButtonSize = _topTocView.button.bounds.size;
+        _topTocView.center = CGPointMake(topTocViewSize.width / 2,
+                                         - (topTocViewSize.height / 2) + topTocViewButtonSize.height);
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+}
+
+- (void)setTopTocViewHiddenAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize topTocViewSize = _topTocView.bounds.size;
+        _topTocView.center = CGPointMake(topTocViewSize.width / 2,
+                                         - (topTocViewSize.height / 2));
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+
+}
+
+- (void)setBottomTocViewActiveAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize containerSize = self.bounds.size;
+        CGSize bottomTocViewSize = _bottomTocView.bounds.size;
+        _bottomTocView.center = CGPointMake(bottomTocViewSize.width / 2,
+                                            containerSize.height - (bottomTocViewSize.height / 2));
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+}
+
+- (void)setBottomTocViewVisibleAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize containerSize = self.bounds.size;
+        CGSize bottomTocViewSize = _bottomTocView.bounds.size;
+        CGSize bottomTocViewButtonSize = _bottomTocView.button.bounds.size;
+        _bottomTocView.center = CGPointMake(bottomTocViewSize.width / 2,
+                                            containerSize.height + (bottomTocViewSize.height / 2) - bottomTocViewButtonSize.height);
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+}
+
+- (void)setBottomTocViewHiddenAnimated:(BOOL)animated
+{
+    void (^transition)() = ^() {
+        CGSize containerSize = self.bounds.size;
+        CGSize bottomTocViewSize = _bottomTocView.bounds.size;
+        _bottomTocView.center = CGPointMake(bottomTocViewSize.width / 2,
+                                            containerSize.height + (bottomTocViewSize.height / 2));
+    };
+    
+    if (animated) {
+        [UIView animateWithDuration:[UIApplication sharedApplication].statusBarOrientationAnimationDuration
+                         animations:transition];
+    } else {
+        transition();
+    }
+}
+
+#pragma mark - RRViewDelegate
+
+- (void)view:(PCView *)view transitToState:(PCViewState)state animated:(BOOL)animated
+{
+    if (view == _topBarView) {
+        if (state == PCViewStateVisible || state == PCViewStateActive) {
+            [self setTopBarViewVisibleAnimated:animated];
+        } else {
+            [self setTopBarViewHiddenAnimated:animated];
+        }
+    } else if (view == _topTocView) {
+        switch (state) {
+            case PCViewStateActive:
+                [_topBarView transitToState:PCViewStateVisible animated:YES];
+                [self setTopTocViewActiveAnimated:YES];
+                break;
+                
+            case PCViewStateVisible:
+                [_topBarView transitToState:PCViewStateHidden animated:YES];
+                [self setTopTocViewVisibleAnimated:YES];
+                break;
+                
+            case PCViewStateHidden:
+                [self setTopTocViewHiddenAnimated:YES];
+                break;
+                
+            case PCViewStateInvalid:
+            default:
+                [self setTopTocViewHiddenAnimated:NO];
+                break;
+        }
+    } else if (view == _bottomTocView) {
+        switch (state) {
+            case PCViewStateActive:
+                [self setBottomTocViewActiveAnimated:YES];
+                break;
+                
+            case PCViewStateVisible:
+                [self setBottomTocViewVisibleAnimated:YES];
+                break;
+                
+            case PCViewStateHidden:
+                [self setBottomTocViewHiddenAnimated:YES];
+                break;
+                
+            case PCViewStateInvalid:
+            default:
+                [self setBottomTocViewHiddenAnimated:NO];
+                break;
+        }
+    }
 }
 
 @end

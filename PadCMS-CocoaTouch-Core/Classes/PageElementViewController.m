@@ -60,6 +60,8 @@
 
 -(void)dealloc
 {
+	_elementView.tiledScrollViewDelegate = nil;
+	_elementView.dataSource = nil;
 	[self hideHud];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCGalleryElementDidDownloadNotification object:self.element];
 	[[NSNotificationCenter defaultCenter] removeObserver:self name:PCMiniArticleElementDidDownloadNotification object:self.element];
@@ -73,6 +75,8 @@
 
 -(void)releaseViews
 {
+	_elementView.tiledScrollViewDelegate = nil;
+	_elementView.dataSource = nil;
 	[_elementView release], _elementView = nil;
 }
 
@@ -81,6 +85,7 @@
     if ([_element isEqual:element]) {
         return;
     }
+	[_cachedTiles removeAllObjects];
     [_element release];
     _element = [element retain];
 	
@@ -240,6 +245,7 @@
 	
 //	[cache storeTileForElement:_element withIndex:index];
 //	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
+	if (!_element) return nil;
 	return [UIImage imageWithContentsOfFile:[[NSString stringWithFormat:@"%@/resource_%d_%d", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1] stringByAppendingPathExtension:_element.resourceExtension]];
 //---------------------------------------------------------------------------------------------		
 	

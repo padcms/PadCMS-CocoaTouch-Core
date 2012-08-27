@@ -37,6 +37,7 @@
 
 #import "PCGridView.h"
 #import "PCTocView.h"
+#import "PCView.h"
 
 @class PCHudView;
 @class PCTopBarView;
@@ -62,7 +63,7 @@
  @param tocView - PCTocView instance that will transit to new state.
  @param state - PCTocViewState structure describing toc view new state.
  */
-- (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
+//- (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @optional
 /**
@@ -71,7 +72,7 @@
  @param tocView - PCTocView instance that did transit to new state.
  @param state - PCTocViewState structure describing toc view new state.
  */
-- (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
+//- (void)hudView:(PCHudView *)hudView didTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state;
 
 @end
 
@@ -123,7 +124,7 @@
 /**
  @brief PCGridView cell for displaying table of contents element.
  */ 
-@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, PCTocViewDelegate>
+@interface PCHudView : UIView <PCGridViewDelegate, PCGridViewDataSource, /*PCTocViewDelegate, */PCViewDelegate>
 
 /**
  @brief The object that acts as the delegate of the receiving HUD view.

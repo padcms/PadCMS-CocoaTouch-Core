@@ -15,6 +15,7 @@
 #import "PCTopBarView.h"
 #import "PCTwitterNewController.h"
 #import "GalleryViewController.h"
+#import "PCHudController.h"
 #import "PCSubscriptionMenuViewController.h"
 
 @class PCRevision;
@@ -30,7 +31,7 @@
 @end
 
 @interface RevisionViewController : UIViewController <UIScrollViewDelegate, PCActionDelegate,
-UIGestureRecognizerDelegate, PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate,
+UIGestureRecognizerDelegate, /*PCHudViewDataSource, PCHudViewDelegate, PCTopBarViewDelegate,*/RRHudControllerDelegate,  
 PCSearchViewControllerDelegate, PCShareViewDelegate, PCTwitterNewControllerDelegate,
 PCEmailControllerDelegate, UIAlertViewDelegate, GalleryViewControllerDelegate, PCSubscriptionMenuViewControllerDelegate>
 {
