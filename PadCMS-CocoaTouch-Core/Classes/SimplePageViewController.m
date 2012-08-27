@@ -191,7 +191,7 @@
 - (void)videoControllerWillShow:(id)videoControllerToShow
 {
     UIView *videoView = ((UIViewController*)videoControllerToShow).view;
-    NSLog(@"videoView - %@", videoView);
+   // NSLog(@"videoView - %@", videoView);
     if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:videoView.frame])
     {
         [self showFullscreenVideo:videoView];

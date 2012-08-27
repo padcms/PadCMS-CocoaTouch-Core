@@ -36,6 +36,7 @@
 #import "PCSubscriptionMenuViewController.h"
 #import "InAppPurchases.h"
 #import "PCLocalizationManager.h"
+#import "PCMacros.h"
 
 #define MenuWidth 150.0
 #define MenuHeight 100.0
@@ -53,12 +54,15 @@
 @property (nonatomic, retain) NSArray *buttonsText;
 @property (nonatomic, assign) BOOL needRestoreIssues;
 
+- (void)subscribeAction;
+
 @end
 
 @implementation PCSubscriptionMenuViewController
 
 @synthesize buttonsText = _buttonsText;
 @synthesize needRestoreIssues = _needRestoreIssues;
+@synthesize delegate = _delegate;
 
 - (id)initWithSubscriptionFlag:(BOOL) isIssuesToRestore;
 {
@@ -87,6 +91,8 @@
 {
     [super viewDidLoad];
     
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(subscribeAction) name:PCSubscribeButtonDidTapped object:nil];
+
     self.view.backgroundColor =  [UIColor colorWithWhite:0 alpha:0.5];
     self.contentSizeForViewInPopover = CGSizeMake(MenuWidth, MenuHeight);
     self.tableView.scrollEnabled = NO;
@@ -95,12 +101,18 @@
 
 - (void)viewDidUnload
 {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
     [super viewDidUnload];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     return (interfaceOrientation == UIInterfaceOrientationPortrait);
+}
+
+- (void)subscribeAction
+{
+    [[InAppPurchases sharedInstance] subscribe];
 }
 
 #pragma mark - Table view data source
@@ -112,7 +124,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-    return 2;
+    return [_buttonsText count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -138,11 +150,12 @@
 
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
+    [_delegate subscriptionsMenuButtonWillPressed];
     switch (indexPath.row) 
     {
         case SubscribeButtonIndex:
         {
-            [[InAppPurchases sharedInstance] subscribe];
+            [[NSNotificationCenter defaultCenter] postNotificationName:PCSubscribeButtonWillTapped object:nil];
             break;
         }
             

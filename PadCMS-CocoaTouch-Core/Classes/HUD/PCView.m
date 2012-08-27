@@ -1,8 +1,8 @@
 //
-//  StoreController.h
+//  PCView.m
 //  Pad CMS
 //
-//  Created by Alexey Igoshev on 6/20/12.
+//  Created by Maxim Pervushin on 8/20/12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -11,13 +11,13 @@
 //  modify and/ or redistribute the software under the terms of the CeCILL-C
 //  license as circulated by CEA, CNRS and INRIA at the following URL
 //  "http://www.cecill.info".
-//  
+//
 //  As a counterpart to the access to the source code and  rights to copy,
 //  modify and redistribute granted by the license, users are provided only
 //  with a limited warranty  and the software's author,  the holder of the
 //  economic rights,  and the successive licensors  have only  limited
 //  liability.
-//  
+//
 //  In this respect, the user's attention is drawn to the risks associated
 //  with loading,  using,  modifying and/or developing or reproducing the
 //  software by the user in light of its specific status of free software,
@@ -28,31 +28,50 @@
 //  requirements in conditions enabling the security of their systems and/or
 //  data to be ensured and,  more generally, to use and operate it in the
 //  same conditions as regards security.
-//  
+//
 //  The fact that you are presently reading this means that you have had
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import <Foundation/Foundation.h>
-#import "PCKioskDataSourceProtocol.h"
-#import "PCKioskViewControllerDelegateProtocol.h"
-#import "PCSearchViewController.h"
-#import "RevisionViewController.h"
+#import "PCView.h"
 
-@class PCApplication;
-@class PCKioskViewController;
-@protocol PCStoreControllerDelegate;
-@interface PCStoreController : NSObject <PCKioskDataSourceProtocol,PCKioskViewControllerDelegateProtocol, PCSearchViewControllerDelegate, RevisionViewControllerDelegate>
+@interface PCView ()
+{
+    PCViewState _state;
+}
 
-@property (nonatomic, readonly, retain) UIViewController<PCStoreControllerDelegate>* rootViewController;
-//@property (nonatomic, readonly, retain) UINavigationController* navigationController;
-@property (nonatomic, readonly, retain) PCApplication* application;
-@property (retain, nonatomic) PCKioskViewController *kioskViewController;
+- (void)transitToState:(PCViewState)state animated:(BOOL)animated;
 
-- (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController;
-- (void)launch;
-- (void)switchToKiosk;
-- (void) searchWithKeyphrase:(NSString*) keyphrase;
+@end
 
+@implementation PCView
+@synthesize statesDelegate;
+@synthesize state = _state;
+
+- (id)initWithFrame:(CGRect)frame
+{
+    self = [super initWithFrame:frame];
+    if (self != nil) {
+        _state = PCViewStateInvalid;
+    }
+    return self;
+}
+
+- (void)transitToState:(PCViewState)state animated:(BOOL)animated
+{
+    if (_state != state) {
+        _state = state;
+    }
+    [self viewTransitToState:_state animated:animated];
+}
+
+#pragma mark - states delegate methods
+
+- (void)viewTransitToState:(PCViewState)state animated:(BOOL)animated
+{
+    if ([self.statesDelegate respondsToSelector:@selector(view:transitToState:animated:)]) {
+        [self.statesDelegate view:self transitToState:state animated:animated];
+    }
+}
 
 @end

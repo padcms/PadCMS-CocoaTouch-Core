@@ -55,6 +55,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 @synthesize page=_page;
 @synthesize elementContentSize=_elementContentSize;
 @synthesize isCropped=_isCropped;
+@synthesize resourceExtension=_resourceExtension;
 
 - (void)dealloc
 {
@@ -66,6 +67,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
     [resource release];
     resource = nil;
     [activeZones release], activeZones = nil;
+	[_resourceExtension release], _resourceExtension = nil;
     [super dealloc];
 }
 
@@ -78,7 +80,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
         identifier = -1;
         fieldTypeName = nil;
         resource = nil;
-        weight = -1;
+        weight = 0;
         contentText = nil;
         dataRects = nil;
         activeZones = [[NSMutableArray alloc] init];
@@ -207,7 +209,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 	if (!maxColumn) return nil;
 	NSInteger row = ceilf((index - 1) / maxColumn) + 1;
 	NSInteger column = index%maxColumn?index%maxColumn:maxColumn;
-	return [NSString stringWithFormat:@"%@/resource_%d_%d.png", [self.fullPathToContent stringByDeletingLastPathComponent], row, column]; 
+	return [[NSString stringWithFormat:@"%@/resource_%d_%d", [self.fullPathToContent stringByDeletingLastPathComponent], row, column] stringByAppendingPathExtension:self.resourceExtension]; 
 }
 
 

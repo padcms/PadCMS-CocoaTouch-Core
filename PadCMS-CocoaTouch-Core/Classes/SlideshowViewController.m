@@ -109,7 +109,7 @@
     int lastNeededPageIndex  = floorf((CGRectGetMaxX(visibleBounds)) / CGRectGetWidth(visibleBounds));
     firstNeededPageIndex = MAX(firstNeededPageIndex, 0);
     lastNeededPageIndex  = MIN(lastNeededPageIndex, [self.slideElements count] - 1);
-    NSLog(@"FIRST - %d, LAST - %d", firstNeededPageIndex, lastNeededPageIndex);
+ //   NSLog(@"FIRST - %d, LAST - %d", firstNeededPageIndex, lastNeededPageIndex);
     //removing not visible images
 	NSMutableSet* pagesToRemove = [[NSMutableSet alloc] init];
 	for (PageElementViewController *controller in _visibleElementControllers) {
@@ -212,7 +212,7 @@
 	slideHUD.userInteractionEnabled = YES;
 	CGRect frame = [self activeZoneRectForType:PCPDFActiveZoneScroller];
 	slideHUD.center = CGPointMake(/*index*sliderRect.size.width +*/ frame.origin.x + frame.size.width/2, frame.origin.y + frame.size.height/2);
-	NSLog(@"FRAme HUD - %@", NSStringFromCGRect(slideHUD.frame));
+//	NSLog(@"FRAme HUD - %@", NSStringFromCGRect(slideHUD.frame));
 	[self.view addSubview:slideHUD];
 	[self.view insertSubview:slideHUD belowSubview:_slideScrollView];
 	slideHUD.mode = MBProgressHUDModeAnnularDeterminate;
@@ -236,7 +236,7 @@
 - (void)slideDownloaded:(NSNotification*)notif
 {
 	PCPageElement* downloadedElement = [[notif userInfo] objectForKey:@"element"];
-	PCPageElement* currentElement = [self.slideElements objectAtIndex:self.pageControll.currentPage];
+	//PCPageElement* currentElement = [self.slideElements objectAtIndex:self.pageControll.currentPage];
 	if (slideHUD)
 	{
 		if (slideHUD.tag == 100 + self.pageControll.currentPage)
@@ -244,17 +244,21 @@
 			[self hideSlideHUD];
 		}
 	}
-	if (currentElement == downloadedElement)
-	{
-		for (PageElementViewController* elementController in self.visibleElementControllers) {
-			if (elementController.element == currentElement)
-			{
-				[elementController.elementView removeFromSuperview];
-				elementController.elementView = nil;
-				[_slideScrollView addSubview:elementController.elementView];
-			}
+	
+	for (PageElementViewController* elementController in self.visibleElementControllers) {
+		if (elementController.element == downloadedElement)
+		{
+//			[elementController.elementView removeFromSuperview];
+//			elementController.elementView = nil;
+			[_slideScrollView addSubview:elementController.elementView];
+			elementController.elementView.scrollView.bounds = _slideScrollView.frame;
+			
 		}
 	}
+	/*if (currentElement == downloadedElement)
+	{
+		
+	}*/
 }
 
 

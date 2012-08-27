@@ -10,9 +10,10 @@
 #import "JCTiledScrollView.h"
 
 @class PCPageElement;
-@interface PageElementViewController : NSObject<JCTileSource>
+@interface PageElementViewController : NSObject<JCTileSource, JCTiledScrollViewDelegate>
 @property (nonatomic, retain) JCTiledScrollView *elementView;
 @property (nonatomic, retain) PCPageElement* element;
+@property (nonatomic, retain) NSMutableSet* cachedTiles;
 
 -(id)initWithElement:(PCPageElement *)element andFrame:(CGRect)elementFrame;
 

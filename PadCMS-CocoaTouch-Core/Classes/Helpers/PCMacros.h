@@ -45,3 +45,5 @@
 
 #define PCApplicationDataWillUpdate @"applicationNeedToUpdate"
 #define PCElementDownloadOperationDidEnded @"DownloadingPCPageElementOperationDidEnded"
+#define PCSubscribeButtonDidTapped @"SubscribeButtonDidTapped"
+#define PCSubscribeButtonWillTapped @"SubscribeButtonWillTapped"

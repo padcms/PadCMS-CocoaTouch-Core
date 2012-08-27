@@ -35,7 +35,15 @@
 
 #import <UIKit/UIKit.h>
 
+@protocol PCSubscriptionMenuViewControllerDelegate
+
+- (void)subscriptionsMenuButtonWillPressed;
+
+@end
+
 @interface PCSubscriptionMenuViewController : UITableViewController
+
+@property (nonatomic, assign) id <PCSubscriptionMenuViewControllerDelegate> delegate;
 
 - (id)initWithSubscriptionFlag:(BOOL) isIssuesToRestore;
 

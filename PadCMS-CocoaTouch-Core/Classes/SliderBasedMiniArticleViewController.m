@@ -92,7 +92,15 @@
 			
 	// Set the image for the given index
 	PCPageElementMiniArticle* miniArticle = [self.miniArticles objectAtIndex:indexPath.row];
-	NSString* path = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnail];
+	NSString* path = nil;
+	if (miniArticle == _selectedMiniArticle)
+	{
+		 path = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnailSelected];
+	}
+	else {
+		 path = [self.page.revision.contentDirectory stringByAppendingPathComponent:miniArticle.thumbnail];
+	}
+	
 	UIImageView *imageView = (UIImageView *)[view viewWithTag:IMAGE_TAG];
 	imageView.image = [UIImage imageWithContentsOfFile:path];
 }

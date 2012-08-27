@@ -221,7 +221,7 @@
     }
 
     if (_hudView.topTocView != nil) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:NO];
+        [_hudView.topTocView transitToState:PCViewStateVisible animated:NO];
     }
 }
 
@@ -1491,20 +1491,20 @@
 
 - (void)tapGesture:(UIGestureRecognizer *)recognizer
 {
-    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCTocViewStateActive) {
-        [_hudView.topTocView transitToState:PCTocViewStateVisible animated:YES];
+    if (_hudView.topTocView != nil && _hudView.topTocView.state == PCViewStateActive) {
+        [_hudView.topTocView transitToState:PCViewStateVisible animated:YES];
     }
     
     if (_hudView.bottomTocView != nil) {
         PCTocView *bottomTocView = _hudView.bottomTocView;
         
 
-        if (bottomTocView.state == PCTocViewStateActive) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-        } else if (bottomTocView.state == PCTocViewStateHidden) {
-            [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
-        } else if (bottomTocView.state == PCTocViewStateVisible) {
-            [bottomTocView transitToState:PCTocViewStateHidden animated:YES];
+        if (bottomTocView.state == PCViewStateActive) {
+            [bottomTocView transitToState:PCViewStateVisible animated:YES];
+        } else if (bottomTocView.state == PCViewStateHidden) {
+            [bottomTocView transitToState:PCViewStateVisible animated:YES];
+        } else if (bottomTocView.state == PCViewStateVisible) {
+            [bottomTocView transitToState:PCViewStateHidden animated:YES];
         }
     }
 }
@@ -1739,11 +1739,11 @@
     
     PCTocView *bottomTocView = _hudView.bottomTocView;
     if (bottomTocView != nil &&
-        bottomTocView.state == PCTocViewStateVisible &&
+        bottomTocView.state == PCViewStateVisible &&
         revision.verticalTocLoaded &&
         revision.horizontalTocLoaded) {
         
-        [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+        [bottomTocView transitToState:PCViewStateVisible animated:YES];
     }
     
     if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
@@ -1765,11 +1765,11 @@
     
     PCTocView *bottomTocView = _hudView.bottomTocView;
     if (bottomTocView != nil &&
-        bottomTocView.state == PCTocViewStateVisible &&
+        bottomTocView.state == PCViewStateVisible &&
         revision.verticalTocLoaded &&
         revision.horizontalTocLoaded) {
         
-        [bottomTocView transitToState:PCTocViewStateVisible animated:YES];
+        [bottomTocView transitToState:PCViewStateVisible animated:YES];
     }
 
     if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
@@ -2105,7 +2105,7 @@
         [self showPageWithIndex:pageIndex];
     }
 }
-
+/*
 - (void)hudView:(PCHudView *)hudView willTransitToc:(PCTocView *)tocView toState:(PCTocViewState)state
 {
     if (tocView == hudView.topTocView && state != PCTocViewStateActive) {
@@ -2128,7 +2128,7 @@
         }
     }
 }
-
+*/
 #pragma mark - PCTopBarViewDelegate
 
 - (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
