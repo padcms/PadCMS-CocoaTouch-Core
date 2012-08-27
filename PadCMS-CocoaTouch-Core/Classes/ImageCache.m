@@ -274,6 +274,27 @@
 				}
 			}
 			
+	/*		NSArray* miniArticlesElements = [page elementsForType:PCPageElementTypeMiniArticle];
+			for (PCPageElement* element in miniArticlesElements) {
+				if (![self.elementCache objectForKey:[NSNumber numberWithInt:element.identifier]] && element  && [element.resourceExtension isEqualToString:@"png"])
+				{
+					
+					
+					NSInteger maxColumn = ceilf(element.realImageSize.width / kDefaultTileSize);
+					for (int col = 1; col <=2; ++col) {
+						for (int row = 1; row <=2; ++row) {
+							NSInteger index = (row - 1) * maxColumn + col;
+							NSBlockOperation* operation = [NSBlockOperation blockOperationWithBlock:^{
+								[self storeTileForElement:element withIndex:index];
+							}];
+							[self.queue addOperation:operation];
+						}
+						
+					}
+					
+				}
+			}
+		*/	
 			
 			
 /*			

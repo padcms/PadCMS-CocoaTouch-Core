@@ -347,7 +347,7 @@
 		}
 	}
 	//	NSLog(@"NEW - %@", newSet);
-	self.cachedTiles = [[newSet copy] autorelease];;
+	self.cachedTiles = [[newSet mutableCopy] autorelease];;
 	
 	ImageCache* cache = [ImageCache sharedImageCache];
 	[newSet minusSet:oldSet];
