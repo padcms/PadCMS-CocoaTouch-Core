@@ -53,6 +53,7 @@
 #import "PCGoogleAnalytics.h"
 #import "PCLocalizationManager.h"
 #import "PCVideoManager.h"
+#import "PCKioskViewController.h"
 
 NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 
@@ -72,30 +73,32 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 //@synthesize navigationController=_navigationController;
 @synthesize application=_application;
 @synthesize revisionViewController=_revisionViewController;
+@synthesize kioskViewController = _kioskViewController;
 
 - (id)initWithStoreRootViewController:(UIViewController<PCStoreControllerDelegate>*)viewController
 {
-  
-  self = [super init];
-  if (self)
-  {
-	_previewMode = NO;
-    _rootViewController = [viewController retain];
-    [_rootViewController setStoreController:self];
-    [PCGoogleAnalytics start];
-    [PCGoogleAnalytics trackAction:@"Application launch" category:@"General"];
-    
-    [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
-    [[UIApplication sharedApplication]
-     registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
-    [InAppPurchases sharedInstance];
-    [PCDownloadManager sharedManager];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendReceipt:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
-    [self launch];
-    
-    [[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
-  }
-  return nil;
+	
+	self = [super init];
+	if (self)
+	{
+		_previewMode = NO;
+		_kioskViewController = nil;
+		_rootViewController = [viewController retain];
+		[_rootViewController setStoreController:self];
+		[PCGoogleAnalytics start];
+		[PCGoogleAnalytics trackAction:@"Application launch" category:@"General"];
+		
+		[[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
+		[[UIApplication sharedApplication]
+		 registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
+		[InAppPurchases sharedInstance];
+		[PCDownloadManager sharedManager];
+		[[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(sendReceipt:) name:kInAppPurchaseManagerTransactionSucceededNotification object:nil];
+		[self launch];
+		
+		[[UIDevice currentDevice] beginGeneratingDeviceOrientationNotifications];
+	}
+	return nil;
 }
 
 -(void)dealloc
@@ -772,6 +775,9 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
 	if (_previewMode) {
 		[revisionViewController.revision deleteContent];
+		if (_kioskViewController != nil) {
+			[_kioskViewController reloadSubviews];
+		}
 		_previewMode = NO;
 	}
 	
