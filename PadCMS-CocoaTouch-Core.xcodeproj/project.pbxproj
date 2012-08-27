@@ -1044,7 +1044,6 @@
 		60FBA77615E27B0400EB1C50 /* OCMock.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA76F15E27ABE00EB1C50 /* OCMock.h */; };
 		60FBA77715E27B0400EB1C50 /* OCMockObject.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA77015E27ABE00EB1C50 /* OCMockObject.h */; };
 		60FBA77815E27B0400EB1C50 /* OCMockRecorder.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA77115E27ABE00EB1C50 /* OCMockRecorder.h */; };
-		60FBA77915E27B3E00EB1C50 /* PCSearchResult.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3EA71588CE5F0097D960 /* PCSearchResult.m */; };
 		60FBA77D15E375AB00EB1C50 /* PCKioskTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA77B15E375AB00EB1C50 /* PCKioskTest.m */; };
 		60FBA78115E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 60FBA77F15E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.h */; };
 		60FBA78215E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 60FBA78015E3D0ED00EB1C50 /* PCTKioskSubviewsFactory.m */; };
@@ -4949,7 +4948,6 @@
 				60FBA79715E3D42B00EB1C50 /* PCKioskAbstractSubviewsFactory.m in Sources */,
 				60FBA79615E3D42100EB1C50 /* PCKioskAbstractControlElement.m in Sources */,
 				60FBA79515E3D40900EB1C50 /* PCKioskBaseControlElement.m in Sources */,
-				60FBA77915E27B3E00EB1C50 /* PCSearchResult.m in Sources */,
 				C50E499015AEA20E00222413 /* main.m in Sources */,
 				C50E499C15AEA43200222413 /* PCResourceViewTest.m in Sources */,
 				C50E499D15AEA4D500222413 /* PCResourceView.m in Sources */,
