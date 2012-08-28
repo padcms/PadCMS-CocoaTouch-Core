@@ -43,6 +43,8 @@
  NSString* PCSQLiteElementDataPositionTableName                 = @"element_data_position";
  NSString* PCSQLiteMenuTableName                                = @"menu";
  NSString* PCSQLitePageHorisontalTableName                      = @"page_horisontal";
+ NSString* PCSQLiteCrosswordsTableName                          = @"game_crossword";
+ NSString* PCSQLiteCrosswordsContentTableName                   = @"game_crossword_word";
 
  NSString* PCSQLiteIDColumnName                                 = @"id";
  NSString* PCSQLiteTitleColumnName                              = @"title";
@@ -72,7 +74,14 @@
  NSString* PCSQLiteColorColumnName                              = @"color";
  NSString* PCSQLiteNameColumnName                               = @"name";
  NSString* PCSQLiteResourceColumnName                           = @"resource";
- NSString* PCSQLiteElementGalleryIDName                         = @"gallery_id";
+ NSString* PCSQLiteCrosswordWidthColumnName                     = @"grid_width";
+ NSString* PCSQLiteCrosswordHeightColumnName                    = @"grid_height";
+ NSString* PCSQLiteCrosswordIDColumnName                        = @"game";
+ NSString* PCSQLiteAnswerColumnName                             = @"answer";
+ NSString* PCSQLiteQuestionColumnName                           = @"question";
+ NSString* PCSQLiteLengthColumnName                             = @"length";
+ NSString* PCSQLiteDirectionColumnName                          = @"direction";
+ NSString* PCSQLiteStartFromColumnName                          = @"start_from";
 
  NSString* PCSQLitePositionLeftTypeValue                        = @"left";
  NSString* PCSQLitePositionRightTypeValue                       = @"right";
@@ -107,6 +116,7 @@
  NSString* PCSQLiteElementWidthAttributeName                    = @"width";
  NSString* PCSQLiteElementActiveZoneAttributeName               = @"active_zone";
  NSString* PCSQLiteElementZoomAttributeName                     = @"zoom";
+ NSString* PCSQLiteElementGalleryIDName                         = @"gallery_id";
 
  NSString* PCSQLiteTemplateTouchType                            = @"touch";
  NSString* PCSQLiteTemplateRotationType                         = @"rotation";

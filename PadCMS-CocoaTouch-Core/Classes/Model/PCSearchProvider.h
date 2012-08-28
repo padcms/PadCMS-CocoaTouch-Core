@@ -51,6 +51,11 @@
  */ 
 @property (atomic, assign) PCApplication *application;
 
+/**
+ @brief Returns new instance of PCSearchProvider class
+ @param keyPhrase - searching keyphrase entered by user
+ @param _application - main application object for querying info about revisions
+ */ 
 -(id) initWithKeyPhrase:(NSString*) keyPhrase andApplication:(PCApplication*)_application;
 
 @end

@@ -50,5 +50,5 @@ NSString* PCPDFActiveZoneThumbs             = @"local://thumbs";
 NSString* PCPDFActiveZonePopup              = @"local://popup";
 NSString* PCPDFActiveZone3d                 = @"local://3d";
 NSString* PCPDFActiveZoneExtra              = @"local://extra";
-
+NSString* PCPDFActiveZoneGameCrossword      = @"local://game/crossword";
 

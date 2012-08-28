@@ -51,5 +51,5 @@ PADCMS_EXTERN NSString* PCPDFActiveZoneThumbs;
 PADCMS_EXTERN NSString* PCPDFActiveZonePopup;
 PADCMS_EXTERN NSString* PCPDFActiveZone3d;
 PADCMS_EXTERN NSString* PCPDFActiveZoneExtra;
-
+PADCMS_EXTERN NSString* PCPDFActiveZoneGameCrossword;
 

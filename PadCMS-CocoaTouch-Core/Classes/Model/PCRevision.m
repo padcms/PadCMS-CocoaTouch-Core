@@ -46,6 +46,7 @@
 #import "PCGoogleAnalytics.h"
 #import "PCConfig.h"
 #import "PCDownloadManager.h"
+#import "PCCrossword.h"
 
 #define PCRevisionExportPath @"export/revision/id/"
 #define PCRevisionDirectoryPrefix @"revision"
@@ -106,6 +107,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 @synthesize newHorizontalPages=_newHorizontalPages;
 @synthesize alternativeCoverPage=_alternativeCoverPage;
 @synthesize pageDictionary=_pageDictionary;
+@synthesize crosswords = _crosswords;
 @dynamic verticalTocLoaded;
 @dynamic horizontalTocLoaded;
 @dynamic validVerticalTocItems;
@@ -131,6 +133,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	self.newHorizontalPages = nil;
 	self.alternativeCoverPage = nil;
 	self.pageDictionary = nil;
+    self.crosswords = nil;
 	[_successBlock release];
 	[_progressBlock release];
     [super dealloc];
@@ -156,6 +159,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         _horisontalTocItems = [[NSMutableDictionary alloc] init];
 		_newHorizontalPages = [[NSMutableArray alloc] init];
         _columns = [[NSMutableArray alloc] init];
+        _crosswords = [[NSMutableArray alloc] init];
         self.helpPages = [parameters objectForKey:PCJSONIssueHelpPagesKey];
         _horizontalMode = NO;
         
@@ -600,6 +604,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     [self.horizontalPages removeAllObjects];
     [[self toc] removeAllObjects];
     [self.columns removeAllObjects];
+    [self.crosswords removeAllObjects];
 }
 
 - (void)initFromDatabase

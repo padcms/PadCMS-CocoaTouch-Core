@@ -429,6 +429,11 @@
         
 }
 
+- (void)showCrossword:(NSInteger)crosswordID
+{
+    
+}
+
 -(void)gotoPage:(PCPage *)page
 {
 	self.nextPageViewController = [[PCMagazineViewControllersFactory factory] viewControllerForPage:page];

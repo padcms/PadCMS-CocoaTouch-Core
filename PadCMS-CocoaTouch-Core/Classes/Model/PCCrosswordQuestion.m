@@ -1,8 +1,8 @@
 //
-//  Header.h
+//  PCCrosswordQuestion.m
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 03.02.12.
+//  Created by Igor Getmanenko on 27.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,30 +33,53 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCApplication.h"
-#import "PCIssue.h"
-#import "PCTocItem.h"
-#import "PCColumn.h"
-#import "PCPage.h"
-#import "PCHorizontalPage.h"
-#import "PCCrossword.h"
+#import "PCCrosswordQuestion.h"
 
-#import "PCPageElement.h"
-#import "PCPageElementAdvert.h"
-#import "PCPageElementBody.h"
-#import "PCPageElementDragAndDrop.h"
-#import "PCPageElementGallery.h"
-#import "PCPageElementHtml.h"
-#import "PCPageElementHtml5.h"
-#import "PCPageElementMiniArticle.h"
-#import "PCPageElementScrollingPane.h"
-#import "PCPageElementSlide.h"
-#import "PCPageElementVideo.h"
+@implementation PCCrosswordQuestion
 
-#import "PCPageTemplate.h"
+@synthesize questionID = _questionID;
+@synthesize question = _question;
+@synthesize answer = _answer;
+@synthesize length = _length;
+@synthesize direction = _direction;
+@synthesize startingSellID = _startingSellID;
 
-#import "PCPageTemplatesPool.h"
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        
+    }
+    return self;
+}
 
-#import "PCPageActiveZone.h"
-#import "PCDataHelper.h"
+- (void)dealloc
+{
+    [_question release], _question = nil;
+    [_answer release], _answer = nil;
+    [_direction release], _direction = nil;
+    
+    [super dealloc];
+}
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:
+            @"PCCrosswordQuestion: %@\r"
+            "identifier: %d\r"
+            "question: %@\r"
+            "answer: %@\r"
+            "length: %d\r"
+            "direction: %@\r"
+            "startingSellID: %d\r",
+            [super description],
+            _questionID,
+            _question,
+            _answer,
+            _length,
+            _direction,
+            _startingSellID];
+}
+
+@end

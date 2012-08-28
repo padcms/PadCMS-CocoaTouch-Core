@@ -1,8 +1,8 @@
 //
-//  Header.h
+//  PCCrosswordCell.m
 //  Pad CMS
 //
-//  Created by Rustam Mallakurbanov on 03.02.12.
+//  Created by Igor Getmanenko on 27.08.12.
 //  Copyright (c) PadCMS (http://www.padcms.net)
 //
 //
@@ -33,30 +33,43 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCApplication.h"
-#import "PCIssue.h"
-#import "PCTocItem.h"
-#import "PCColumn.h"
-#import "PCPage.h"
-#import "PCHorizontalPage.h"
-#import "PCCrossword.h"
+#import "PCCrosswordCell.h"
 
-#import "PCPageElement.h"
-#import "PCPageElementAdvert.h"
-#import "PCPageElementBody.h"
-#import "PCPageElementDragAndDrop.h"
-#import "PCPageElementGallery.h"
-#import "PCPageElementHtml.h"
-#import "PCPageElementHtml5.h"
-#import "PCPageElementMiniArticle.h"
-#import "PCPageElementScrollingPane.h"
-#import "PCPageElementSlide.h"
-#import "PCPageElementVideo.h"
+@implementation PCCrosswordCell
 
-#import "PCPageTemplate.h"
+@synthesize cellID = _cellID;
+@synthesize cellCurrentContent = _cellCurrentContent;
+@synthesize cellRightAnswerContent = _cellRightAnswerContent;
 
-#import "PCPageTemplatesPool.h"
+- (id)init
+{
+    self = [super init];
+    if (self)
+    {
+        
+    }
+    return self;
+}
 
-#import "PCPageActiveZone.h"
-#import "PCDataHelper.h"
+- (void)dealloc
+{
+    [_cellCurrentContent release], _cellCurrentContent = nil;
+    [_cellRightAnswerContent release], _cellRightAnswerContent = nil;
+    
+    [super dealloc];
+}
 
+- (NSString *)description
+{
+    return [NSString stringWithFormat:
+            @"PCCrosswordCell: %@\r"
+            "identifier: %d\r"
+            "current: %@\r"
+            "answer: %@\r",
+            [super description],
+            _cellID,
+            _cellCurrentContent,
+            _cellRightAnswerContent];
+}
+
+@end
