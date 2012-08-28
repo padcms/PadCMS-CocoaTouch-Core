@@ -14,6 +14,7 @@
 #import "PCStyler.h"
 #import "PCPageElementBody.h"
 #import "JCTiledView.h"
+#import "PopupView.h"
 
 @interface GalleryViewController ()
 {
@@ -202,12 +203,33 @@ static int currentPopupTag = -1;
 							rect.origin.x *= scale;
 							rect.origin.y *= scale;
 							rect.origin.y = galleryElement.size.height*scale - rect.origin.y - rect.size.height;
-							UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
+						/*	UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
 							[popup setFrame:rect];
 							popup.tag = 100 + [[type lastPathComponent] intValue];
 							[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
 							
-							[elementController.elementView addSubview:popup];			
+							[elementController.elementView addSubview:popup];*/	
+							
+							PopupView* popup = [[PopupView alloc] initWithFrame:rect];
+							popup.tag = 100 + [[type lastPathComponent] intValue];
+							UITapGestureRecognizer* singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popupAction:)];
+							singleTapGestureRecognizer.numberOfTapsRequired = 1;
+							[popup addGestureRecognizer:singleTapGestureRecognizer];
+							
+							UITapGestureRecognizer* doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:elementController.elementView action:@selector(doubleTapReceived:)];
+							doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+							[popup addGestureRecognizer:doubleTapGestureRecognizer];
+							[singleTapGestureRecognizer requireGestureRecognizerToFail:doubleTapGestureRecognizer];
+							
+							UITapGestureRecognizer* twoFingerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:elementController.elementView action:@selector(twoFingerTapReceived:)];
+							twoFingerTapGestureRecognizer.numberOfTouchesRequired = 2;
+							twoFingerTapGestureRecognizer.numberOfTapsRequired = 1;
+							[popup addGestureRecognizer:twoFingerTapGestureRecognizer];
+							
+							elementController.elementView.popupView = popup;
+							
+							//popup.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+							[elementController.elementView.scrollView addSubview:popup];
 						}
 					}
 				}
@@ -218,13 +240,35 @@ static int currentPopupTag = -1;
 					if (popupElement) 
 					{
 					//	NSLog(@"popup weight - %d", popupElement.weight);
-						UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
+					/*	UIButton* popup = [UIButton buttonWithType:UIButtonTypeCustom];
 						elementFrame.origin = CGPointMake(0.0, 0.0);
 						[popup setFrame:elementFrame];
 						popup.tag = 100 + popupElement.weight + 1;
 						[popup addTarget:self action:@selector(popupAction:) forControlEvents:UIControlEventTouchUpInside];
+						popup.userInteractionEnabled = YES;
+						[elementController.elementView addSubview:popup];*/
+						elementFrame.origin = CGPointMake(0.0, 0.0);
+						PopupView* popup = [[PopupView alloc] initWithFrame:elementFrame];
+						popup.tag = 100 + popupElement.weight + 1;
+						UITapGestureRecognizer* singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(popupAction:)];
+						singleTapGestureRecognizer.numberOfTapsRequired = 1;
+						[popup addGestureRecognizer:singleTapGestureRecognizer];
 						
-						[elementController.elementView addSubview:popup];
+						UITapGestureRecognizer* doubleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:elementController.elementView action:@selector(doubleTapReceived:)];
+						doubleTapGestureRecognizer.numberOfTapsRequired = 2;
+						[popup addGestureRecognizer:doubleTapGestureRecognizer];
+						[singleTapGestureRecognizer requireGestureRecognizerToFail:doubleTapGestureRecognizer];
+						
+						UITapGestureRecognizer* twoFingerTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:elementController.elementView action:@selector(twoFingerTapReceived:)];
+						twoFingerTapGestureRecognizer.numberOfTouchesRequired = 2;
+						twoFingerTapGestureRecognizer.numberOfTapsRequired = 1;
+						[popup addGestureRecognizer:twoFingerTapGestureRecognizer];
+						
+						elementController.elementView.popupView = popup;
+						
+						//popup.backgroundColor = [UIColor colorWithRed:1.0 green:0.0 blue:0.0 alpha:0.5];
+
+						[elementController.elementView.scrollView addSubview:popup];
 					}
 					
 				}
@@ -256,25 +300,34 @@ static int currentPopupTag = -1;
     return foundImage;
 }
 
--(void)popupAction:(UIButton*)sender
+-(void)popupAction:(UIGestureRecognizer*)sender
 {
+	if (sender.state != UIGestureRecognizerStateEnded)
+	{
+		return;
+	}
 	self.popupController = nil;
-	for (UIView* v in sender.superview.subviews) {
+	for (UIView* v in sender.view.superview.subviews) {
 		if ([v isKindOfClass:[JCTiledScrollView class]])
 		{
 			NSLog(@"superview tag1 - %d", v.tag);
 			[v removeFromSuperview];
-			NSLog(@"superview tag - %d", v.tag);
-			if (v.tag == sender.tag) return;
+			NSLog(@"superview tag - %d", sender.view.tag);
+			if (v.tag == sender.view.tag)
+			{
+				((PopupView*)sender.view).popupElementView = nil;
+				return;
+			}
+				
 		}
 	}
-	if (currentPopupTag == sender.tag)
+	if (currentPopupTag == sender.view.tag)
 	{
 		currentPopupTag = -1;
 		return;
 	}
 //	NSLog(@"POPUP tag - %d", sender.tag);
-	int index = sender.tag - 100 - 1;
+	int index = sender.view.tag - 100 - 1;
 	NSArray* popupsElements = [self.page elementsForType:PCPageElementTypePopup];
 	PCPageElement* popupElement = [popupsElements objectAtIndex:index];
 	
@@ -290,13 +343,15 @@ static int currentPopupTag = -1;
     [elementController.elementView  addGestureRecognizer:tapGestureRecognizer];
 	[tapGestureRecognizer release];
 //	elementController.elementView.tag = sender.tag;*/
-	currentPopupTag = sender.tag;
-	[sender.superview addSubview:elementController.elementView ];
+	currentPopupTag = sender.view.tag;
+	((PopupView*)sender.view).popupElementView = elementController.elementView;
+	elementController.elementView.frame = sender.view.frame;
+	[sender.view.superview addSubview:elementController.elementView ];
 //	[sender.superview sendSubviewToBack:elementController.elementView ];
-	for (UIView* v in sender.superview.subviews) {
-		if ([v isKindOfClass:[UIButton class]])
+	for (UIView* v in sender.view.superview.subviews) {
+		if (v.tag >= 100)
 		{
-			[sender.superview bringSubviewToFront:v];
+			[sender.view.superview bringSubviewToFront:v];
 		}
 	}
 	[elementController release];

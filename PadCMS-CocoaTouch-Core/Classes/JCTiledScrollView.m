@@ -30,8 +30,10 @@
 #import "JCTiledScrollView.h"
 #import "JCTiledView.h"
 #import "PCScrollView.h"
+#import "PopupView.h"
 
 #define kStandardUIScrollViewAnimationTime 0.10
+
 
 @interface JCTiledScrollView () <JCTiledBitmapViewDelegate, UIGestureRecognizerDelegate>
 
@@ -62,13 +64,15 @@
 @synthesize zoomsInOnDoubleTap = _zoomsInOnDoubleTap;
 @synthesize centerSingleTap = _centerSingleTap;
 
+@synthesize popupView=_popupView;
+
 
 + (Class)tiledLayerClass
 {
   return [JCTiledView class];
 }
 
-- (id)initWithFrame:(CGRect)frame contentSize:(CGSize)contentSize
+- (id)initWithFrame:(CGRect)frame contentSize:(CGSize)contentSize minimumZoomScale:(CGFloat)minimumScale
 {
 	if ((self = [super initWithFrame:frame]))
   {
@@ -79,11 +83,12 @@
     _scrollView.delegate = self;
     _scrollView.backgroundColor = [UIColor clearColor];
     _scrollView.contentSize = contentSize;
-    _scrollView.bouncesZoom = YES;
+    _scrollView.bouncesZoom = NO;
     _scrollView.bounces = YES;
-    _scrollView.minimumZoomScale = 1.0;
+    _scrollView.minimumZoomScale = minimumScale;
+	  _scrollView.tag = kScrollViewTag;
 
-    self.levelsOfZoom = 2;
+//    self.levelsOfZoom = 2;
 
     self.zoomsInOnDoubleTap = YES;
     self.zoomsOutOnTwoFingerTap = YES;
@@ -99,7 +104,7 @@
     [_scrollView addSubview:self.tiledView];
 
     [self addSubview:_scrollView];
-    [self addSubview:_canvasView];
+ //   [self addSubview:_canvasView];
 
     _singleTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(singleTapReceived:)];
     _singleTapGestureRecognizer.numberOfTapsRequired = 1;
@@ -130,6 +135,7 @@
   [_singleTapGestureRecognizer release];
   [_doubleTapGestureRecognizer release];
   [_twoFingerTapGestureRecognizer release];
+	[_popupView release];
 	[super dealloc];
 }
 
@@ -150,6 +156,8 @@
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView
 {
+	_popupView.frame = _scrollView.bounds;
+	_popupView.popupElementView.frame = _scrollView.bounds;
    if ([self.tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollViewDidScroll:)])
   {
     [self.tiledScrollViewDelegate tiledScrollViewDidScroll:self];
@@ -192,6 +200,7 @@
     float newZoom = MAX(powf(2, (log2f(_scrollView.zoomScale) - 1.0f)), _scrollView.minimumZoomScale); //zoom out one level of detail
 
     [_scrollView setZoomScale:newZoom animated:YES];
+	  if (newZoom < 1.0f) [_tiledView setNeedsDisplay];
   }
 
   if ([self.tiledScrollViewDelegate respondsToSelector:@selector(tiledScrollView:didReceiveTwoFingerTap:)])
@@ -257,5 +266,13 @@
   return [self.dataSource tiledScrollView:self imageForRow:row column:column scale:scale];
 }
 
+/*- (UIView *)hitTest:(CGPoint)point withEvent:(UIEvent *)event {
+	UIView *result = [super hitTest:point withEvent:event];
+	CGPoint buttonPoint = [_scrollView convertPoint:point fromView:self];
+	if ([_scrollView pointInside:buttonPoint withEvent:event]) {
+		return _scrollView;
+	}
+	return result;
+}*/
 
 @end

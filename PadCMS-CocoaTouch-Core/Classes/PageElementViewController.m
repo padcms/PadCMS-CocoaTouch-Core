@@ -121,20 +121,35 @@
 		}
 		CGRect elementView_frame = _elementFrame;
 		CGSize scrollContentSize = [self.element realImageSize]; 
-		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize];
+		_elementView = [[JCTiledScrollView alloc] initWithFrame:elementView_frame contentSize:scrollContentSize minimumZoomScale:1.0f];
 		_elementView.dataSource = self;
 		if ([_element.resourceExtension isEqualToString:@"png"])
 		{
 			_elementView.tiledScrollViewDelegate = self;
 		}
 		
+		if (_element.isZoomable)
+		{
+			NSLog(@"!!!!!!!");
+			_elementView.zoomScale = 1.0f;
+			
+			// totals 4 sets of tiles across all devices, retina devices will miss out on the first 1x set
+			_elementView.levelsOfZoom = 1;
+			_elementView.levelsOfDetail = [UIScreen mainScreen].scale > 1 ? 1 : 2;
+			//_elementView.scrollView.maximumZoomScale = 2.0;
+			_elementView.scrollView.minimumZoomScale = 1.0;
+		}
+		else {
+			_elementView.zoomScale = 1.0f;
+			
+			// totals 4 sets of tiles across all devices, retina devices will miss out on the first 1x set
+			_elementView.levelsOfZoom = 1;
+			_elementView.levelsOfDetail = 0;
+			_elementView.scrollView.maximumZoomScale = 1.0;
+		}
+		_elementView.tiledView.contentScaleFactor = 1.0f;
+		_elementView.scrollView.contentScaleFactor = 1.0f;
 		
-		_elementView.zoomScale = 1.0f;
-		
-		// totals 4 sets of tiles across all devices, retina devices will miss out on the first 1x set
-		_elementView.levelsOfZoom = 1;
-		_elementView.levelsOfDetail = 2;
-		_elementView.scrollView.maximumZoomScale = 1.0;
 		if (_element.isComplete && [_element.resourceExtension isEqualToString:@"png"])
 		{
 			NSInteger maxColumn = ceilf(_element.realImageSize.width / kDefaultTileSize);
@@ -246,7 +261,16 @@
 //	[cache storeTileForElement:_element withIndex:index];
 //	return [[cache.elementCache objectForKey:[NSNumber numberWithInt:_element.identifier]] objectForKey:[NSNumber numberWithInt:index]];
 	if (!_element) return nil;
-	return [UIImage imageWithContentsOfFile:[[NSString stringWithFormat:@"%@/resource_%d_%d", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1] stringByAppendingPathExtension:_element.resourceExtension]];
+	
+	NSString* path = nil;
+	if (scale > 1)
+	{
+		path = [NSString stringWithFormat:@"%@/resource_%d_%d_2x", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1];
+	}
+	else {
+		path = [NSString stringWithFormat:@"%@/resource_%d_%d", [self.fullPathToContent stringByDeletingLastPathComponent], row + 1, column + 1];
+	}
+	return [UIImage imageWithContentsOfFile:[path stringByAppendingPathExtension:_element.resourceExtension]];
 //---------------------------------------------------------------------------------------------		
 	
 	//setNeedDisplay withoy badQualities
