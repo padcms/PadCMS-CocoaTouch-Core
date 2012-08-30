@@ -63,6 +63,7 @@ PADCMS_EXTERN NSString* PCSQLiteElementIDColumnName;
 PADCMS_EXTERN NSString* PCSQLiteTypeColumnName;
 PADCMS_EXTERN NSString* PCSQLiteValueColumnName;
 PADCMS_EXTERN NSString* PCSQLitePositionIDColumnName;
+PADCMS_EXTERN NSString* PCSQLiteElementZoom;
 PADCMS_EXTERN NSString* PCSQLiteStartXColumnName;
 PADCMS_EXTERN NSString* PCSQLiteStartYColumnName;
 PADCMS_EXTERN NSString* PCSQLiteEndXColumnName;

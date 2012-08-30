@@ -56,6 +56,7 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
 @synthesize elementContentSize=_elementContentSize;
 @synthesize isCropped=_isCropped;
 @synthesize resourceExtension=_resourceExtension;
+@synthesize isZoomable=_isZoomable;
 
 - (void)dealloc
 {
@@ -86,6 +87,8 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
         activeZones = [[NSMutableArray alloc] init];
         isComplete = YES;
 		_isCropped = NO;
+		_isZoomable = NO;
+		
 		
     }
     return self;
@@ -99,6 +102,11 @@ NSString * const PCGalleryElementDidDownloadNotification = @"PCGalleryElementDid
     
     if ([data objectForKey:PCSQLiteElementWidthAttributeName])
         size.width = [[data objectForKey:PCSQLiteElementWidthAttributeName] floatValue];
+	if ([[data objectForKey:PCSQLiteElementZoom] isEqualToString:@"1"])
+	{
+		_isZoomable = YES;
+	}
+        
 }
 
 - (CGRect)rectForElementType:(NSString*)elementType;

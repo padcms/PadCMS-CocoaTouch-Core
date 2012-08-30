@@ -29,7 +29,7 @@
 
 #import <UIKit/UIKit.h>
 
-@class JCTiledScrollView, JCTiledView, PCScrollView;
+@class JCTiledScrollView, JCTiledView, PCScrollView, PopupView;
 
 @protocol JCTileSource <NSObject>
 - (UIImage *)tiledScrollView:(JCTiledScrollView *)scrollView imageForRow:(NSInteger)row column:(NSInteger)column scale:(NSInteger)scale;
@@ -56,6 +56,7 @@
 //internals
 @property (nonatomic, retain) JCTiledView *tiledView;
 @property (nonatomic, retain) PCScrollView *scrollView;
+@property (nonatomic, retain) PopupView* popupView;
 
 @property (nonatomic, assign) size_t levelsOfZoom;
 @property (nonatomic, assign) size_t levelsOfDetail;
@@ -70,7 +71,7 @@
 
 + (Class)tiledLayerClass;
 
-- (id)initWithFrame:(CGRect)frame contentSize:(CGSize)contentSize;
+- (id)initWithFrame:(CGRect)frame contentSize:(CGSize)contentSize minimumZoomScale:(CGFloat)minimumScale;
 
 - (void)setContentCenter:(CGPoint)center animated:(BOOL)animated;
 

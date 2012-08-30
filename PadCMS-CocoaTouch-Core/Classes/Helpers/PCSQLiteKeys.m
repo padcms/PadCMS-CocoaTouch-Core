@@ -61,6 +61,7 @@
  NSString* PCSQLiteElementIDColumnName                          = @"element_id";
  NSString* PCSQLiteTypeColumnName                               = @"type";
  NSString* PCSQLiteValueColumnName                              = @"value";
+ NSString* PCSQLiteElementZoom									= @"zoom";
  NSString* PCSQLitePositionIDColumnName                         = @"position_id";
  NSString* PCSQLiteStartXColumnName                             = @"start_x";
  NSString* PCSQLiteStartYColumnName                             = @"start_y";

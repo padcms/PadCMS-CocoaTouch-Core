@@ -53,9 +53,11 @@
   {
     CGSize scaledTileSize = CGSizeApplyAffineTransform(self.tileSize, CGAffineTransformMakeScale(self.contentScaleFactor, self.contentScaleFactor));
     self.tiledLayer.tileSize = scaledTileSize;
-    self.tiledLayer.levelsOfDetail = 1;
+    self.tiledLayer.levelsOfDetail = 2;
+//  self.tiledLayer.tileSize = CGSizeMake(kDefaultTileSize *2, kDefaultTileSize * 2);
 	self.numberOfZoomLevels = 3;
 	self.backgroundColor = [UIColor clearColor];
+	  	
   }
 
   return self;
@@ -81,20 +83,22 @@
 
 - (void)setNumberOfZoomLevels:(size_t)levels
 {
-	self.tiledLayer.levelsOfDetailBias = 0;//levels;
+	self.tiledLayer.levelsOfDetailBias = levels;
 }
 
 - (void)drawRect:(CGRect)rect
 {
-	//NSLog(@"CGRECT - %@", NSStringFromCGRect(rect));
- // CGContextRef ctx = UIGraphicsGetCurrentContext();
-	CGFloat scale = [UIScreen mainScreen].scale;//CGContextGetCTM(ctx).a / self.tiledLayer.contentsScale;
+//	NSLog(@"CGRECT - %@", NSStringFromCGRect(rect));
+  CGContextRef ctx = UIGraphicsGetCurrentContext();
+	CGFloat scale = [UIScreen mainScreen].scale;
+  CGFloat zoomScale	= CGContextGetCTM(ctx).a / self.tiledLayer.contentsScale;
 	
-  NSInteger col = (CGRectGetMinX(rect) * scale) / self.tileSize.width;
-  NSInteger row = (CGRectGetMinY(rect) * scale) / self.tileSize.height;
-	//NSLog(@"col - %d, row - %d, scale - %f, size - %@",col,row,scale, NSStringFromCGSize(self.tileSize));
+  NSInteger col = (CGRectGetMinX(rect) * scale * zoomScale) / self.tileSize.width;
+  NSInteger row = (CGRectGetMinY(rect) * scale * zoomScale) / self.tileSize.height;
+//NSLog(@"col - %d, row - %d, scale - %f, size - %@",col,row,self.tiledLayer.contentsScale, NSStringFromCGSize(self.tileSize));
 //	NSLog(@"RECT - %@, col - %d, row - %d", NSStringFromCGRect(rect), col, row);
-  UIImage *tile_image = [(id<JCTiledBitmapViewDelegate>)self.delegate tiledView:self imageForRow:row column:col scale:scale];
+  UIImage *tile_image = [(id<JCTiledBitmapViewDelegate>)self.delegate tiledView:self imageForRow:row column:col scale:zoomScale];
+//	NSLog(@"ZOOM SCALE - %f", zoomScale);
   [tile_image drawInRect:rect];
 
 }

@@ -18,3 +18,4 @@
 #define FrameMoveWithXOffset(a,dx) a.frame = CGRectOffset(a.frame, dx, 0)
 
 #define kDefaultTileSize 512.0
+#define kScrollViewTag 50

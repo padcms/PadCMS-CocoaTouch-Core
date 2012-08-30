@@ -1082,6 +1082,8 @@
 		84DAED1D15DBBBB40038581F /* PCSubscriptionMenuViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 84DAED0415DBA1640038581F /* PCSubscriptionMenuViewController.h */; };
 		AB0A0E7B15A4278E00B9758C /* RevisionViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB0A0E7815A4278E00B9758C /* RevisionViewController.h */; };
 		AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB0A0E7915A4278E00B9758C /* RevisionViewController.m */; };
+		AB216D9F15EBFFE80088FE61 /* PopupView.h in Headers */ = {isa = PBXBuildFile; fileRef = AB216D9D15EBFFE80088FE61 /* PopupView.h */; };
+		AB216DA015EBFFE80088FE61 /* PopupView.m in Sources */ = {isa = PBXBuildFile; fileRef = AB216D9E15EBFFE80088FE61 /* PopupView.m */; };
 		AB22134815BE2F77001F355A /* SlideshowViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22134615BE2F75001F355A /* SlideshowViewController.h */; };
 		AB22134915BE2F77001F355A /* SlideshowViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AB22134715BE2F76001F355A /* SlideshowViewController.m */; };
 		AB22136115BE4947001F355A /* HTMLPageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = AB22135F15BE4945001F355A /* HTMLPageViewController.h */; };
@@ -2374,6 +2376,8 @@
 		84DAED0515DBA1640038581F /* PCSubscriptionMenuViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PCSubscriptionMenuViewController.m; path = "PadCMS-CocoaTouch-Core/Classes/HUD/Subscriptions Menu/PCSubscriptionMenuViewController.m"; sourceTree = SOURCE_ROOT; };
 		AB0A0E7815A4278E00B9758C /* RevisionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RevisionViewController.h; sourceTree = "<group>"; };
 		AB0A0E7915A4278E00B9758C /* RevisionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; lineEnding = 0; path = RevisionViewController.m; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.objc; };
+		AB216D9D15EBFFE80088FE61 /* PopupView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PopupView.h; sourceTree = "<group>"; };
+		AB216D9E15EBFFE80088FE61 /* PopupView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PopupView.m; sourceTree = "<group>"; };
 		AB22134615BE2F75001F355A /* SlideshowViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SlideshowViewController.h; sourceTree = "<group>"; };
 		AB22134715BE2F76001F355A /* SlideshowViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SlideshowViewController.m; sourceTree = "<group>"; };
 		AB22135F15BE4945001F355A /* HTMLPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTMLPageViewController.h; sourceTree = "<group>"; };
@@ -3762,6 +3766,8 @@
 				AB61EE2E15B858710031496A /* GalleryViewController.m */,
 				AB8FE71415D50F76006156D5 /* PCImageLoadOperation.h */,
 				AB8FE71515D50F76006156D5 /* PCImageLoadOperation.m */,
+				AB216D9D15EBFFE80088FE61 /* PopupView.h */,
+				AB216D9E15EBFFE80088FE61 /* PopupView.m */,
 			);
 			name = newTest;
 			sourceTree = "<group>";
@@ -4453,6 +4459,7 @@
 				C51F275015D3C13700BCDB85 /* PCSummaryGridViewCell.h in Headers */,
 				84DAED0615DBA1640038581F /* PCSubscriptionMenuViewController.h in Headers */,
 				C538AB3015E38E4E00BDD7FD /* PCHudController.h in Headers */,
+				AB216D9F15EBFFE80088FE61 /* PopupView.h in Headers */,
 				840DF7E415EBE5BF00B1F8B9 /* PCCrossword.h in Headers */,
 				840DF7E615EBE5BF00B1F8B9 /* PCCrosswordCell.h in Headers */,
 				840DF7E815EBE5BF00B1F8B9 /* PCCrosswordQuestion.h in Headers */,
@@ -4961,6 +4968,7 @@
 				84DAED0715DBA1640038581F /* PCSubscriptionMenuViewController.m in Sources */,
 				C556713815E24C6800C2CD33 /* PCView.m in Sources */,
 				C538AB3115E38E4E00BDD7FD /* PCHudController.m in Sources */,
+				AB216DA015EBFFE80088FE61 /* PopupView.m in Sources */,
 				840DF7E515EBE5BF00B1F8B9 /* PCCrossword.m in Sources */,
 				840DF7E715EBE5BF00B1F8B9 /* PCCrosswordCell.m in Sources */,
 				840DF7E915EBE5BF00B1F8B9 /* PCCrosswordQuestion.m in Sources */,
