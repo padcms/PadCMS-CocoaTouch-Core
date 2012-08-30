@@ -70,10 +70,14 @@ typedef NSUInteger PCPageTemplateConnectorOptions; ///< Defines which connectors
 @param aEngineVersion - version of engine  
 */
 +(PCPageTemplate*)templateWithIdentifier:(NSInteger) aIdentifier
-                  title:(NSString*) aTitle
-            description:(NSString*) aDescription
-             connectors:(PCPageTemplateConnectorOptions)aConnectors
-          engineVersion:(NSInteger) aEngineVersion;
+                                   title:(NSString*) aTitle
+                              connectors:(PCPageTemplateConnectorOptions)aConnectors;
+
++(PCPageTemplate*)templateWithIdentifier:(NSInteger) aIdentifier
+                                   title:(NSString*) aTitle
+                             description:(NSString*) aDescription
+                              connectors:(PCPageTemplateConnectorOptions)aConnectors
+                           engineVersion:(NSInteger) aEngineVersion;
 
 /**
  @brief Create template.
