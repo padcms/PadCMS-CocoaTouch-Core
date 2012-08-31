@@ -38,6 +38,7 @@
 	UIInterfaceOrientation _currentInterfaceOrientation;
     PCSubscriptionMenuViewController *_subscriptionsMenuController;
     UIPopoverController *_popoverController;
+	CGRect bufferBound;
 }
 
 @property (nonatomic, retain) PCScrollView* contentScrollView;
@@ -402,6 +403,7 @@
 {
     if ([self.delegate respondsToSelector:@selector(revisionViewController:willDismissGalleryViewController:)]) {
         [self.delegate revisionViewController:self willDismissGalleryViewController:galleryViewController];
+		_contentScrollView.bounds = bufferBound;
     }
 	//[self.navigationController popToViewController:self animated:NO];
 }
@@ -416,6 +418,7 @@
         galleryViewController.delegate = self;
 		[self.navigationController pushViewController:galleryViewController  animated:NO];
 	}*/
+	bufferBound = _contentScrollView.bounds;
 	if (!_contentScrollView.dragging && !_contentScrollView.decelerating)
 	{
 		if ([self.delegate respondsToSelector:@selector(revisionViewController:willPresentGalleryViewController:)]) {
