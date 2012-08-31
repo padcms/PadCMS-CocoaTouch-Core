@@ -1237,6 +1237,8 @@
 		C5CF6D2915D9038A00E92162 /* libOCMock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = C5CF6D2015D9038A00E92162 /* libOCMock.a */; };
 		C5F7B30D15AD8ED6005D0D99 /* PCResourceCache.h in Headers */ = {isa = PBXBuildFile; fileRef = C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */; };
 		C5FFC26115DA6D5800BD4B03 /* PCShareView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5ABCA6C15DA5F1800B405EA /* PCShareView.h */; };
+		FA3045CF15EBA2A00050541F /* HTML5PageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FA3045CD15EBA2A00050541F /* HTML5PageViewController.h */; };
+		FA3045D015EBA2A00050541F /* HTML5PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3045CE15EBA2A00050541F /* HTML5PageViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -2480,6 +2482,8 @@
 		C5CF6D2715D9038A00E92162 /* OCMockRecorder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = OCMockRecorder.h; sourceTree = "<group>"; };
 		C5F7B30B15AD8ED6005D0D99 /* PCResourceCache.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCResourceCache.h; sourceTree = "<group>"; };
 		C5F7B30C15AD8ED6005D0D99 /* PCResourceCache.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCResourceCache.m; sourceTree = "<group>"; };
+		FA3045CD15EBA2A00050541F /* HTML5PageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HTML5PageViewController.h; sourceTree = "<group>"; };
+		FA3045CE15EBA2A00050541F /* HTML5PageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HTML5PageViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -3851,6 +3855,8 @@
 				AB22134715BE2F76001F355A /* SlideshowViewController.m */,
 				AB22135F15BE4945001F355A /* HTMLPageViewController.h */,
 				AB22136015BE4945001F355A /* HTMLPageViewController.m */,
+				FA3045CD15EBA2A00050541F /* HTML5PageViewController.h */,
+				FA3045CE15EBA2A00050541F /* HTML5PageViewController.m */,
 				AB8137A115C07C48002FC0E4 /* Page3DViewController.h */,
 				AB8137A215C07C48002FC0E4 /* Page3DViewController.m */,
 				C51F272A15D39C9300BCDB85 /* PC3dView.h */,
@@ -4457,6 +4463,7 @@
 				840DF7E415EBE5BF00B1F8B9 /* PCCrossword.h in Headers */,
 				840DF7E615EBE5BF00B1F8B9 /* PCCrosswordCell.h in Headers */,
 				840DF7E815EBE5BF00B1F8B9 /* PCCrosswordQuestion.h in Headers */,
+				FA3045CF15EBA2A00050541F /* HTML5PageViewController.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4965,6 +4972,7 @@
 				840DF7E515EBE5BF00B1F8B9 /* PCCrossword.m in Sources */,
 				840DF7E715EBE5BF00B1F8B9 /* PCCrosswordCell.m in Sources */,
 				840DF7E915EBE5BF00B1F8B9 /* PCCrosswordQuestion.m in Sources */,
+				FA3045D015EBA2A00050541F /* HTML5PageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

@@ -45,17 +45,38 @@ NSString* endOfDownloadingPageNotification   = @"endOfDownloadingPageNotificatio
 NSString* const PCBoostPageNotification = @"PCBoostPageNotification";
 NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleElementDidDownloadNotification";
 
+@interface NSMutableArray (elementForType)
+- (void) addIfNotNilFromArray:(NSArray*)array;
+- (void) addFromArray:(NSArray*)array started:(NSInteger)aStartElement;
+- (void) addIfNotNilFromObject:(PCPageElement*)object;
+@end
+
+@implementation NSMutableArray (elementForType)
+- (void) addIfNotNilFromArray:(NSArray*)array{
+    if(array && [array count])
+        [self addObjectsFromArray:array];
+}
+- (void) addFromArray:(NSArray*)array started:(NSInteger)aStartElement{
+    if(array && ([array count]>aStartElement))
+        [self addObjectsFromArray:[array objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(aStartElement, [array count]-aStartElement)]]];
+}
+- (void) addIfNotNilFromObject:(PCPageElement*)object{
+    if(object)
+        [self addObject:object];
+}
+@end
+
 @implementation PCPage
 
 @synthesize revision = _revision;
 @synthesize column;
-@synthesize identifier; 
-@synthesize title; 
-@synthesize pageTemplate; 
-@synthesize machineName; 
-@synthesize horisontalPageIdentifier; 
-@synthesize elements; 
-@synthesize links; 
+@synthesize identifier;
+@synthesize title;
+@synthesize pageTemplate;
+@synthesize machineName;
+@synthesize horisontalPageIdentifier;
+@synthesize elements;
+@synthesize links;
 @synthesize color;
 @synthesize isComplete;
 @synthesize primaryProgress=_primaryProgress;
@@ -76,7 +97,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
     [pageTemplate release];
     [machineName release];
     [elements release];
-    [links release];  
+    [links release];
     _progressDelegate = nil;
     [_primaryElements release], _primaryElements = nil;
     [_secondaryElements release], _secondaryElements = nil;
@@ -92,14 +113,14 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
     {
         identifier = -1;
         horisontalPageIdentifier = -1;
-
+        
         elements = [[NSMutableArray alloc] init];
         links = [[NSMutableDictionary alloc] init];
         isComplete = YES;
 		_isUpdateProgress = NO;
 		_isSecondaryElementComplete = NO;
 		_isHorizontal = NO;
-
+        
     }
     return self;
 }
@@ -135,7 +156,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
     
     NSString* discription = NSStringFromClass(self.class);
     discription = [discription stringByAppendingString:@"\r"];
-
+    
     discription = [discription stringByAppendingFormat:@"id = %d\r",self.identifier];
     
     if (self.title)
@@ -160,7 +181,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
     }
     
     discription = [discription stringByAppendingFormat:@"horisontalPageIdentifier = %d\r",self.horisontalPageIdentifier];
-
+    
     if (self.color)
     {
         discription = [discription stringByAppendingString:@"color = "];
@@ -178,14 +199,14 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
     if (self.elements && [self.elements count]>0)
     {
         discription = [discription stringByAppendingString:@"elements = {"];
-
+        
         for (PCPageElement* element in self.elements)
         {
             discription = [discription stringByAppendingString:element.description];
             discription = [discription stringByAppendingString:@"\r"];
         }
         discription = [discription stringByAppendingString:@"\r}\r"];
-
+        
     }
     
     return discription;
@@ -202,7 +223,7 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
             {
                 return YES;
             }
-
+            
         }
     }
     return NO;
@@ -210,210 +231,163 @@ NSString * const PCMiniArticleElementDidDownloadNotification = @"PCMiniArticleEl
 
 - (void)startRepeatingTimer
 {
-  
-  NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1
-                                                    target:self selector:@selector(updateProgress:)
-                                                  userInfo:nil repeats:YES];
-  self.repeatingTimer = timer;
+    
+    NSTimer *timer = [NSTimer scheduledTimerWithTimeInterval:0.1
+                                                      target:self selector:@selector(updateProgress:)
+                                                    userInfo:nil repeats:YES];
+    self.repeatingTimer = timer;
 }
 
 - (void)stopRepeatingTimer
 {
-  [_repeatingTimer invalidate];
-  self.repeatingTimer = nil;
+    [_repeatingTimer invalidate];
+    self.repeatingTimer = nil;
 }
 
 -(void)updateProgress:(NSTimer*)theTimer
 {
-  if (!_isUpdateProgress) return;
-  NSUInteger count = [self.primaryElements count];
-  BOOL isMiniArticleMet = NO;
-  float accumulatedProgress = 0.0f;
-  for (PCPageElement* element in self.primaryElements) {
-    
-    if ([element isKindOfClass:[PCPageElementMiniArticle class]]) {
-      if (!isMiniArticleMet) accumulatedProgress+=element.downloadProgress;
-      isMiniArticleMet = YES;
-      PCPageElementMiniArticle* miniArticle = (PCPageElementMiniArticle*)element;
-      accumulatedProgress+=miniArticle.thumbnailProgress;
-      accumulatedProgress+=miniArticle.thumbnailSelectedProgress;
+    if (!_isUpdateProgress) return;
+    NSUInteger count = [self.primaryElements count];
+    BOOL isMiniArticleMet = NO;
+    float accumulatedProgress = 0.0f;
+    for (PCPageElement* element in self.primaryElements) {
+        
+        if ([element isKindOfClass:[PCPageElementMiniArticle class]]) {
+            if (!isMiniArticleMet) accumulatedProgress+=element.downloadProgress;
+            isMiniArticleMet = YES;
+            PCPageElementMiniArticle* miniArticle = (PCPageElementMiniArticle*)element;
+            accumulatedProgress+=miniArticle.thumbnailProgress;
+            accumulatedProgress+=miniArticle.thumbnailSelectedProgress;
+        }
+        else {
+            accumulatedProgress+=element.downloadProgress;
+        }
+        
     }
-    else {
-      accumulatedProgress+=element.downloadProgress;
-    }
-    
-  }
-  _primaryProgress = accumulatedProgress/(float)count;
-//  NSLog(@"Primary progress for page %d - %f",self.identifier, _primaryProgress);
+    _primaryProgress = accumulatedProgress/(float)count;
+    //  NSLog(@"Primary progress for page %d - %f",self.identifier, _primaryProgress);
     if (_progressDelegate != nil) {
         [_progressDelegate setProgress:_primaryProgress];
     }
 }
 
+
 -(NSArray *)primaryElements
 {
-  if (_primaryElements) return _primaryElements;
-  NSMutableArray* array = [[NSMutableArray alloc] init];
-  
-  if (self.pageTemplate.identifier == PCCoverPageTemplate)
-  {
-    PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-    if (background) [array addObject:background];
-    PCPageElement* body = [self firstElementForType:PCPageElementTypeBody];
-    if (body) [array addObject:body];
-    PCPageElement* advert = [self firstElementForType:PCPageElementTypeAdvert];
-    if (advert) [array addObject:advert];
-   
-  }
-  else if (self.pageTemplate.identifier == PCSimplePageTemplate)
-  {
-    PCPageElement* body = [self firstElementForType:PCPageElementTypeBody];
-    if (body) [array addObject:body];
-  }
-  else if (self.pageTemplate.identifier == PCBasicArticlePageTemplate)
-  {
-    PCPageElement* body = [self firstElementForType:PCPageElementTypeBody];
-    if (body) [array addObject:body];
-  }
-   else if ((self.pageTemplate.identifier == PCScrollingPageTemplate) || (self.pageTemplate.identifier == PCHorizontalScrollingPageTemplate))
-  {
-    PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-    if (background) [array addObject:background];
-    PCPageElement* scrollingPane = [self firstElementForType:PCPageElementTypeScrollingPane];
-     if (scrollingPane) [array addObject:scrollingPane];
-  }
-  else if (self.pageTemplate.identifier == PCSlideshowPageTemplate)
-  {
-    PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-    if (background) [array addObject:background];
-    PCPageElement* firstSlide = [self firstElementForType:PCPageElementTypeSlide];
-    if (firstSlide) [array addObject:firstSlide];
-  }
-  else if ((self.pageTemplate.identifier == PCSlidersBasedMiniArticlesTopPageTemplate)||
-            (self.pageTemplate.identifier == PCSlidersBasedMiniArticlesHorizontalPageTemplate)||
-            (self.pageTemplate.identifier == PCSlidersBasedMiniArticlesVerticalPageTemplate))
-  {
-    PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-    if (background) [array addObject:background];
-    NSArray* miniArticles = [self elementsForType:PCPageElementTypeMiniArticle];
-    if (miniArticles) [array addObjectsFromArray:miniArticles];
-  }
-  else if (self.pageTemplate.identifier == PCGalleryFlashBulletInteractivePageTemplate)
-  {
-	  PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-	  if (background) [array addObject:background];
-	  PCPageElement* scrollingPane = [self firstElementForType:PCPageElementTypeScrollingPane];
-	  if (scrollingPane) [array addObject:scrollingPane];
-	  
-  }
-  else if (self.pageTemplate.identifier == PCFixedIllustrationArticleTouchablePageTemplate)
-  {
-    PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-    if (background) [array addObject:background];
-    PCPageElement* body = [self firstElementForType:PCPageElementTypeBody];
-    if (body) [array addObject:body];
-  }
-	else if (self.pageTemplate.identifier == PCInteractiveBulletsPageTemplate)
-  {
-    PCPageElement* background = [self firstElementForType:PCPageElementTypeBackground];
-    if (background) [array addObject:background];
-    NSArray* miniArticles = [self elementsForType:PCPageElementTypeMiniArticle];
-    if (miniArticles) [array addObjectsFromArray:miniArticles];
-  }
-  else if (self.pageTemplate.identifier == PCHTMLPageTemplate)
-  {
-    PCPageElement* body = [self firstElementForType:PCPageElementTypeBody];
-    if (body) [array addObject:body];
-    NSArray* html = [self elementsForType:PCPageElementTypeHtml];
-    if (html) [array addObjectsFromArray:html];
-
-  }
-  else if (self.pageTemplate.identifier == PC3DPageTemplate)
-  {
-      PCPageElement *background = [self firstElementForType:PCPageElementTypeBackground];
-      if (background != nil)
-      {
-          [array addObject:background];   
-      }
-      
-      PCPageElement *graphics = [self firstElementForType:PCPageElementType3D];
-      if (graphics != nil)
-      {
-          [array addObject:graphics];   
-      }
-  }
+    if (_primaryElements) return _primaryElements;
+    NSMutableArray* array = [[NSMutableArray alloc] init];
+    switch (self.pageTemplate.identifier) {
+        case PCCoverPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBody]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeAdvert]];
+            break;
+        case PCSimplePageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBody]];
+            break;
+        case PCBasicArticlePageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBody]];
+            break;
+        case PCScrollingPageTemplate:
+        case PCHorizontalScrollingPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeScrollingPane]];
+            break;
+        case PCSlideshowPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeSlide]];
+            break;
+        case PCSlidersBasedMiniArticlesTopPageTemplate:
+        case PCSlidersBasedMiniArticlesHorizontalPageTemplate:
+        case PCSlidersBasedMiniArticlesVerticalPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeMiniArticle]];
+            break;
+        case PCGalleryFlashBulletInteractivePageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeScrollingPane]];
+            break;
+        case PCFixedIllustrationArticleTouchablePageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBody]];
+            break;
+        case PCInteractiveBulletsPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeMiniArticle]];
+            break;
+        case PCHTMLPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBody]];
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeHtml]];
+            break;
+        case PCHtml5PageTemplate:
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeHtml5]];
+            break;
+        case PC3DPageTemplate:
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementTypeBackground]];
+            [array addIfNotNilFromObject: [self firstElementForType:PCPageElementType3D]];
+            break;
+        default:
+            break;
+    }
+    
 	
-  _primaryElements = [[NSArray alloc] initWithArray:array];
-  [array release];
-           
-  return _primaryElements;
+    _primaryElements = [[NSArray alloc] initWithArray:array];
+    [array release];
+    
+    return _primaryElements;
 }
 
 -(NSArray *)secondaryElements
 {
-  if (_secondaryElements) return _secondaryElements;
-  NSMutableArray* array = [[NSMutableArray alloc] init];
-  
-  if (self.pageTemplate.identifier == PCCoverPageTemplate)
-  {
-        
-  }
-  else if (self.pageTemplate.identifier == PCSimplePageTemplate)
-  {
-   
-  }
-  else if (self.pageTemplate.identifier == PCBasicArticlePageTemplate)
-  {
-    NSArray* galleryElements = [self elementsForType:PCPageElementTypeGallery];
-    if (galleryElements) [array addObjectsFromArray:galleryElements];
-  }
-  else if ((self.pageTemplate.identifier == PCScrollingPageTemplate) || (self.pageTemplate.identifier == PCHorizontalScrollingPageTemplate))
-  {
-    NSArray* galleryElements = [self elementsForType:PCPageElementTypeGallery];
-	  if (galleryElements) [array addObjectsFromArray:galleryElements];
-
-  }
-  else if (self.pageTemplate.identifier == PCSlideshowPageTemplate)
-  {
-    NSArray* slides = [self elementsForType:PCPageElementTypeSlide];
-    if ([slides count] > 1) [array addObjectsFromArray:[slides objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, [slides count]-1)]]];
-  }
-  else if ((self.pageTemplate.identifier == PCSlidersBasedMiniArticlesTopPageTemplate)||
-           (self.pageTemplate.identifier == PCSlidersBasedMiniArticlesHorizontalPageTemplate)||
-           (self.pageTemplate.identifier == PCSlidersBasedMiniArticlesVerticalPageTemplate))
-  {
-    NSArray* miniArticles = [self elementsForType:PCPageElementTypeMiniArticle];
-    if (miniArticles) if ([miniArticles count] > 1) [array addObjectsFromArray:[miniArticles objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, [miniArticles count]-1)]]];
-  }
-  else if (self.pageTemplate.identifier == PCGalleryFlashBulletInteractivePageTemplate)
-  {
-	  NSArray* galleryElements = [self elementsForType:PCPageElementTypeGallery];
-	  if (galleryElements) [array addObjectsFromArray:galleryElements];
-	  NSArray* popupsElements = [self elementsForType:PCPageElementTypePopup];
-	  if (popupsElements) [array addObjectsFromArray:popupsElements];
-  }
-  else if (self.pageTemplate.identifier == PCFixedIllustrationArticleTouchablePageTemplate)
-  {
-      NSArray* galleryElements = [self elementsForType:PCPageElementTypeGallery];
-      if (galleryElements) [array addObjectsFromArray:galleryElements];
-      NSArray* popupsElements = [self elementsForType:PCPageElementTypePopup];
-	  if (popupsElements) [array addObjectsFromArray:popupsElements];
-  }
-  else if (self.pageTemplate.identifier == PCInteractiveBulletsPageTemplate)
-  {
-    NSArray* miniArticles = [self elementsForType:PCPageElementTypeMiniArticle];
-    if (miniArticles) if ([miniArticles count] > 1) [array addObjectsFromArray:[miniArticles objectsAtIndexes:[NSIndexSet indexSetWithIndexesInRange:NSMakeRange(1, [miniArticles count]-1)]]];
-  }
-  else if (self.pageTemplate.identifier == PCHTMLPageTemplate)
-  {
+    if (_secondaryElements) return _secondaryElements;
+    NSMutableArray* array = [[NSMutableArray alloc] init];
     
-  }
-
-  _secondaryElements = [[NSArray alloc] initWithArray:array];
-  [array release];
-  
-  return _secondaryElements;
-
+    switch (self.pageTemplate.identifier) {
+        case PCCoverPageTemplate:
+            break;
+        case PCSimplePageTemplate:
+            break;
+        case PCBasicArticlePageTemplate:
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeGallery]];
+            break;
+        case PCScrollingPageTemplate:
+        case PCHorizontalScrollingPageTemplate:
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeGallery]];
+            break;
+        case PCSlideshowPageTemplate:
+            [array addFromArray:[self elementsForType:PCPageElementTypeSlide] started:1];
+            break;
+        case PCSlidersBasedMiniArticlesTopPageTemplate:
+        case PCSlidersBasedMiniArticlesHorizontalPageTemplate:
+        case PCSlidersBasedMiniArticlesVerticalPageTemplate:
+            [array addFromArray:[self elementsForType:PCPageElementTypeMiniArticle] started:1];
+            break;
+        case PCGalleryFlashBulletInteractivePageTemplate:
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeGallery]];
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypePopup]];
+            break;
+        case PCFixedIllustrationArticleTouchablePageTemplate:
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypeGallery]];
+            [array addIfNotNilFromArray: [self elementsForType:PCPageElementTypePopup]];
+            break;
+        case PCInteractiveBulletsPageTemplate:
+            [array addFromArray:[self elementsForType:PCPageElementTypeMiniArticle] started:1];
+            break;
+        case PCHTMLPageTemplate:
+            break;
+        case PCHtml5PageTemplate:
+            break;
+        case PC3DPageTemplate:
+            break;
+        default:
+            break;
+    }
+    
+    _secondaryElements = [[NSArray alloc] initWithArray:array];
+    [array release];
+    
+    return _secondaryElements;
+    
 }
 
 -(BOOL)isSecondaryElementsComplete

@@ -46,6 +46,7 @@
 #import "PCPage.h"
 #import "PCPageElement.h"
 #import "PCPageElementMiniArticle.h"
+#import "PCPageElementHtml5.h"
 #import "PCPageElemetTypes.h"
 #import "PCPageTemplate.h"
 #import "PCPageTemplatesPool.h"
@@ -511,7 +512,7 @@ NSString* secondaryKey   = @"secondaryKey";
     }
     
   } else {
-    urlStr = [NSString stringWithFormat:resource];
+    urlStr = [NSString stringWithString:resource];
   }
   
 	
@@ -619,6 +620,22 @@ NSString* secondaryKey   = @"secondaryKey";
            [self addOperationForResourcePath:miniArticle.thumbnail element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
            [self addOperationForResourcePath:miniArticle.thumbnailSelected element:miniArticle inPage:page isPrimary:YES isThumbnail:YES resumeOperation:nil];
        }
+       else if ([element isKindOfClass:[PCPageElementHtml5 class]])
+       {
+           PCPageElementHtml5* html5xx = (PCPageElementHtml5*)element;
+
+
+           if ([html5xx.html5Body isEqualToString:PCPageElementHtml5BodyCodeType] && element.resource) {
+               [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+           }
+           else if ([html5xx.html5Body isEqualToString:PCPageElementHtml5BodyRSSFeedType]){
+               [self addOperationForResourcePath:html5xx.rssLink element:html5xx inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+           }
+           else if ([html5xx.html5Body isEqualToString:PCPageElementHtml5BodyTwitterType]){
+               [self addOperationForResourcePath:html5xx.twitterAccount element:html5xx inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
+           }
+
+       }
        else {
            [self addOperationForResourcePath:element.resource element:element inPage:page isPrimary:YES isThumbnail:NO resumeOperation:nil];
        }
@@ -648,7 +665,17 @@ NSString* secondaryKey   = @"secondaryKey";
 		url = [[[url stringByDeletingLastPathComponent] stringByDeletingLastPathComponent]  stringByAppendingPathComponent:[path lastPathComponent]];
 	}
    
-	
+    //Костыль
+    if ([element isKindOfClass:[PCPageElementHtml5 class]]){
+        if ([((PCPageElementHtml5*)element).html5Body isEqualToString:PCPageElementHtml5BodyRSSFeedType]) {
+            url = ((PCPageElementHtml5*)element).rssLink;
+            path = [(PCPageElementHtml5*)element rssNewsXmlFilePath];
+        }
+        //TODO
+        /*else if ([((PCPageElementHtml5*)element).html5Body isEqualToString:PCPageElementHtml5BodyTwitterType]) {
+
+        }*/
+	}
    
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
     NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
@@ -810,7 +837,7 @@ NSString* secondaryKey   = @"secondaryKey";
 	   NSLog(@"Error description - %@", error.description);
   }];
   [operation setDownloadProgressBlock:progressBlock];
-  operation.responseFilePath = [self streamForFilePath:[self.revision.contentDirectory stringByAppendingPathComponent:locationPath]];
+  operation.responseFilePath = [self streamForFilePath:[self.revision.contentDirectory stringByAppendingPathComponent: locationPath]];
   return operation;
 
 }

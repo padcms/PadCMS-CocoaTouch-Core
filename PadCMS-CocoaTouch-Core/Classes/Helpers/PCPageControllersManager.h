@@ -44,6 +44,6 @@
 +(PCPageControllersManager*)sharedManager;
 
 -(Class)controllerClassForPageTemplate:(PCPageTemplate*)aTemplate;
--(void)registerPageControllerClass:(Class)aClass forTemplate:(PCPageTemplate*)aTemplate;
+-(void)registerPageControllerClass:(Class)aClass forTemplateId:(PCPageTemplateType)aTemplateId;
 
 @end

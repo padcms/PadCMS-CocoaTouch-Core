@@ -51,16 +51,27 @@
 }
 
 +(PCPageTemplate*)templateWithIdentifier:(NSInteger) aIdentifier
-                               title:(NSString*) aTitle
-                         description:(NSString*) aDescription
-                          connectors:(PCPageTemplateConnectorOptions)aConnectors
-                       engineVersion:(NSInteger) aEngineVersion;
+                                   title:(NSString*) aTitle
+                              connectors:(PCPageTemplateConnectorOptions)aConnectors
 {
-    return [[[PCPageTemplate alloc] initWithIdentifier:aIdentifier 
-                                             title:aTitle 
-                                       description:aDescription 
-                                        connectors:aConnectors
-                                     engineVersion:aEngineVersion] autorelease]; 
+    return [[[PCPageTemplate alloc] initWithIdentifier:aIdentifier
+                                                 title:aTitle
+                                           description:@""
+                                            connectors:aConnectors
+                                         engineVersion:1] autorelease];
+}
+
++(PCPageTemplate*)templateWithIdentifier:(NSInteger) aIdentifier
+                                   title:(NSString*) aTitle
+                             description:(NSString*) aDescription
+                              connectors:(PCPageTemplateConnectorOptions)aConnectors
+                           engineVersion:(NSInteger) aEngineVersion;
+{
+    return [[[PCPageTemplate alloc] initWithIdentifier:aIdentifier
+                                                 title:aTitle
+                                           description:aDescription
+                                            connectors:aConnectors
+                                         engineVersion:aEngineVersion] autorelease];
 }
 
 -(PCPageTemplate*)initWithIdentifier:(NSInteger) aIdentifier
