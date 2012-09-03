@@ -1109,7 +1109,6 @@
 		AB8FE71615D50F76006156D5 /* PCImageLoadOperation.h in Headers */ = {isa = PBXBuildFile; fileRef = AB8FE71415D50F76006156D5 /* PCImageLoadOperation.h */; };
 		AB8FE71715D50F76006156D5 /* PCImageLoadOperation.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8FE71515D50F76006156D5 /* PCImageLoadOperation.m */; };
 		ABC7E1D315A9C2F800B06A38 /* BasicArticleViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
-		ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D215A9C2F800B06A38 /* BasicArticleViewController.m */; };
 		ABC7E1DC15A9C42100B06A38 /* JCTiledScrollView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
 		ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = ABC7E1D715A9C42100B06A38 /* JCTiledScrollView.m */; };
 		ABC7E1DE15A9C42100B06A38 /* JCTiledView.h in Headers */ = {isa = PBXBuildFile; fileRef = ABC7E1D815A9C42100B06A38 /* JCTiledView.h */; };
@@ -1198,7 +1197,6 @@
 		C5792DF415D1173B00716781 /* JCTiledScrollView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D615A9C42100B06A38 /* JCTiledScrollView.h */; };
 		C5792DF515D1173C00716781 /* JCTiledView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D815A9C42100B06A38 /* JCTiledView.h */; };
 		C5792DF615D1173E00716781 /* JCTiledLayer.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1DA15A9C42100B06A38 /* JCTiledLayer.h */; };
-		C5792DF715D1174200716781 /* BasicArticleViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E1D115A9C2F800B06A38 /* BasicArticleViewController.h */; };
 		C5792DF815D1174400716781 /* SimplePageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21515AA53FA00B06A38 /* SimplePageViewController.h */; };
 		C5792DF915D1174700716781 /* AbstractBasePageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21915AA542B00B06A38 /* AbstractBasePageViewController.h */; };
 		C5792DFA15D1174800716781 /* ScrollingPageViewController.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = ABC7E21D15AA611A00B06A38 /* ScrollingPageViewController.h */; };
@@ -1271,7 +1269,6 @@
 				C5A784E815C9523700370829 /* PCGridViewIndex.h in CopyFiles */,
 				C5792DF615D1173E00716781 /* JCTiledLayer.h in CopyFiles */,
 				C5792E0215D1176C00716781 /* PCTopBarView.h in CopyFiles */,
-				C5792DF715D1174200716781 /* BasicArticleViewController.h in CopyFiles */,
 				C5792DF815D1174400716781 /* SimplePageViewController.h in CopyFiles */,
 				C5792DF215D1173800716781 /* UIImage+ImmediateLoading.h in CopyFiles */,
 				C5792DF915D1174700716781 /* AbstractBasePageViewController.h in CopyFiles */,
@@ -4925,7 +4922,6 @@
 				ABF4D2EE1590516400DAAD0F /* PCDownloadOperation.m in Sources */,
 				AB32071015927C5A0076361B /* PCStoreController.m in Sources */,
 				AB0A0E7C15A4278E00B9758C /* RevisionViewController.m in Sources */,
-				ABC7E1D415A9C2F800B06A38 /* BasicArticleViewController.m in Sources */,
 				ABC7E1DD15A9C42100B06A38 /* JCTiledScrollView.m in Sources */,
 				ABC7E1DF15A9C42100B06A38 /* JCTiledView.m in Sources */,
 				ABC7E1E115A9C42100B06A38 /* JCTiledLayer.m in Sources */,

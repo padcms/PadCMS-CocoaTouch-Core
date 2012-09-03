@@ -210,9 +210,9 @@
 {
     NSString *descriptionString = [NSString stringWithFormat:@"%@\ridentifier: %d\rtitle: %@\r"
                                    "number: %@\rproductIdentifier: %@\rsubscriptionType: %d\r"
-                                   "paid: %d\rcolor: %@\rcoverImageThumbnailURL: %@\r"
+                                   "paid: %d\rcoverImageThumbnailURL: %@\r"
                                    "coverImageListURL: %@\rcoverImageURL: %@\rupdatedDate: %@\r"
-                                   "horisontalMode: %d\rcontentDirectory: %@\r"
+                                   "contentDirectory: %@\r"
                                    "revisions: %@", 
                                    [super description],
                                    _identifier,

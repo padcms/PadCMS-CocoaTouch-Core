@@ -123,7 +123,7 @@
 -(void)loadView
 {
     [super loadView];
-    CGSize pageSize = [self.columnViewController pageSizeForViewController:self];
+    //CGSize pageSize = [self.columnViewController pageSizeForViewController:self];
     CGRect pageRect = CGRectMake(0, 0, 600, 1000);
     
     self.view = [[[UIView alloc] initWithFrame:pageRect] autorelease];  

@@ -35,6 +35,7 @@
 
 #import <Foundation/Foundation.h>
 #import "AFNetworking.h"
+#import "PCDownloadProgressProtocol.h"
 
 PADCMS_EXTERN NSString * const PCHelpItemDidDownloadNotification;
 PADCMS_EXTERN NSString * const PCHorizontalPageDidDownloadNotification;
@@ -59,7 +60,7 @@ typedef enum
     PCRevisionStateForReview = 4 ///< Magazine is on review. Currently isn't used by reader.
 } PCRevisionState; ///< The enumeration of magazine state
 
-@interface PCRevision : NSObject
+@interface PCRevision : NSObject<PCDownloadProgressProtocol>
 
 @property (nonatomic, retain) NSURL *backEndURL;
 @property (readonly) NSString *contentDirectory;

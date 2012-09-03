@@ -48,7 +48,7 @@
 #import "PCCoverPageViewControllerViewController.h"
 #import "PCHorizontalScrollingPageViewController.h"
 #import "PC3DViewController.h"
-#import "BasicArticleViewController.h"
+//#import "BasicArticleViewController.h"
 #import "SimpleAudioEngine.h"
 #import "ScrollingPageViewController.h"
 #import "TouchableArticleWithFixedIllustrationViewController.h"

@@ -48,7 +48,7 @@
 #import "PCVideoController.h"
 #import <UIKit/UIKit.h>
 #import "PCHudView.h"
-
+#import "PCTopBarView.h"
 /**
  @class PCMagazineViewController
  @brief Magazine View Controller

@@ -59,27 +59,27 @@
 		else if ([scanner scanString:@"&gt;" intoString:NULL])
 			[result appendString:@">"];
 		else if ([scanner scanString:@"&nbsp;" intoString:NULL])
-			[result appendFormat:@"%C", 160];
+			[result appendFormat:@"%C", (ushort)160];
 		else if ([scanner scanString:@"&laquo;" intoString:NULL])
-			[result appendFormat:@"%C", 171];
+			[result appendFormat:@"%C", (ushort)171];
 		else if ([scanner scanString:@"&raquo;" intoString:NULL])
-			[result appendFormat:@"%C", 187];
+			[result appendFormat:@"%C", (ushort)187];
 		else if ([scanner scanString:@"&ndash;" intoString:NULL])
-			[result appendFormat:@"%C", 8211];
+			[result appendFormat:@"%C", (ushort)8211];
 		else if ([scanner scanString:@"&mdash;" intoString:NULL])
-			[result appendFormat:@"%C", 8212];
+			[result appendFormat:@"%C", (ushort)8212];
 		else if ([scanner scanString:@"&lsquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8216];
+			[result appendFormat:@"%C", (ushort)8216];
 		else if ([scanner scanString:@"&rsquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8217];
+			[result appendFormat:@"%C", (ushort)8217];
 		else if ([scanner scanString:@"&ldquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8220];
+			[result appendFormat:@"%C", (ushort)8220];
 		else if ([scanner scanString:@"&rdquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8221];
+			[result appendFormat:@"%C", (ushort)8221];
 		else if ([scanner scanString:@"&bull;" intoString:NULL])
-			[result appendFormat:@"%C", 8226];
+			[result appendFormat:@"%C", (ushort)8226];
 		else if ([scanner scanString:@"&hellip;" intoString:NULL])
-			[result appendFormat:@"%C", 8230];
+			[result appendFormat:@"%C", (ushort)8230];
 		
 		// Numeric character entity references
 		else if ([scanner scanString:@"&#" intoString:NULL]) {
@@ -100,7 +100,7 @@
 			if (gotNumber) {
 				
 				// Append character
-				[result appendFormat:@"%C", charCode];
+				[result appendFormat:@"%C", (ushort)charCode];
 				[scanner scanString:@";" intoString:NULL];
 				
 			} else {
@@ -118,479 +118,479 @@
 		
 		// No so common character entity references
 		else if ([scanner scanString:@"&iexcl;" intoString:NULL])
-			[result appendFormat:@"%C", 161];
+			[result appendFormat:@"%C", (ushort)161];
 		else if ([scanner scanString:@"&cent;" intoString:NULL])
-			[result appendFormat:@"%C", 162];
+			[result appendFormat:@"%C", (ushort)162];
 		else if ([scanner scanString:@"&pound;" intoString:NULL])
-			[result appendFormat:@"%C", 163];
+			[result appendFormat:@"%C", (ushort)163];
 		else if ([scanner scanString:@"&curren;" intoString:NULL])
-			[result appendFormat:@"%C", 164];
+			[result appendFormat:@"%C", (ushort)164];
 		else if ([scanner scanString:@"&yen;" intoString:NULL])
-			[result appendFormat:@"%C", 165];
+			[result appendFormat:@"%C", (ushort)165];
 		else if ([scanner scanString:@"&brvbar;" intoString:NULL])
-			[result appendFormat:@"%C", 166];
+			[result appendFormat:@"%C", (ushort)166];
 		else if ([scanner scanString:@"&sect;" intoString:NULL])
-			[result appendFormat:@"%C", 167];
+			[result appendFormat:@"%C", (ushort)167];
 		else if ([scanner scanString:@"&uml;" intoString:NULL])
-			[result appendFormat:@"%C", 168];
+			[result appendFormat:@"%C", (ushort)168];
 		else if ([scanner scanString:@"&copy;" intoString:NULL])
-			[result appendFormat:@"%C", 169];
+			[result appendFormat:@"%C", (ushort)169];
 		else if ([scanner scanString:@"&ordf;" intoString:NULL])
-			[result appendFormat:@"%C", 170];
+			[result appendFormat:@"%C", (ushort)170];
 		else if ([scanner scanString:@"&not;" intoString:NULL])
-			[result appendFormat:@"%C", 172];
+			[result appendFormat:@"%C", (ushort)172];
 		else if ([scanner scanString:@"&shy;" intoString:NULL])
-			[result appendFormat:@"%C", 173];
+			[result appendFormat:@"%C", (ushort)173];
 		else if ([scanner scanString:@"&reg;" intoString:NULL])
-			[result appendFormat:@"%C", 174];
+			[result appendFormat:@"%C", (ushort)174];
 		else if ([scanner scanString:@"&macr;" intoString:NULL])
-			[result appendFormat:@"%C", 175];
+			[result appendFormat:@"%C", (ushort)175];
 		else if ([scanner scanString:@"&deg;" intoString:NULL])
-			[result appendFormat:@"%C", 176];
+			[result appendFormat:@"%C", (ushort)176];
 		else if ([scanner scanString:@"&plusmn;" intoString:NULL])
-			[result appendFormat:@"%C", 177];
+			[result appendFormat:@"%C", (ushort)177];
 		else if ([scanner scanString:@"&sup2;" intoString:NULL])
-			[result appendFormat:@"%C", 178];
+			[result appendFormat:@"%C", (ushort)178];
 		else if ([scanner scanString:@"&sup3;" intoString:NULL])
-			[result appendFormat:@"%C", 179];
+			[result appendFormat:@"%C", (ushort)179];
 		else if ([scanner scanString:@"&acute;" intoString:NULL])
-			[result appendFormat:@"%C", 180];
+			[result appendFormat:@"%C", (ushort)180];
 		else if ([scanner scanString:@"&micro;" intoString:NULL])
-			[result appendFormat:@"%C", 181];
+			[result appendFormat:@"%C", (ushort)181];
 		else if ([scanner scanString:@"&para;" intoString:NULL])
-			[result appendFormat:@"%C", 182];
+			[result appendFormat:@"%C", (ushort)182];
 		else if ([scanner scanString:@"&middot;" intoString:NULL])
-			[result appendFormat:@"%C", 183];
+			[result appendFormat:@"%C", (ushort)183];
 		else if ([scanner scanString:@"&cedil;" intoString:NULL])
-			[result appendFormat:@"%C", 184];
+			[result appendFormat:@"%C", (ushort)184];
 		else if ([scanner scanString:@"&sup1;" intoString:NULL])
-			[result appendFormat:@"%C", 185];
+			[result appendFormat:@"%C", (ushort)185];
 		else if ([scanner scanString:@"&ordm;" intoString:NULL])
-			[result appendFormat:@"%C", 186];
+			[result appendFormat:@"%C", (ushort)186];
 		else if ([scanner scanString:@"&frac14;" intoString:NULL])
-			[result appendFormat:@"%C", 188];
+			[result appendFormat:@"%C", (ushort)188];
 		else if ([scanner scanString:@"&frac12;" intoString:NULL])
-			[result appendFormat:@"%C", 189];
+			[result appendFormat:@"%C", (ushort)189];
 		else if ([scanner scanString:@"&frac34;" intoString:NULL])
-			[result appendFormat:@"%C", 190];
+			[result appendFormat:@"%C", (ushort)190];
 		else if ([scanner scanString:@"&iquest;" intoString:NULL])
-			[result appendFormat:@"%C", 191];
+			[result appendFormat:@"%C", (ushort)191];
 		else if ([scanner scanString:@"&Agrave;" intoString:NULL])
-			[result appendFormat:@"%C", 192];
+			[result appendFormat:@"%C", (ushort)192];
 		else if ([scanner scanString:@"&Aacute;" intoString:NULL])
-			[result appendFormat:@"%C", 193];
+			[result appendFormat:@"%C", (ushort)193];
 		else if ([scanner scanString:@"&Acirc;" intoString:NULL])
-			[result appendFormat:@"%C", 194];
+			[result appendFormat:@"%C", (ushort)194];
 		else if ([scanner scanString:@"&Atilde;" intoString:NULL])
-			[result appendFormat:@"%C", 195];
+			[result appendFormat:@"%C", (ushort)195];
 		else if ([scanner scanString:@"&Auml;" intoString:NULL])
-			[result appendFormat:@"%C", 196];
+			[result appendFormat:@"%C", (ushort)196];
 		else if ([scanner scanString:@"&Aring;" intoString:NULL])
-			[result appendFormat:@"%C", 197];
+			[result appendFormat:@"%C", (ushort)197];
 		else if ([scanner scanString:@"&AElig;" intoString:NULL])
-			[result appendFormat:@"%C", 198];
+			[result appendFormat:@"%C", (ushort)198];
 		else if ([scanner scanString:@"&Ccedil;" intoString:NULL])
-			[result appendFormat:@"%C", 199];
+			[result appendFormat:@"%C", (ushort)199];
 		else if ([scanner scanString:@"&Egrave;" intoString:NULL])
-			[result appendFormat:@"%C", 200];
+			[result appendFormat:@"%C", (ushort)200];
 		else if ([scanner scanString:@"&Eacute;" intoString:NULL])
-			[result appendFormat:@"%C", 201];
+			[result appendFormat:@"%C", (ushort)201];
 		else if ([scanner scanString:@"&Ecirc;" intoString:NULL])
-			[result appendFormat:@"%C", 202];
+			[result appendFormat:@"%C", (ushort)202];
 		else if ([scanner scanString:@"&Euml;" intoString:NULL])
-			[result appendFormat:@"%C", 203];
+			[result appendFormat:@"%C", (ushort)203];
 		else if ([scanner scanString:@"&Igrave;" intoString:NULL])
-			[result appendFormat:@"%C", 204];
+			[result appendFormat:@"%C", (ushort)204];
 		else if ([scanner scanString:@"&Iacute;" intoString:NULL])
-			[result appendFormat:@"%C", 205];
+			[result appendFormat:@"%C", (ushort)205];
 		else if ([scanner scanString:@"&Icirc;" intoString:NULL])
-			[result appendFormat:@"%C", 206];
+			[result appendFormat:@"%C", (ushort)206];
 		else if ([scanner scanString:@"&Iuml;" intoString:NULL])
-			[result appendFormat:@"%C", 207];
+			[result appendFormat:@"%C", (ushort)207];
 		else if ([scanner scanString:@"&ETH;" intoString:NULL])
-			[result appendFormat:@"%C", 208];
+			[result appendFormat:@"%C", (ushort)208];
 		else if ([scanner scanString:@"&Ntilde;" intoString:NULL])
-			[result appendFormat:@"%C", 209];
+			[result appendFormat:@"%C", (ushort)209];
 		else if ([scanner scanString:@"&Ograve;" intoString:NULL])
-			[result appendFormat:@"%C", 210];
+			[result appendFormat:@"%C", (ushort)210];
 		else if ([scanner scanString:@"&Oacute;" intoString:NULL])
-			[result appendFormat:@"%C", 211];
+			[result appendFormat:@"%C", (ushort)211];
 		else if ([scanner scanString:@"&Ocirc;" intoString:NULL])
-			[result appendFormat:@"%C", 212];
+			[result appendFormat:@"%C", (ushort)212];
 		else if ([scanner scanString:@"&Otilde;" intoString:NULL])
-			[result appendFormat:@"%C", 213];
+			[result appendFormat:@"%C", (ushort)213];
 		else if ([scanner scanString:@"&Ouml;" intoString:NULL])
-			[result appendFormat:@"%C", 214];
+			[result appendFormat:@"%C", (ushort)214];
 		else if ([scanner scanString:@"&times;" intoString:NULL])
-			[result appendFormat:@"%C", 215];
+			[result appendFormat:@"%C", (ushort)215];
 		else if ([scanner scanString:@"&Oslash;" intoString:NULL])
-			[result appendFormat:@"%C", 216];
+			[result appendFormat:@"%C", (ushort)216];
 		else if ([scanner scanString:@"&Ugrave;" intoString:NULL])
-			[result appendFormat:@"%C", 217];
+			[result appendFormat:@"%C", (ushort)217];
 		else if ([scanner scanString:@"&Uacute;" intoString:NULL])
-			[result appendFormat:@"%C", 218];
+			[result appendFormat:@"%C", (ushort)218];
 		else if ([scanner scanString:@"&Ucirc;" intoString:NULL])
-			[result appendFormat:@"%C", 219];
+			[result appendFormat:@"%C", (ushort)219];
 		else if ([scanner scanString:@"&Uuml;" intoString:NULL])
-			[result appendFormat:@"%C", 220];
+			[result appendFormat:@"%C", (ushort)220];
 		else if ([scanner scanString:@"&Yacute;" intoString:NULL])
-			[result appendFormat:@"%C", 221];
+			[result appendFormat:@"%C", (ushort)221];
 		else if ([scanner scanString:@"&THORN;" intoString:NULL])
-			[result appendFormat:@"%C", 222];
+			[result appendFormat:@"%C", (ushort)222];
 		else if ([scanner scanString:@"&szlig;" intoString:NULL])
-			[result appendFormat:@"%C", 223];
+			[result appendFormat:@"%C", (ushort)223];
 		else if ([scanner scanString:@"&agrave;" intoString:NULL])
-			[result appendFormat:@"%C", 224];
+			[result appendFormat:@"%C", (ushort)224];
 		else if ([scanner scanString:@"&aacute;" intoString:NULL])
-			[result appendFormat:@"%C", 225];
+			[result appendFormat:@"%C", (ushort)225];
 		else if ([scanner scanString:@"&acirc;" intoString:NULL])
-			[result appendFormat:@"%C", 226];
+			[result appendFormat:@"%C", (ushort)226];
 		else if ([scanner scanString:@"&atilde;" intoString:NULL])
-			[result appendFormat:@"%C", 227];
+			[result appendFormat:@"%C", (ushort)227];
 		else if ([scanner scanString:@"&auml;" intoString:NULL])
-			[result appendFormat:@"%C", 228];
+			[result appendFormat:@"%C", (ushort)228];
 		else if ([scanner scanString:@"&aring;" intoString:NULL])
-			[result appendFormat:@"%C", 229];
+			[result appendFormat:@"%C", (ushort)229];
 		else if ([scanner scanString:@"&aelig;" intoString:NULL])
-			[result appendFormat:@"%C", 230];
+			[result appendFormat:@"%C", (ushort)230];
 		else if ([scanner scanString:@"&ccedil;" intoString:NULL])
-			[result appendFormat:@"%C", 231];
+			[result appendFormat:@"%C", (ushort)231];
 		else if ([scanner scanString:@"&egrave;" intoString:NULL])
-			[result appendFormat:@"%C", 232];
+			[result appendFormat:@"%C", (ushort)232];
 		else if ([scanner scanString:@"&eacute;" intoString:NULL])
-			[result appendFormat:@"%C", 233];
+			[result appendFormat:@"%C", (ushort)233];
 		else if ([scanner scanString:@"&ecirc;" intoString:NULL])
-			[result appendFormat:@"%C", 234];
+			[result appendFormat:@"%C", (ushort)234];
 		else if ([scanner scanString:@"&euml;" intoString:NULL])
-			[result appendFormat:@"%C", 235];
+			[result appendFormat:@"%C", (ushort)235];
 		else if ([scanner scanString:@"&igrave;" intoString:NULL])
-			[result appendFormat:@"%C", 236];
+			[result appendFormat:@"%C", (ushort)236];
 		else if ([scanner scanString:@"&iacute;" intoString:NULL])
-			[result appendFormat:@"%C", 237];
+			[result appendFormat:@"%C", (ushort)237];
 		else if ([scanner scanString:@"&icirc;" intoString:NULL])
-			[result appendFormat:@"%C", 238];
+			[result appendFormat:@"%C", (ushort)238];
 		else if ([scanner scanString:@"&iuml;" intoString:NULL])
-			[result appendFormat:@"%C", 239];
+			[result appendFormat:@"%C", (ushort)239];
 		else if ([scanner scanString:@"&eth;" intoString:NULL])
-			[result appendFormat:@"%C", 240];
+			[result appendFormat:@"%C", (ushort)240];
 		else if ([scanner scanString:@"&ntilde;" intoString:NULL])
-			[result appendFormat:@"%C", 241];
+			[result appendFormat:@"%C", (ushort)241];
 		else if ([scanner scanString:@"&ograve;" intoString:NULL])
-			[result appendFormat:@"%C", 242];
+			[result appendFormat:@"%C", (ushort)242];
 		else if ([scanner scanString:@"&oacute;" intoString:NULL])
-			[result appendFormat:@"%C", 243];
+			[result appendFormat:@"%C", (ushort)243];
 		else if ([scanner scanString:@"&ocirc;" intoString:NULL])
-			[result appendFormat:@"%C", 244];
+			[result appendFormat:@"%C", (ushort)244];
 		else if ([scanner scanString:@"&otilde;" intoString:NULL])
-			[result appendFormat:@"%C", 245];
+			[result appendFormat:@"%C", (ushort)245];
 		else if ([scanner scanString:@"&ouml;" intoString:NULL])
-			[result appendFormat:@"%C", 246];
+			[result appendFormat:@"%C", (ushort)246];
 		else if ([scanner scanString:@"&divide;" intoString:NULL])
-			[result appendFormat:@"%C", 247];
+			[result appendFormat:@"%C", (ushort)247];
 		else if ([scanner scanString:@"&oslash;" intoString:NULL])
-			[result appendFormat:@"%C", 248];
+			[result appendFormat:@"%C", (ushort)248];
 		else if ([scanner scanString:@"&ugrave;" intoString:NULL])
-			[result appendFormat:@"%C", 249];
+			[result appendFormat:@"%C", (ushort)249];
 		else if ([scanner scanString:@"&uacute;" intoString:NULL])
-			[result appendFormat:@"%C", 250];
+			[result appendFormat:@"%C", (ushort)250];
 		else if ([scanner scanString:@"&ucirc;" intoString:NULL])
-			[result appendFormat:@"%C", 251];
+			[result appendFormat:@"%C", (ushort)251];
 		else if ([scanner scanString:@"&uuml;" intoString:NULL])
-			[result appendFormat:@"%C", 252];
+			[result appendFormat:@"%C", (ushort)252];
 		else if ([scanner scanString:@"&yacute;" intoString:NULL])
-			[result appendFormat:@"%C", 253];
+			[result appendFormat:@"%C", (ushort)253];
 		else if ([scanner scanString:@"&thorn;" intoString:NULL])
-			[result appendFormat:@"%C", 254];
+			[result appendFormat:@"%C", (ushort)254];
 		else if ([scanner scanString:@"&yuml;" intoString:NULL])
-			[result appendFormat:@"%C", 255];
+			[result appendFormat:@"%C", (ushort)255];
 		else if ([scanner scanString:@"&OElig;" intoString:NULL])
-			[result appendFormat:@"%C", 338];
+			[result appendFormat:@"%C", (ushort)338];
 		else if ([scanner scanString:@"&oelig;" intoString:NULL])
-			[result appendFormat:@"%C", 339];
+			[result appendFormat:@"%C", (ushort)339];
 		else if ([scanner scanString:@"&Scaron;" intoString:NULL])
-			[result appendFormat:@"%C", 352];
+			[result appendFormat:@"%C", (ushort)352];
 		else if ([scanner scanString:@"&scaron;" intoString:NULL])
-			[result appendFormat:@"%C", 353];
+			[result appendFormat:@"%C", (ushort)353];
 		else if ([scanner scanString:@"&Yuml;" intoString:NULL])
-			[result appendFormat:@"%C", 376];
+			[result appendFormat:@"%C", (ushort)376];
 		else if ([scanner scanString:@"&fnof;" intoString:NULL])
-			[result appendFormat:@"%C", 402];
+			[result appendFormat:@"%C", (ushort)402];
 		else if ([scanner scanString:@"&circ;" intoString:NULL])
-			[result appendFormat:@"%C", 710];
+			[result appendFormat:@"%C", (ushort)710];
 		else if ([scanner scanString:@"&tilde;" intoString:NULL])
-			[result appendFormat:@"%C", 732];
+			[result appendFormat:@"%C", (ushort)732];
 		else if ([scanner scanString:@"&Alpha;" intoString:NULL])
-			[result appendFormat:@"%C", 913];
+			[result appendFormat:@"%C", (ushort)913];
 		else if ([scanner scanString:@"&Beta;" intoString:NULL])
-			[result appendFormat:@"%C", 914];
+			[result appendFormat:@"%C", (ushort)914];
 		else if ([scanner scanString:@"&Gamma;" intoString:NULL])
-			[result appendFormat:@"%C", 915];
+			[result appendFormat:@"%C", (ushort)915];
 		else if ([scanner scanString:@"&Delta;" intoString:NULL])
-			[result appendFormat:@"%C", 916];
+			[result appendFormat:@"%C", (ushort)916];
 		else if ([scanner scanString:@"&Epsilon;" intoString:NULL])
-			[result appendFormat:@"%C", 917];
+			[result appendFormat:@"%C", (ushort)917];
 		else if ([scanner scanString:@"&Zeta;" intoString:NULL])
-			[result appendFormat:@"%C", 918];
+			[result appendFormat:@"%C", (ushort)918];
 		else if ([scanner scanString:@"&Eta;" intoString:NULL])
-			[result appendFormat:@"%C", 919];
+			[result appendFormat:@"%C", (ushort)919];
 		else if ([scanner scanString:@"&Theta;" intoString:NULL])
-			[result appendFormat:@"%C", 920];
+			[result appendFormat:@"%C", (ushort)920];
 		else if ([scanner scanString:@"&Iota;" intoString:NULL])
-			[result appendFormat:@"%C", 921];
+			[result appendFormat:@"%C", (ushort)921];
 		else if ([scanner scanString:@"&Kappa;" intoString:NULL])
-			[result appendFormat:@"%C", 922];
+			[result appendFormat:@"%C", (ushort)922];
 		else if ([scanner scanString:@"&Lambda;" intoString:NULL])
-			[result appendFormat:@"%C", 923];
+			[result appendFormat:@"%C", (ushort)923];
 		else if ([scanner scanString:@"&Mu;" intoString:NULL])
-			[result appendFormat:@"%C", 924];
+			[result appendFormat:@"%C", (ushort)924];
 		else if ([scanner scanString:@"&Nu;" intoString:NULL])
-			[result appendFormat:@"%C", 925];
+			[result appendFormat:@"%C", (ushort)925];
 		else if ([scanner scanString:@"&Xi;" intoString:NULL])
-			[result appendFormat:@"%C", 926];
+			[result appendFormat:@"%C", (ushort)926];
 		else if ([scanner scanString:@"&Omicron;" intoString:NULL])
-			[result appendFormat:@"%C", 927];
+			[result appendFormat:@"%C", (ushort)927];
 		else if ([scanner scanString:@"&Pi;" intoString:NULL])
-			[result appendFormat:@"%C", 928];
+			[result appendFormat:@"%C", (ushort)928];
 		else if ([scanner scanString:@"&Rho;" intoString:NULL])
-			[result appendFormat:@"%C", 929];
+			[result appendFormat:@"%C", (ushort)929];
 		else if ([scanner scanString:@"&Sigma;" intoString:NULL])
-			[result appendFormat:@"%C", 931];
+			[result appendFormat:@"%C", (ushort)931];
 		else if ([scanner scanString:@"&Tau;" intoString:NULL])
-			[result appendFormat:@"%C", 932];
+			[result appendFormat:@"%C", (ushort)932];
 		else if ([scanner scanString:@"&Upsilon;" intoString:NULL])
-			[result appendFormat:@"%C", 933];
+			[result appendFormat:@"%C", (ushort)933];
 		else if ([scanner scanString:@"&Phi;" intoString:NULL])
-			[result appendFormat:@"%C", 934];
+			[result appendFormat:@"%C", (ushort)934];
 		else if ([scanner scanString:@"&Chi;" intoString:NULL])
-			[result appendFormat:@"%C", 935];
+			[result appendFormat:@"%C", (ushort)935];
 		else if ([scanner scanString:@"&Psi;" intoString:NULL])
-			[result appendFormat:@"%C", 936];
+			[result appendFormat:@"%C", (ushort)936];
 		else if ([scanner scanString:@"&Omega;" intoString:NULL])
-			[result appendFormat:@"%C", 937];
+			[result appendFormat:@"%C", (ushort)937];
 		else if ([scanner scanString:@"&alpha;" intoString:NULL])
-			[result appendFormat:@"%C", 945];
+			[result appendFormat:@"%C", (ushort)945];
 		else if ([scanner scanString:@"&beta;" intoString:NULL])
-			[result appendFormat:@"%C", 946];
+			[result appendFormat:@"%C", (ushort)946];
 		else if ([scanner scanString:@"&gamma;" intoString:NULL])
-			[result appendFormat:@"%C", 947];
+			[result appendFormat:@"%C", (ushort)947];
 		else if ([scanner scanString:@"&delta;" intoString:NULL])
-			[result appendFormat:@"%C", 948];
+			[result appendFormat:@"%C", (ushort)948];
 		else if ([scanner scanString:@"&epsilon;" intoString:NULL])
-			[result appendFormat:@"%C", 949];
+			[result appendFormat:@"%C", (ushort)949];
 		else if ([scanner scanString:@"&zeta;" intoString:NULL])
-			[result appendFormat:@"%C", 950];
+			[result appendFormat:@"%C", (ushort)950];
 		else if ([scanner scanString:@"&eta;" intoString:NULL])
-			[result appendFormat:@"%C", 951];
+			[result appendFormat:@"%C", (ushort)951];
 		else if ([scanner scanString:@"&theta;" intoString:NULL])
-			[result appendFormat:@"%C", 952];
+			[result appendFormat:@"%C", (ushort)952];
 		else if ([scanner scanString:@"&iota;" intoString:NULL])
-			[result appendFormat:@"%C", 953];
+			[result appendFormat:@"%C", (ushort)953];
 		else if ([scanner scanString:@"&kappa;" intoString:NULL])
-			[result appendFormat:@"%C", 954];
+			[result appendFormat:@"%C", (ushort)954];
 		else if ([scanner scanString:@"&lambda;" intoString:NULL])
-			[result appendFormat:@"%C", 955];
+			[result appendFormat:@"%C", (ushort)955];
 		else if ([scanner scanString:@"&mu;" intoString:NULL])
-			[result appendFormat:@"%C", 956];
+			[result appendFormat:@"%C", (ushort)956];
 		else if ([scanner scanString:@"&nu;" intoString:NULL])
-			[result appendFormat:@"%C", 957];
+			[result appendFormat:@"%C", (ushort)957];
 		else if ([scanner scanString:@"&xi;" intoString:NULL])
-			[result appendFormat:@"%C", 958];
+			[result appendFormat:@"%C", (ushort)958];
 		else if ([scanner scanString:@"&omicron;" intoString:NULL])
-			[result appendFormat:@"%C", 959];
+			[result appendFormat:@"%C", (ushort)959];
 		else if ([scanner scanString:@"&pi;" intoString:NULL])
-			[result appendFormat:@"%C", 960];
+			[result appendFormat:@"%C", (ushort)960];
 		else if ([scanner scanString:@"&rho;" intoString:NULL])
-			[result appendFormat:@"%C", 961];
+			[result appendFormat:@"%C", (ushort)961];
 		else if ([scanner scanString:@"&sigmaf;" intoString:NULL])
-			[result appendFormat:@"%C", 962];
+			[result appendFormat:@"%C", (ushort)962];
 		else if ([scanner scanString:@"&sigma;" intoString:NULL])
-			[result appendFormat:@"%C", 963];
+			[result appendFormat:@"%C", (ushort)963];
 		else if ([scanner scanString:@"&tau;" intoString:NULL])
-			[result appendFormat:@"%C", 964];
+			[result appendFormat:@"%C", (ushort)964];
 		else if ([scanner scanString:@"&upsilon;" intoString:NULL])
-			[result appendFormat:@"%C", 965];
+			[result appendFormat:@"%C", (ushort)965];
 		else if ([scanner scanString:@"&phi;" intoString:NULL])
-			[result appendFormat:@"%C", 966];
+			[result appendFormat:@"%C", (ushort)966];
 		else if ([scanner scanString:@"&chi;" intoString:NULL])
-			[result appendFormat:@"%C", 967];
+			[result appendFormat:@"%C", (ushort)967];
 		else if ([scanner scanString:@"&psi;" intoString:NULL])
-			[result appendFormat:@"%C", 968];
+			[result appendFormat:@"%C", (ushort)968];
 		else if ([scanner scanString:@"&omega;" intoString:NULL])
-			[result appendFormat:@"%C", 969];
+			[result appendFormat:@"%C", (ushort)969];
 		else if ([scanner scanString:@"&thetasym;" intoString:NULL])
-			[result appendFormat:@"%C", 977];
+			[result appendFormat:@"%C", (ushort)977];
 		else if ([scanner scanString:@"&upsih;" intoString:NULL])
-			[result appendFormat:@"%C", 978];
+			[result appendFormat:@"%C", (ushort)978];
 		else if ([scanner scanString:@"&piv;" intoString:NULL])
-			[result appendFormat:@"%C", 982];
+			[result appendFormat:@"%C", (ushort)982];
 		else if ([scanner scanString:@"&ensp;" intoString:NULL])
-			[result appendFormat:@"%C", 8194];
+			[result appendFormat:@"%C", (ushort)8194];
 		else if ([scanner scanString:@"&emsp;" intoString:NULL])
-			[result appendFormat:@"%C", 8195];
+			[result appendFormat:@"%C", (ushort)8195];
 		else if ([scanner scanString:@"&thinsp;" intoString:NULL])
-			[result appendFormat:@"%C", 8201];
+			[result appendFormat:@"%C", (ushort)8201];
 		else if ([scanner scanString:@"&zwnj;" intoString:NULL])
-			[result appendFormat:@"%C", 8204];
+			[result appendFormat:@"%C", (ushort)8204];
 		else if ([scanner scanString:@"&zwj;" intoString:NULL])
-			[result appendFormat:@"%C", 8205];
+			[result appendFormat:@"%C", (ushort)8205];
 		else if ([scanner scanString:@"&lrm;" intoString:NULL])
-			[result appendFormat:@"%C", 8206];
+			[result appendFormat:@"%C", (ushort)8206];
 		else if ([scanner scanString:@"&rlm;" intoString:NULL])
-			[result appendFormat:@"%C", 8207];
+			[result appendFormat:@"%C", (ushort)8207];
 		else if ([scanner scanString:@"&sbquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8218];
+			[result appendFormat:@"%C", (ushort)8218];
 		else if ([scanner scanString:@"&bdquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8222];
+			[result appendFormat:@"%C", (ushort)8222];
 		else if ([scanner scanString:@"&dagger;" intoString:NULL])
-			[result appendFormat:@"%C", 8224];
+			[result appendFormat:@"%C", (ushort)8224];
 		else if ([scanner scanString:@"&Dagger;" intoString:NULL])
-			[result appendFormat:@"%C", 8225];
+			[result appendFormat:@"%C", (ushort)8225];
 		else if ([scanner scanString:@"&permil;" intoString:NULL])
-			[result appendFormat:@"%C", 8240];
+			[result appendFormat:@"%C", (ushort)8240];
 		else if ([scanner scanString:@"&prime;" intoString:NULL])
-			[result appendFormat:@"%C", 8242];
+			[result appendFormat:@"%C", (ushort)8242];
 		else if ([scanner scanString:@"&Prime;" intoString:NULL])
-			[result appendFormat:@"%C", 8243];
+			[result appendFormat:@"%C", (ushort)8243];
 		else if ([scanner scanString:@"&lsaquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8249];
+			[result appendFormat:@"%C", (ushort)8249];
 		else if ([scanner scanString:@"&rsaquo;" intoString:NULL])
-			[result appendFormat:@"%C", 8250];
+			[result appendFormat:@"%C", (ushort)8250];
 		else if ([scanner scanString:@"&oline;" intoString:NULL])
-			[result appendFormat:@"%C", 8254];
+			[result appendFormat:@"%C", (ushort)8254];
 		else if ([scanner scanString:@"&frasl;" intoString:NULL])
-			[result appendFormat:@"%C", 8260];
+			[result appendFormat:@"%C", (ushort)8260];
 		else if ([scanner scanString:@"&euro;" intoString:NULL])
-			[result appendFormat:@"%C", 8364];
+			[result appendFormat:@"%C", (ushort)8364];
 		else if ([scanner scanString:@"&image;" intoString:NULL])
-			[result appendFormat:@"%C", 8465];
+			[result appendFormat:@"%C", (ushort)8465];
 		else if ([scanner scanString:@"&weierp;" intoString:NULL])
-			[result appendFormat:@"%C", 8472];
+			[result appendFormat:@"%C", (ushort)8472];
 		else if ([scanner scanString:@"&real;" intoString:NULL])
-			[result appendFormat:@"%C", 8476];
+			[result appendFormat:@"%C", (ushort)8476];
 		else if ([scanner scanString:@"&trade;" intoString:NULL])
-			[result appendFormat:@"%C", 8482];
+			[result appendFormat:@"%C", (ushort)8482];
 		else if ([scanner scanString:@"&alefsym;" intoString:NULL])
-			[result appendFormat:@"%C", 8501];
+			[result appendFormat:@"%C", (ushort)8501];
 		else if ([scanner scanString:@"&larr;" intoString:NULL])
-			[result appendFormat:@"%C", 8592];
+			[result appendFormat:@"%C", (ushort)8592];
 		else if ([scanner scanString:@"&uarr;" intoString:NULL])
-			[result appendFormat:@"%C", 8593];
+			[result appendFormat:@"%C", (ushort)8593];
 		else if ([scanner scanString:@"&rarr;" intoString:NULL])
-			[result appendFormat:@"%C", 8594];
+			[result appendFormat:@"%C", (ushort)8594];
 		else if ([scanner scanString:@"&darr;" intoString:NULL])
-			[result appendFormat:@"%C", 8595];
+			[result appendFormat:@"%C", (ushort)8595];
 		else if ([scanner scanString:@"&harr;" intoString:NULL])
-			[result appendFormat:@"%C", 8596];
+			[result appendFormat:@"%C", (ushort)8596];
 		else if ([scanner scanString:@"&crarr;" intoString:NULL])
-			[result appendFormat:@"%C", 8629];
+			[result appendFormat:@"%C", (ushort)8629];
 		else if ([scanner scanString:@"&lArr;" intoString:NULL])
-			[result appendFormat:@"%C", 8656];
+			[result appendFormat:@"%C", (ushort)8656];
 		else if ([scanner scanString:@"&uArr;" intoString:NULL])
-			[result appendFormat:@"%C", 8657];
+			[result appendFormat:@"%C", (ushort)8657];
 		else if ([scanner scanString:@"&rArr;" intoString:NULL])
-			[result appendFormat:@"%C", 8658];
+			[result appendFormat:@"%C", (ushort)8658];
 		else if ([scanner scanString:@"&dArr;" intoString:NULL])
-			[result appendFormat:@"%C", 8659];
+			[result appendFormat:@"%C", (ushort)8659];
 		else if ([scanner scanString:@"&hArr;" intoString:NULL])
-			[result appendFormat:@"%C", 8660];
+			[result appendFormat:@"%C", (ushort)8660];
 		else if ([scanner scanString:@"&forall;" intoString:NULL])
-			[result appendFormat:@"%C", 8704];
+			[result appendFormat:@"%C", (ushort)8704];
 		else if ([scanner scanString:@"&part;" intoString:NULL])
-			[result appendFormat:@"%C", 8706];
+			[result appendFormat:@"%C", (ushort)8706];
 		else if ([scanner scanString:@"&exist;" intoString:NULL])
-			[result appendFormat:@"%C", 8707];
+			[result appendFormat:@"%C", (ushort)8707];
 		else if ([scanner scanString:@"&empty;" intoString:NULL])
-			[result appendFormat:@"%C", 8709];
+			[result appendFormat:@"%C", (ushort)8709];
 		else if ([scanner scanString:@"&nabla;" intoString:NULL])
-			[result appendFormat:@"%C", 8711];
+			[result appendFormat:@"%C", (ushort)8711];
 		else if ([scanner scanString:@"&isin;" intoString:NULL])
-			[result appendFormat:@"%C", 8712];
+			[result appendFormat:@"%C", (ushort)8712];
 		else if ([scanner scanString:@"&notin;" intoString:NULL])
-			[result appendFormat:@"%C", 8713];
+			[result appendFormat:@"%C", (ushort)8713];
 		else if ([scanner scanString:@"&ni;" intoString:NULL])
-			[result appendFormat:@"%C", 8715];
+			[result appendFormat:@"%C", (ushort)8715];
 		else if ([scanner scanString:@"&prod;" intoString:NULL])
-			[result appendFormat:@"%C", 8719];
+			[result appendFormat:@"%C", (ushort)8719];
 		else if ([scanner scanString:@"&sum;" intoString:NULL])
-			[result appendFormat:@"%C", 8721];
+			[result appendFormat:@"%C", (ushort)8721];
 		else if ([scanner scanString:@"&minus;" intoString:NULL])
-			[result appendFormat:@"%C", 8722];
+			[result appendFormat:@"%C", (ushort)8722];
 		else if ([scanner scanString:@"&lowast;" intoString:NULL])
-			[result appendFormat:@"%C", 8727];
+			[result appendFormat:@"%C", (ushort)8727];
 		else if ([scanner scanString:@"&radic;" intoString:NULL])
-			[result appendFormat:@"%C", 8730];
+			[result appendFormat:@"%C", (ushort)8730];
 		else if ([scanner scanString:@"&prop;" intoString:NULL])
-			[result appendFormat:@"%C", 8733];
+			[result appendFormat:@"%C", (ushort)8733];
 		else if ([scanner scanString:@"&infin;" intoString:NULL])
-			[result appendFormat:@"%C", 8734];
+			[result appendFormat:@"%C", (ushort)8734];
 		else if ([scanner scanString:@"&ang;" intoString:NULL])
-			[result appendFormat:@"%C", 8736];
+			[result appendFormat:@"%C", (ushort)8736];
 		else if ([scanner scanString:@"&and;" intoString:NULL])
-			[result appendFormat:@"%C", 8743];
+			[result appendFormat:@"%C", (ushort)8743];
 		else if ([scanner scanString:@"&or;" intoString:NULL])
-			[result appendFormat:@"%C", 8744];
+			[result appendFormat:@"%C", (ushort)8744];
 		else if ([scanner scanString:@"&cap;" intoString:NULL])
-			[result appendFormat:@"%C", 8745];
+			[result appendFormat:@"%C", (ushort)8745];
 		else if ([scanner scanString:@"&cup;" intoString:NULL])
-			[result appendFormat:@"%C", 8746];
+			[result appendFormat:@"%C", (ushort)8746];
 		else if ([scanner scanString:@"&int;" intoString:NULL])
-			[result appendFormat:@"%C", 8747];
+			[result appendFormat:@"%C", (ushort)8747];
 		else if ([scanner scanString:@"&there4;" intoString:NULL])
-			[result appendFormat:@"%C", 8756];
+			[result appendFormat:@"%C", (ushort)8756];
 		else if ([scanner scanString:@"&sim;" intoString:NULL])
-			[result appendFormat:@"%C", 8764];
+			[result appendFormat:@"%C", (ushort)8764];
 		else if ([scanner scanString:@"&cong;" intoString:NULL])
-			[result appendFormat:@"%C", 8773];
+			[result appendFormat:@"%C", (ushort)8773];
 		else if ([scanner scanString:@"&asymp;" intoString:NULL])
-			[result appendFormat:@"%C", 8776];
+			[result appendFormat:@"%C", (ushort)8776];
 		else if ([scanner scanString:@"&ne;" intoString:NULL])
-			[result appendFormat:@"%C", 8800];
+			[result appendFormat:@"%C", (ushort)8800];
 		else if ([scanner scanString:@"&equiv;" intoString:NULL])
-			[result appendFormat:@"%C", 8801];
+			[result appendFormat:@"%C", (ushort)8801];
 		else if ([scanner scanString:@"&le;" intoString:NULL])
-			[result appendFormat:@"%C", 8804];
+			[result appendFormat:@"%C", (ushort)8804];
 		else if ([scanner scanString:@"&ge;" intoString:NULL])
-			[result appendFormat:@"%C", 8805];
+			[result appendFormat:@"%C", (ushort)8805];
 		else if ([scanner scanString:@"&sub;" intoString:NULL])
-			[result appendFormat:@"%C", 8834];
+			[result appendFormat:@"%C", (ushort)8834];
 		else if ([scanner scanString:@"&sup;" intoString:NULL])
-			[result appendFormat:@"%C", 8835];
+			[result appendFormat:@"%C", (ushort)8835];
 		else if ([scanner scanString:@"&nsub;" intoString:NULL])
-			[result appendFormat:@"%C", 8836];
+			[result appendFormat:@"%C", (ushort)8836];
 		else if ([scanner scanString:@"&sube;" intoString:NULL])
-			[result appendFormat:@"%C", 8838];
+			[result appendFormat:@"%C", (ushort)8838];
 		else if ([scanner scanString:@"&supe;" intoString:NULL])
-			[result appendFormat:@"%C", 8839];
+			[result appendFormat:@"%C", (ushort)8839];
 		else if ([scanner scanString:@"&oplus;" intoString:NULL])
-			[result appendFormat:@"%C", 8853];
+			[result appendFormat:@"%C", (ushort)8853];
 		else if ([scanner scanString:@"&otimes;" intoString:NULL])
-			[result appendFormat:@"%C", 8855];
+			[result appendFormat:@"%C", (ushort)8855];
 		else if ([scanner scanString:@"&perp;" intoString:NULL])
-			[result appendFormat:@"%C", 8869];
+			[result appendFormat:@"%C", (ushort)8869];
 		else if ([scanner scanString:@"&sdot;" intoString:NULL])
-			[result appendFormat:@"%C", 8901];
+			[result appendFormat:@"%C", (ushort)8901];
 		else if ([scanner scanString:@"&lceil;" intoString:NULL])
-			[result appendFormat:@"%C", 8968];
+			[result appendFormat:@"%C", (ushort)8968];
 		else if ([scanner scanString:@"&rceil;" intoString:NULL])
-			[result appendFormat:@"%C", 8969];
+			[result appendFormat:@"%C", (ushort)8969];
 		else if ([scanner scanString:@"&lfloor;" intoString:NULL])
-			[result appendFormat:@"%C", 8970];
+			[result appendFormat:@"%C", (ushort)8970];
 		else if ([scanner scanString:@"&rfloor;" intoString:NULL])
-			[result appendFormat:@"%C", 8971];
+			[result appendFormat:@"%C", (ushort)8971];
 		else if ([scanner scanString:@"&lang;" intoString:NULL])
-			[result appendFormat:@"%C", 9001];
+			[result appendFormat:@"%C", (ushort)9001];
 		else if ([scanner scanString:@"&rang;" intoString:NULL])
-			[result appendFormat:@"%C", 9002];
+			[result appendFormat:@"%C", (ushort)9002];
 		else if ([scanner scanString:@"&loz;" intoString:NULL])
-			[result appendFormat:@"%C", 9674];
+			[result appendFormat:@"%C", (ushort)9674];
 		else if ([scanner scanString:@"&spades;" intoString:NULL])
-			[result appendFormat:@"%C", 9824];
+			[result appendFormat:@"%C", (ushort)9824];
 		else if ([scanner scanString:@"&clubs;" intoString:NULL])
-			[result appendFormat:@"%C", 9827];
+			[result appendFormat:@"%C", (ushort)9827];
 		else if ([scanner scanString:@"&hearts;" intoString:NULL])
-			[result appendFormat:@"%C", 9829];
+			[result appendFormat:@"%C", (ushort)9829];
 		else if ([scanner scanString:@"&diams;" intoString:NULL])
-			[result appendFormat:@"%C", 9830];
+			[result appendFormat:@"%C", (ushort)9830];
 		else {
 			
 			// Must be an isolated & with no space after
