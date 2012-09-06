@@ -15,7 +15,6 @@
 		601B823615D170A200A7C3DC /* PCSearchProviderDelegate.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 601B823315D15CD300A7C3DC /* PCSearchProviderDelegate.h */; };
 		6028351D15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 6028351B15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.h */; };
 		6028351E15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 6028351C15A44C7E00500FE2 /* PCGalleryWithOverlaysViewController.m */; };
-		6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */; };
 		607F3E331588C3580097D960 /* PCKioskAbstractControlElement.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1C1588C3580097D960 /* PCKioskAbstractControlElement.h */; };
 		607F3E341588C3580097D960 /* PCKioskAbstractControlElement.m in Sources */ = {isa = PBXBuildFile; fileRef = 607F3E1D1588C3580097D960 /* PCKioskAbstractControlElement.m */; };
 		607F3E351588C3580097D960 /* PCKioskAbstractSubviewsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 607F3E1E1588C3580097D960 /* PCKioskAbstractSubviewsFactory.h */; };
@@ -1237,6 +1236,7 @@
 		C5FFC26115DA6D5800BD4B03 /* PCShareView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5ABCA6C15DA5F1800B405EA /* PCShareView.h */; };
 		FA3045CF15EBA2A00050541F /* HTML5PageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = FA3045CD15EBA2A00050541F /* HTML5PageViewController.h */; };
 		FA3045D015EBA2A00050541F /* HTML5PageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = FA3045CE15EBA2A00050541F /* HTML5PageViewController.m */; };
+		FAFEFC7815F507F000751E1B /* PCLocalizationManager.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1277,12 +1277,11 @@
 				C5792DFC15D1174B00716781 /* SliderBasedMiniArticleViewController.h in CopyFiles */,
 				C5792DFE15D1175100716781 /* PageElementViewController.h in CopyFiles */,
 				C5792DFD15D1174D00716781 /* InteractivesBulletsViewController.h in CopyFiles */,
-				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
+				FAFEFC7815F507F000751E1B /* PCLocalizationManager.h in CopyFiles */,
 				C5792DFF15D1175200716781 /* SlideshowViewController.h in CopyFiles */,
 				C5792E0015D1175400716781 /* HTMLPageViewController.h in CopyFiles */,
 				C5792E0115D1175500716781 /* Page3DViewController.h in CopyFiles */,
 				C51F275315D3C14B00BCDB85 /* PCSummaryGridViewCell.h in CopyFiles */,
-				6039E53815BD8166005F9BEB /* PCLocalizationManager.h in CopyFiles */,
 				C51F275215D3C14900BCDB85 /* PCSummaryView.h in CopyFiles */,
 				ABF4D30415905A0100DAAD0F /* PCDownloadManager.h in CopyFiles */,
 				ABF4D3031590599400DAAD0F /* PCDownloadApiClient.h in CopyFiles */,
@@ -4544,7 +4543,7 @@
 		60891D8B1587971300894531 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0430;
+				LastUpgradeCheck = 0440;
 				ORGANIZATIONNAME = Adyax;
 			};
 			buildConfigurationList = 60891D8E1587971300894531 /* Build configuration list for PBXProject "PadCMS-CocoaTouch-Core" */;

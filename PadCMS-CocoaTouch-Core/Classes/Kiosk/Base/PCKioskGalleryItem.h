@@ -37,7 +37,7 @@
 #define K              1.0
 
 #define IMAGE_HEIGHT   (260 * K)
-#define IMAGE_WIDTH    (180 * K)
+#define IMAGE_WIDTH    (195 * K)
 
 #define DEEP           -700
 #define GAP            (40 * K)
