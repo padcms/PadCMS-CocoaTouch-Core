@@ -158,10 +158,12 @@ NSString *EnabledKey = @"Enabled";
     
     if (_topTocView != nil) {
         CGSize topTocItemSize = [self topItemSize];
+        NSNumber* deltaNum = [[[NSBundle mainBundle] infoDictionary] valueForKeyPath:@"PADCMSConfig.PCTocViewStyle.PCTocViewBackgroundStyle.PCTocViewBackgroundStyleDeltaHeight"];
+        CGFloat deltaHeight = deltaNum?[deltaNum floatValue]:0;
         _topTocView.bounds = CGRectMake(0,
                                         0,
                                         self.bounds.size.width,
-                                        topTocItemSize.height + _topTocView.button.bounds.size.height);
+                                        topTocItemSize.height + _topTocView.button.bounds.size.height + deltaHeight);
         [_topTocView transitToState:_topTocView.state animated:NO];
     }
     

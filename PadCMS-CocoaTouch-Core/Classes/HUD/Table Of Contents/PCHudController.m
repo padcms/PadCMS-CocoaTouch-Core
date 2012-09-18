@@ -215,7 +215,20 @@
 - (CGSize)hudView:(PCHudView *)hudView itemSizeInToc:(PCGridView *)tocView
 {
     if (tocView == hudView.topTocView.gridView) {
-        return CGSizeMake(150, 384);
+        NSDictionary* topTocStyle = [[[NSBundle mainBundle] infoDictionary] valueForKeyPath:@"PADCMSConfig.PCTocViewStyle.PCTocViewGridStyle"];
+        CGFloat sizeW = 150;
+        CGFloat sizeH = 384;
+        if (topTocStyle) {
+            NSNumber* topTocSizeW = [topTocStyle objectForKey:@"PCTocViewGridStyleSizeW"];
+            if (topTocSizeW) {
+                sizeW = [topTocSizeW floatValue];
+            }
+            NSNumber* topTocSizeH = [topTocStyle objectForKey:@"PCTocViewGridStyleSizeH"];
+            if (topTocSizeH) {
+                sizeH = [topTocSizeH floatValue];
+            }
+        }
+        return CGSizeMake(sizeW, sizeH);
     } else if (tocView == hudView.bottomTocView.gridView) {
         if (UIDeviceOrientationIsPortrait([UIApplication sharedApplication].statusBarOrientation)) {
             return CGSizeMake(150, 340 /*viewSize.height / 3*/);
