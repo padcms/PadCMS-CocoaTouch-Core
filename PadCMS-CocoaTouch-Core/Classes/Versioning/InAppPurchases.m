@@ -144,8 +144,11 @@ static InAppPurchases *singleton = nil;
 			NSLog(@"Product id: %@"          , product.productIdentifier);
 			
 			NSDictionary *data = [NSDictionary dictionaryWithObjectsAndKeys:
-							 [self localizedPrice:product], @"localizedPrice",
-							 [NSString stringWithString:product.productIdentifier], @"productIdentifier", nil];
+                                  [self localizedPrice:product], @"localizedPrice",
+                                  [NSString stringWithString:product.productIdentifier], @"productIdentifier",
+                                  [NSString stringWithString:product.localizedTitle], @"localizedTitle",
+                                  [NSString stringWithString:product.localizedDescription], @"localizedDescription",
+                                  nil];
 			
 			[[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:data];
 		}
