@@ -76,6 +76,10 @@
     [[NSNotificationCenter defaultCenter] removeObserver:self
                                                     name:HorizontalTocDownloadedNotification
                                                   object:nil];
+
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:@"dismissAllPopup"
+                                                  object:nil];
     
     [super dealloc];
 }
@@ -98,6 +102,10 @@
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(tocDownloaded:)
                                                      name:HorizontalTocDownloadedNotification
+                                                   object:nil];
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(delegateDismissAllPopups)
+                                                     name:@"dismissAllPopup"
                                                    object:nil];
 
     }

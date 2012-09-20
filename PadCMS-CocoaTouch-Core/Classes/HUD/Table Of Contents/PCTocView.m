@@ -165,6 +165,7 @@ typedef enum _PCTocViewPosition {
     }
     
     if (self.state == PCViewStateActive) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissAllPopup" object:nil];
         [self transitToState:PCViewStateVisible animated:YES];
     } else {
         [self transitToState:PCViewStateActive animated:YES];
