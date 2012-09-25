@@ -153,7 +153,7 @@
         }
         else 
         {
-          //  [super tapAction:gestureRecognizer];
+            [super tapAction:gestureRecognizer];
         }
     }
 }
