@@ -37,6 +37,7 @@
 #import "PCStoreController.h"
 #import "PCConfig.h"
 #import "JSON.h"
+#import "PCJSONKeys.h"
 #import "AFJSONRequestOperation.h"
 #import "Helper.h"
 #import "PCApplication.h"
@@ -738,7 +739,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	NSMutableDictionary *mainDict = [NSMutableDictionary dictionary];
 	[mainDict setObject:@"purchase.apple.verifyReceipt" forKey:@"method"];
   
-	NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData", nil];
+	NSDictionary *innerDict = [NSDictionary dictionaryWithObjectsAndKeys:devId, @"sUdid", [notification object], @"sReceiptData", [PCConfig sharedSecretKey], @"sSecretPassword", nil];
 	
   
 	
