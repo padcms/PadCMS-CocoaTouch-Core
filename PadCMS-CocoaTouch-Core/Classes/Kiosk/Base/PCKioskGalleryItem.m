@@ -223,6 +223,7 @@
         
         CGImageRef mainViewContentBitmapContext = CGBitmapContextCreateImage(bitmapContext);
         UIImage *result = [UIImage imageWithCGImage:mainViewContentBitmapContext];
+        CGImageRelease(mainViewContentBitmapContext);
         CGContextRelease(bitmapContext);
         
         //////////////////
