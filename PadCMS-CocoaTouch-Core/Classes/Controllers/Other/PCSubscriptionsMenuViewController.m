@@ -87,6 +87,15 @@
     [super viewDidUnload];
 }
 
+-(BOOL)shouldAutorotate{
+    return YES;
+}
+
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)toInterfaceOrientation
 {
     return NO;

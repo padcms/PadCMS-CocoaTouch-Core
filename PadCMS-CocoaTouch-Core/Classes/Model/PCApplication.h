@@ -46,7 +46,7 @@
 
 #define PCApplicationNotificationTitleKey @"title"
 #define PCApplicationNotificationMessageKey @"message"
-
+#define PCApplicationNotificationToRecipientKey @"recipient"
 @class PCIssue;
 
 @interface PCApplication : NSObject

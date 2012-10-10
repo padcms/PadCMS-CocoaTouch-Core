@@ -9,6 +9,7 @@
 #import "HTMLPageViewController.h"
 #import "PCLandscapeViewController.h"
 #import "ZipArchive.h"
+#import "PCData.h"
 #import "PCVideoController.h"
 @interface HTMLPageViewController ()
 {

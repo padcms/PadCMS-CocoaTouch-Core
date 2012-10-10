@@ -133,10 +133,7 @@ params   = _params;
     if (orientation == _orientation) {
         return NO;
     } else {
-        return orientation == UIInterfaceOrientationPortrait
-        || orientation == UIInterfaceOrientationPortraitUpsideDown
-        || orientation == UIInterfaceOrientationLandscapeLeft
-        || orientation == UIInterfaceOrientationLandscapeRight;
+        return UIDeviceOrientationIsValidInterfaceOrientation(orientation);
     }
 }
 

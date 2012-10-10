@@ -153,7 +153,9 @@
         if ([[PCVideoManager sharedVideoManager] isVideoRectEqualToApplicationFrame:_moviePlayer.view.frame])
             [_moviePlayer play];
         else 
-            _moviePlayer.shouldAutoplay = NO;
+            [_moviePlayer play];
+            // TODO: To test with all templates
+            //_moviePlayer.shouldAutoplay = NO;
     }
     else
     {

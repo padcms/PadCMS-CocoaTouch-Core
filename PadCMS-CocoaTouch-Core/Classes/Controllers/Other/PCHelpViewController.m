@@ -100,6 +100,15 @@
     self.view.backgroundColor = [UIColor whiteColor];
 }
 
+-(BOOL)shouldAutorotate{
+    return YES;
+}
+
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return UIInterfaceOrientationMaskAll;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
     [self rotateViewControllerToOrientation:interfaceOrientation];

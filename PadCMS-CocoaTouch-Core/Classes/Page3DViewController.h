@@ -9,8 +9,8 @@
 #import "SimplePageViewController.h"
 
 /**
- @class PC3DViewController
- @brief PCPageViewController subclass to display 3d models
+ @class Page3DViewController
+ @brief SimplePageViewController subclass to display 3d models
  */
 @interface Page3DViewController : SimplePageViewController
 

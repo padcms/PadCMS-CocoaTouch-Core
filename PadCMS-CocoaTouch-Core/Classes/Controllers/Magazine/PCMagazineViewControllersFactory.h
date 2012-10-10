@@ -35,7 +35,6 @@
 
 #import <Foundation/Foundation.h>
 #import "PCData.h"
-#import "PCColumnViewController.h"
 #import "PCPageViewController.h"
 
 @class AbstractBasePageViewController;
@@ -51,13 +50,6 @@
  */
 
 +(PCMagazineViewControllersFactory*)factory;
-
-/**
- @brief Return column view controller for column data model
- @param column - column data model
- */
-
--(PCColumnViewController*)viewControllerForColumn:(PCColumn*)column;
 
 /**
  @brief Return page view controller for page data model 

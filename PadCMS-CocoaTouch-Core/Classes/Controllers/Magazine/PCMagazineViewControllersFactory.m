@@ -38,8 +38,6 @@
 #import "PCSlideshowViewController.h"
 #import "PCScrollingPageViewController.h"
 #import "PCFixedIllustrationArticleViewController.h"
-#import "PCFixedIllustrationArticleTouchablePageViewController.h"
-#import "PCLanscapeSladeshowColumnViewController.h"
 #import "PCPageControllersManager.h"
 #import "AbstractBasePageViewController.h"
 
@@ -55,24 +53,6 @@
     return factory;
 }
 
-/*-(PCColumnViewController*)viewControllerForColumn:(PCColumn*)column
-{
-    if ([column.pages count] < 1)
-        return nil;
-    PCPage* firstPage = [column.pages objectAtIndex:0];
-    
-    switch (firstPage.pageTemplate.identifier) 
-    {
-        case PCSlideshowLandscapePageTemplate:
-            return [[[PCLanscapeSladeshowColumnViewController alloc] initWithColumn:(PCColumn*)column] autorelease];
-            break;    
-        default:
-            return [[[PCColumnViewController alloc] initWithColumn:(PCColumn*)column] autorelease];
-            break;    
-    }   
-    return nil;
-}
-*/
 -(AbstractBasePageViewController*)viewControllerForPage:(PCPage *)page
 {
     Class pageControllerClass = [[PCPageControllersManager sharedManager] controllerClassForPageTemplate:page.pageTemplate];

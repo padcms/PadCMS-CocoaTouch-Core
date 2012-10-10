@@ -49,22 +49,19 @@
 
 - (id) initWithMessage:(NSDictionary*)messageParams
 {
-	self = [super init];
-    
-    if (self) 
+    if (self = [super init]) 
     {
         _delegate = nil;
-        _emailViewController = nil;
-        _emailMessageAndTitle = messageParams;
-    }
-    
+        //_emailViewController = nil;
+        self.emailMessageAndTitle = messageParams;
+    }    
 	return self;
 }
 
 - (void) dealloc
 {   
-    [_emailViewController release], _emailViewController = nil;
-    [_emailMessageAndTitle release], _emailMessageAndTitle = nil;
+    //[_emailViewController release], _emailViewController = nil;
+    //[_emailMessageAndTitle release], _emailMessageAndTitle = nil;
     _delegate = nil;
     
     [super dealloc];
@@ -90,25 +87,25 @@
 		return;
 	}
     
-    if (_emailViewController == nil)
-    {
-        _emailViewController = [[MFMailComposeViewController alloc] init];
-    }
+    //NSAssert(_emailViewController == nil, @"PCEmailController ERROR");
     
-	self.emailViewController.mailComposeDelegate = self;
+    MFMailComposeViewController* XemailViewController = [[MFMailComposeViewController alloc] init];
+    
+	XemailViewController.mailComposeDelegate = self;
 
-    [self.emailViewController setSubject:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationTitleKey]];
-    [self.emailViewController setMessageBody:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationMessageKey] isHTML:YES];
+    [XemailViewController setToRecipients:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationToRecipientKey]];
+    [XemailViewController setSubject:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationTitleKey]];
+    [XemailViewController setMessageBody:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationMessageKey] isHTML:YES];
 	
     if (self.delegate)
     {
-        [self.delegate showPCEmailController:self.emailViewController];
-    }
-    
+        [self.delegate showPCEmailController:XemailViewController];
+    }    
     else
     {
         NSLog(@"PCEmailController.delegate is not defined");
     }
+    [XemailViewController release];
 }
 
 - (void) mailComposeController: (MFMailComposeViewController *)controller didFinishWithResult: (MFMailComposeResult)result error: (NSError *)error

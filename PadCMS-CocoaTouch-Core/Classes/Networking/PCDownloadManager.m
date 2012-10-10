@@ -207,7 +207,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		return;
 	}
     UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-    if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+    if (UIInterfaceOrientationIsPortrait(orientation))
     {
       //  [self launchCoverPageDownloading];
         [self launchTocDownloading];
@@ -355,7 +355,7 @@ NSString* secondaryKey   = @"secondaryKey";
     if (summaryOperation) [self.portraiteTocOperations addObject:summaryOperation]; 
 	  
 	  UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	  if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+	  if (UIInterfaceOrientationIsPortrait(orientation))
 	  {
 		  [stripeOperation setQueuePriority:NSOperationQueuePriorityHigh];
 		  [summaryOperation setQueuePriority:NSOperationQueuePriorityHigh];
@@ -541,7 +541,7 @@ NSString* secondaryKey   = @"secondaryKey";
   if(!horizontalOperation)return;
   horizontalPage.isComplete = NO;
   UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-  if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+  if (UIInterfaceOrientationIsPortrait(orientation))
   {
     [horizontalOperation setQueuePriority:NSOperationQueuePriorityVeryLow];
   }
@@ -586,7 +586,7 @@ NSString* secondaryKey   = @"secondaryKey";
 		
 		if (!horizontalTocOperation) continue;
 		UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-		if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+		if (UIInterfaceOrientationIsPortrait(orientation))
 		{
 			[horizontalTocOperation setQueuePriority:NSOperationQueuePriorityHigh];
 		}
@@ -1058,7 +1058,7 @@ NSString* secondaryKey   = @"secondaryKey";
 	}
 	
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+	if (UIInterfaceOrientationIsPortrait(orientation))
 	{
 		[[self.helpOperations objectForKey:@"vertical"] setQueuePriority:NSOperationQueuePriorityVeryHigh];
 		[[self.helpOperations objectForKey:@"horizontal"] setQueuePriority:NSOperationQueuePriorityHigh];

@@ -33,13 +33,6 @@
 //  knowledge of the CeCILL-C license and that you accept its terms.
 //
 
-#import "PCColumnViewController.h"
-
-/**
- @class PCLandscapeViewController
- @brief Landscape View Controller 
- */
-@class PCRevisionViewController,PCColumnViewController;
 
 @interface PCLandscapeViewController : UIViewController
 

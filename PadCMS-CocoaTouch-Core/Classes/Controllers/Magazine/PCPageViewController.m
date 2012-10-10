@@ -354,19 +354,17 @@
 	}
 }
 
+-(BOOL)shouldAutorotate{
+    return YES;
+}
+
+-(NSUInteger)supportedInterfaceOrientations{
+    return self.magazineViewController.revision.orientationMask;
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
-    if(self.magazineViewController.revision.horizontalOrientation)
-    {
-        return UIInterfaceOrientationIsLandscape(interfaceOrientation);
-    }
-
-    if (self.magazineViewController.revision.horizontalMode)
-    {
-        return YES;
-    }
-
-    return interfaceOrientation == UIInterfaceOrientationPortrait;
+    return [self.magazineViewController.revision supportsInterfaceOrientation:interfaceOrientation];
 }
 
 - (void) createGalleryButton

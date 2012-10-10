@@ -433,7 +433,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         NSURL *url = [NSURL URLWithString:videoURL];
         NSURLRequest *request = [NSURLRequest requestWithURL:url];
         
-        AFHTTPRequestOperation *operation = [[AFHTTPRequestOperation alloc] initWithRequest:request];
+        AFHTTPRequestOperation *operation = [[[AFHTTPRequestOperation alloc] initWithRequest:request] autorelease];
         self.downloadStartVideoOperation = operation;
         
         NSString *videoPath = [videoURL stringByReplacingOccurrencesOfString:[serverURLString stringByAppendingString:PCPadCMSResourseURLPart] withString:self.contentDirectory];
@@ -715,7 +715,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	_horizontalHelpProgress = horizontalHelpProgress;
 	
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	if (!(orientation == UIInterfaceOrientationPortrait) && !(orientation == UIInterfaceOrientationPortraitUpsideDown))
+	if (!UIInterfaceOrientationIsPortrait(orientation))
 	{
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.progressDelegate setProgress:horizontalHelpProgress];
@@ -730,7 +730,7 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	_verticalHelpProgress = verticalHelpProgress;
 	
 	UIInterfaceOrientation orientation = [[UIApplication sharedApplication] statusBarOrientation];
-	if ((orientation == UIInterfaceOrientationPortrait) || (orientation == UIInterfaceOrientationPortraitUpsideDown))
+	if (UIInterfaceOrientationIsPortrait(orientation))
 	{
 		dispatch_async(dispatch_get_main_queue(), ^{
 			[self.progressDelegate setProgress:verticalHelpProgress];
@@ -739,22 +739,31 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
 	
 }
 
+#pragma mark Supported Orientation
+
 - (BOOL)supportsInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
+    return ((1<<interfaceOrientation)&self.orientationMask)?YES:NO;
+}
+
+- (UIInterfaceOrientationMask)orientationMask{
+    UIInterfaceOrientationMask om;
     if (!self.horizontalOrientation && !self.horizontalMode) {
         // vertical(portrait) only revision
-        return !UIDeviceOrientationIsLandscape(interfaceOrientation);
-        
+        om = UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskPortraitUpsideDown;
     } else if (self.horizontalOrientation && !self.horizontalMode) {
         // horizontal(landscape) only revision
-        return !UIDeviceOrientationIsPortrait(interfaceOrientation);
-        
+        om = UIInterfaceOrientationMaskLandscape;
     } else if (!self.horizontalOrientation && self.horizontalMode) {
         // vertical and horizontal revision
-        return YES;
+        if (self.horizontalPages.count != 0) {
+            om = UIInterfaceOrientationMaskAll;
+        }
+        else {
+            om = UIInterfaceOrientationMaskPortrait|UIInterfaceOrientationMaskPortraitUpsideDown;
+        }
     }
-    
-    return NO;
+    return om;
 }
 
 - (BOOL)verticalTocLoaded

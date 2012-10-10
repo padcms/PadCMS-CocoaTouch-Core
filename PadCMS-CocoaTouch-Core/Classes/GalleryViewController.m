@@ -35,6 +35,10 @@ static int currentPopupTag = -1;
 @synthesize galleryScrollView=_galleryScrollView;
 @synthesize popupController=_popupController;
 
+-(void)rotateNotification{
+    [UIViewController attemptRotationToDeviceOrientation];//TEST
+}
+
 -(id)initWithPage:(PCPage *)page
 {
 	if (self = [super initWithNibName:nil bundle:nil])
@@ -50,6 +54,7 @@ static int currentPopupTag = -1;
 		_isHorizontal = NO;
 		PCPageElementBody* bodyElement = (PCPageElementBody*)[page firstElementForType:PCPageElementTypeBody];
 		if (bodyElement && bodyElement.showGalleryOnRotate) _isHorizontal = YES;
+        [self performSelector:@selector(rotateNotification) withObject:nil afterDelay:0.01];
     }
     return self;
 }
@@ -128,6 +133,21 @@ static int currentPopupTag = -1;
     // Release any retained subviews of the main view.
 }
 
+-(BOOL)shouldAutorotate{
+    return YES;
+}
+
+
+-(NSUInteger)supportedInterfaceOrientations {
+	if (_isHorizontal)
+	{
+        return UIInterfaceOrientationMaskLandscape;
+	}
+	else {
+        return UIInterfaceOrientationMaskPortrait | UIInterfaceOrientationMaskPortraitUpsideDown;
+	}
+}
+
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation
 {
 	if (_isHorizontal)
@@ -137,8 +157,6 @@ static int currentPopupTag = -1;
 	else {
 		 return UIInterfaceOrientationIsPortrait(interfaceOrientation);
 	}
-	
-   
 }
 
 - (void)tilePages 

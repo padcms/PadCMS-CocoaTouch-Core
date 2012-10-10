@@ -37,6 +37,29 @@
 
 #import "PCView.h"
 
+PADCMS_EXTERN NSString *TopBarViewLogoImage;
+PADCMS_EXTERN NSString *TopBarViewSearchStyle;
+PADCMS_EXTERN NSString *TopBarViewSearchEnabled;
+PADCMS_EXTERN NSString *TopBarViewHelpButtonStyle;
+PADCMS_EXTERN NSString *TopBarViewHelpButtonEnabled;
+PADCMS_EXTERN NSString *TopBarViewHelpButtonImage;
+PADCMS_EXTERN NSString *TopBarViewContactButtonStyle;
+PADCMS_EXTERN NSString *TopBarViewContactButtonEnabled;
+PADCMS_EXTERN NSString *TopBarViewContactButtonImage;
+PADCMS_EXTERN NSString *TopBarViewContactButtonText;
+PADCMS_EXTERN NSString *TopBarViewShareButtonStyle;
+PADCMS_EXTERN NSString *TopBarViewShareButtonEnabled;
+PADCMS_EXTERN NSString *TopBarViewShareButtonImage;
+PADCMS_EXTERN NSString *TopBarViewSubscriptionsButtonStyle;
+PADCMS_EXTERN NSString *TopBarViewSubscriptionsButtonEnabled;
+PADCMS_EXTERN NSString *TopBarViewSubscriptionsButtonImage;
+PADCMS_EXTERN NSString *TopBarViewBackButtonStyle;
+PADCMS_EXTERN NSString *TopBarViewBackButtonEnabled;
+PADCMS_EXTERN NSString *TopBarViewBackButtonImage;
+PADCMS_EXTERN NSString *TopBarViewSummaryButtonStyle;
+PADCMS_EXTERN NSString *TopBarViewSummaryButtonEnabled;
+PADCMS_EXTERN NSString *TopBarViewSummaryButtonImage;
+
 @class PCTopBarView;
 
 /**
@@ -88,6 +111,11 @@
  @brief The button that allow user to start subscriptions management.
  */
 @property (readonly, nonatomic) UIButton *subscriptionsButton;
+
+/**
+ @brief The button that allow user to send email.
+ */
+@property (readonly, nonatomic) UIButton *contactButton;
 
 /**
  @brief The button that allow user to show or hide sharing menu.

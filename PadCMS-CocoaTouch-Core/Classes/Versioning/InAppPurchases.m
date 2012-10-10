@@ -89,7 +89,10 @@ static InAppPurchases *singleton = nil;
 	if(![singleton.dataQueue containsObject:productId])
 	{
 		NSLog(@"From requestProductDataWithProductId: %@", productId);
-		
+		if (!productId) {
+            NSLog(@"Warning! Please add at least one issue.");
+            return;
+        }
 		[singleton.dataQueue addObject:productId];
 		
 		NSSet *productIdentifiers = [NSSet setWithObject:productId];

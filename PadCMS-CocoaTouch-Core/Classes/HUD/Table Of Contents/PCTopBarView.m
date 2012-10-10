@@ -38,28 +38,33 @@
 #import "PCConfig.h"
 #import "PCLocalizationManager.h"
 #import "PCConfig.h"
+#import "UIView+plist.h"
 
 #define BarButtonOffset 0
 
-#define TopBarViewStyle @"PCTopBarViewStyle"
-#define TopBarViewLogoImage @"PCTopBarViewLogoImage"
-#define TopBarViewSearchStyle @"PCTopBarViewSearchStyle"
-#define TopBarViewSearchEnabled @"PCTopBarViewSearchEnabled"
-#define TopBarViewHelpButtonStyle @"PCTopBarViewHelpButtonStyle"
-#define TopBarViewHelpButtonEnabled @"PCTopBarViewHelpButtonEnabled"
-#define TopBarViewHelpButtonImage @"PCTopBarViewHelpButtonImage"
-#define TopBarViewShareButtonStyle @"PCTopBarViewShareButtonStyle"
-#define TopBarViewShareButtonEnabled @"PCTopBarViewShareButtonEnabled"
-#define TopBarViewShareButtonImage @"PCTopBarViewShareButtonImage"
-#define TopBarViewSubscriptionsButtonStyle @"PCTopBarViewSubscriptionsButtonStyle"
-#define TopBarViewSubscriptionsButtonEnabled @"PCTopBarViewSubscriptionsButtonEnabled"
-#define TopBarViewSubscriptionsButtonImage @"PCTopBarViewSubscriptionsButtonImage"
-#define TopBarViewBackButtonStyle @"PCTopBarViewBackButtonStyle"
-#define TopBarViewBackButtonEnabled @"PCTopBarViewBackButtonEnabled"
-#define TopBarViewBackButtonImage @"PCTopBarViewBackButtonImage"
-#define TopBarViewSummaryButtonStyle @"PCTopBarViewSummaryButtonStyle"
-#define TopBarViewSummaryButtonEnabled @"PCTopBarViewSummaryButtonEnabled"
-#define TopBarViewSummaryButtonImage @"PCTopBarViewSummaryButtonImage"
+NSString *TopBarViewStyle = @"PCTopBarViewStyle";
+NSString *TopBarViewLogoImage = @"PCTopBarViewLogoImage";
+NSString *TopBarViewSearchStyle = @"PCTopBarViewSearchStyle";
+NSString *TopBarViewSearchEnabled = @"PCTopBarViewSearchEnabled";
+NSString *TopBarViewHelpButtonStyle = @"PCTopBarViewHelpButtonStyle";
+NSString *TopBarViewHelpButtonEnabled = @"PCTopBarViewHelpButtonEnabled";
+NSString *TopBarViewHelpButtonImage = @"PCTopBarViewHelpButtonImage";
+NSString *TopBarViewContactButtonStyle = @"PCTopBarViewContactButtonStyle";
+NSString *TopBarViewContactButtonEnabled = @"PCTopBarViewContactButtonEnabled";
+NSString *TopBarViewContactButtonImage = @"PCTopBarViewContactButtonImage";
+NSString *TopBarViewContactButtonText = @"PCTopBarViewContactButtonText";
+NSString *TopBarViewShareButtonStyle = @"PCTopBarViewShareButtonStyle";
+NSString *TopBarViewShareButtonEnabled = @"PCTopBarViewShareButtonEnabled";
+NSString *TopBarViewShareButtonImage = @"PCTopBarViewShareButtonImage";
+NSString *TopBarViewSubscriptionsButtonStyle = @"PCTopBarViewSubscriptionsButtonStyle";
+NSString *TopBarViewSubscriptionsButtonEnabled = @"PCTopBarViewSubscriptionsButtonEnabled";
+NSString *TopBarViewSubscriptionsButtonImage = @"PCTopBarViewSubscriptionsButtonImage";
+NSString *TopBarViewBackButtonStyle = @"PCTopBarViewBackButtonStyle";
+NSString *TopBarViewBackButtonEnabled = @"PCTopBarViewBackButtonEnabled";
+NSString *TopBarViewBackButtonImage = @"PCTopBarViewBackButtonImage";
+NSString *TopBarViewSummaryButtonStyle = @"PCTopBarViewSummaryButtonStyle";
+NSString *TopBarViewSummaryButtonEnabled = @"PCTopBarViewSummaryButtonEnabled";
+NSString *TopBarViewSummaryButtonImage = @"PCTopBarViewSummaryButtonImage";
 
 
 @interface PCTopBarView ()
@@ -70,6 +75,7 @@
     UIImageView *_logoImageView;
     UITextField *_searchTextField;
     UIButton *_subscriptionsButton;
+    UIButton *_contactButton;
     UIButton *_shareButton;
     UIButton *_helpButton;
 }
@@ -88,6 +94,7 @@
 @synthesize backButton = _backButton;
 @synthesize summaryButton = _summaryButton;
 @synthesize subscriptionsButton = _subscriptionsButton;
+@synthesize contactButton = _contactButton;
 @synthesize shareButton = _shareButton;
 @synthesize helpButton = _helpButton;
 
@@ -107,7 +114,6 @@
         
         _backgroundImageView = [[UIImageView alloc] initWithFrame:self.bounds];
         _backgroundImageView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        //        _backgroundImageView.image = [UIImage imageNamed:BarBackgroundImage];
         _backgroundImageView.backgroundColor = [UIColor blackColor];
         [self addSubview:_backgroundImageView];
         
@@ -126,7 +132,17 @@
         // back button
         NSDictionary *backButtonConfig = [topBarViewConfig objectForKey:TopBarViewBackButtonStyle];
         
-        if (backButtonConfig != nil &&
+
+        if (backButtonConfig) {
+            _backButton = [[UIButton alloc] init];
+            [_backButton styledWithDictionary:backButtonConfig];
+            [_backButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_backButton];
+        }
+            
+        
+
+/*        if (backButtonConfig != nil &&
             [[backButtonConfig objectForKey:TopBarViewBackButtonEnabled] boolValue]) {
             
             _backButton = [[UIButton alloc] initWithFrame:CGRectMake(0, 0, boundsSize.height, boundsSize.height)];
@@ -137,11 +153,13 @@
             } else {
                 _backButton.backgroundColor = [UIColor orangeColor];
             }
+            NSLog(@"back frame: %@", NSStringFromCGRect(CGRectMake(0, 0, boundsSize.height, boundsSize.height)));
+            NSLog(@"back font:  %@", _backButton.titleLabel.font);
             
             [_backButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_backButton];
-        }
+        }*/
         
         // summary button
         NSDictionary *summaryButtonConfig = [topBarViewConfig objectForKey:TopBarViewSummaryButtonStyle];
@@ -157,22 +175,26 @@
             } else {
                 _summaryButton.backgroundColor = [UIColor orangeColor];
             }
-            
+            NSLog(@"sum frame: %@", NSStringFromCGRect(CGRectMake(boundsSize.height + BarButtonOffset, 0, boundsSize.height, boundsSize.height)));
+            NSLog(@"sum font:  %@", _summaryButton.titleLabel.font);
+  
             [_summaryButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_summaryButton];
         }
         
         // logo
-        NSString *logoImage = [topBarViewConfig objectForKey:TopBarViewLogoImage];
-        
-        if (logoImage != nil && ![logoImage isEqualToString:@""]) {
-            
+        NSDictionary *logoConfig = [topBarViewConfig objectForKey:TopBarViewLogoImage];
+        NSLog(@"%@", logoConfig);
+        if (logoConfig) {
+            _logoImageView = [[UIImageView alloc] init];
+            [_logoImageView styledWithDictionary:logoConfig];
+            [self addSubview:_logoImageView];
+            /*
             _logoImageView = [[UIImageView alloc] initWithFrame:CGRectMake((boundsSize.height + BarButtonOffset) * 2, 0, (boundsSize.width - 100) / 2 - (boundsSize.height + BarButtonOffset) * 2, boundsSize.height)];
             _logoImageView.image = [UIImage imageNamed:logoImage];
             _logoImageView.contentMode = UIViewContentModeLeft;
-            
-            [self addSubview:_logoImageView];
+            [self addSubview:_logoImageView];*/
         }
         
         // search
@@ -190,19 +212,31 @@
             _searchTextField.returnKeyType = UIReturnKeySearch;
             _searchTextField.borderStyle = UITextBorderStyleRoundedRect;
             _searchTextField.delegate = self;
+            NSLog(@"search frame: %@", NSStringFromCGRect(searchTextFieldFrame));
+            NSLog(@"search font:  %@", _searchTextField.font);
+
             [self addSubview:_searchTextField];
         }
         
         // subscriptions button
         NSDictionary *subscriptionsButtonConfig = [topBarViewConfig objectForKey:TopBarViewSubscriptionsButtonStyle];
         
-        if (subscriptionsButtonConfig != nil &&
+        if (subscriptionsButtonConfig) {
+            _subscriptionsButton = [[UIButton alloc] init];
+            [_subscriptionsButton styledWithDictionary:subscriptionsButtonConfig];
+            [_subscriptionsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_subscriptionsButton];
+        }
+        
+/*        if (subscriptionsButtonConfig != nil &&
             [[subscriptionsButtonConfig objectForKey:TopBarViewSubscriptionsButtonEnabled] boolValue]) {
             
             CGRect subscriptionsButtonFrame = CGRectMake(boundsSize.width - boundsSize.height * 2 - BarButtonOffset - 100, 0, 100, boundsSize.height);
             _subscriptionsButton = [[UIButton alloc] initWithFrame:subscriptionsButtonFrame];
             _subscriptionsButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
-            
+            NSLog(@"subscriptions frame: %@", NSStringFromCGRect(subscriptionsButtonFrame));
+            NSLog(@"subscriptions font:  %@", _subscriptionsButton.titleLabel.font.fontName);
+
             [_subscriptionsButton setTitle:[PCLocalizationManager localizedStringForKey:@"SUBSCRIPTION_MENU_BUTTON_TITLE" value:@"Subscription"] forState:UIControlStateNormal];
             _subscriptionsButton.titleLabel.font = [UIFont boldSystemFontOfSize:15];
             
@@ -214,17 +248,35 @@
             [_subscriptionsButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
             
             [self addSubview:_subscriptionsButton];
+        }*/
+        
+        // contact button
+        NSDictionary *contactButtonConfig = [topBarViewConfig objectForKey:TopBarViewContactButtonStyle];
+        
+        if (contactButtonConfig) {
+            _contactButton = [[UIButton alloc] init];
+            [_contactButton styledWithDictionary:contactButtonConfig];
+            [_contactButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];            
+            [self addSubview:_contactButton];
         }
         
         // share button
         NSDictionary *shareButtonConfig = [topBarViewConfig objectForKey:TopBarViewShareButtonStyle];
+        if (shareButtonConfig) {
+            _shareButton = [[UIButton alloc] init];
+            [_shareButton styledWithDictionary:shareButtonConfig];
+            [_shareButton addTarget:self action:@selector(buttonTapped:) forControlEvents:UIControlEventTouchUpInside];
+            [self addSubview:_shareButton];
+        }
         
-        if (shareButtonConfig != nil &&
+/*        if (shareButtonConfig != nil &&
             [[shareButtonConfig objectForKey:TopBarViewShareButtonEnabled] boolValue]) {
             
             CGRect shareButtonFrame = CGRectMake(boundsSize.width - boundsSize.height * 2 - BarButtonOffset, 0, boundsSize.height, boundsSize.height);
             _shareButton = [[UIButton alloc] initWithFrame:shareButtonFrame];
             _shareButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            NSLog(@"Share frame: %@", NSStringFromCGRect(shareButtonFrame));
+            NSLog(@"Share font:  %@", _shareButton.titleLabel.font.fontName);
             
             UIImage *shareButtonImage = [UIImage imageNamed:[shareButtonConfig objectForKey:TopBarViewShareButtonImage]];
             if (shareButtonImage != nil) {
@@ -237,7 +289,7 @@
             
             [self addSubview:_shareButton];
         }
-        
+ */       
         // help button
         NSDictionary *helpButtonConfig = [topBarViewConfig objectForKey:TopBarViewHelpButtonStyle];
         
@@ -247,6 +299,8 @@
             CGRect helpButtonFrame = CGRectMake(boundsSize.width - boundsSize.height, 0, boundsSize.height, boundsSize.height);
             _helpButton = [[UIButton alloc] initWithFrame:helpButtonFrame];
             _helpButton.autoresizingMask = UIViewAutoresizingFlexibleLeftMargin;
+            NSLog(@"Help frame: %@", NSStringFromCGRect(helpButtonFrame));
+            NSLog(@"Help font:  %@", _helpButton.titleLabel.font.fontName);
             
             UIImage *helpButtomImage = [UIImage imageNamed:[helpButtonConfig objectForKey:TopBarViewHelpButtonImage]];
             if (helpButtomImage != nil) {

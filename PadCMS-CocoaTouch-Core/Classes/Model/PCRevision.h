@@ -174,4 +174,9 @@ typedef enum
  */ 
 - (BOOL)supportsInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation;
 
+/**
+ @brief Mask for all supported orientation for current revision
+ */
+
+- (UIInterfaceOrientationMask)orientationMask;
 @end

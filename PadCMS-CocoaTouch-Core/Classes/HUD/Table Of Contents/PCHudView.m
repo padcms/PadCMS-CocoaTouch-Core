@@ -710,6 +710,7 @@ NSString *EnabledKey = @"Enabled";
                 break;
                 
             case PCViewStateVisible:
+                [[NSNotificationCenter defaultCenter] postNotificationName:@"dismissAllPopup" object:nil];
                 [_topBarView transitToState:PCViewStateHidden animated:YES];
                 [self setTopTocViewVisibleAnimated:YES];
                 break;
