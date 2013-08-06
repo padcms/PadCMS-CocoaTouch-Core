@@ -1,0 +1,61 @@
+// 
+//  Localizable.strings
+//  PadCMS-CocoaTouch-Core
+//
+//  Created by Oleg Zhitnik on 18.07.12.
+//  Copyright (c) PadCMS (http://www.padcms.net)
+//
+//
+//  This software is governed by the CeCILL-C  license under French law and
+//  abiding by the rules of distribution of free software.  You can  use,
+//  modify and/ or redistribute the software under the terms of the CeCILL-C
+//  license as circulated by CEA, CNRS and INRIA at the following URL
+//  "http://www.cecill.info".
+//  
+//  As a counterpart to the access to the source code and  rights to copy,
+//  modify and redistribute granted by the license, users are provided only
+//  with a limited warranty  and the software's author,  the holder of the
+//  economic rights,  and the successive licensors  have only  limited
+//  liability.
+//  
+//  In this respect, the user's attention is drawn to the risks associated
+//  with loading,  using,  modifying and/or developing or reproducing the
+//  software by the user in light of its specific status of free software,
+//  that may mean  that it is complicated to manipulate,  and  that  also
+//  therefore means  that it is reserved for developers  and  experienced
+//  professionals having in-depth computer knowledge. Users are therefore
+//  encouraged to load and test the software's suitability as regards their
+//  requirements in conditions enabling the security of their systems and/or
+//  data to be ensured and,  more generally, to use and operate it in the
+//  same conditions as regards security.
+//  
+//  The fact that you are presently reading this means that you have had
+//  knowledge of the CeCILL-C license and that you accept its terms.
+//
+"TEST"="Тест локализации";
+"MSG_NO_NETWORK_CONNECTION"="Ваше устройство должно быть подключено к сети Интернет.";
+"TITLE_WARNING"="Предупреждение!";
+"BUTTON_TITLE_OK"="OK";
+"MSG_PAGE_WITH_NOT_IMPLEMENTED_TEMPLATE_IN_REVISION"="Приложение не может отобразить все страницы этого журнала так как оно более старой версии. Обновите приложение";
+"TITLE_ERROR_SENDING_EMAIL"="Ошибка при отправке электронной почты!";
+"MSG_EMAIL_CLIENT_IS_NOT_CONFIGURED"="Клиент электронной почты не настроен.";
+"SHARING_MENU_CAPTION"="ПОДЕЛИТЬСЯ";
+"SHARING_MENU_TITLE_EMAIL"="Отправить Email";
+"LABEL_LOADING"="Загрузка";
+"KIOSK_BUTTON_TITLE_DOWNLOAD"="Скачать";
+"KIOSK_BUTTON_TITLE_READ"="Читать";
+"KIOSK_BUTTON_TITLE_CANCEL"="Отмена";
+"KIOSK_BUTTON_TITLE_DELETE"="Удалить";
+"KIOSK_BUTTON_TITLE_PAY"="Купить";
+"KIOSK_NAVIGATION_BAR_BUTTON_TITLE_SUBSCRIBE"="Подписаться";
+"KIOSK_NAVIGATION_BAR_TITLE"="Киоск";
+"ALERT_TITLE_CANT_LOAD_MAGAZINES_LIST"="Список журналов не может быть загружен";
+"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_MESSAGE"="Вы дейстительно хотите удалить этот журнал?";
+"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_BUTTON_TITLE_YES"="Да";
+"ALERT_MAGAZINE_REMOVAL_CONFIRMATION_BUTTON_TITLE_CANCEL"="Нет";
+"ALERT_TITLE_CANT_MAKE_PURCHASE"="Вы не можете делать покупки";
+"ALERT_MAGAZINE_DOWNLOADING_FAILED_TITLE"="Ошибка загрузки журнала!";
+"ALERT_MAGAZINE_DOWNLOADING_FAILED_MESSAGE"="Попробуйте ещё раз позже";
+
+
+// need to confirm translate

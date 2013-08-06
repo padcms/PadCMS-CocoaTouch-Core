@@ -1,0 +1,7 @@
+//
+// Prefix header for all source files of the 'PadCMS-CocoaTouch-Core-Resources' target in the 'PadCMS-CocoaTouch-Core-Resources' project
+//
+
+#ifdef __OBJC__
+    #import <Cocoa/Cocoa.h>
+#endif
