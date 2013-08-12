@@ -195,13 +195,13 @@
 
 - (void)createHUDView
 {
-    _hudView = [[PCHudView alloc] initWithFrame:self.view.bounds];
+    _hudView = [[PCHudView alloc] initWithFrame:self.view.bounds revision:self.revision];
     _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _hudView.dataSource = self;
     _hudView.delegate = self;
     _hudView.topBarView.delegate = self;
     [self.view addSubview:_hudView];
-    
+  
 //    if (revision.color != nil)
 //    {
 //        NSDictionary *options = [NSDictionary dictionaryWithObject:revision.color forKey:PCButtonTintColorOptionKey];

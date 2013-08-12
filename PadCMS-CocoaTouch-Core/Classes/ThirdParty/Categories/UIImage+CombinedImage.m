@@ -47,4 +47,34 @@
     return newImage;
 }
 
++ (UIImage *)recoloredImage:(UIImage *)baseImage color:(UIColor *)color
+{
+  UIGraphicsEndImageContext();
+	UIGraphicsBeginImageContext(baseImage.size);
+  
+  CGContextRef context = UIGraphicsGetCurrentContext();
+  CGRect rect = CGRectMake(0, 0, baseImage.size.width, baseImage.size.height);
+  
+  CGContextScaleCTM(context, 1, -1);
+  CGContextTranslateCTM(context, 0, -rect.size.height);
+  
+  CGContextSaveGState(context);
+  CGContextClipToMask(context, rect, baseImage.CGImage);
+  CGContextSetBlendMode(context, kCGBlendModeMultiply);
+  CGContextDrawImage(context, rect, baseImage.CGImage);
+  
+  if (color != nil) {
+    [color set];
+    CGContextFillRect(context, rect);
+	}
+  
+  CGContextRestoreGState(context);
+  
+  UIImage *newImage = UIGraphicsGetImageFromCurrentImageContext();
+  
+  UIGraphicsEndImageContext();
+  
+  return newImage;
+}
+
 @end

@@ -127,4 +127,6 @@ typedef enum _PCTocViewState {
  */
 + (PCTocView *)bottomTocViewWithFrame:(CGRect)frame;
 
++ (PCTocView *)bottomTocViewWithFrame:(CGRect)frame buttonContentColor:(UIColor *)color;
+
 @end

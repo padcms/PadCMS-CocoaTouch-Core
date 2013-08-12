@@ -174,7 +174,19 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         {
             _color = [[UIColor colorWithHexString:issueColor] retain];
         }
-        
+      
+      NSString *pastilleRevisionColor = [parameters objectForKey:PCJSONRevisionPastilleColorKey];
+      if (![pastilleRevisionColor isKindOfClass:[NSNull class]])
+      {
+        _pastilleColor = [[UIColor colorWithHexString:pastilleRevisionColor] retain];
+      }
+      
+      NSString *summaryButtonTextColor = [parameters objectForKey:PCJSONRevisionSummaryButtonTextColorKey];
+      if (![issueColor isKindOfClass:[NSNull class]])
+      {
+        _summaryButtonTextColor = [[UIColor colorWithHexString:summaryButtonTextColor] retain];
+      }
+      
         NSString *horizontalModeValue = [parameters objectForKey:PCJSONIssueHorizontalMode];
         if (horizontalModeValue != nil && ![horizontalModeValue isEqualToString:@"none"])
         {

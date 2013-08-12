@@ -44,6 +44,7 @@
 #import "PCGridViewIndex.h"
 #import "PCSummaryView.h"
 #import "PCSummaryGridViewCell.h"
+#import "PCRevision.h"
 
 #define TopBarHeight 43
 #define SummaryViewXOffset -50
@@ -73,79 +74,84 @@ NSString *EnabledKey = @"Enabled";
 @synthesize topTocView = _topTocView;
 @synthesize bottomTocView = _bottomTocView;
 
-- (id)initWithFrame:(CGRect)frame
+- (id)initWithFrame:(CGRect)frame revision:(PCRevision *)revision
 {
-    self = [super initWithFrame:frame];
+  self = [super initWithFrame:frame];
+  
+  if (self) {
     
-    if (self) {
-        
-        self.backgroundColor = [UIColor clearColor];
-        
-        // configure tint view
-        _tintView = [[UIView alloc] initWithFrame:frame];
-        _tintView.backgroundColor = [UIColor blackColor];
-        _tintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
-        _tintView.alpha = 0;
-        [self addSubview:_tintView];
-        
-        // configure top bar
-        _topBarView = [[PCTopBarView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
-        _topBarView.alpha = 0.75f;
-        _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-        [self addSubview:_topBarView];
-        
-        // configure summary
-        _summaryView = [[PCSummaryView alloc] initWithFrame:CGRectMake(0, 0, 400, 1000)];
-        _summaryView.gridView.dataSource = self;
-        _summaryView.gridView.delegate = self;
-        
-        // configure tocs
-        NSDictionary *topTableOfContentsConfig = [PCConfig topTableOfContentsConfig];
-        BOOL showTopTableOfContents = NO;
-        
-        if (topTableOfContentsConfig != nil) {
-            showTopTableOfContents = [[topTableOfContentsConfig valueForKey:EnabledKey] boolValue];
-        }
-        
-        if (showTopTableOfContents) {
-
-            _topTocView = [[PCTocView topTocViewWithFrame:self.bounds] retain];
-            _topTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
-            _topTocView.delegate = self;
-            _topTocView.gridView.dataSource = self;
-            _topTocView.gridView.delegate = self;
-            [self addSubview:_topTocView];
-            [_topTocView transitToState:PCTocViewStateHidden animated:NO];
-            [_topTocView.gridView reloadData];
-        }
-        
-        NSDictionary *bottomTableOfContentsConfig = [PCConfig bottomTableOfContentsConfig];
-        BOOL showBottomTableOfContents = NO;
-        
-        if (bottomTableOfContentsConfig != nil) {
-            showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:EnabledKey] boolValue];
-        }
-        
-        if (showBottomTableOfContents) {
-
-            _bottomTocView = [[PCTocView bottomTocViewWithFrame:self.bounds] retain];
-            _bottomTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-            _bottomTocView.delegate = self;
-            _bottomTocView.gridView.dataSource = self;
-            _bottomTocView.gridView.delegate = self;
-            [self addSubview:_bottomTocView];
-            [_bottomTocView transitToState:PCTocViewStateHidden animated:NO];
-            [_bottomTocView.gridView reloadData];
-        }
+    self.backgroundColor = [UIColor clearColor];
+    
+    // configure tint view
+    _tintView = [[UIView alloc] initWithFrame:frame];
+    _tintView.backgroundColor = [UIColor blackColor];
+    _tintView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
+    _tintView.alpha = 0;
+    [self addSubview:_tintView];
+    
+    // configure top bar
+    _topBarView = [[PCTopBarView alloc] initWithFrame:CGRectMake(0, -TopBarHeight, self.bounds.size.width, TopBarHeight)];
+    _topBarView.alpha = 0.75f;
+    _topBarView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+    [self addSubview:_topBarView];
+    
+    // configure summary
+    _summaryView = [[PCSummaryView alloc] initWithFrame:CGRectMake(0, 0, 400, 1000)];
+    _summaryView.gridView.dataSource = self;
+    _summaryView.gridView.delegate = self;
+    
+    // configure tocs
+    NSDictionary *topTableOfContentsConfig = [PCConfig topTableOfContentsConfig];
+    BOOL showTopTableOfContents = NO;
+    
+    if (topTableOfContentsConfig != nil) {
+      showTopTableOfContents = [[topTableOfContentsConfig valueForKey:EnabledKey] boolValue];
     }
     
-    return self;
+    if (showTopTableOfContents) {
+      
+      _topTocView = [[PCTocView topTocViewWithFrame:self.bounds] retain];
+      _topTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleBottomMargin;
+      _topTocView.delegate = self;
+      _topTocView.gridView.dataSource = self;
+      _topTocView.gridView.delegate = self;
+      [self addSubview:_topTocView];
+      [_topTocView transitToState:PCTocViewStateHidden animated:NO];
+      [_topTocView.gridView reloadData];
+    }
+    
+    NSDictionary *bottomTableOfContentsConfig = [PCConfig bottomTableOfContentsConfig];
+    BOOL showBottomTableOfContents = NO;
+    
+    if (bottomTableOfContentsConfig != nil) {
+      showBottomTableOfContents = [[bottomTableOfContentsConfig valueForKey:EnabledKey] boolValue];
+    }
+    
+    if (showBottomTableOfContents) {
+      
+      _bottomTocView = [[PCTocView bottomTocViewWithFrame:self.bounds buttonContentColor:revision.summaryButtonTextColor] retain];
+      _bottomTocView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
+      _bottomTocView.delegate = self;
+      _bottomTocView.gridView.dataSource = self;
+      _bottomTocView.gridView.delegate = self;
+      [self addSubview:_bottomTocView];
+      [_bottomTocView transitToState:PCTocViewStateHidden animated:NO];
+      [_bottomTocView.gridView reloadData];
+    }
+  }
+  
+  return self;
+}
+
+- (id)initWithFrame:(CGRect)frame
+{
+  return [self initWithFrame:frame revision:nil];
 }
 
 - (void)layoutSubviews
 {
     [super layoutSubviews];
-    
+  
     if (_topTocView != nil) {
         CGSize topTocItemSize = [self topItemSize];
         _topTocView.bounds = CGRectMake(0,

@@ -41,6 +41,7 @@
 @class PCHudView;
 @class PCTopBarView;
 @class PCSummaryView;
+@class PCRevision;
 
 /**
  @brief PCHUDView actions delegation protocol.
@@ -154,6 +155,8 @@
  @brief Grid view object used to display table of contents items at the bottom of the HUD view.
  */ 
 @property (readonly) PCTocView *bottomTocView;
+
+- (id)initWithFrame:(CGRect)frame revision:(PCRevision *)revision;
 
 /**
  @brief Reloads data of the receiver.

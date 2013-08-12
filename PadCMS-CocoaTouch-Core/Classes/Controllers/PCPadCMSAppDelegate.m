@@ -106,7 +106,8 @@
 
 - (void)application:(UIApplication *)application didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken
 {
-    [[PCRemouteNotificationCenter defaultRemouteNotificationCenter] registerDeviceWithToken:deviceToken];
+  NSLog(@"token - %@", deviceToken);
+  [[PCRemouteNotificationCenter defaultRemouteNotificationCenter] registerDeviceWithToken:deviceToken];
 }
 
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error

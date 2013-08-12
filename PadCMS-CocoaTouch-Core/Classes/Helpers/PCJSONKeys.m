@@ -79,7 +79,8 @@
  NSString* PCJSONRevisionRevisionCreatedKey                 = @"revision_created";
  NSString* PCJSONRevisionStartVideoKey                      = @"revision_video";
  NSString* PCJSONRevisionOrientationKey                     = @"revision_orientation";
-
+ NSString* PCJSONRevisionPastilleColorKey                   = @"pastille_color";
+ NSString* PCJSONRevisionSummaryButtonTextColorKey          = @"summary_color";
 
  NSString* PCJSONIssueWorkInProgressStateValue              = @"work-in-progress";
  NSString* PCJSONIssuePublishedStateValue                   = @"published";

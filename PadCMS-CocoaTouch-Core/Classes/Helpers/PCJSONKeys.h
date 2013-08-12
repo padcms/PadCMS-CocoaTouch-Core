@@ -80,6 +80,8 @@ PADCMS_EXTERN NSString* PCJSONRevisionRevisionCoverImageListKey;
 PADCMS_EXTERN NSString* PCJSONRevisionRevisionCreatedKey;
 PADCMS_EXTERN NSString* PCJSONRevisionStartVideoKey;
 PADCMS_EXTERN NSString* PCJSONRevisionOrientationKey;
+PADCMS_EXTERN NSString* PCJSONRevisionPastilleColorKey;
+PADCMS_EXTERN NSString* PCJSONRevisionSummaryButtonTextColorKey;
 
 PADCMS_EXTERN NSString* PCJSONIssueWorkInProgressStateValue;
 PADCMS_EXTERN NSString* PCJSONIssuePublishedStateValue;

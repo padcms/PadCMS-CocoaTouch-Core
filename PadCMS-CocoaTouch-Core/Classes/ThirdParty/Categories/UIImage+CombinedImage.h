@@ -11,5 +11,6 @@
 @interface UIImage (CombinedImage)
 
 + (UIImage *)combinedImage:(UIImage *)baseImage overlayImage:(UIImage *)overlayImage color:(UIColor *)color;
++ (UIImage *)recoloredImage:(UIImage *)baseImage color:(UIColor *)color;
 
 @end

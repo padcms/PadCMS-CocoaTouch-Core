@@ -625,7 +625,7 @@ NSString* secondaryKey   = @"secondaryKey";
     NSString* url = [self getUrlForResource:path withType:type withHorizontalOrientation:page.revision.horizontalOrientation];
     
     AFHTTPRequestOperation* elementOperation = [self operationWithURL:url successBlock:^(AFHTTPRequestOperation *operation, id responseObject) {
-    NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
+    //NSLog(@"Element %d downloaded:isPrimary %@, isThumb %@, page - %@ ", element.identifier, isPrimary?@"YES":@"NO", isThumbnail?@"YES":@"NO", pageIdentifier);
     [self moveItemWithPath:[self.revision.contentDirectory stringByAppendingPathComponent:path]];
     if (!isThumbnail) element.isComplete = YES;
     
@@ -638,7 +638,7 @@ NSString* secondaryKey   = @"secondaryKey";
     }
     
     if (![[[self.operationsDic objectForKey:pageIdentifier] objectForKey:primaryKey] lastObject] && isPrimary) {
-      NSLog(@"VERTICAL PAGE DOWNLOADED - %@ - %@", pageIdentifier, path);
+      //NSLog(@"VERTICAL PAGE DOWNLOADED - %@ - %@", pageIdentifier, path);
       dispatch_async(dispatch_get_main_queue(), ^{
         [page stopRepeatingTimer];
         page.isComplete = YES;

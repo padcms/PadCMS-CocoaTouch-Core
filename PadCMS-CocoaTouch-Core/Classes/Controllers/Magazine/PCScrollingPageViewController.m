@@ -171,7 +171,17 @@
     CGRect scrollingPaneFrame = _paneScrollView.frame;
 
     NSDictionary *buttonOption = nil;
-    UIColor *pageColor = self.page.color;
+  
+  UIColor *pageColor;
+  if (self.page.revision.pastilleColor != nil)
+  {
+    pageColor = self.page.revision.pastilleColor;
+  }
+  else
+  {
+    pageColor = self.page.color;
+  }
+  
     if (pageColor != nil) {
         buttonOption = [NSDictionary dictionaryWithObject:pageColor forKey:PCButtonTintColorOptionKey];
     }

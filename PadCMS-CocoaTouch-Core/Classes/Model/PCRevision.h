@@ -68,6 +68,8 @@ typedef enum
 @property (nonatomic, assign) NSInteger identifier;
 @property (nonatomic, retain) NSString *title;
 @property (nonatomic, retain) UIColor *color;
+@property (nonatomic, retain) UIColor *pastilleColor;
+@property (nonatomic, retain) UIColor *summaryButtonTextColor;
 @property (nonatomic, retain) NSDate *createDate;
 @property (nonatomic, retain) NSDate *updateDate;
 @property (nonatomic, assign) PCRevisionState state; 

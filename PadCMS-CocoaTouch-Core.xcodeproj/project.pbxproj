@@ -4581,8 +4581,6 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
-				SYMROOT = build;
-				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
@@ -4599,21 +4597,17 @@
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 5.1;
 				SDKROOT = iphoneos;
-				SYMROOT = build;
 				VALIDATE_PRODUCT = YES;
-				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
 		60891DA21587971300894531 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Irena Balin (8P4V92DTWF)";
 				DSTROOT = /tmp/PadCMS_CocoaTouch_Core.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core/Classes/ThirdParty/Google Analytics\"",
@@ -4624,22 +4618,17 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5D9B144D-E10C-4730-8153-FD948E3CDC8B";
 				SKIP_INSTALL = YES;
-				SYMROOT = build;
-				VALID_ARCHS = armv7;
 			};
 			name = Debug;
 		};
 		60891DA31587971300894531 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				CODE_SIGN_IDENTITY = "iPhone Developer: Irena Balin (8P4V92DTWF)";
 				DSTROOT = /tmp/PadCMS_CocoaTouch_Core.dst;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "PadCMS-CocoaTouch-Core/PadCMS-CocoaTouch-Core-Prefix.pch";
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"\"$(SRCROOT)/PadCMS-CocoaTouch-Core/Classes/ThirdParty/Google Analytics\"",
@@ -4650,10 +4639,7 @@
 					"-all_load",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "5D9B144D-E10C-4730-8153-FD948E3CDC8B";
 				SKIP_INSTALL = YES;
-				SYMROOT = build;
-				VALID_ARCHS = armv7;
 			};
 			name = Release;
 		};
@@ -4671,14 +4657,11 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Resources/PadCMS-CocoaTouch-Core-Resources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SYMROOT = build;
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Debug;
@@ -4698,13 +4681,10 @@
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				INFOPLIST_FILE = "PadCMS-CocoaTouch-Core-Resources/PadCMS-CocoaTouch-Core-Resources-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
-				IPHONEOS_DEPLOYMENT_TARGET = 5.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = YES;
-				SYMROOT = build;
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = bundle;
 			};
 			name = Release;
@@ -4732,9 +4712,7 @@
 					"$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks/libOCMock.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -4763,9 +4741,7 @@
 					"$(SRCROOT)/PadCMS-CocoaTouch-Core-Tests/Frameworks/libOCMock.a",
 				);
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SYMROOT = build;
 				TARGETED_DEVICE_FAMILY = "1,2";
-				VALID_ARCHS = armv7;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
