@@ -251,11 +251,21 @@
         }
     }
     
-    if (UIDeviceOrientationIsValidInterfaceOrientation(interfaceOrientation))
+    //if (UIDeviceOrientationIsValidInterfaceOrientation(interfaceOrientation))
+    if (UIInterfaceOrientationIsPortrait(interfaceOrientation))
         return YES;
     return NO;
     //return interfaceOrientation==UIInterfaceOrientationPortrait;
 }
+
+- (BOOL)shouldAutorotate {
+    return NO;
+}
+
+- (BOOL)supportedInterfaceOrientations {
+    return UIInterfaceOrientationMaskPortrait;
+}
+
 
 #pragma mark Rotate Methods
 
