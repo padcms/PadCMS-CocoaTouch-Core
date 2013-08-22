@@ -40,9 +40,10 @@
 #define KIOSK_SHELF_ROW_MARGIN_TOP            50
 #define KIOSK_SHELF_COLUMN_MARGIN_LEFT        10
 
-#define KIOSK_ADVANCED_SHELF_ROW_MARGIN_TOP            7
+#define KIOSK_ADVANCED_SHELF_MARGIN_TOP                16
+#define KIOSK_ADVANCED_SHELF_ROW_MARGIN                0
 #define KIOSK_ADVANCED_SHELF_ROW_HEIGHT                312
-#define KIOSK_ADVANCED_SHELF_COLUMN_MARGIN_LEFT        37
+#define KIOSK_ADVANCED_SHELF_COLUMN_MARGIN_LEFT        35
 
 #define UIColorFromRGB(rgbValue)        ([UIColor colorWithRed:((float)((rgbValue & 0xFF0000) >> 16))/255.0 green:((float)((rgbValue & 0xFF00) >> 8))/255.0 blue:((float)(rgbValue & 0xFF))/255.0 alpha:1.0])
 
