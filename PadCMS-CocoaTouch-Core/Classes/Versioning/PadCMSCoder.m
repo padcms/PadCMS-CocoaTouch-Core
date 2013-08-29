@@ -211,6 +211,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 		NSString* stringWithoutNull = [stringReply stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
 		NSDictionary* theDict = [stringWithoutNull JSONValue];
     
+        NSLog(@"%@", theDict);
 				
 		[stringReply release];
 		

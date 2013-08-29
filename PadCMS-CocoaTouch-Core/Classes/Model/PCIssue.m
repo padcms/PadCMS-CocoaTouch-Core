@@ -122,6 +122,11 @@
         _title = [[parameters objectForKey:PCJSONIssueTitleKey] copy];
         _number = [[parameters objectForKey:PCJSONIssueNumberKey] copy];
         _productIdentifier = [[parameters objectForKey:PCJSONIssueProductIDKey] copy];
+        _author = [[parameters objectForKey:PCJSONIssueAuthorKey] copy];
+        _excerpt = [[parameters objectForKey:PCJSONIssueExcerptKey] copy];
+        _imageLargeURL = [[parameters objectForKey:PCJSONIssueImageLargeURLKey] copy];
+        _imageSmallURL = [[parameters objectForKey:PCJSONIssueImageSmallURLKey] copy];
+        _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
         
         _paid = [[parameters objectForKey:PCJSONIssuePaidKey] boolValue];
 		if ([_productIdentifier isEqualToString:@""])
