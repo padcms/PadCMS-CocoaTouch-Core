@@ -76,6 +76,7 @@ PADCMS_EXTERN NSString* PCJSONIssueExcerptKey;
 PADCMS_EXTERN NSString* PCJSONIssueImageLargeURLKey;
 PADCMS_EXTERN NSString* PCJSONIssueImageSmallURLKey;
 PADCMS_EXTERN NSString* PCJSONIssueWordsCountKey;
+PADCMS_EXTERN NSString* PCJsonIssueCategoryKey;
 
 PADCMS_EXTERN NSString* PCJSONRevisionsKey;
 PADCMS_EXTERN NSString* PCJSONRevisionIDKey;

@@ -127,6 +127,7 @@
         _imageLargeURL = [[parameters objectForKey:PCJSONIssueImageLargeURLKey] copy];
         _imageSmallURL = [[parameters objectForKey:PCJSONIssueImageSmallURLKey] copy];
         _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
+        _category = [[parameters objectForKey:PCJsonIssueCategoryKey] copy];
         
         _paid = [[parameters objectForKey:PCJSONIssuePaidKey] boolValue];
 		if ([_productIdentifier isEqualToString:@""])
