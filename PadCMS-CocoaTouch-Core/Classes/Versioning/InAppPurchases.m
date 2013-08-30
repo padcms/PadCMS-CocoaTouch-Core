@@ -86,7 +86,7 @@ static InAppPurchases *singleton = nil;
 
 - (void)requestProductDataWithProductId:(NSString *)productId
 {
-	if(![singleton.dataQueue containsObject:productId])
+	if(![singleton.dataQueue containsObject:productId]  && productId)
 	{
 		NSLog(@"From requestProductDataWithProductId: %@", productId);
 		

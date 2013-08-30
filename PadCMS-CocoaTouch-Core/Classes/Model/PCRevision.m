@@ -239,6 +239,20 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         _isHorizontalHelpComplete = YES;
 		_isVerticalHelpComplete = YES;
         
+        
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setFormatterBehavior:NSDateFormatterBehavior10_4];
+        [df setDateFormat:@"yyyy-MM-dd"];
+        NSString *strDate = [parameters objectForKey:PCJSONRevisionRevisionCreatedKey];
+        NSRange range = [strDate rangeOfString:@"T"];
+        if(range.length)
+        {
+            strDate = [strDate substringToIndex:range.location];
+        }
+        self.createDate = [df dateFromString:strDate];
+        
+        [df release];
+        
         [self initFromDatabase];
     }
     

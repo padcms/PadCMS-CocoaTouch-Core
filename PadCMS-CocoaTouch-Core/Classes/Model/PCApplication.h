@@ -69,6 +69,12 @@
 @property (nonatomic, retain) NSMutableArray *issues;
 /// @brief Number of columns available in preview mode
 @property (assign) NSUInteger previewColumnsNumber;
+/// @brief Message that appears in bottom popup
+@property (nonatomic, retain) NSString * messageForReaders;
+/// @brief Message that will appear on sharing popup
+@property (nonatomic, retain) NSString * shareMessage;
+
+
 
 
 /**

@@ -114,6 +114,8 @@
         _title = [[parameters objectForKey:PCJSONApplicationTitleKey] copy];
         _applicationDescription = [[parameters objectForKey:PCJSONApplicationDescriptionKey] copy];
         _productIdentifier = [[parameters objectForKey:PCJSONApplicationProductIDKey] copy];
+        _messageForReaders = [[parameters objectForKey:PCJSONApplicationMessageForReadersKey] copy];
+        _shareMessage = [[parameters objectForKey:PCJSONApplicationShareMessageKey] copy];
 
         // Set up notifications
         
