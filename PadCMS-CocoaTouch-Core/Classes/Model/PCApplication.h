@@ -48,6 +48,7 @@
 #define PCApplicationNotificationMessageKey @"message"
 
 @class PCIssue;
+@class PCTag;
 
 @interface PCApplication : NSObject
 
@@ -73,8 +74,8 @@
 @property (nonatomic, retain) NSString * messageForReaders;
 /// @brief Message that will appear on sharing popup
 @property (nonatomic, retain) NSString * shareMessage;
-
-
+/// @brief All tags collected from all issues
+@property (nonatomic, retain) NSMutableArray * tags;
 
 
 /**

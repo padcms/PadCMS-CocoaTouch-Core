@@ -38,6 +38,7 @@
 #import "PCPathHelper.h"
 #import "PCConfig.h"
 #import "InAppPurchases.h"
+#import "PCTag.h"
 
 @implementation PCIssue
 
@@ -127,7 +128,7 @@
         _imageLargeURL = [[parameters objectForKey:PCJSONIssueImageLargeURLKey] copy];
         _imageSmallURL = [[parameters objectForKey:PCJSONIssueImageSmallURLKey] copy];
         _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
-        _category = [[parameters objectForKey:PCJsonIssueCategoryKey] copy];
+        _category = [[parameters objectForKey:PCJSONIssueCategoryKey] copy];
         
         _paid = [[parameters objectForKey:PCJSONIssuePaidKey] boolValue];
 		if ([_productIdentifier isEqualToString:@""])
@@ -177,6 +178,21 @@
 				return [number1 compare:number2];
 			}];
         }
+        
+        _tags = [NSMutableArray new];
+        
+        NSArray * tagsParameters = [parameters objectForKey:PCJSONIssueTagsKey];
+        
+        if ([tagsParameters count] > 0) {
+            for (NSDictionary * dic in tagsParameters) {
+                PCTag * tag = [[PCTag alloc] initWithDictionary:dic];
+                [_tags addObject:tag];
+            }
+        }
+        
+        NSLog(@"TAGS : %@", _tags);
+        
+        
 		[self loadProductPrices];
     }
     

@@ -291,18 +291,18 @@
                                                             blue:225.0/255.0
                                                            alpha:1]];
     downloadingProgressView.hidden = YES;
-    downloadingProgressView.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_SECOND_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, 7);
+    downloadingProgressView.frame = CGRectMake( KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_SECOND_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, 7);
 	[self addSubview:downloadingProgressView];
     
-    // Download info label
-	downloadingInfoLabel = [[UILabel alloc] init];
-	downloadingInfoLabel.font = [UIFont fontWithName:@"Verdana" size:15];
-	downloadingInfoLabel.backgroundColor = [UIColor clearColor];
-	downloadingInfoLabel.textAlignment = UITextAlignmentCenter;
-	downloadingInfoLabel.textColor = [UIColor whiteColor];
-    downloadingInfoLabel.hidden = YES;
-    downloadingInfoLabel.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_THIRD_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, KIOSK_SHELF_CELL_REVISION_TITLE_HEIGHT);
-	[self addSubview:downloadingInfoLabel];
+//    // Download info label
+//	downloadingInfoLabel = [[UILabel alloc] init];
+//	downloadingInfoLabel.font = [UIFont fontWithName:@"Verdana" size:15];
+//	downloadingInfoLabel.backgroundColor = [UIColor clearColor];
+//	downloadingInfoLabel.textAlignment = UITextAlignmentCenter;
+//	downloadingInfoLabel.textColor = [UIColor whiteColor];
+//    downloadingInfoLabel.hidden = YES;
+//    downloadingInfoLabel.frame = CGRectMake(KIOSK_SHELF_CELL_ELEMENTS_LEFT_MARGIN, KIOSK_SHELF_CELL_THIRD_BUTTON_TOP_MARGIN, KIOSK_SHELF_CELL_BUTTONS_WIDTH, KIOSK_SHELF_CELL_REVISION_TITLE_HEIGHT);
+//	[self addSubview:downloadingInfoLabel];
 }
 
 #pragma mark - Override

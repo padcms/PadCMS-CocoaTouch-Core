@@ -144,22 +144,23 @@
 
 -(void)showHUD
 {
-    if (_HUD == nil) {
-        _HUD = [[MBProgressHUD alloc] initWithView:self.webView];
-        _HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING"
+    if (self.HUD == nil) {
+        self.HUD = [[MBProgressHUD alloc] initWithView:self.webView];
+        self.HUD.labelText = [PCLocalizationManager localizedStringForKey:@"LABEL_LOADING"
                                                                 value:@"Loading"];
     }
     
     [self.webView addSubview:_HUD];
-    [_HUD show:YES];
+    [self.HUD show:YES];
 }
 
 -(void)hideHUD
 {
-	if (_HUD != nil) {
-        [_HUD hide:YES];
-		[_HUD removeFromSuperview];
-		[_HUD release];
+	if (self.HUD != nil) {
+        [self.HUD hide:YES];
+		[self.HUD removeFromSuperview];
+		[self.HUD release];
+        self.HUD = nil;
 	}
 }
 

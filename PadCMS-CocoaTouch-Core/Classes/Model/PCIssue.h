@@ -145,6 +145,11 @@ typedef enum
 @property (nonatomic, retain) NSString * category;
 
 /**
+ @brief Issue tags
+ */
+@property (nonatomic, retain) NSMutableArray * tags;
+
+/**
  @brief Support for the horizontal mode flag
  */ 
 //@property (nonatomic, assign) BOOL horizontalMode;

@@ -28,6 +28,9 @@
 		5789899A17CF703100572BAC /* SBJsonStreamWriterState.m in Sources */ = {isa = PBXBuildFile; fileRef = 5789898517CF703100572BAC /* SBJsonStreamWriterState.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
 		5789899B17CF703100572BAC /* SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 5789898617CF703100572BAC /* SBJsonWriter.h */; };
 		5789899C17CF703100572BAC /* SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5789898717CF703100572BAC /* SBJsonWriter.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
+		57B4430C17D6181200FCFA87 /* PCTag.h in Headers */ = {isa = PBXBuildFile; fileRef = 57B4430A17D6181000FCFA87 /* PCTag.h */; };
+		57B4430D17D6181200FCFA87 /* PCTag.m in Sources */ = {isa = PBXBuildFile; fileRef = 57B4430B17D6181100FCFA87 /* PCTag.m */; };
+		57B4431017D62A4D00FCFA87 /* PCTag.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 57B4430A17D6181000FCFA87 /* PCTag.h */; };
 		600ACDA415B6E9C900F0233C /* PCLocalizationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */; };
 		600ACDA515B6E9C900F0233C /* PCLocalizationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 600ACDA315B6E9C900F0233C /* PCLocalizationManager.m */; };
 		600ACDA915B6F0A500F0233C /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = 600ACDAB15B6F0A500F0233C /* Localizable.strings */; };
@@ -1130,6 +1133,7 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
+				57B4431017D62A4D00FCFA87 /* PCTag.h in CopyFiles */,
 				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
 				C5A784E615C9522F00370829 /* PCGridView.h in CopyFiles */,
 				C51F275315D3C14B00BCDB85 /* PCSummaryGridViewCell.h in CopyFiles */,
@@ -1512,6 +1516,8 @@
 		5789898517CF703100572BAC /* SBJsonStreamWriterState.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonStreamWriterState.m; sourceTree = "<group>"; };
 		5789898617CF703100572BAC /* SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonWriter.h; sourceTree = "<group>"; };
 		5789898717CF703100572BAC /* SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonWriter.m; sourceTree = "<group>"; };
+		57B4430A17D6181000FCFA87 /* PCTag.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCTag.h; sourceTree = "<group>"; };
+		57B4430B17D6181100FCFA87 /* PCTag.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCTag.m; sourceTree = "<group>"; };
 		600ACDA215B6E9C900F0233C /* PCLocalizationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PCLocalizationManager.h; sourceTree = "<group>"; };
 		600ACDA315B6E9C900F0233C /* PCLocalizationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PCLocalizationManager.m; sourceTree = "<group>"; };
 		600ACDAA15B6F0A500F0233C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -2481,6 +2487,8 @@
 				607F3EAC1588CE5F0097D960 /* PCSearchTaskDelegate.h */,
 				607F3EAD1588CE5F0097D960 /* PCTocItem.h */,
 				607F3EAE1588CE5F0097D960 /* PCTocItem.m */,
+				57B4430A17D6181000FCFA87 /* PCTag.h */,
+				57B4430B17D6181100FCFA87 /* PCTag.m */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -4058,6 +4066,7 @@
 				5789899717CF703100572BAC /* SBJsonStreamWriterAccumulator.h in Headers */,
 				5789899917CF703100572BAC /* SBJsonStreamWriterState.h in Headers */,
 				5789899B17CF703100572BAC /* SBJsonWriter.h in Headers */,
+				57B4430C17D6181200FCFA87 /* PCTag.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4525,6 +4534,7 @@
 				5789899817CF703100572BAC /* SBJsonStreamWriterAccumulator.m in Sources */,
 				5789899A17CF703100572BAC /* SBJsonStreamWriterState.m in Sources */,
 				5789899C17CF703100572BAC /* SBJsonWriter.m in Sources */,
+				57B4430D17D6181200FCFA87 /* PCTag.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

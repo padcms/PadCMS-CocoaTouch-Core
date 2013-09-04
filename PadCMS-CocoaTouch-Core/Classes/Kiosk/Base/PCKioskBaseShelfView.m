@@ -60,7 +60,9 @@
 {
     [super createView];
     
-    self.backgroundColor = UIColorFromRGB(0xf6f8fa);//[UIColor whiteColor];//UIColorFromRGB(0x303030);
+
+    self.backgroundColor = UIColorFromRGB(0x303030);
+
     
     mainScrollView = [[UIScrollView alloc] initWithFrame:self.frame];
     mainScrollView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
