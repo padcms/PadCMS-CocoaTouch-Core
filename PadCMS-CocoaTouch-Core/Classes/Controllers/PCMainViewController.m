@@ -953,6 +953,10 @@
 
 - (void) showRevisionWithIdentifier:(NSInteger) revisionIdentifier andPageIndex:(NSInteger) pageIndex
 {
+    
+#ifdef RUE
+    
+#else
     PCRevision *currentRevision = [self revisionWithIdentifier:revisionIdentifier];
     
     if (currentRevision)
@@ -965,10 +969,10 @@
         if (_revisionViewController == nil)
         {
             NSBundle *bundle = [NSBundle bundleWithURL:[[NSBundle mainBundle] URLForResource:@"PadCMS-CocoaTouch-Core-Resources" withExtension:@"bundle"]];
-            _revisionViewController = [[PCRevisionViewController alloc] 
+            _revisionViewController = [[PCRevisionViewController alloc]
                                        initWithNibName:@"PCRevisionViewController"
                                        bundle:bundle];
-         
+            
             [_revisionViewController setRevision:currentRevision];
             _revisionViewController.mainViewController = self;
             _revisionViewController.initialPageIndex = pageIndex;
@@ -977,6 +981,8 @@
             self.mainView.tag = 100;
         }
     }
+#endif
+
 }
 
 #pragma mark - UIAlertViewDelegate

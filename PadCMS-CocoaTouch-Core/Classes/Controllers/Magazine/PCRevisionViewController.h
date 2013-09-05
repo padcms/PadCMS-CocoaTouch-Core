@@ -48,6 +48,7 @@
 #import "PCVideoController.h"
 #import <UIKit/UIKit.h>
 #import "PCHudView.h"
+#import "PCTopBarView.h"
 
 /**
  @class PCMagazineViewController
@@ -180,5 +181,9 @@
 - (void) updateViewsForCurrentIndex;
 - (void)clearMemory;
 - (IBAction)subscriptionsAction:(id)sender;
+
+//for overriding
+- (void)createHUDView;
+- (void)destroyHUDView;
 
 @end
