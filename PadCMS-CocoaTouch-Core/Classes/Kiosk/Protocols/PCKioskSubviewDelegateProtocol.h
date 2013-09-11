@@ -44,6 +44,8 @@
 - (void) deleteButtonTappedWithRevisionIndex:(NSInteger) index;
 - (void) updateButtonTappedWithRevisionIndex:(NSInteger) index;
 - (void) purchaseButtonTappedWithRevisionIndex:(NSInteger) index;
+- (void) archiveButtonTappedWithRevisionIndex:(NSInteger) index;
+- (void) restoreButtonTappedWithRevisionIndex:(NSInteger) index;
 - (void) tapInKiosk;
 
 @end
