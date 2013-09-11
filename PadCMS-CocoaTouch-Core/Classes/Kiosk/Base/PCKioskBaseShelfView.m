@@ -309,7 +309,7 @@
         if(cell.revisionIndex!=index)
         {
             cell.userInteractionEnabled = NO;
-            cell.alpha = 0.4;
+            cell.alpha = 0.6;
         }
     }
     

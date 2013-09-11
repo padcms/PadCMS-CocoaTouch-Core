@@ -327,7 +327,10 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
         NSURL *fullCoverImageURL = [NSURL URLWithString:_coverImageListURL.absoluteString 
                                           relativeToURL:serverURL];
         
-        NSData *imageData = [NSData dataWithContentsOfURL:fullCoverImageURL];
+#warning - TEMPORARY RUE PERFORMANCE FIX
+        //NSData *imageData = [NSData dataWithContentsOfURL:fullCoverImageURL];
+        NSData *imageData = nil;
+
         UIImage *image = [UIImage imageWithData:imageData];
         
         if (image != nil)
