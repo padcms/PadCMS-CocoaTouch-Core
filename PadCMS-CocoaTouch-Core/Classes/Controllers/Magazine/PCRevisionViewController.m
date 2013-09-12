@@ -1067,9 +1067,18 @@
     [_hudView reloadData];
 }
 
+- (void)viewDidDisappear:(BOOL)animated {
+    [super viewDidDisappear:animated];
+    
+    [self hideMenus];
+	[self unloadAll];
+}
 
 - (void)viewDidUnload
 {
+    
+
+    
     [[NSNotificationCenter defaultCenter] removeObserver:self];
     [self setHorizontalHelpButton:nil];
     [self setHelpButton:nil];
@@ -2126,8 +2135,6 @@
 
 - (void)topBarView:(PCTopBarView *)topBarView backButtonTapped:(UIButton *)button
 {
-    [self hideMenus];
-	[self unloadAll];
     [self.mainViewController switchToKiosk];
 }
 

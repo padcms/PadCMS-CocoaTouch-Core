@@ -49,8 +49,8 @@
 
 - (BOOL)application:(UIApplication *)application didFinishLaunchingWithOptions:(NSDictionary *)launchOptions 
 {    
-    [PCGoogleAnalytics start];
-    [PCGoogleAnalytics trackAction:@"Application launch" category:@"General"];
+
+    [self initTrackers];
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UIApplication sharedApplication]
@@ -58,10 +58,20 @@
     [InAppPurchases sharedInstance];
 	[PCDownloadManager sharedManager];
     
-    [window addSubview:viewController.view];
+    [self showMainViewController];
+    
     [window makeKeyAndVisible];	
 	
 	return YES;
+}
+
+- (void)initTrackers {
+    [PCGoogleAnalytics start];
+    [PCGoogleAnalytics trackAction:@"Application launch" category:@"General"];
+}
+
+- (void)showMainViewController {
+    [window addSubview:viewController.view];
 }
 
 - (void)applicationWillResignActive:(UIApplication *)application
