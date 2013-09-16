@@ -214,7 +214,7 @@
             }
         }
             
-        NSLog(@"ALL TAGS!!!: %@", _tags);   
+        //NSLog(@"ALL TAGS!!!: %@", _tags);
 		
     }
     

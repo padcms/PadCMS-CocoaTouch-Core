@@ -161,7 +161,7 @@ static VersionManager *sharedVersionManager = nil;
         //TODO !!!!!!!!!!!!!!!!!!!!!NOT FOR KIOSQUE
 		[Helper setInternalRevision:-1];
 		
-		NSLog(@"UDID %@",[UIDevice currentDevice].uniqueIdentifier);
+		//NSLog(@"UDID %@",[UIDevice currentDevice].uniqueIdentifier);
     }	
 	
     return sharedVersionManager;
