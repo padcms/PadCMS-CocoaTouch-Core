@@ -150,7 +150,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
                        data:[NSString stringWithFormat:
                              @"Content-Disposition: form-data; filename=\"%@\"\r\n", key]];
         [self utfAppendBody:body
-                       data:[NSString stringWithString:@"Content-Type: image/png\r\n\r\n"]];
+                       data:@"Content-Type: image/png\r\n\r\n"];
         [body appendData:imageData];
       } else {
         NSAssert([dataParam isKindOfClass:[NSData class]],
@@ -159,7 +159,7 @@ static const NSTimeInterval kTimeoutInterval = 180.0;
                        data:[NSString stringWithFormat:
                              @"Content-Disposition: form-data; filename=\"%@\"\r\n", key]];
         [self utfAppendBody:body
-                       data:[NSString stringWithString:@"Content-Type: content/unknown\r\n\r\n"]];
+                       data:@"Content-Type: content/unknown\r\n\r\n"];
         [body appendData:(NSData*)dataParam];
       }
       [self utfAppendBody:body data:endLine];

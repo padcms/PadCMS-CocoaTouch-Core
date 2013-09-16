@@ -36,7 +36,7 @@
 #import "PCRevisionViewController.h"
 
 #import "InAppPurchases.h"
-#import "NSString+XMLEntities.h"
+//#import "NSString+XMLEntities.h"
 #import "PCConfig.h"
 #import "PCDefaultStyleElements.h"
 #import "PCGalleryViewController.h"

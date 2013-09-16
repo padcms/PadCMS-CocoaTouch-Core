@@ -264,10 +264,12 @@
                                    _productIdentifier,
                                    _subscriptionType,
                                    _paid,
+                                   [UIColor whiteColor],        //hardcode, warning fix, 16.09.2013
                                    _coverImageThumbnailURL,
                                    _coverImageListURL,
                                    _coverImageURL,
                                    _updatedDate,
+                                   NO,                          //hardcode, warning fix, 16.09.2013
                                    _contentDirectory,
                                    _revisions];
     

@@ -322,13 +322,11 @@ NSString * const PCHorizontalTocDidDownloadNotification = @"PCHorizontalTocDidDo
     }
     else if (_coverImageListURL != nil)
     {
-        NSURL *serverURL = _backEndURL != nil ? _backEndURL : [PCConfig serverURL] ;
         
-        NSURL *fullCoverImageURL = [NSURL URLWithString:_coverImageListURL.absoluteString 
-                                          relativeToURL:serverURL];
-        
-#warning - TEMPORARY RUE PERFORMANCE FIX
-        //NSData *imageData = [NSData dataWithContentsOfURL:fullCoverImageURL];
+#warning - TEMPORARY RUE PERFORMANCE FIX, should be enabled for old projects like AIR
+//        NSURL *serverURL = _backEndURL != nil ? _backEndURL : [PCConfig serverURL] ;
+//        NSURL *fullCoverImageURL = [NSURL URLWithString:_coverImageListURL.absoluteString relativeToURL:serverURL];
+//        NSData *imageData = [NSData dataWithContentsOfURL:fullCoverImageURL];
         NSData *imageData = nil;
 
         UIImage *image = [UIImage imageWithData:imageData];
