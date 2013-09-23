@@ -519,7 +519,7 @@ params   = _params;
     [_closeButton sizeToFit];
     
     _closeButton.frame = CGRectMake(
-                                    2,
+                                    innerWidth - 8,
                                     2,
                                     29,
                                     29);

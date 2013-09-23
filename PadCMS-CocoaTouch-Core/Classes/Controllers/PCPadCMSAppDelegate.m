@@ -51,10 +51,12 @@
 {    
 
     [self initTrackers];
-    
+
+#ifdef  NSFoundationVersionNumber_iOS_6_1
     if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
         [[UIApplication sharedApplication] setStatusBarHidden:YES];
     }
+#endif
     
     
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
