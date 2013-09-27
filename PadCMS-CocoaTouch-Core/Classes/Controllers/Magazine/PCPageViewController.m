@@ -636,13 +636,23 @@
 {
     CGPoint point = [gestureRecognizer locationInView:self.mainScrollView];
     NSArray* actions = [self activeZonesAtPoint:point];
-    for (PCPageActiveZone* action in actions)
-        if ([self pdfActiveZoneAction:action])
-            break;
-    if (actions.count == 0)
-    {
-        [self.magazineViewController tapGesture:gestureRecognizer];
-    }
+    
+    [UIView transitionWithView: mainScrollView
+                      duration: 0.35f
+                       options: UIViewAnimationOptionTransitionCrossDissolve
+                    animations: ^(void)
+     {
+         
+         for (PCPageActiveZone* action in actions)
+             if ([self pdfActiveZoneAction:action])
+                 break;
+         if (actions.count == 0)
+         {
+             [self.magazineViewController tapGesture:gestureRecognizer];
+         }
+     } completion:^(BOOL finished) {
+         //
+     }];
 }
 
 -(BOOL)gestureRecognizer:(UIGestureRecognizer *)gestureRecognizer shouldReceiveTouch:(UITouch *) touch {
@@ -660,8 +670,20 @@
   if (!isLoaded) return;
   if (notif.object == self.page)
   {
-    [self unloadFullView];
-    [self loadFullView];
+      
+    [UIView transitionWithView: self.view
+                      duration: 0.35f
+                       options: UIViewAnimationOptionTransitionCrossDissolve
+                    animations: ^(void)
+     {
+         [self unloadFullView];
+         [self loadFullView];
+     } completion:^(BOOL finished) {
+         //
+     }];
+
+
+      
     if (self.page.pageTemplate == [[PCPageTemplatesPool templatesPool] templateForId:PCBasicArticlePageTemplate])  
     {
    /*   if (self.bodyViewController.view.frame.size.height - self.mainScrollView.bounds.size.height > 3)//3 is a magic number!

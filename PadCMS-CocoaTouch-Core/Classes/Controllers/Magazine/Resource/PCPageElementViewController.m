@@ -175,13 +175,10 @@
     
     _resourceView = [[PCResourceView alloc] initWithFrame:self.view.bounds];
     _resourceView.resourceName = self.resource;
-    [self.view addSubview:_resourceView];
+    
     _loaded = YES;
     
-    self.view.alpha = 0.0f;
-    [UIView animateWithDuration:0.5f animations:^{
-        self.view.alpha = 1.0f;
-    }];
+    [self.view addSubview:_resourceView];
 }
 
 - (void) unloadView
