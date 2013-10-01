@@ -103,16 +103,16 @@
 	AFNetworkReachabilityStatus remoteHostStatus = [PCDownloadApiClient sharedClient].networkReachabilityStatus;    
 	if(remoteHostStatus == AFNetworkReachabilityStatusNotReachable) 
 	{
-		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
-                                                                                                       value:@"You must be connected to the Internet."]
-                                                        message:nil
-                                                       delegate:nil
-                                              cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
-                                                                                                       value:@"OK"]
-                                              otherButtonTitles:nil];
-		[alert show];
-		[alert release];
-		return NO;
+//		UIAlertView* alert = [[UIAlertView alloc] initWithTitle:[PCLocalizationManager localizedStringForKey:@"MSG_NO_NETWORK_CONNECTION"
+//                                                                                                       value:@"You must be connected to the Internet."]
+//                                                        message:nil
+//                                                       delegate:nil
+//                                              cancelButtonTitle:[PCLocalizationManager localizedStringForKey:@"BUTTON_TITLE_OK"
+//                                                                                                       value:@"OK"]
+//                                              otherButtonTitles:nil];
+//		[alert show];
+//		[alert release];
+//		return NO;
 	}
     
     return YES;
