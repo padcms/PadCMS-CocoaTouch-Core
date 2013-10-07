@@ -39,6 +39,7 @@
 #import "PCConfig.h"
 #import "InAppPurchases.h"
 #import "PCTag.h"
+#import "NSString+HTML.h"
 
 @implementation PCIssue
 
@@ -124,7 +125,7 @@
         _number = [[parameters objectForKey:PCJSONIssueNumberKey] copy];
         _productIdentifier = [[parameters objectForKey:PCJSONIssueProductIDKey] copy];
         _author = [[parameters objectForKey:PCJSONIssueAuthorKey] copy];
-        _excerpt = [[parameters objectForKey:PCJSONIssueExcerptKey] copy];
+        _excerpt = [[[parameters objectForKey:PCJSONIssueExcerptKey] stringByDecodingHTMLEntities] copy];
         _imageLargeURL = [[parameters objectForKey:PCJSONIssueImageLargeURLKey] copy];
         _imageSmallURL = [[parameters objectForKey:PCJSONIssueImageSmallURLKey] copy];
         _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
