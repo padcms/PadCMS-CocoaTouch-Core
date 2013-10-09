@@ -75,6 +75,7 @@ PADCMS_EXTERN NSString* PCJSONIssueHorizontalMode;
 PADCMS_EXTERN NSString* PCJSONIssueHelpPagesKey;
 PADCMS_EXTERN NSString* PCJSONIssueAuthorKey;
 PADCMS_EXTERN NSString* PCJSONIssueExcerptKey;
+PADCMS_EXTERN NSString* PCJSONIssueShortIntroKey;
 PADCMS_EXTERN NSString* PCJSONIssueImageLargeURLKey;
 PADCMS_EXTERN NSString* PCJSONIssueImageSmallURLKey;
 PADCMS_EXTERN NSString* PCJSONIssueWordsCountKey;

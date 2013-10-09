@@ -136,6 +136,8 @@ typedef enum
 
 @property (nonatomic, retain) NSString * excerpt;
 
+@property (nonatomic, copy) NSString * shortIntro;
+
 @property (nonatomic, retain) NSString * imageLargeURL;
 
 @property (nonatomic, retain) NSString * imageSmallURL;
