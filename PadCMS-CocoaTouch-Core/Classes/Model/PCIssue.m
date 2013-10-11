@@ -124,9 +124,8 @@
         _title = [[parameters objectForKey:PCJSONIssueTitleKey] copy];
         _number = [[parameters objectForKey:PCJSONIssueNumberKey] copy];
         
-#warning HARDCODE!
-        //_productIdentifier = [[parameters objectForKey:PCJSONIssueProductIDKey] copy];
-        _productIdentifier = @"com.mobile.rue89.issue_1000";
+        _productIdentifier = [[parameters objectForKey:PCJSONIssueProductIDKey] copy];
+        //_productIdentifier = @"com.mobile.rue89.issue_1000";
         
         _author = [[parameters objectForKey:PCJSONIssueAuthorKey] copy];
         _excerpt = [[[parameters objectForKey:PCJSONIssueExcerptKey] stringByDecodingHTMLEntities] copy];
