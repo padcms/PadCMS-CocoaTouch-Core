@@ -95,6 +95,8 @@ typedef enum
  */ 
 @property (nonatomic, retain) NSString *title;
 
+@property (nonatomic, copy) NSString *titleShort;
+
 /**
  @brief Magazine number
  */ 

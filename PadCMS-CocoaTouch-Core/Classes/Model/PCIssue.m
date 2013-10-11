@@ -122,6 +122,7 @@
         
         _identifier = [identifierString integerValue];
         _title = [[parameters objectForKey:PCJSONIssueTitleKey] copy];
+        self.titleShort = [parameters objectForKey:PCJSONIssueTitleShortKey];
         _number = [[parameters objectForKey:PCJSONIssueNumberKey] copy];
         
 #warning HARDCODE!
