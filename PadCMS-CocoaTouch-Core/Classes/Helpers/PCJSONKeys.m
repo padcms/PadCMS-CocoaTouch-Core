@@ -44,7 +44,7 @@
  NSString* PCJSONUDIDIsValidKey                             = @"udid_is_valid";
  NSString* PCJSONUDIDIsUserAdminKey                         = @"udid_is_user_admin";
 
- NSString* PCJSONApplicationsKey                             = @"applications";
+ NSString* PCJSONApplicationsKey                            = @"applications";
 
  NSString* PCJSONApplicationKey                             = @"application";
  NSString* PCJSONApplicationIDKey                           = @"application_id";
@@ -62,7 +62,7 @@
  NSString* PCJSONIssuesKey                                  = @"issues";
  NSString* PCJSONIssueIDKey                                 = @"issue_id";
  NSString* PCJSONIssueTitleKey                              = @"issue_title";
- NSString* PCJSONIssueTitleShortKey                              = @"issue_title_short";
+ NSString* PCJSONIssueTitleShortKey                         = @"issue_title_short";
  NSString* PCJSONIssueNumberKey                             = @"issue_number";
  NSString* PCJSONIssueProductIDKey                          = @"issue_product_id";
  NSString* PCJSONIssueStateKey                              = @"issue_state";
@@ -83,6 +83,7 @@
  NSString* PCJSONIssueTagTitleKey                           = @"title";
  NSString* PCJSONIssueTagIdKey                              = @"id";
  NSString* PCJSONIssueShortIntroKey                         = @"issue_excerpt_short";
+ NSString* PCJSONIssuePublishDateKey                        = @"issue_publish_date";
 
  NSString* PCJSONRevisionsKey                               = @"revisions";
  NSString* PCJSONRevisionIDKey                              = @"revision_id";

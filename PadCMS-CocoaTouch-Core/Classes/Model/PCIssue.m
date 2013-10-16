@@ -136,6 +136,8 @@
         _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
         _category = [[parameters objectForKey:PCJSONIssueCategoryKey] copy];
         
+        self.publishDate = dateFromString([parameters objectForKey:PCJSONIssuePublishDateKey]);
+        
         _paid = [[parameters objectForKey:PCJSONIssuePaidKey] boolValue];
 		if ([_productIdentifier isEqualToString:@""])
 		{
@@ -205,7 +207,27 @@
     return self;
 }
 
-- (id)initWithParameters:(NSDictionary *)parameters 
+NSDate* dateFromString(NSString* strDate)
+{
+    if(strDate != nil && [strDate isKindOfClass:[NSString class]] && strDate.length)
+    {
+        NSRange range = {0, 10};
+        strDate = [strDate substringWithRange:range];
+        NSDateFormatter *df = [[NSDateFormatter alloc] init];
+        [df setDateFormat:@"yyyy-MM-dd"];
+        
+        NSDate* date = [df dateFromString:strDate];
+        
+        [df release];
+        return date;
+    }
+    else
+    {
+        return nil;
+    }
+}
+
+- (id)initWithParameters:(NSDictionary *)parameters
            rootDirectory:(NSString *)rootDirectory
 {
     return [self initWithParameters:parameters 
