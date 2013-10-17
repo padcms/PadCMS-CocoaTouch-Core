@@ -26,7 +26,7 @@
 #if __IPHONE_OS_VERSION_MIN_REQUIRED
 #import "UIImageView+AFNetworking.h"
 
-@interface AFImageCache1 : NSCache
+@interface AFImageCache2 : NSCache
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request;
 - (void)cacheImage:(UIImage *)image
         forRequest:(NSURLRequest *)request;
@@ -67,11 +67,11 @@ static char kAFImageRequestOperationObjectKey;
     return _af_imageRequestOperationQueue;
 }
 
-+ (AFImageCache1 *)af_sharedImageCache {
-    static AFImageCache1 *_af_imageCache = nil;
++ (AFImageCache2 *)af_sharedImageCache {
+    static  *_af_imageCache = nil;
     static dispatch_once_t oncePredicate;
     dispatch_once(&oncePredicate, ^{
-        _af_imageCache = [[AFImageCache1 alloc] init];
+        _af_imageCache = [[AFImageCache2 alloc] init];
     });
     
     return _af_imageCache;
@@ -155,7 +155,7 @@ static inline NSString * AFImageCacheKeyFromURLRequest(NSURLRequest *request) {
     return [[request URL] absoluteString];
 }
 
-@implementation AFImageCache1
+@implementation AFImageCache2
 
 - (UIImage *)cachedImageForRequest:(NSURLRequest *)request {
     switch ([request cachePolicy]) {
