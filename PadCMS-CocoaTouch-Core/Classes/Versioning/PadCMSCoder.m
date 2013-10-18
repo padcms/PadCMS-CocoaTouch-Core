@@ -70,7 +70,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     }
     else
     {
-        devId = [[UIDevice currentDevice] uniqueIdentifier];
+        devId = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
     }
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
@@ -190,7 +190,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
     }
     else
     {
-        devId = [[UIDevice currentDevice] uniqueIdentifier];
+        devId = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
     }
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
