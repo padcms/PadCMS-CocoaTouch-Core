@@ -117,6 +117,7 @@
         _productIdentifier = [[parameters objectForKey:PCJSONApplicationProductIDKey] copy];
         _messageForReaders = [[parameters objectForKey:PCJSONApplicationMessageForReadersKey] copy];
         _shareMessage = [[parameters objectForKey:PCJSONApplicationShareMessageKey] copy];
+        _contactEmail = [[parameters objectForKey:PCJSONApplicationContactEmailKey] copy];
 
         // Set up notifications
         
