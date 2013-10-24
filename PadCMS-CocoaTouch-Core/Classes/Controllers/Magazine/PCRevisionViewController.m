@@ -1395,7 +1395,7 @@
 - (void) updateViewsForCurrentIndex
 {
 	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-		if (!self.currentColumnViewController.currentPageViewController.page.isComplete)
+		if (self.currentColumnViewController.currentPageViewController.page && !self.currentColumnViewController.currentPageViewController.page.isComplete)
 		{
 			[[NSNotificationCenter defaultCenter] postNotificationName:PCBoostPageNotification object:self.currentColumnViewController.currentPageViewController.page userInfo:nil];
 		}
