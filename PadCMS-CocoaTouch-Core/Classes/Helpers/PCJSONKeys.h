@@ -86,6 +86,7 @@ PADCMS_EXTERN NSString* PCJSONIssueTagsKey;
 PADCMS_EXTERN NSString* PCJSONIssueTagTitleKey;
 PADCMS_EXTERN NSString* PCJSONIssueTagIdKey;
 PADCMS_EXTERN NSString* PCJSONIssuePublishDateKey;
+PADCMS_EXTERN NSString* PCJSONIssueIsIndividuallyPaidKey;
 
 PADCMS_EXTERN NSString* PCJSONRevisionsKey;
 PADCMS_EXTERN NSString* PCJSONRevisionIDKey;
