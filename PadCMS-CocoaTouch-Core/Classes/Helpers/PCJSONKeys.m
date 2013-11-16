@@ -65,7 +65,7 @@
  NSString* PCJSONIssueTitleKey                              = @"issue_title";
  NSString* PCJSONIssueTitleShortKey                         = @"issue_title_short";
  NSString* PCJSONIssueNumberKey                             = @"issue_number";
- NSString* PCJSONIssueProductIDKey                          = @"issue_product_id";
+ NSString* PCJSONIssueProductIDKey                          = @"issue_itunes_id";
  NSString* PCJSONIssueStateKey                              = @"issue_state";
  NSString* PCJSONIssueApplicationIDKey                      = @"application_id";
  NSString* PCJSONIssueApplicationTitleKey                   = @"application_title";
