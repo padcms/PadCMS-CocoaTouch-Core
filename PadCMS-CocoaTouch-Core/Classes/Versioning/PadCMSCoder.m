@@ -64,14 +64,14 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	NSLog(@"transactionReceipt: %@", [notification object]);
 	
     NSString *devId = nil;
-    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 6.0)
-    {
+    //if([[[UIDevice currentDevice]systemVersion]floatValue] >= 6.0)
+    //{
         devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
-    }
-    else
-    {
-        devId = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-    }
+    //}
+    //else
+    //{
+        //devId = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+    //}
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
 	
@@ -184,14 +184,9 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
 	
     NSString *devId = nil;
-    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 6.0)
-    {
-        devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
-    }
-    else
-    {
-        devId = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
-    }
+
+    devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
+
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
 	
