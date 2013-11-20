@@ -185,7 +185,16 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	
     NSString *devId = nil;
 
-    devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
+//    devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
+    
+    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 6.0)
+    {
+        devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
+    }
+    else
+    {
+        devId = [[UIDevice currentDevice] performSelector:@selector(uniqueIdentifier)];
+    }
 
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
