@@ -62,7 +62,6 @@
  NSString* PCJSONIssuesKey                                  = @"issues";
  NSString* PCJSONIssueIDKey                                 = @"issue_id";
  NSString* PCJSONIssueTitleKey                              = @"issue_title";
- NSString* PCJSONIssueTitleShortKey                              = @"issue_title_short";
  NSString* PCJSONIssueNumberKey                             = @"issue_number";
  NSString* PCJSONIssueProductIDKey                          = @"issue_product_id";
  NSString* PCJSONIssueStateKey                              = @"issue_state";
@@ -82,7 +81,7 @@
  NSString* PCJSONIssueTagsKey                               = @"tags";
  NSString* PCJSONIssueTagTitleKey                           = @"title";
  NSString* PCJSONIssueTagIdKey                              = @"id";
- NSString* PCJSONIssueShortIntroKey                         = @"issue_excerpt_short";
+ NSString* PCJSONIssueShortIntroKey                         = @"issue_short_intro";
 
  NSString* PCJSONRevisionsKey                               = @"revisions";
  NSString* PCJSONRevisionIDKey                              = @"revision_id";
