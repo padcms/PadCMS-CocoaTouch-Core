@@ -157,8 +157,6 @@ typedef enum
 
 @property (nonatomic, readonly) BOOL isIndividuallyPaid;
 
-@property (nonatomic, readonly) BOOL isOld;
-
 /**
  @brief Support for the horizontal mode flag
  */ 
