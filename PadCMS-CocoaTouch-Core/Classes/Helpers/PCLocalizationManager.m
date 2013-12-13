@@ -59,7 +59,6 @@ static NSBundle *fallbackBundle = nil;          // bundle for translate if previ
 {
     if (sharedLocalizationManager == nil) {
         sharedLocalizationManager = [[super allocWithZone:NULL] init];
-        [sharedLocalizationManager additionalInitialization];
     }
     return sharedLocalizationManager;
 }
