@@ -155,8 +155,6 @@ typedef enum
  */
 @property (nonatomic, retain) NSMutableArray * tags;
 
-@property (nonatomic, readonly) BOOL isIndividuallyPaid;
-
 /**
  @brief Support for the horizontal mode flag
  */ 

@@ -85,7 +85,6 @@
  NSString* PCJSONIssueTagIdKey                              = @"id";
  NSString* PCJSONIssueShortIntroKey                         = @"issue_excerpt_short";
  NSString* PCJSONIssuePublishDateKey                        = @"issue_publish_date";
- NSString* PCJSONIssueIsIndividuallyPaidKey                 = @"is_issue_individually_paid";
 
  NSString* PCJSONRevisionsKey                               = @"revisions";
  NSString* PCJSONRevisionIDKey                              = @"revision_id";

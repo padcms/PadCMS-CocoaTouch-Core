@@ -136,8 +136,6 @@
         _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
         _category = [[parameters objectForKey:PCJSONIssueCategoryKey] copy];
         
-        _isIndividuallyPaid = [[parameters objectForKey:PCJSONIssueIsIndividuallyPaidKey]boolValue];
-        
         self.publishDate = dateFromString([parameters objectForKey:PCJSONIssuePublishDateKey]);
         
         _paid = [[parameters objectForKey:PCJSONIssuePaidKey] boolValue];
