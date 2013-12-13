@@ -73,7 +73,7 @@ static InAppPurchases *singleton = nil;
 
 - (void)repurchase
 {
-	//_isSubscribed = YES;
+	_isSubscribed = YES;
 	[[SKPaymentQueue defaultQueue] restoreCompletedTransactions];
 }
 
@@ -147,7 +147,7 @@ static InAppPurchases *singleton = nil;
 							 [self localizedPrice:product], @"localizedPrice",
 							 [NSString stringWithString:product.productIdentifier], @"productIdentifier", nil];
 			
-			[[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:data];
+			///[[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:data];
 		}
 	}
 
@@ -251,7 +251,7 @@ static InAppPurchases *singleton = nil;
     
         return;
     }
-    //_isSubscribed=YES;
+    _isSubscribed=YES;
     //product request
     NSLog(@"subscribing");
 	

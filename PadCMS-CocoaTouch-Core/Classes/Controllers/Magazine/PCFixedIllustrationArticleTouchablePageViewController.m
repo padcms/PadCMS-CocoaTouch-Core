@@ -113,46 +113,32 @@
 {
     CGPoint tapLocation = [sender locationInView:[sender view]];
     
-    BOOL firstCheck = (!self.bodyViewController.view.hidden&&
-                       ((NSArray*)[super activeZonesAtPoint:tapLocation]).count == 0);
+    if (!self.bodyViewController.view.hidden&& 
+        ((NSArray*)[super activeZonesAtPoint:tapLocation]).count == 0)
+    {
+        CGPoint tapLocationWithOffset;
+        tapLocationWithOffset.x = self.articleView.contentOffset.x + tapLocation.x;
+        tapLocationWithOffset.y = self.articleView.contentOffset.y + tapLocation.y;
+        NSArray* actions = [self activeZonesAtPoint:tapLocationWithOffset];
+        for (PCPageActiveZone* action in actions)
+            if ([self pdfActiveZoneAction:action])
+                break;
+        if (actions.count == 0)
+        {
+            self.bodyViewController.view.hidden = YES;
+            [self changeVideoLayout:self.bodyViewController.view.hidden];
+        }
+    }
     
-    BOOL secondCheck = (self.bodyViewController.view.hidden && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionButton]);
-    
-    [UIView transitionWithView: mainScrollView
-                      duration: 0.35f
-                       options: UIViewAnimationOptionTransitionCrossDissolve
-                    animations: ^(void)
-     {
-         
-         if (firstCheck)
-         {
-             CGPoint tapLocationWithOffset;
-             tapLocationWithOffset.x = self.articleView.contentOffset.x + tapLocation.x;
-             tapLocationWithOffset.y = self.articleView.contentOffset.y + tapLocation.y;
-             NSArray* actions = [self activeZonesAtPoint:tapLocationWithOffset];
-             for (PCPageActiveZone* action in actions)
-                 if ([self pdfActiveZoneAction:action])
-                     break;
-             if (actions.count == 0)
-             {
-                 self.bodyViewController.view.hidden = YES;
-                 [self changeVideoLayout:self.bodyViewController.view.hidden];
-             }
-         }
-         
-         else if (secondCheck)
-         {
-             [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
-             [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
-             [self changeVideoLayout:self.bodyViewController.view.hidden];
-         }
-         
-         
-     } completion: ^(BOOL isFinished) {
-         
-     }];
-    
-    if (!firstCheck && ! secondCheck) {
+    else if (self.bodyViewController.view.hidden && ![self.page hasPageActiveZonesOfType:PCPDFActiveZoneActionButton])
+    {
+        [self.articleView setScrollEnabled:self.bodyViewController.view.hidden];
+        [self.bodyViewController.view setHidden:!self.bodyViewController.view.hidden];
+        [self changeVideoLayout:self.bodyViewController.view.hidden];
+    }
+
+    else
+    {
         [super tapAction:sender];
     }
 }

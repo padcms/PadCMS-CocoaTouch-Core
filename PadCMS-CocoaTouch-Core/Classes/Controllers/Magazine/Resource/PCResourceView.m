@@ -111,7 +111,6 @@ static NSInteger instanceCount = 0;
 
 - (void)loadResource
 {
-    //NSLog(@"Resource loading start");
     id resource = [UIImage imageWithContentsOfFile:_resourceName];
     
     if (resource != nil && [resource isKindOfClass:UIImage.class]) {
@@ -120,8 +119,6 @@ static NSInteger instanceCount = 0;
     } else {
         [self performSelectorOnMainThread:@selector(showImage:) withObject:nil waitUntilDone:YES];
     }
-    
-    //NSLog(@"Resource loading finish");
 }
 
 - (void)showImage:(UIImage *)image

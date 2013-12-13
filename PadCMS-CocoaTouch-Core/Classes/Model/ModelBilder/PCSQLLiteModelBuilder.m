@@ -320,12 +320,12 @@
         NSString *thumbSummary = [menus stringForColumn:PCSQLiteThumbSummaryColumnName];
         NSString *firstPageIdentifierString = [menus stringForColumn:PCSQLiteFirstpageIDColumnName];
         
-//        if (thumbStripe == nil ||
-//            [thumbStripe isEqualToString:@""] ||
-//            firstPageIdentifierString == nil ||
-//            [firstPageIdentifierString isEqualToString:@""]) {
-//            continue;
-//        }
+        if (thumbStripe == nil ||
+            [thumbStripe isEqualToString:@""] ||
+            firstPageIdentifierString == nil ||
+            [firstPageIdentifierString isEqualToString:@""]) {
+            continue;
+        }
         
         PCTocItem *tocItem = [[[PCTocItem alloc] init] autorelease];
         tocItem.title = title;

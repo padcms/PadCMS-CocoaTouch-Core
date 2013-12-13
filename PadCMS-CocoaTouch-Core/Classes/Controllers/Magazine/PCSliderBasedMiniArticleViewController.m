@@ -245,7 +245,6 @@
 
 -(void)showArticleAtIndex:(NSUInteger)index
 {
-    
     //TODO we need something for more blurring page change
     if (miniArticleViews != nil && [miniArticleViews count] > index)
     {
@@ -278,15 +277,15 @@
         [self.bodyViewController showHUD];
         
         [prevController.view removeFromSuperview];
-//        if (self.page.pageTemplate.identifier==PCFlashBulletInteractivePageTemplate)
-//        {
-//            self.bodyViewController.view.alpha = 0.0;
-//            
-//            [UIView beginAnimations:nil context:NULL];
-//            [UIView setAnimationDuration:.5];
-//            self.bodyViewController.view.alpha = 1.0;
-//            [UIView commitAnimations];
-//        }
+        if (self.page.pageTemplate.identifier==PCFlashBulletInteractivePageTemplate)
+        {
+            self.bodyViewController.view.alpha = 0.0;
+            
+            [UIView beginAnimations:nil context:NULL];
+            [UIView setAnimationDuration:.5];
+            self.bodyViewController.view.alpha = 1.0;
+            [UIView commitAnimations];
+        }
         [prevController unloadView];
         
         [prevController release];
