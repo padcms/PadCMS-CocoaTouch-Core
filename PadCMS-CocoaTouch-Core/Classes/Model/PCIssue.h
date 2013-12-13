@@ -132,8 +132,6 @@ typedef enum
  */ 
 @property (nonatomic, retain) NSDate *updatedDate;
 
-@property (nonatomic, retain) NSDate *publishDate;
-
 @property (nonatomic, retain) NSString* price;
 
 @property (nonatomic, retain) NSString * author;
