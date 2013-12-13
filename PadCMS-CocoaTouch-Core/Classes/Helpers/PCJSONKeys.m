@@ -58,7 +58,6 @@
  NSString* PCJSONApplicationPreviewKey                      = @"application_preview";
  NSString* PCJSONApplicationMessageForReadersKey            = @"application_message_for_readers";
  NSString* PCJSONApplicationShareMessageKey                 = @"application_share_message";
- NSString* PCJSONApplicationContactEmailKey                 = @"application_email";
 
  NSString* PCJSONIssuesKey                                  = @"issues";
  NSString* PCJSONIssueIDKey                                 = @"issue_id";

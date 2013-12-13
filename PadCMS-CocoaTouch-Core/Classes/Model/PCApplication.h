@@ -77,8 +77,6 @@
 @property (nonatomic, retain) NSString * shareMessage;
 /// @brief All tags collected from all issues
 @property (nonatomic, retain) NSMutableArray * tags;
-/// @brief Contact us email
-@property (nonatomic, retain) NSString * contactEmail;
 
 
 /**
