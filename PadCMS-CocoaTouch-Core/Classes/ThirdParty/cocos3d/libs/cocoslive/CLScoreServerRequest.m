@@ -63,7 +63,7 @@
 	[connection_ release];
 	[super dealloc];
 }
-NSString* deviceID();
+
 -(BOOL) requestScores:(tQueryType)type
 				limit:(int)limit
 			   offset:(int)offset
@@ -78,7 +78,7 @@ NSString* deviceID();
 	
 	NSString *device = @"";
 	if( flags & kQueryFlagByDevice )
-		device = deviceID();//[[[UIDevice currentDevice]identifierForVendor]UUIDString];
+		device = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
 	
 	// arguments:
 	//  query: type of query

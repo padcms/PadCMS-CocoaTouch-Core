@@ -104,8 +104,6 @@ NSInteger alphabeticSort(id string1, id string2, void *reverse)
     return [self submitScore:dict forUpdate:YES];
 }
 
-NSString* deviceID();
-
 -(BOOL) submitScore: (NSDictionary*)dict forUpdate:(BOOL)isUpdate
 {	
     [receivedData setLength:0];
@@ -129,7 +127,7 @@ NSString* deviceID();
     // device id is hashed to prevent spoofing this same score from different devices
 	// one way to prevent a replay attack is to send cc_id & cc_time and use it as primary keys
     
-	[self addValue:deviceID() key:@"cc_device_id"];
+	[self addValue:[[[UIDevice currentDevice]identifierForVendor]UUIDString] key:@"cc_device_id"];
 	[self addValue:gameName key:@"cc_gamename"];
 	[self addValue:[self getHashForData] key:@"cc_hash"];
 	[self addValue:SCORE_SERVER_PROTOCOL_VERSION key:@"cc_prot_ver"];
