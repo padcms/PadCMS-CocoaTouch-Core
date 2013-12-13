@@ -685,7 +685,7 @@ static void *finishedContext = @"finishedContext";
     }
     _fbDialog = [[FBDialog alloc] initWithURL:dialogURL params:params delegate:delegate];
   }
-    
+
   [_fbDialog show];
 }
 
