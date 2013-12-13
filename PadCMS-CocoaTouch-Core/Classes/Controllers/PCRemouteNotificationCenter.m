@@ -97,7 +97,7 @@ NSString* PCRemouteNotificationCenterUUIDKey = @"RemouteNotificationCenterUUID";
 {
     NSString* appIdentifier = [NSString stringWithFormat:@"%d",[PCConfig applicationIdentifier]];
     //NSString* UUID = [self UUID];
-    NSString *UUID =  [[[UIDevice currentDevice]identifierForVendor]UUIDString];
+    NSString *UUID =  [[UIDevice currentDevice] uniqueIdentifier];
     NSMutableDictionary *mainDict = [NSMutableDictionary dictionary];
     [mainDict setObject:PCJSONSetDeviceTokenMethodName forKey:PCJSONMethodNameKey];
     
