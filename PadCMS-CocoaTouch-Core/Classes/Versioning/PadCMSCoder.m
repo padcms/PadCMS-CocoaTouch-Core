@@ -63,15 +63,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 {
 	NSLog(@"transactionReceipt: %@", [notification object]);
 	
-    NSString *devId = nil;
-    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 6.0)
-    {
-        devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
-    }
-    else
-    {
-        devId = [[UIDevice currentDevice] uniqueIdentifier];
-    }
+	NSString *devId = [[UIDevice currentDevice] uniqueIdentifier];
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
 	
@@ -110,7 +102,6 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	
 	//[[NSNotificationCenter defaultCenter] postNotificationName:reloadCellNotification object:nil];
 }
-
 /*
 - (BOOL) syncServerPlistDownloadToDirectory:(NSString *)directory
 {
@@ -183,15 +174,7 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 - (BOOL) syncServerPlistDownload
 {
 	
-    NSString *devId = nil;
-    if([[[UIDevice currentDevice]systemVersion]floatValue] >= 6.0)
-    {
-        devId = [[[UIDevice currentDevice]identifierForVendor]UUIDString];
-    }
-    else
-    {
-        devId = [[UIDevice currentDevice] uniqueIdentifier];
-    }
+	NSString *devId = [[UIDevice currentDevice]uniqueIdentifier];
 	
 	NSURL* theURL = [[PCConfig serverURL] URLByAppendingPathComponent:PCNetworkServiceJSONRPCPath];
 	
