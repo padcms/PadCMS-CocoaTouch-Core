@@ -130,7 +130,6 @@
         
         _author = [[parameters objectForKey:PCJSONIssueAuthorKey] copy];
         _excerpt = [[[parameters objectForKey:PCJSONIssueExcerptKey] stringByDecodingHTMLEntities] copy];
-        self.shortIntro = [[parameters objectForKey:PCJSONIssueShortIntroKey] stringByDecodingHTMLEntities];
         _imageLargeURL = [[parameters objectForKey:PCJSONIssueImageLargeURLKey] copy];
         _imageSmallURL = [[parameters objectForKey:PCJSONIssueImageSmallURLKey] copy];
         _wordsCount = [[parameters objectForKey:PCJSONIssueWordsCountKey] integerValue];
