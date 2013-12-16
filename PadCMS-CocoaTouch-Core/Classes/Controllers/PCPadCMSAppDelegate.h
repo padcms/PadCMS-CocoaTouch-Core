@@ -45,8 +45,5 @@
 @property (nonatomic, retain) IBOutlet UIWindow *window;
 @property (nonatomic, retain) IBOutlet PCMainViewController *viewController;
 
-- (void)initTrackers;
-- (void)showMainViewController;
-
 @end
 
