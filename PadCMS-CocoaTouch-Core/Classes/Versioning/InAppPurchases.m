@@ -147,7 +147,7 @@ static InAppPurchases *singleton = nil;
 							 [self localizedPrice:product], @"localizedPrice",
 							 [NSString stringWithString:product.productIdentifier], @"productIdentifier", nil];
 			
-			///[[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:data];
+			[[NSNotificationCenter defaultCenter] postNotificationName:kInAppPurchaseManagerProductsFetchedNotification object:data];
 		}
 	}
 
