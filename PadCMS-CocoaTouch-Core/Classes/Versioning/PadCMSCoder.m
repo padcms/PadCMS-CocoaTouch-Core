@@ -34,7 +34,7 @@
 //
 
 #import "PadCMSCoder.h"
-#import "SBJson.h"
+#import "JSON.h"
 #import "Reachability.h"
 #import "VersionManager.h"
 #import "Helper.h"
@@ -208,13 +208,8 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 	{
 		NSString* stringReply = [[NSString alloc] initWithData:dataReply encoding:NSUTF8StringEncoding];
 //		NSLog(@"stringReply is:\n%@", stringReply);
-		NSString* stringWithoutNull = [stringReply stringByReplacingOccurrencesOfString:@":null" withString:@":\"\""];
-        
-        SBJsonParser * parser = [[SBJsonParser new] autorelease];
-        
-        
-        NSDictionary* theDict = [parser objectWithString:stringWithoutNull];
-		//NSDictionary* theDict = [stringWithoutNull JSONValue];
+		NSString* stringWithoutNull = [stringReply stringByReplacingOccurrencesOfString:@"null" withString:@"\"\""];
+		NSDictionary* theDict = [stringWithoutNull JSONValue];
     
         NSLog(@"%@", theDict);
 				
@@ -228,13 +223,8 @@ NSString* PCNetworkServiceJSONRPCPath = @"/api/v1/jsonrpc.php";
 			self.validUDID = NO;
 			if(aDict == nil) return NO;
 			self.validUDID = YES;
-            
-            NSString * plistPath = [[Helper getHomeDirectory]stringByAppendingPathComponent:@"server.plist"];
-            
-			BOOL success = [aDict writeToFile:plistPath atomically:YES];
-            
-            
-			return success;
+			[aDict writeToFile:[[Helper getHomeDirectory]stringByAppendingPathComponent:@"server.plist"] atomically:YES];
+			return YES;
 		}
 	}
 	

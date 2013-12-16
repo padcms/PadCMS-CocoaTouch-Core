@@ -35,8 +35,7 @@
 
 #import "PCFacebookViewController.h"
 #import "PCPathHelper.h"
-//#import "JSON.h"
-#import "SBJson.h"
+#import "JSON.h"
 #import "PCConfig.h"
 
 static NSString* PCFacebookDefaultDescription = @"Je lis ce magazine, et c'est merveilleux";
@@ -140,7 +139,7 @@ static NSString* PCFacebookDefaultPictureURL = @"http://www.appleinsider.ru/wp-c
         self.facebook = [[Facebook alloc] initWithAppId:facebookAppID andDelegate:nil];
     }
     
-    SBJsonWriter *jsonWriter = [[SBJsonWriter new] autorelease];
+    SBJSON *jsonWriter = [[SBJSON new] autorelease];
     
     // The action links to be shown with the post in the feed
     NSArray* actionLinks = [NSArray arrayWithObjects:[NSDictionary dictionaryWithObjectsAndKeys:

@@ -142,8 +142,6 @@ typedef enum
 
 @property (nonatomic) NSInteger wordsCount;
 
-@property (nonatomic, retain) NSString * category;
-
 /**
  @brief Support for the horizontal mode flag
  */ 

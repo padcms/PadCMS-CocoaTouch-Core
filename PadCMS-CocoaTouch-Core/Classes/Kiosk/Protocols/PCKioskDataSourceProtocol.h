@@ -53,9 +53,7 @@
 - (NSString *)issueAuthorWithIndex:(NSInteger)index;
 - (NSString *)issueExcerptWithIndex:(NSInteger)index;
 - (NSString *)issueImageLargeURLWithIndex:(NSInteger)index;
-- (NSString *)issueImageSmallURLWithIndex:(NSInteger)index;
+- (NSString *)issueImageSmallWithIndex:(NSInteger)index;
 - (NSInteger)issueWordsCountWithIndex:(NSInteger)index;
-- (NSString *)issueCategoryWithIndex:(NSInteger)index;
-- (NSDate *)revisionDateWithIndex:(NSInteger)index;
 
 @end
