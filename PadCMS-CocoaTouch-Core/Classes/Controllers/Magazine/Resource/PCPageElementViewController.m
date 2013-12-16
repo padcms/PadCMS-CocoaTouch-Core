@@ -177,11 +177,6 @@
     _resourceView.resourceName = self.resource;
     [self.view addSubview:_resourceView];
     _loaded = YES;
-    
-    self.view.alpha = 0.0f;
-    [UIView animateWithDuration:0.5f animations:^{
-        self.view.alpha = 1.0f;
-    }];
 }
 
 - (void) unloadView
@@ -288,11 +283,9 @@
 	if([change objectForKey:NSKeyValueChangeNewKey] != [NSNull null]) 
 	{
 		BOOL newValue = [[change objectForKey: NSKeyValueChangeNewKey] boolValue];
-		if (newValue)  {
-            [self hideHUD];
-        } else {
-            if ([self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle])[self showHUD];
-        }
+		if (newValue) [self hideHUD];
+		else
+       if ([self.element.fieldTypeName isEqualToString:PCPageElementTypeMiniArticle])[self showHUD];
 	}
 	
 	
