@@ -46,7 +46,6 @@
 
 #define PCApplicationNotificationTitleKey @"title"
 #define PCApplicationNotificationMessageKey @"message"
-#define PCApplicationContactUsSubjectKey @"subject"
 
 @class PCIssue;
 @class PCTag;

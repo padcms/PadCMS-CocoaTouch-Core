@@ -54,7 +54,7 @@
     if (self) 
     {
         _delegate = nil;
-         _emailViewController = [[MFMailComposeViewController alloc] init];
+        _emailViewController = nil;
         _emailMessageAndTitle = messageParams;
     }
     
@@ -89,6 +89,11 @@
 		
 		return;
 	}
+    
+    if (_emailViewController == nil)
+    {
+        _emailViewController = [[MFMailComposeViewController alloc] init];
+    }
     
 	self.emailViewController.mailComposeDelegate = self;
 

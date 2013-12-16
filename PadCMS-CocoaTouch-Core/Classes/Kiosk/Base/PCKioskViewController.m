@@ -140,13 +140,9 @@
 
 - (void)viewWillAppear:(BOOL)animated
 {
-    [self reloadSubviewsOnViewWillAppear];
+    [self reloadSubviews];
     
     [super viewWillAppear:animated];
-}
-
-- (void)reloadSubviewsOnViewWillAppear {
-    [self reloadSubviews];
 }
 
 - (BOOL)shouldAutorotateToInterfaceOrientation:(UIInterfaceOrientation)interfaceOrientation

@@ -174,6 +174,4 @@
  */
 - (void) downloadingProgressChangedWithRevisionIndex:(NSInteger)index andProgess:(float) progress;
 
-- (void)reloadSubviewsOnViewWillAppear;
-
 @end
