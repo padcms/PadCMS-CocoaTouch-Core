@@ -52,11 +52,6 @@
 
     [self initTrackers];
     
-    if (NSFoundationVersionNumber <= NSFoundationVersionNumber_iOS_6_1) {
-        [[UIApplication sharedApplication] setStatusBarHidden:YES];
-    }
-    
-    
     [[UIApplication sharedApplication] setApplicationIconBadgeNumber:0];
     [[UIApplication sharedApplication]
      registerForRemoteNotificationTypes:(UIRemoteNotificationTypeAlert | UIRemoteNotificationTypeBadge)];
