@@ -195,7 +195,6 @@
 
 - (void)createHUDView
 {
-    
     _hudView = [[PCHudView alloc] initWithFrame:self.view.bounds revision:self.revision];
     _hudView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _hudView.dataSource = self;

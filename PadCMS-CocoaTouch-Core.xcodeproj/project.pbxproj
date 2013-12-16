@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		57231DC517D8E3C300712185 /* PCTopBarView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
 		5789898817CF703100572BAC /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 5789897317CF703100572BAC /* SBJson.h */; };
 		5789898917CF703100572BAC /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 5789897417CF703100572BAC /* SBJsonParser.h */; };
 		5789898A17CF703100572BAC /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5789897517CF703100572BAC /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1134,7 +1133,6 @@
 			dstPath = include;
 			dstSubfolderSpec = 16;
 			files = (
-				57231DC517D8E3C300712185 /* PCTopBarView.h in CopyFiles */,
 				57B4431017D62A4D00FCFA87 /* PCTag.h in CopyFiles */,
 				C55A914A15C6AD32002020DB /* PCTocView.h in CopyFiles */,
 				C5A784E615C9522F00370829 /* PCGridView.h in CopyFiles */,
