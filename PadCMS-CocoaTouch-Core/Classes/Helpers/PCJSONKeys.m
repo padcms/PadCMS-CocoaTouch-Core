@@ -77,10 +77,7 @@
  NSString* PCJSONIssueImageLargeURLKey                      = @"issue_image_large";
  NSString* PCJSONIssueImageSmallURLKey                      = @"issue_image_small";
  NSString* PCJSONIssueWordsCountKey                         = @"issue_words";
- NSString* PCJSONIssueCategoryKey                           = @"issue_category";
- NSString* PCJSONIssueTagsKey                               = @"tags";
- NSString* PCJSONIssueTagTitleKey                           = @"title";
- NSString* PCJSONIssueTagIdKey                              = @"id";
+ NSString* PCJsonIssueCategoryKey                           = @"issue_category";
 
  NSString* PCJSONRevisionsKey                               = @"revisions";
  NSString* PCJSONRevisionIDKey                              = @"revision_id";

@@ -58,6 +58,4 @@
 - (NSString *)issueCategoryWithIndex:(NSInteger)index;
 - (NSDate *)revisionDateWithIndex:(NSInteger)index;
 
-- (NSArray *)allSortedRevisions;
-
 @end

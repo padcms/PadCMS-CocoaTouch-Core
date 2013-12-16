@@ -38,7 +38,6 @@
 #import "PCPathHelper.h"
 #import "PCConfig.h"
 #import "InAppPurchases.h"
-#import "PCTag.h"
 
 @implementation PCApplication
 
@@ -194,27 +193,6 @@
             NSNumber *number2 = [NSNumber numberWithInteger:issue2.number.integerValue];
 			return [number1 compare:number2];
 		}];
-        
-        
-        _tags = [NSMutableArray new];
-        
-        for (PCIssue * issue in _issues) {
-            for (PCTag * tag in issue.tags) {
-                BOOL exists = NO;
-                for (PCTag * addedTag in _tags) {
-                    if (addedTag.tagId == tag.tagId) {
-                        exists = YES;
-                        break;
-                    }
-                }
-                
-                if (!exists) {
-                    [_tags addObject:tag];
-                }
-            }
-        }
-            
-        NSLog(@"ALL TAGS!!!: %@", _tags);   
 		
     }
     
