@@ -190,7 +190,7 @@
             }
         }
         
-        //NSLog(@"TAGS : %@", _tags);
+        NSLog(@"TAGS : %@", _tags);
         
         
 		[self loadProductPrices];
