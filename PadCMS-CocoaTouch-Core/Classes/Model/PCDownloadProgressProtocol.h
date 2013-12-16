@@ -35,7 +35,7 @@
 
 #import <Foundation/Foundation.h>
 
-@protocol PCDownloadProgressProtocol <NSObject>
+@protocol PCDownloadProgressProtocol 
 
 -(void)setProgress:(float)progress;
 

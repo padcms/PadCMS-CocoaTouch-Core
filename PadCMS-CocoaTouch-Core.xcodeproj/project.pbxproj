@@ -8,12 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		57231DC517D8E3C300712185 /* PCTopBarView.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = C5457EE515C280B500439BB5 /* PCTopBarView.h */; };
-		5733796F17E789900049F15B /* NSString+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 5733796D17E789900049F15B /* NSString+HTML.h */; };
-		5733797017E789900049F15B /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5733796E17E789900049F15B /* NSString+HTML.m */; };
-		5733797117E789900049F15B /* NSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5733796E17E789900049F15B /* NSString+HTML.m */; };
-		5733797417E789E40049F15B /* GTMNSString+HTML.h in Headers */ = {isa = PBXBuildFile; fileRef = 5733797217E789E40049F15B /* GTMNSString+HTML.h */; };
-		5733797517E789E40049F15B /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5733797317E789E40049F15B /* GTMNSString+HTML.m */; };
-		5733797617E789E40049F15B /* GTMNSString+HTML.m in Sources */ = {isa = PBXBuildFile; fileRef = 5733797317E789E40049F15B /* GTMNSString+HTML.m */; };
 		5789898817CF703100572BAC /* SBJson.h in Headers */ = {isa = PBXBuildFile; fileRef = 5789897317CF703100572BAC /* SBJson.h */; };
 		5789898917CF703100572BAC /* SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 5789897417CF703100572BAC /* SBJsonParser.h */; };
 		5789898A17CF703100572BAC /* SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 5789897517CF703100572BAC /* SBJsonParser.m */; settings = {COMPILER_FLAGS = "-fobjc-arc"; }; };
@@ -1055,6 +1049,7 @@
 		60A5DCB6158B613D00E3E98A /* FBLoginDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D61588D84A0097D960 /* FBLoginDialog.h */; };
 		60A5DCB7158B615100E3E98A /* FBDialog.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43D41588D84A0097D960 /* FBDialog.h */; };
 		60A5DCB8158B616000E3E98A /* FBRequest.h in CopyFiles */ = {isa = PBXBuildFile; fileRef = 607F43DC1588D8940097D960 /* FBRequest.h */; };
+		60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 60A5DCC9158B793F00E3E98A /* Cocoa.framework */; };
 		60A5DCD4158B793F00E3E98A /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 60A5DCD2158B793F00E3E98A /* InfoPlist.strings */; };
 		60A5DCD9158B796200E3E98A /* LandscapeController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FDB1588D3DE0097D960 /* LandscapeController.xib */; };
 		60A5DCDA158B796200E3E98A /* PCSearchResultViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 607F3FE81588D3DE0097D960 /* PCSearchResultViewCell.xib */; };
@@ -1502,10 +1497,6 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		5733796D17E789900049F15B /* NSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+HTML.h"; sourceTree = "<group>"; };
-		5733796E17E789900049F15B /* NSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+HTML.m"; sourceTree = "<group>"; };
-		5733797217E789E40049F15B /* GTMNSString+HTML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "GTMNSString+HTML.h"; sourceTree = "<group>"; };
-		5733797317E789E40049F15B /* GTMNSString+HTML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "GTMNSString+HTML.m"; sourceTree = "<group>"; };
 		5789897317CF703100572BAC /* SBJson.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJson.h; sourceTree = "<group>"; };
 		5789897417CF703100572BAC /* SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SBJsonParser.h; sourceTree = "<group>"; };
 		5789897517CF703100572BAC /* SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SBJsonParser.m; sourceTree = "<group>"; };
@@ -2217,6 +2208,7 @@
 		60891D9C1587971300894531 /* PadCMS_CocoaTouch_Core.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PadCMS_CocoaTouch_Core.h; sourceTree = "<group>"; };
 		60891D9D1587971300894531 /* PadCMS_CocoaTouch_Core.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PadCMS_CocoaTouch_Core.m; sourceTree = "<group>"; };
 		60A5DCC8158B793F00E3E98A /* PadCMS-CocoaTouch-Core-Resources.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "PadCMS-CocoaTouch-Core-Resources.bundle"; sourceTree = BUILT_PRODUCTS_DIR; };
+		60A5DCC9158B793F00E3E98A /* Cocoa.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Cocoa.framework; path = Library/Frameworks/Cocoa.framework; sourceTree = DEVELOPER_DIR; };
 		60A5DCCC158B793F00E3E98A /* AppKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AppKit.framework; path = Library/Frameworks/AppKit.framework; sourceTree = SDKROOT; };
 		60A5DCCD158B793F00E3E98A /* CoreData.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreData.framework; path = Library/Frameworks/CoreData.framework; sourceTree = SDKROOT; };
 		60A5DCCE158B793F00E3E98A /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -2305,6 +2297,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				60A5DCCA158B793F00E3E98A /* Cocoa.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2641,10 +2634,6 @@
 		607F3F6B1588D0690097D960 /* Categories */ = {
 			isa = PBXGroup;
 			children = (
-				5733797217E789E40049F15B /* GTMNSString+HTML.h */,
-				5733797317E789E40049F15B /* GTMNSString+HTML.m */,
-				5733796D17E789900049F15B /* NSString+HTML.h */,
-				5733796E17E789900049F15B /* NSString+HTML.m */,
 				607F3F6C1588D0690097D960 /* NSDataAdditions.h */,
 				607F3F6D1588D0690097D960 /* NSDataAdditions.m */,
 				607F3F6E1588D0690097D960 /* NSDate+InternetDateTime.h */,
@@ -3497,6 +3486,7 @@
 				607F3E621588C8D70097D960 /* CoreGraphics.framework */,
 				607F3E601588C8D00097D960 /* UIKit.framework */,
 				60891D971587971300894531 /* Foundation.framework */,
+				60A5DCC9158B793F00E3E98A /* Cocoa.framework */,
 				60A5DCCB158B793F00E3E98A /* Other Frameworks */,
 			);
 			name = Frameworks;
@@ -3779,7 +3769,6 @@
 				607F3F641588CFDD0097D960 /* FMResultSet.h in Headers */,
 				607F3F691588D01A0097D960 /* UIColor+HexString.h in Headers */,
 				607F3F741588D0690097D960 /* NSDataAdditions.h in Headers */,
-				5733796F17E789900049F15B /* NSString+HTML.h in Headers */,
 				607F3F761588D0690097D960 /* NSDate+InternetDateTime.h in Headers */,
 				607F3F781588D0690097D960 /* NSDictionary+Additions.h in Headers */,
 				607F3F7A1588D0690097D960 /* NSString+XMLEntities.h in Headers */,
@@ -3853,7 +3842,6 @@
 				607F42131588D4860097D960 /* PVRTQuaternion.h in Headers */,
 				607F42161588D4860097D960 /* PVRTResourceFile.h in Headers */,
 				607F42181588D4860097D960 /* PVRTString.h in Headers */,
-				5733797417E789E40049F15B /* GTMNSString+HTML.h in Headers */,
 				607F421A1588D4860097D960 /* PVRTTrans.h in Headers */,
 				607F421C1588D4860097D960 /* PVRTVector.h in Headers */,
 				607F421E1588D4860097D960 /* PVRTVertex.h in Headers */,
@@ -4347,7 +4335,6 @@
 				607F421D1588D4860097D960 /* PVRTVertex.cpp in Sources */,
 				607F42201588D4860097D960 /* CCNodeController.m in Sources */,
 				607F42221588D4860097D960 /* ControllableCCLayer.m in Sources */,
-				5733797517E789E40049F15B /* GTMNSString+HTML.m in Sources */,
 				607F42241588D4860097D960 /* CC3ActionInterval.m in Sources */,
 				607F42261588D4860097D960 /* CC3Billboard.m in Sources */,
 				607F42281588D4860097D960 /* CC3BoundingVolumes.m in Sources */,
@@ -4375,7 +4362,6 @@
 				607F42541588D4860097D960 /* CC3VertexArrayMesh.m in Sources */,
 				607F42561588D4860097D960 /* CC3VertexArrays.m in Sources */,
 				607F42581588D4860097D960 /* CC3VertexSkinning.m in Sources */,
-				5733797017E789900049F15B /* NSString+HTML.m in Sources */,
 				607F425A1588D4860097D960 /* CC3EAGLView.m in Sources */,
 				607F425C1588D4860097D960 /* CC3OpenGLES11Capabilities.m in Sources */,
 				607F425E1588D4860097D960 /* CC3OpenGLES11Engine.m in Sources */,
@@ -4558,8 +4544,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				5733797117E789900049F15B /* NSString+HTML.m in Sources */,
-				5733797617E789E40049F15B /* GTMNSString+HTML.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
