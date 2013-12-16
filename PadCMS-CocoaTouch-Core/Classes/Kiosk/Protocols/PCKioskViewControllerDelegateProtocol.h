@@ -43,8 +43,6 @@
 - (void) readRevisionWithIndex:(NSInteger) index;
 - (void) deleteRevisionDataWithIndex:(NSInteger) index;
 - (void) updateRevisionWithIndex:(NSInteger) index;
-- (void) archiveRevisionWithIndex:(NSInteger) index;
-- (void) restoreRevisionWithIndex:(NSInteger) index;
 - (void) purchaseRevisionWithIndex:(NSInteger) index;
 - (void) tapInKiosk;
 

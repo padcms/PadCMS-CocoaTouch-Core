@@ -312,18 +312,6 @@
     }
 }
 
-- (void) archiveButtonTappedWithRevisionIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(archiveRevisionWithIndex:)]) {
-        [self.delegate archiveRevisionWithIndex:index];
-    }
-}
-
-- (void)restoreButtonTappedWithRevisionIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(restoreRevisionWithIndex:)]) {
-        [self.delegate restoreRevisionWithIndex:index];
-    }
-}
-
 #pragma mark - Kiosk Subviews Navigation
 
 - (void) switchToNextSubview

@@ -215,18 +215,6 @@
     }
 }
 
-- (void) archiveButtonTappedWithRevisionIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(archiveButtonTappedWithRevisionIndex:)]) {
-        [self.delegate archiveButtonTappedWithRevisionIndex:index];
-    }
-}
-
-- (void)restoreButtonTappedWithRevisionIndex:(NSInteger)index {
-    if ([self.delegate respondsToSelector:@selector(restoreButtonTappedWithRevisionIndex:)]) {
-        [self.delegate restoreButtonTappedWithRevisionIndex:index];
-    }
-}
-
 #pragma mark - Download Progress
 
 - (void) downloadStartedWithRevisionIndex:(NSInteger)index
