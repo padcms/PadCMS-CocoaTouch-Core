@@ -50,10 +50,4 @@
 -(NSString*) priceWithIndex:(NSInteger)index;
 -(NSString*) productIdentifierWithIndex:(NSInteger) index;
 
-- (NSString *)issueAuthorWithIndex:(NSInteger)index;
-- (NSString *)issueExcerptWithIndex:(NSInteger)index;
-- (NSString *)issueImageLargeURLWithIndex:(NSInteger)index;
-- (NSString *)issueImageSmallWithIndex:(NSInteger)index;
-- (NSInteger)issueWordsCountWithIndex:(NSInteger)index;
-
 @end

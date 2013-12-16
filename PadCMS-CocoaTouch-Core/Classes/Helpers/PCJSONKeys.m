@@ -70,11 +70,6 @@
  NSString* PCJSONIssueColorKey                              = @"revision_color";
  NSString* PCJSONIssueHorizontalMode                        = @"revision_horizontal_mode";
  NSString* PCJSONIssueHelpPagesKey                          = @"help_pages";
- NSString* PCJSONIssueAuthorKey                             = @"issue_author";
- NSString* PCJSONIssueExcerptKey                            = @"issue_excerpt";
- NSString* PCJSONIssueImageLargeURLKey                      = @"issue_image_large";
- NSString* PCJSONIssueImageSmallURLKey                      = @"issue_image_small";
- NSString* PCJSONIssueWordsCountKey                         = @"issue_words";
 
  NSString* PCJSONRevisionsKey                               = @"revisions";
  NSString* PCJSONRevisionIDKey                              = @"revision_id";

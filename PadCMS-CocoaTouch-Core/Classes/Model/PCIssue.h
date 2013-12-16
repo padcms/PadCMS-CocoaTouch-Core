@@ -130,17 +130,7 @@ typedef enum
  */ 
 @property (nonatomic, retain) NSDate *updatedDate;
 
-@property (nonatomic, retain) NSString* price;
-
-@property (nonatomic, retain) NSString * author;
-
-@property (nonatomic, retain) NSString * excerpt;
-
-@property (nonatomic, retain) NSString * imageLargeURL;
-
-@property (nonatomic, retain) NSString * imageSmallURL;
-
-@property (nonatomic) NSInteger wordsCount;
+@property (nonatomic, copy) NSString* price;
 
 /**
  @brief Support for the horizontal mode flag
