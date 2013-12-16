@@ -368,7 +368,6 @@
 
 - (void) downloadProgressUpdatedWithProgress:(float)progress andRemainingTime:(NSString *)time
 {
-    self.downloadInProgress = YES; //not sure if it will not bring any bugs
     downloadingProgressView.progress = progress;
     
     if(time)

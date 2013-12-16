@@ -56,13 +56,11 @@
  NSString* PCJSONApplicationNotificationTwitterKey          = @"application_notification_twitter";
  NSString* PCJSONApplicationNotificationFacebookKey         = @"application_notification_facebook";
  NSString* PCJSONApplicationPreviewKey                      = @"application_preview";
- NSString* PCJSONApplicationMessageForReadersKey            = @"application_message_for_readers";
- NSString* PCJSONApplicationShareMessageKey                 = @"application_share_message";
 
  NSString* PCJSONIssuesKey                                  = @"issues";
  NSString* PCJSONIssueIDKey                                 = @"issue_id";
  NSString* PCJSONIssueTitleKey                              = @"issue_title";
- NSString* PCJSONIssueNumberKey                             = @"issue_number";
+ NSString* PCJSONIssueNumberKey                              = @"issue_number";
  NSString* PCJSONIssueProductIDKey                          = @"issue_product_id";
  NSString* PCJSONIssueStateKey                              = @"issue_state";
  NSString* PCJSONIssueApplicationIDKey                      = @"application_id";
