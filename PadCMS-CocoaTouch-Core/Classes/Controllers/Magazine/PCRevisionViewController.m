@@ -1266,7 +1266,7 @@
 {
     CGPoint point = [mainScrollView contentOffset];
     point.x += mainScrollView.frame.size.width;
-    if (point.x < mainScrollView.contentSize.width - mainScrollView.frame.size.width)
+    if (point.x <= mainScrollView.contentSize.width - mainScrollView.frame.size.width)
     {
         [mainScrollView setContentOffset:point animated:YES];
         return YES;
