@@ -97,8 +97,9 @@
     
 	self.emailViewController.mailComposeDelegate = self;
 
-    [self.emailViewController setSubject:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationTitleKey]];
-    [self.emailViewController setMessageBody:[self.emailMessageAndTitle objectForKey:PCApplicationNotificationMessageKey] isHTML:YES];
+    [self.emailViewController setSubject:self.emailShareTittle];
+    [self.emailViewController setMessageBody:self.emailShareMessage isHTML:YES];
+    [self.emailViewController setToRecipients:[NSArray arrayWithObject:self.emailContact]];
 	
     if (self.delegate)
     {
