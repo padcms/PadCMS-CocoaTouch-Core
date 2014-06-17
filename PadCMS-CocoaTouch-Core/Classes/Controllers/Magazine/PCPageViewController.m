@@ -451,6 +451,7 @@
         galleryViewController.galleryID = ID;
         [self hideSubviews];
         [self.magazineViewController showGalleryViewController:galleryViewController];
+        _isGalleryPresented = YES;
         if (photoID > 0)
         {
             [galleryViewController setCurrentPhoto:photoID - 1];
@@ -702,6 +703,7 @@
         else if (videoElement.resource)
             [self showVideoWebView:[page.revision.contentDirectory stringByAppendingPathComponent:videoElement.resource] inRect:videoRect];
     }
+    _isGalleryPresented = NO;
     [self.magazineViewController dismissGalleryViewController];
 }
 

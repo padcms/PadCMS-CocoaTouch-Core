@@ -69,6 +69,7 @@
 	BOOL isLoaded;
 	UIWebView *videoWebView;
     PCBrowserViewController *webBrowserViewController;
+    BOOL _isGalleryPresented;
 }
 
 @property (nonatomic,assign) PCRevisionViewController* magazineViewController;///< Main magazine view controller 
