@@ -113,7 +113,7 @@
         videoWebView = nil;
         if ([self.page elementsForType:PCPageElementTypeGallery].count > 0)
         {
-            galleryViewController = [[PCGalleryViewController alloc] initWithPage:self.page];
+            galleryViewController = [[PCGalleryViewController alloc] initWithPage:self.page];;
         }
       [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(endDownloadingPCPageOperation:) name:endOfDownloadingPageNotification object:self.page];
     }
@@ -452,6 +452,13 @@
         [self hideSubviews];
         [self.magazineViewController showGalleryViewController:galleryViewController];
         _isGalleryPresented = YES;
+        
+        UITapGestureRecognizer* recognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(tapAction:)];
+        recognizer.cancelsTouchesInView = NO;
+        recognizer.delegate = self;
+        [galleryViewController.mainScrollView  addGestureRecognizer:recognizer];
+        [recognizer release];
+        
         if (photoID > 0)
         {
             [galleryViewController setCurrentPhoto:photoID - 1];
@@ -488,30 +495,39 @@
     
     for (PCPageElement* element in self.page.elements)
     {
-        for (PCPageActiveZone* pdfActiveZone in element.activeZones)
-        {
-            CGRect rect = pdfActiveZone.rect;
-            if (!CGRectEqualToRect(rect, CGRectZero))
-            {
-                CGSize pageSize = [self.columnViewController pageSizeForViewController:self];
-                float scale = pageSize.width/element.size.width;
-                rect.size.width *= scale;
-                rect.size.height *= scale;
-                rect.origin.x *= scale;
-                rect.origin.y *= scale;
-                rect.origin.y = element.size.height*scale - rect.origin.y - rect.size.height;
-//                UIView* testView = [[UIView alloc] initWithFrame:rect];
-//                testView.backgroundColor = [UIColor redColor];
-//                [self.mainScrollView addSubview:testView];
-                if (CGRectContainsPoint(rect, point))
-                {
-                    [activeZones addObject:pdfActiveZone];
-                }
-//                NSLog(@"fieldTypeName=%@ pdfActiveZone=%@",element.fieldTypeName,pdfActiveZone.URL);
-            }
-        }
+        [activeZones addObjectsFromArray:[self activeZonesInElement:element atPoint:point]];
     }
     return [activeZones autorelease];
+}
+
+- (NSArray*) activeZonesInElement:(PCPageElement*)element atPoint:(CGPoint)point
+{
+    NSMutableArray* activeZones = [[NSMutableArray alloc] init];
+    for (PCPageActiveZone* pdfActiveZone in element.activeZones)
+    {
+        CGRect rect = pdfActiveZone.rect;
+        if (!CGRectEqualToRect(rect, CGRectZero))
+        {
+            CGSize pageSize = [self.columnViewController pageSizeForViewController:self];
+            float scale = pageSize.width/element.size.width;
+            rect.size.width *= scale;
+            rect.size.height *= scale;
+            rect.origin.x *= scale;
+            rect.origin.y *= scale;
+            rect.origin.y = element.size.height*scale - rect.origin.y - rect.size.height;
+            //                UIView* testView = [[UIView alloc] initWithFrame:rect];
+            //                testView.backgroundColor = [UIColor redColor];
+            //                [self.mainScrollView addSubview:testView];
+            if (CGRectContainsPoint(rect, point))
+            {
+                [activeZones addObject:pdfActiveZone];
+            }
+            //                NSLog(@"fieldTypeName=%@ pdfActiveZone=%@",element.fieldTypeName,pdfActiveZone.URL);
+        }
+    }
+    NSArray* returnArray = [NSArray arrayWithArray:activeZones];
+    [activeZones release];
+    return returnArray;
 }
 
 -(BOOL)pdfActiveZoneAction:(PCPageActiveZone*)activeZone

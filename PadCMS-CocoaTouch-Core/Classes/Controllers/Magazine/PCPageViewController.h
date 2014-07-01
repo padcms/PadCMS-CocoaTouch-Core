@@ -101,6 +101,7 @@
 
 - (BOOL) pdfActiveZoneAction:(PCPageActiveZone*)activeZone;
 - (NSArray*) activeZonesAtPoint:(CGPoint)point;
+- (NSArray*) activeZonesInElement:(PCPageElement*)element atPoint:(CGPoint)point;
 
 - (void) loadFullView;
 - (void) unloadFullView;

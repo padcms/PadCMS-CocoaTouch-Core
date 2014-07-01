@@ -35,13 +35,17 @@
 #import <UIKit/UIKit.h>
 @class PCPage;
 @class PCCustomPageControll;
-@class PCScrollView;
+@class PCScrollView, PCPageElementGallery, PCGalleryViewController;
 
 @protocol PCGalleryViewControllerDelegate <NSObject>
 
 @required
 
 - (void)galleryViewControllerWillDismiss;
+
+@optional
+
+- (void) galleryViewController:(PCGalleryViewController*)galleryController didChangeCurrentPage:(NSInteger)currentPage;
 
 @end
 
@@ -73,5 +77,6 @@
 - (void) showPhotoAtIndex:(NSInteger)currentIndex;
 - (void) setCurrentPhoto:(int)index;
 
+- (NSArray*) activeZonesForElement:(PCPageElementGallery*)element atPoint:(CGPoint)point;
 
 @end

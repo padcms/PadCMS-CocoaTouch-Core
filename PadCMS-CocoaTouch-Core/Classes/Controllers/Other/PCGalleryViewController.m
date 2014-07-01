@@ -227,8 +227,42 @@
     [super viewDidUnload];
 }
 
+- (NSArray*) activeZonesForElement:(PCPageElementGallery*)element atPoint:(CGPoint)point
+{
+    NSMutableArray* activeZones = [[NSMutableArray alloc]init];
+    
+    int elementIndex = [self.images indexOfObject:element];
+    if(elementIndex != NSNotFound && self.imageViews.count > elementIndex)
+    {
+        for (PCPageActiveZone* pdfActiveZone in element.activeZones)
+        {
+            CGRect rect = pdfActiveZone.rect;
+            if (!CGRectEqualToRect(rect, CGRectZero))
+            {
+                CGSize pageSize = self.mainScrollView.frame.size;
+                float scale = pageSize.width/element.size.width;
+                rect.size.width *= scale;
+                rect.size.height *= scale;
+                rect.origin.x *= scale;
+                rect.origin.y *= scale;
+                rect.origin.y = element.size.height*scale - rect.origin.y - rect.size.height;
+                
+                UIImageView* elementImageView = [self.imageViews objectAtIndex:elementIndex];
+                CGPoint pointInElement = [self.view convertPoint:point toView:elementImageView];
+                
+                if (CGRectContainsPoint(rect, pointInElement))
+                {
+                    [activeZones addObject:pdfActiveZone];
+                }
+            }
+        }
+    }
+    
+    return [activeZones autorelease];
+}
+
 - (void)createImageViews
-{	
+{
     NSMutableArray* tempArray = [[NSMutableArray alloc] init];
     self.imageViews = tempArray;
     [tempArray release];
@@ -513,6 +547,10 @@
 				[self showImageAtIndex:i];
 			}
 		}
+        if([self.delegate respondsToSelector:@selector(galleryViewController:didChangeCurrentPage:)])
+        {
+            [self.delegate galleryViewController:self didChangeCurrentPage:_currentIndex];
+        }
 	}
 }
 
